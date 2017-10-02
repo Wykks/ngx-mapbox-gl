@@ -1,6 +1,7 @@
-import { MapComponent, MAPBOX_API_KEY } from './map/map.component';
+import { MapComponent } from './map/map.component';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MAPBOX_API_KEY } from './map/map.service';
 
 @NgModule({
   imports: [

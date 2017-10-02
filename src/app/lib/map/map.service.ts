@@ -1,22 +1,52 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 import * as MapboxGl from 'mapbox-gl';
+
+export const MAPBOX_API_KEY = new InjectionToken('MapboxApiKey');
+
+export interface MapEvents {
+  load: EventEmitter<void>;
+}
+
+export interface SetupOptions {
+  accessToken?: string;
+  customMapboxApiUrl?: string;
+  mapOptions: MapboxGl.MapboxOptions;
+  mapEvents: MapEvents;
+}
 
 @Injectable()
 export class MapService {
+  mapInstance: MapboxGl.Map;
 
-  constructor() { }
+  constructor(
+    @Optional() @Inject(MAPBOX_API_KEY) private readonly MAPBOX_API_KEY: string
+  ) { }
 
-  setup(
-    accessToken: string,
-    options: MapboxGl.MapboxOptions,
-    customMapboxApiUrl?: string
-  ) {
+  setup(options: SetupOptions) {
     // Workaround rollup issue
-    this.assign(MapboxGl, 'accessToken', accessToken);
-    this.assign(MapboxGl, 'config.customMapboxApiUrl', customMapboxApiUrl);
-    return new MapboxGl.Map(options);
+    this.assign(MapboxGl, 'accessToken', options.accessToken || this.MAPBOX_API_KEY);
+    this.assign(MapboxGl, 'config.customMapboxApiUrl', options.customMapboxApiUrl);
+    this.createMap(options.mapOptions);
+    this.hookEvents(options.mapEvents);
+    return this.mapInstance;
   }
 
+  updateMinZoom(minZoom: number) {
+    this.mapInstance.setMinZoom(minZoom);
+  }
+
+  private createMap(options: MapboxGl.MapboxOptions) {
+    Object.keys(options)
+      .forEach((key: keyof MapboxGl.MapboxOptions) =>
+        options[key] === undefined && delete options[key]);
+    this.mapInstance = new MapboxGl.Map(options);
+  }
+
+  private hookEvents(events: MapEvents) {
+    this.mapInstance.on('load', () => events.load.emit());
+  }
+
+  // TODO move this elsewhere
   private assign(obj: any, prop: any, value: any) {
     if (typeof prop === 'string') {
       // tslint:disable-next-line:no-parameter-reassignment

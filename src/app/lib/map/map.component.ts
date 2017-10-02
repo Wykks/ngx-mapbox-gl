@@ -1,8 +1,15 @@
-import { Component, OnInit, ElementRef, InjectionToken, Inject, Input, Optional } from '@angular/core';
-import { MapService } from './map.service';
-import { Style, LngLatLike, LngLatBoundsLike, PaddingOptions, PointLike, AnimationOptions, FlyToOptions, Map } from 'mapbox-gl';
-
-export const MAPBOX_API_KEY = new InjectionToken('MapboxApiKey');
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChanges,
+    Output
+} from '@angular/core';
+import { MapService, MapEvents } from './map.service';
+import { Style, LngLatLike, LngLatBoundsLike, PaddingOptions, PointLike, AnimationOptions, FlyToOptions, Map, MapboxOptions } from 'mapbox-gl';
 
 declare global {
   namespace mapboxgl {
@@ -22,9 +29,9 @@ declare global {
     MapService
   ]
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnChanges, MapEvents, MapboxOptions {
   /* Init inputs */
-  @Input() accessToken: string;
+  @Input() accessToken?: string;
   @Input() customMapboxApiUrl?: string;
   @Input() hash?: boolean;
   @Input() refreshExpiredTiles?: boolean;
@@ -34,7 +41,7 @@ export class MapComponent implements OnInit {
   @Input() interactive?: boolean;
   @Input() pitchWithRotate?: boolean;
   @Input() attributionControl?: boolean;
-  @Input() logoPosition?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  @Input() logoPosition?: any; // @types/mapbox-gl issue, should be 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
   @Input() maxTileCacheSize?: number;
   @Input() localIdeographFontFamily?: string;
 
@@ -52,11 +59,15 @@ export class MapComponent implements OnInit {
   @Input() dragPan?: boolean;
   @Input() boxZoom?: boolean;
   @Input() transformRequest?: Function;
-
   @Input() style: Style | string;
   @Input() center?: LngLatLike;
   @Input() zoom?: number;
   @Input() maxBounds?: LngLatBoundsLike;
+  @Input() bearing?: number;
+  @Input() pitch?: number;
+
+  /* Added by ngx-mapbox-gl */
+  @Input() movingMethod?: 'jumpTo' | 'easeTo' | 'flyTo';
   @Input() fitBounds?: LngLatBoundsLike;
   @Input() fitBoundsOptions?: {
     linear?: boolean,
@@ -64,24 +75,25 @@ export class MapComponent implements OnInit {
     padding?: number | PaddingOptions,
     offset?: PointLike, maxZoom?: number
   };
-  @Input() bearing? = 0;
-  @Input() pitch? = 0;
-  @Input() movingMethod?: 'jumpTo' | 'easeTo' | 'flyTo';
   @Input() animationOptions?: AnimationOptions;
   @Input() flyToOptions?: FlyToOptions;
 
-  mapInstance: Map;
+  @Output() load = new EventEmitter<void>();
+
+  get mapInstance(): Map {
+    return this.MapService.mapInstance;
+  }
 
   constructor(
     private ElementRef: ElementRef,
-    @Optional() @Inject(MAPBOX_API_KEY) private readonly MAPBOX_API_KEY: string,
     private MapService: MapService
   ) { }
 
   ngOnInit() {
-    this.mapInstance = this.MapService.setup(
-      this.accessToken || this.MAPBOX_API_KEY,
-      {
+    this.MapService.setup({
+      accessToken: this.accessToken,
+      customMapboxApiUrl: this.customMapboxApiUrl,
+      mapOptions: {
         container: this.ElementRef.nativeElement,
         minZoom: this.minZoom,
         maxZoom: this.maxZoom,
@@ -92,7 +104,7 @@ export class MapComponent implements OnInit {
         pitchWithRotate: this.pitchWithRotate,
         classes: this.classes,
         attributionControl: this.attributionControl,
-        logoPosition: <any>this.logoPosition,
+        logoPosition: this.logoPosition,
         failIfMajorPerformanceCaveat: this.failIfMajorPerformanceCaveat,
         preserveDrawingBuffer: this.preserveDrawingBuffer,
         refreshExpiredTiles: this.refreshExpiredTiles,
@@ -114,7 +126,13 @@ export class MapComponent implements OnInit {
         localIdeographFontFamily: this.localIdeographFontFamily,
         transformRequest: this.transformRequest
       },
-      this.customMapboxApiUrl
-    );
+      mapEvents: this
+    });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.minZoom && !changes.minZoom.isFirstChange() && changes.minZoom) {
+      this.MapService.updateMinZoom(changes.minZoom.currentValue);
+    }
   }
 }

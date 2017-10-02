@@ -5,9 +5,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'demo-index',
   template: `
   <mgl-map
-    [style]="'mapbox://styles/wykkss/cj256kx9l009a2sqromfn9bwf'"
-    [center]="[1.433333, 43.6]"
-    [zoom]="8"
+    [style]="'mapbox://styles/mapbox/streets-v9'"
   >
   </mgl-map>
   `

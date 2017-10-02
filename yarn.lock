@@ -3473,6 +3473,14 @@ karma-jasmine@^1.0.2, karma-jasmine@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/karma-jasmine/-/karma-jasmine-1.1.0.tgz#22e4c06bf9a182e5294d1f705e3733811b810acf"
 
+karma-mocha-reporter@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/karma-mocha-reporter/-/karma-mocha-reporter-2.2.4.tgz#0c9cb22c27d864d0f6694df0cf01caabce9064d4"
+  dependencies:
+    chalk "^2.1.0"
+    log-symbols "^2.0.0"
+    strip-ansi "^4.0.0"
+
 karma-source-map-support@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/karma-source-map-support/-/karma-source-map-support-1.2.0.tgz#1bf81e7bb4b089627ab352ec4179e117c406a540"
@@ -3785,6 +3793,12 @@ lodash@^3.8.0:
 lodash@^4.0.0, lodash@^4.11.1, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.3.0, lodash@^4.5.0, lodash@~4.17.4:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
+
+log-symbols@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-2.1.0.tgz#f35fa60e278832b538dc4dddcbb478a45d3e3be6"
+  dependencies:
+    chalk "^2.0.1"
 
 log4js@^0.6.31:
   version "0.6.38"
