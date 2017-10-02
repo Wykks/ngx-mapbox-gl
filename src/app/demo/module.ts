@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout/layout.component';
 import { RouterModule, Routes } from '@angular/router';
 import { IndexComponent } from './index.component';
-import { MAPBOX_API_KEY } from '../lib/map/map.component';
 
 const demoRoutes: Routes = [
   {
@@ -22,18 +21,14 @@ const demoRoutes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    NgxMapboxGLModule,
+    NgxMapboxGLModule.forRoot({
+      accessToken: 'pk.eyJ1Ijoid3lra3NzIiwiYSI6ImNqMjR6aTdmdzAwNHMzMnBvbjBucjlqNm8ifQ.6GjGpofWBVaIuSnhdXQb5w'
+    }),
     RouterModule.forChild(demoRoutes)
   ],
   declarations: [
     LayoutComponent,
     IndexComponent
-  ],
-  providers: [
-    {
-      provide: MAPBOX_API_KEY,
-      useValue: 'pk.eyJ1Ijoid3lra3NzIiwiYSI6ImNqMjR6aTdmdzAwNHMzMnBvbjBucjlqNm8ifQ.6GjGpofWBVaIuSnhdXQb5w'
-    }
   ]
 })
 export class DemoModule { }
