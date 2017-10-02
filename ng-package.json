@@ -1,6 +1,9 @@
 {
   "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
   "lib": {
+    "externals": {
+      "mapbox-gl": "mapboxgl"
+    },
     "entryFile": "public_api.ts"
   }
 }
