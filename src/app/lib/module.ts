@@ -1,6 +1,7 @@
-import { MapComponent } from './map/map.component';
-import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { LayerComponent } from './layer/layer.component';
+import { MapComponent } from './map/map.component';
 import { MAPBOX_API_KEY } from './map/map.service';
 
 @NgModule({
@@ -8,10 +9,12 @@ import { MAPBOX_API_KEY } from './map/map.service';
     CommonModule
   ],
   declarations: [
-    MapComponent
+    MapComponent,
+    LayerComponent
   ],
   exports: [
-    MapComponent
+    MapComponent,
+    LayerComponent
   ]
 })
 export class NgxMapboxGLModule {

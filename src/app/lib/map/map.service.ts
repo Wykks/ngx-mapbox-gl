@@ -35,6 +35,27 @@ export class MapService {
     this.mapInstance.setMinZoom(minZoom);
   }
 
+  addLayer(layer: MapboxGl.Layer, before?: string) {
+    Object.keys(layer)
+      .forEach((key: keyof MapboxGl.Layer) =>
+      layer[key] === undefined && delete layer[key]);
+    this.mapInstance.addLayer(layer, before);
+  }
+
+  removeLayer(layerId: string) {
+    this.mapInstance.removeLayer(layerId);
+  }
+
+  setAllPaintProperty(
+    layerId: string,
+    paint: MapboxGl.BackgroundPaint | MapboxGl.FillPaint | MapboxGl.FillExtrusionPaint | MapboxGl.LinePaint | MapboxGl.SymbolPaint | MapboxGl.RasterPaint | MapboxGl.CirclePaint
+  ) {
+    Object.keys(paint).forEach((key) => {
+      // TODO Check for perf, setPaintProperty only on changed paint props maybe
+      this.mapInstance.setPaintProperty(layerId, key, (<any>paint)[key]);
+    });
+  }
+
   private createMap(options: MapboxGl.MapboxOptions) {
     Object.keys(options)
       .forEach((key: keyof MapboxGl.MapboxOptions) =>

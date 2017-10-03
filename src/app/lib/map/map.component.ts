@@ -1,15 +1,21 @@
 import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnChanges,
-    OnInit,
-    SimpleChanges,
-    Output
+  ApplicationRef,
+  Component,
+  ContentChild,
+  ElementRef,
+  EmbeddedViewRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+  TemplateRef,
 } from '@angular/core';
 import { MapService, MapEvents } from './map.service';
 import { Style, LngLatLike, LngLatBoundsLike, PaddingOptions, PointLike, AnimationOptions, FlyToOptions, Map, MapboxOptions } from 'mapbox-gl';
+import 'rxjs/add/operator/first';
 
 declare global {
   namespace mapboxgl {
@@ -29,7 +35,7 @@ declare global {
     MapService
   ]
 })
-export class MapComponent implements OnInit, OnChanges, MapEvents, MapboxOptions {
+export class MapComponent implements OnInit, OnChanges, OnDestroy, MapEvents, MapboxOptions {
   /* Init inputs */
   @Input() accessToken?: string;
   @Input() customMapboxApiUrl?: string;
@@ -80,16 +86,25 @@ export class MapComponent implements OnInit, OnChanges, MapEvents, MapboxOptions
 
   @Output() load = new EventEmitter<void>();
 
+  @ContentChild(TemplateRef) templateRef?: TemplateRef<void>;
+  ready = false;
+
   get mapInstance(): Map {
     return this.MapService.mapInstance;
   }
 
+  private mapElementsView: EmbeddedViewRef<void>;
+
   constructor(
+    private ApplicationRef: ApplicationRef,
     private ElementRef: ElementRef,
     private MapService: MapService
   ) { }
 
   ngOnInit() {
+    if (this.templateRef) {
+      this.mapElementsView = this.templateRef.createEmbeddedView(undefined);
+    }
     this.MapService.setup({
       accessToken: this.accessToken,
       customMapboxApiUrl: this.customMapboxApiUrl,
@@ -128,6 +143,18 @@ export class MapComponent implements OnInit, OnChanges, MapEvents, MapboxOptions
       },
       mapEvents: this
     });
+    if (this.templateRef) {
+      this.load.first().subscribe(() => {
+        this.mapElementsView.detectChanges();
+        this.ApplicationRef.attachView(this.mapElementsView);
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.mapElementsView) {
+      this.mapElementsView.destroy();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
