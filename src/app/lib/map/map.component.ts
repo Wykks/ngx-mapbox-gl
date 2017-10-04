@@ -1,4 +1,20 @@
 import {
+  EventData,
+  FlyToOptions,
+  LngLatBoundsLike,
+  LngLatLike,
+  Map,
+  MapboxOptions,
+  MapBoxZoomEvent,
+  MapMouseEvent,
+  MapTouchEvent,
+  PaddingOptions,
+  PointLike,
+  Style
+} from 'mapbox-gl';
+import 'rxjs/add/operator/first';
+import { MapEvent, MapService } from './map.service';
+import {
   ApplicationRef,
   Component,
   ContentChild,
@@ -13,9 +29,6 @@ import {
   SimpleChanges,
   TemplateRef,
 } from '@angular/core';
-import { MapService, MapEvents } from './map.service';
-import { Style, LngLatLike, LngLatBoundsLike, PaddingOptions, PointLike, AnimationOptions, FlyToOptions, Map, MapboxOptions } from 'mapbox-gl';
-import 'rxjs/add/operator/first';
 
 declare global {
   namespace mapboxgl {
@@ -35,7 +48,7 @@ declare global {
     MapService
   ]
 })
-export class MapComponent implements OnInit, OnChanges, OnDestroy, MapEvents, MapboxOptions {
+export class MapComponent implements OnInit, OnChanges, OnDestroy, MapboxOptions, MapEvent {
   /* Init inputs */
   @Input() accessToken?: string;
   @Input() customMapboxApiUrl?: string;
@@ -50,21 +63,21 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy, MapEvents, Ma
   @Input() logoPosition?: any; // @types/mapbox-gl issue, should be 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
   @Input() maxTileCacheSize?: number;
   @Input() localIdeographFontFamily?: string;
+  @Input() preserveDrawingBuffer?: boolean;
+  @Input() renderWorldCopies?: boolean;
+  @Input() trackResize?: boolean;
+  @Input() transformRequest?: Function;
 
   /* Dynamic inputs */
   @Input() minZoom?: number;
   @Input() maxZoom?: number;
   @Input() scrollZoom?: boolean;
-  @Input() preserveDrawingBuffer?: boolean;
-  @Input() renderWorldCopies?: boolean;
   @Input() dragRotate?: boolean;
-  @Input() trackResize?: boolean;
   @Input() touchZoomRotate?: boolean;
   @Input() doubleClickZoom?: boolean;
   @Input() keyboard?: boolean;
   @Input() dragPan?: boolean;
   @Input() boxZoom?: boolean;
-  @Input() transformRequest?: Function;
   @Input() style: Style | string;
   @Input() center?: LngLatLike;
   @Input() zoom?: number;
@@ -73,7 +86,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy, MapEvents, Ma
   @Input() pitch?: number;
 
   /* Added by ngx-mapbox-gl */
-  @Input() movingMethod?: 'jumpTo' | 'easeTo' | 'flyTo';
+  @Input() movingMethod: 'jumpTo' | 'easeTo' | 'flyTo' = 'flyTo';
   @Input() fitBounds?: LngLatBoundsLike;
   @Input() fitBoundsOptions?: {
     linear?: boolean,
@@ -81,10 +94,53 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy, MapEvents, Ma
     padding?: number | PaddingOptions,
     offset?: PointLike, maxZoom?: number
   };
-  @Input() animationOptions?: AnimationOptions;
   @Input() flyToOptions?: FlyToOptions;
 
-  @Output() load = new EventEmitter<void>();
+  @Output() resize = new EventEmitter<void>();
+  @Output() remove = new EventEmitter<void>();
+  @Output() mouseDown = new EventEmitter<MapMouseEvent>();
+  @Output() mouseUp = new EventEmitter<MapMouseEvent>();
+  @Output() mouseMove = new EventEmitter<MapMouseEvent>();
+  @Output() click = new EventEmitter<MapMouseEvent>();
+  @Output() dblClick = new EventEmitter<MapMouseEvent>();
+  @Output() mouseEnter = new EventEmitter<MapMouseEvent>();
+  @Output() mouseLeave = new EventEmitter<MapMouseEvent>();
+  @Output() mouseOver = new EventEmitter<MapMouseEvent>();
+  @Output() mouseOut = new EventEmitter<MapMouseEvent>();
+  @Output() contextMenu = new EventEmitter<MapMouseEvent>();
+  @Output() touchStart = new EventEmitter<MapTouchEvent>();
+  @Output() touchEnd = new EventEmitter<MapTouchEvent>();
+  @Output() touchMove = new EventEmitter<MapTouchEvent>();
+  @Output() touchCancel = new EventEmitter<MapTouchEvent>();
+  @Output() moveStart = new EventEmitter<DragEvent>(); // TODO Check type
+  @Output() move = new EventEmitter<MapTouchEvent | MapMouseEvent>();
+  @Output() moveEnd = new EventEmitter<DragEvent>();
+  @Output() dragStart = new EventEmitter<DragEvent>();
+  @Output() drag = new EventEmitter<MapTouchEvent | MapMouseEvent>();
+  @Output() dragEnd = new EventEmitter<DragEvent>();
+  @Output() zoomStart = new EventEmitter<MapTouchEvent | MapMouseEvent>();
+  @Output() zoomChange = new EventEmitter<MapTouchEvent | MapMouseEvent>();
+  @Output() zoomEnd = new EventEmitter<MapTouchEvent | MapMouseEvent>();
+  @Output() rotateStart = new EventEmitter<MapTouchEvent | MapMouseEvent>();
+  @Output() rotate = new EventEmitter<MapTouchEvent | MapMouseEvent>();
+  @Output() rotateEnd = new EventEmitter<MapTouchEvent | MapMouseEvent>();
+  @Output() pitchStart = new EventEmitter<EventData>();
+  @Output() pitchChange = new EventEmitter<EventData>();
+  @Output() pitchEnd = new EventEmitter<EventData>();
+  @Output() boxZoomStart = new EventEmitter<MapBoxZoomEvent>();
+  @Output() boxZoomEnd = new EventEmitter<MapBoxZoomEvent>();
+  @Output() boxZoomCancel = new EventEmitter<MapBoxZoomEvent>();
+  @Output() webGlContextLost = new EventEmitter<void>();
+  @Output() webGlContextRestored = new EventEmitter<void>();
+  @Output() load = new EventEmitter<any>();
+  @Output() render = new EventEmitter<void>();
+  @Output() error = new EventEmitter<any>(); // TODO Check type
+  @Output() data = new EventEmitter<EventData>();
+  @Output() styleData = new EventEmitter<EventData>();
+  @Output() sourceData = new EventEmitter<EventData>();
+  @Output() dataLoading = new EventEmitter<EventData>();
+  @Output() styleDataLoading = new EventEmitter<EventData>();
+  @Output() sourceDataLoading = new EventEmitter<EventData>();
 
   @ContentChild(TemplateRef) templateRef?: TemplateRef<void>;
   ready = false;
@@ -158,8 +214,54 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy, MapEvents, Ma
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.minZoom && !changes.minZoom.isFirstChange() && changes.minZoom) {
+    if (changes.minZoom && !changes.minZoom.isFirstChange()) {
       this.MapService.updateMinZoom(changes.minZoom.currentValue);
     }
+    if (changes.maxZoom && !changes.maxZoom.isFirstChange()) {
+      this.MapService.updateMaxZoom(changes.maxZoom.currentValue);
+    }
+    if (changes.scrollZoom && !changes.scrollZoom.isFirstChange()) {
+      this.MapService.updateScrollZoom(changes.scrollZoom.currentValue);
+    }
+    if (changes.dragRotate && !changes.dragRotate.isFirstChange()) {
+      this.MapService.updateDragRotate(changes.dragRotate.currentValue);
+    }
+    if (changes.touchZoomRotate && !changes.touchZoomRotate.isFirstChange()) {
+      this.MapService.updateTouchZoomRotate(changes.touchZoomRotate.currentValue);
+    }
+    if (changes.doubleClickZoom && !changes.doubleClickZoom.isFirstChange()) {
+      this.MapService.updateDoubleClickZoom(changes.doubleClickZoom.currentValue);
+    }
+    if (changes.keyboard && !changes.keyboard.isFirstChange()) {
+      this.MapService.updateKeyboard(changes.keyboard.currentValue);
+    }
+    if (changes.dragPan && !changes.dragPan.isFirstChange()) {
+      this.MapService.updateDragPan(changes.dragPan.currentValue);
+    }
+    if (changes.boxZoom && !changes.boxZoom.isFirstChange()) {
+      this.MapService.updateBoxZoom(changes.boxZoom.currentValue);
+    }
+    if (changes.style && !changes.style.isFirstChange()) {
+      this.MapService.updateStyle(changes.style.currentValue);
+    }
+    if (changes.maxBounds && !changes.maxBounds.isFirstChange()) {
+      this.MapService.updateMaxBounds(changes.maxBounds.currentValue);
+    }
+    if (
+      changes.center && !changes.center.isFirstChange() ||
+      changes.zoom && !changes.zoom.isFirstChange() ||
+      changes.bearing && !changes.bearing.isFirstChange() ||
+      changes.pitch && !changes.pitch.isFirstChange()
+    ) {
+      this.MapService.move(
+        this.movingMethod,
+        this.flyToOptions,
+        this.zoom,
+        this.center,
+        this.bearing,
+        this.pitch
+      );
+    }
   }
+
 }
