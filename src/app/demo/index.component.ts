@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import random from 'lodash-es/random';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   template: `
   <mgl-map
     [style]="'mapbox://styles/mapbox/streets-v9'"
+    [zoom]="zoom"
   >
     <ng-template>
       <mgl-layer
@@ -16,16 +18,18 @@ import { Component, OnInit } from '@angular/core';
       </mgl-layer>
     </ng-template>
   </mgl-map>
-  `
+  `,
+  styleUrls: ['examples/examples.css']
 })
 export class IndexComponent implements OnInit {
-  paint = {'background-color': 'green'};
+  paint = { 'background-color': 'green', 'background-opacity': 0.1 };
+  zoom = 0;
 
   constructor() { }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.paint = {'background-color': 'blue'};
+    setInterval(() => {
+      this.zoom = random(0, 10);
     }, 2000);
   }
 }

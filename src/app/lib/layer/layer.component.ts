@@ -36,8 +36,6 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   @Input() metadata?: any;
   @Input() ref?: string;
   @Input() sourceLayer?: string;
-  @Input() minzoom?: number;
-  @Input() maxzoom?: number;
   @Input() interactive?: boolean;
 
   /* Dynamic inputs */
@@ -45,6 +43,8 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   @Input() layout?: BackgroundLayout | FillLayout | FillExtrusionLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout;
   @Input() paint?: BackgroundPaint | FillPaint | FillExtrusionPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint;
   @Input() before?: string;
+  @Input() minzoom?: number;
+  @Input() maxzoom?: number;
 
   constructor(
     private MapService: MapService
@@ -71,6 +71,10 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
     if (changes.paint && !changes.paint.isFirstChange()) {
       this.MapService.setAllPaintProperty(this.id, changes.paint.currentValue!);
     }
+    if (changes.layout && !changes.layout.isFirstChange()) {
+      this.MapService.setAllLayoutProperty(this.id, changes.layout.currentValue!);
+    }
+    // TODO Update others dynamic inputs
   }
 
   ngOnDestroy() {

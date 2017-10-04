@@ -3,6 +3,8 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { LayerComponent } from './layer/layer.component';
 import { MapComponent } from './map/map.component';
 import { MAPBOX_API_KEY } from './map/map.service';
+import { ImageComponent } from './image/image.component';
+import { VectorSourceComponent } from './source/vector-source.component';
 
 @NgModule({
   imports: [
@@ -10,23 +12,27 @@ import { MAPBOX_API_KEY } from './map/map.service';
   ],
   declarations: [
     MapComponent,
-    LayerComponent
+    LayerComponent,
+    ImageComponent,
+    VectorSourceComponent
   ],
   exports: [
     MapComponent,
-    LayerComponent
+    LayerComponent,
+    ImageComponent,
+    VectorSourceComponent
   ]
 })
 export class NgxMapboxGLModule {
   static forRoot(config: { accessToken: string }): ModuleWithProviders {
     return {
-        ngModule: NgxMapboxGLModule,
-        providers: [
-            {
-              provide: MAPBOX_API_KEY,
-              useValue: config.accessToken
-            }
-        ],
+      ngModule: NgxMapboxGLModule,
+      providers: [
+        {
+          provide: MAPBOX_API_KEY,
+          useValue: config.accessToken
+        }
+      ],
     };
-}
+  }
 }

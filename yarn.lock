@@ -32,6 +32,12 @@
   dependencies:
     tslib "^1.7.1"
 
+"@angular/cdk@^2.0.0-beta.11":
+  version "2.0.0-beta.11"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-2.0.0-beta.11.tgz#b9e799574786272c63b6334c837c5ee2445bc933"
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/cli@1.4.4":
   version "1.4.4"
   resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-1.4.4.tgz#d267580412813942a0d84772b56d2bf0239338d4"
@@ -134,6 +140,12 @@
   version "4.4.4"
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-4.4.4.tgz#0f686052e3950c19128f13b7429fc14bafe69bd4"
 
+"@angular/material@^2.0.0-beta.11":
+  version "2.0.0-beta.11"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-2.0.0-beta.11.tgz#9124a1f50f3eb7dc28640317ee1e875f71da753a"
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/platform-browser-dynamic@^4.4.4":
   version "4.4.4"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-4.4.4.tgz#c3c9eb854a528556a07054127932e527fa932e14"
@@ -223,6 +235,16 @@
   dependencies:
     "@types/jasmine" "*"
 
+"@types/lodash-es@^4.14.7":
+  version "4.14.7"
+  resolved "https://registry.yarnpkg.com/@types/lodash-es/-/lodash-es-4.14.7.tgz#5eac6eff541ff352e5c818be326588230616c8f1"
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  version "4.14.77"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.77.tgz#0bc699413e84d6ed5d927ca30ea0f0a890b42d75"
+
 "@types/mapbox-gl@^0.39.6":
   version "0.39.6"
   resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-0.39.6.tgz#7ea4c7f7be8b09eff0a41fcfbda5efe43a568a74"
@@ -234,8 +256,8 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.88.tgz#f618f11a944f6a18d92b5c472028728a3e3d4b66"
 
 "@types/node@~8.0.31":
-  version "8.0.31"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.31.tgz#d9af61093cf4bfc9f066ca34de0175012cfb0ce9"
+  version "8.0.32"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.32.tgz#869a716538b6eec65ab3893f183d557be3cda206"
 
 "@types/q@^0.0.32":
   version "0.0.32"
@@ -3648,6 +3670,10 @@ locate-path@^2.0.0:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
 
+lodash-es@^4.17.4:
+  version "4.17.4"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.4.tgz#dcc1d7552e150a0640073ba9cb31d70f032950e7"
+
 lodash._basecopy@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/lodash._basecopy/-/lodash._basecopy-3.0.1.tgz#8da0e6a876cf344c0ad8a54882111dd3c5c7ca36"
@@ -4112,8 +4138,8 @@ negotiator@0.6.1:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
 ng-packagr@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/ng-packagr/-/ng-packagr-1.2.1.tgz#053fae4697b31a78c4bd97e1e552722c460a1e4d"
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/ng-packagr/-/ng-packagr-1.3.0.tgz#d42b198a73b09937e94a8a1756f78beeb3641738"
   dependencies:
     "@angular/tsc-wrapped" "^4.2.0"
     "@ngtools/json-schema" "^1.1.0"

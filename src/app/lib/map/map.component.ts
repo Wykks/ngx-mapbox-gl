@@ -13,9 +13,9 @@ import {
   Style
 } from 'mapbox-gl';
 import 'rxjs/add/operator/first';
-import { MapEvent, MapService } from './map.service';
+import { MapService } from './map.service';
 import {
-  ApplicationRef,
+  // ApplicationRef,
   Component,
   ContentChild,
   ElementRef,
@@ -29,6 +29,7 @@ import {
   SimpleChanges,
   TemplateRef,
 } from '@angular/core';
+import { MapEvent } from './map.types';
 
 declare global {
   namespace mapboxgl {
@@ -43,7 +44,10 @@ declare global {
 
 @Component({
   selector: 'mgl-map',
-  template: '',
+  // TODO
+  // Find a way to detatch properly
+  // With the method commented out, ngIf inside the template break everything for some reason....
+  template: '<ng-container *ngIf="ready"><ng-template [ngTemplateOutlet]="templateRef"></ng-template></ng-container>',
   providers: [
     MapService
   ]
@@ -152,15 +156,15 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy, MapboxOptions
   private mapElementsView: EmbeddedViewRef<void>;
 
   constructor(
-    private ApplicationRef: ApplicationRef,
+    // private ApplicationRef: ApplicationRef,
     private ElementRef: ElementRef,
     private MapService: MapService
   ) { }
 
   ngOnInit() {
-    if (this.templateRef) {
-      this.mapElementsView = this.templateRef.createEmbeddedView(undefined);
-    }
+    // if (this.templateRef) {
+    //   this.mapElementsView = this.templateRef.createEmbeddedView(undefined);
+    // }
     this.MapService.setup({
       accessToken: this.accessToken,
       customMapboxApiUrl: this.customMapboxApiUrl,
@@ -199,12 +203,15 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy, MapboxOptions
       },
       mapEvents: this
     });
-    if (this.templateRef) {
-      this.load.first().subscribe(() => {
-        this.mapElementsView.detectChanges();
-        this.ApplicationRef.attachView(this.mapElementsView);
-      });
-    }
+    // if (this.templateRef) {
+    //   this.load.first().subscribe(() => {
+    //     this.mapElementsView.detectChanges();
+    //     this.ApplicationRef.attachView(this.mapElementsView);
+    //   });
+    // }
+    this.load.first().subscribe(() => {
+      this.ready = true;
+    });
   }
 
   ngOnDestroy() {

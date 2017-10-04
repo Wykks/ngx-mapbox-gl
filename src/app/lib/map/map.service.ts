@@ -1,56 +1,8 @@
-import { EventEmitter, Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 import * as MapboxGl from 'mapbox-gl';
+import { MapEvent, MapImageData, MapImageOptions } from './map.types';
 
 export const MAPBOX_API_KEY = new InjectionToken('MapboxApiKey');
-
-// Can't use MapEvent interface from @types/mapbox because some event name are changed (eg zoomChange)
-export interface MapEvent {
-  resize: EventEmitter<void>;
-  remove: EventEmitter<void>;
-  mouseDown: EventEmitter<MapboxGl.MapMouseEvent>;
-  mouseUp: EventEmitter<MapboxGl.MapMouseEvent>;
-  mouseMove: EventEmitter<MapboxGl.MapMouseEvent>;
-  click: EventEmitter<MapboxGl.MapMouseEvent>;
-  dblClick: EventEmitter<MapboxGl.MapMouseEvent>;
-  mouseEnter: EventEmitter<MapboxGl.MapMouseEvent>;
-  mouseLeave: EventEmitter<MapboxGl.MapMouseEvent>;
-  mouseOver: EventEmitter<MapboxGl.MapMouseEvent>;
-  mouseOut: EventEmitter<MapboxGl.MapMouseEvent>;
-  contextMenu: EventEmitter<MapboxGl.MapMouseEvent>;
-  touchStart: EventEmitter<MapboxGl.MapTouchEvent>;
-  touchEnd: EventEmitter<MapboxGl.MapTouchEvent>;
-  touchMove: EventEmitter<MapboxGl.MapTouchEvent>;
-  touchCancel: EventEmitter<MapboxGl.MapTouchEvent>;
-  moveStart: EventEmitter<DragEvent>; // TODO Check type
-  move: EventEmitter<MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent>;
-  moveEnd: EventEmitter<DragEvent>;
-  dragStart: EventEmitter<DragEvent>;
-  drag: EventEmitter<MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent>;
-  dragEnd: EventEmitter<DragEvent>;
-  zoomStart: EventEmitter<MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent>;
-  zoomChange: EventEmitter<MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent>;
-  zoomEnd: EventEmitter<MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent>;
-  rotateStart: EventEmitter<MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent>;
-  rotate: EventEmitter<MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent>;
-  rotateEnd: EventEmitter<MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent>;
-  pitchStart: EventEmitter<MapboxGl.EventData>;
-  pitchChange: EventEmitter<MapboxGl.EventData>;
-  pitchEnd: EventEmitter<MapboxGl.EventData>;
-  boxZoomStart: EventEmitter<MapboxGl.MapBoxZoomEvent>;
-  boxZoomEnd: EventEmitter<MapboxGl.MapBoxZoomEvent>;
-  boxZoomCancel: EventEmitter<MapboxGl.MapBoxZoomEvent>;
-  webGlContextLost: EventEmitter<void>;
-  webGlContextRestored: EventEmitter<void>;
-  load: EventEmitter<any>;
-  render: EventEmitter<void>;
-  error: EventEmitter<any>; // TODO Check type
-  data: EventEmitter<MapboxGl.EventData>;
-  styleData: EventEmitter<MapboxGl.EventData>;
-  sourceData: EventEmitter<MapboxGl.EventData>;
-  dataLoading: EventEmitter<MapboxGl.EventData>;
-  styleDataLoading: EventEmitter<MapboxGl.EventData>;
-  sourceDataLoading: EventEmitter<MapboxGl.EventData>;
-}
 
 export interface SetupOptions {
   accessToken?: string;
@@ -58,6 +10,8 @@ export interface SetupOptions {
   mapOptions: MapboxGl.MapboxOptions;
   mapEvents: MapEvent;
 }
+
+type AllSource = MapboxGl.VectorSource | MapboxGl.RasterSource | MapboxGl.GeoJSONSource | MapboxGl.ImageSource | MapboxGl.VideoSource | MapboxGl.GeoJSONSourceRaw;
 
 @Injectable()
 export class MapService {
@@ -129,8 +83,7 @@ export class MapService {
     bearing?: number,
     pitch?: number
   ) {
-    const moveFnc: any = this.mapInstance[movingMethod];
-    moveFnc({
+    (<any>this.mapInstance[movingMethod])({
       ...flyToOptions,
       zoom: zoom ? zoom : this.mapInstance.getZoom(),
       center: center ? center : this.mapInstance.getCenter(),
@@ -150,6 +103,38 @@ export class MapService {
     this.mapInstance.removeLayer(layerId);
   }
 
+  async loadAndAddImage(imageId: string, url: string, options?: MapImageOptions) {
+    return new Promise((resolve, reject) => {
+      this.mapInstance.loadImage(url, (error: { status: number } | null, image: ImageData) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        this.addImage(imageId, image, options);
+        resolve();
+      });
+    });
+  }
+
+  addImage(imageId: string, data: MapImageData, options?: MapImageOptions) {
+    this.mapInstance.addImage(imageId, <any>data, options);
+  }
+
+  removeImage(imageId: string) {
+    this.mapInstance.removeImage(imageId);
+  }
+
+  addSource(sourceId: string, source: AllSource) {
+    Object.keys(source)
+    .forEach((key: keyof AllSource) =>
+      source[key] === undefined && delete source[key]);
+    this.mapInstance.addSource(sourceId, source);
+  }
+
+  removeSource(sourceId: string) {
+    this.mapInstance.removeSource(sourceId);
+  }
+
   setAllPaintProperty(
     layerId: string,
     paint: MapboxGl.BackgroundPaint | MapboxGl.FillPaint | MapboxGl.FillExtrusionPaint | MapboxGl.LinePaint | MapboxGl.SymbolPaint | MapboxGl.RasterPaint | MapboxGl.CirclePaint
@@ -157,6 +142,16 @@ export class MapService {
     Object.keys(paint).forEach((key) => {
       // TODO Check for perf, setPaintProperty only on changed paint props maybe
       this.mapInstance.setPaintProperty(layerId, key, (<any>paint)[key]);
+    });
+  }
+
+  setAllLayoutProperty(
+    layerId: string,
+    layout: MapboxGl.BackgroundLayout | MapboxGl.FillLayout | MapboxGl.FillExtrusionLayout | MapboxGl.LineLayout | MapboxGl.SymbolLayout | MapboxGl.RasterLayout | MapboxGl.CircleLayout
+  ) {
+    Object.keys(layout).forEach((key) => {
+      // TODO Check for perf, setPaintProperty only on changed paint props maybe
+      this.mapInstance.setLayoutProperty(layerId, key, (<any>layout)[key]);
     });
   }
 

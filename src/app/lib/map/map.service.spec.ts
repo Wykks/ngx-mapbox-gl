@@ -1,8 +1,9 @@
 import { EventEmitter } from '@angular/core';
 import { TestBed, inject } from '@angular/core/testing';
 
-import { MapEvent, MapService } from './map.service';
+import { MapService } from './map.service';
 import { MapMouseEvent, MapTouchEvent, EventData, MapBoxZoomEvent, Style } from 'mapbox-gl';
+import { MapEvent } from './map.types';
 
 const countries = require('./countries.geo.json');
 
