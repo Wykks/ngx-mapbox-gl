@@ -15,7 +15,8 @@ import {
 import 'rxjs/add/operator/first';
 import { MapService } from './map.service';
 import {
-  // ApplicationRef,
+  AfterViewInit,
+  ApplicationRef,
   Component,
   ContentChild,
   ElementRef,
@@ -28,6 +29,7 @@ import {
   Output,
   SimpleChanges,
   TemplateRef,
+  ViewChild
 } from '@angular/core';
 import { MapEvent } from './map.types';
 
@@ -44,15 +46,22 @@ declare global {
 
 @Component({
   selector: 'mgl-map',
-  // TODO
-  // Find a way to detatch properly
-  // With the method commented out, ngIf inside the template break everything for some reason....
-  template: '<ng-container *ngIf="ready"><ng-template [ngTemplateOutlet]="templateRef"></ng-template></ng-container>',
+  // NOTE: Using a container seems mandatory instead of using this.ElementRef.nativeElement
+  // Otherwise for some reason *ngIf inside the template doesn't work
+  // As long as we attach the view to the ApplicationRef (in order to not have the map element in the dom)
+  // Doing this.viewContainerRef.createEmbeddedView(this.templateRef) works (like ngTemplateOutlet)
+  // and does not require this extra container, but doing this way, components (even empty) are in the dom...
+  template: '<div #container></div>',
+  styles: [`
+  div {
+    height: 100%
+  }
+  `],
   providers: [
     MapService
   ]
 })
-export class MapComponent implements OnInit, OnChanges, OnDestroy, MapboxOptions, MapEvent {
+export class MapComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit, MapboxOptions, MapEvent {
   /* Init inputs */
   @Input() accessToken?: string;
   @Input() customMapboxApiUrl?: string;
@@ -147,29 +156,36 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy, MapboxOptions
   @Output() sourceDataLoading = new EventEmitter<EventData>();
 
   @ContentChild(TemplateRef) templateRef?: TemplateRef<void>;
-  ready = false;
 
   get mapInstance(): Map {
     return this.MapService.mapInstance;
   }
 
+  @ViewChild('container') mapContainer: ElementRef;
+
   private mapElementsView: EmbeddedViewRef<void>;
 
   constructor(
-    // private ApplicationRef: ApplicationRef,
-    private ElementRef: ElementRef,
+    private ApplicationRef: ApplicationRef,
     private MapService: MapService
   ) { }
 
   ngOnInit() {
-    // if (this.templateRef) {
-    //   this.mapElementsView = this.templateRef.createEmbeddedView(undefined);
-    // }
+    if (this.templateRef) {
+      this.mapElementsView = this.templateRef.createEmbeddedView(undefined);
+      this.load.first().subscribe(() => {
+        this.mapElementsView.detectChanges();
+        this.ApplicationRef.attachView(this.mapElementsView);
+      });
+    }
+  }
+
+  ngAfterViewInit() {
     this.MapService.setup({
       accessToken: this.accessToken,
       customMapboxApiUrl: this.customMapboxApiUrl,
       mapOptions: {
-        container: this.ElementRef.nativeElement,
+        container: this.mapContainer.nativeElement,
         minZoom: this.minZoom,
         maxZoom: this.maxZoom,
         style: this.style,
@@ -202,15 +218,6 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy, MapboxOptions
         transformRequest: this.transformRequest
       },
       mapEvents: this
-    });
-    // if (this.templateRef) {
-    //   this.load.first().subscribe(() => {
-    //     this.mapElementsView.detectChanges();
-    //     this.ApplicationRef.attachView(this.mapElementsView);
-    //   });
-    // }
-    this.load.first().subscribe(() => {
-      this.ready = true;
     });
   }
 
