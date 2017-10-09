@@ -16,6 +16,8 @@ import { ToggleLayersComponent } from './examples/toggle-layers.component';
 import { IndexComponent } from './index.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HeatMapComponent } from './examples/heatmap.component';
+import { GeoJSONLineComponent } from './examples/geojson-line';
+import { NgxGeoJSONLineComponent } from './examples/ngx-geojson-line';
 
 const demoRoutes: Routes = [
   {
@@ -31,7 +33,9 @@ const demoRoutes: Routes = [
       { path: 'add-image', component: AddImageComponent },
       { path: 'toggle-layers', component: ToggleLayersComponent },
       { path: 'cluster', component: ClusterComponent },
-      { path: 'heatmap', component: HeatMapComponent }
+      { path: 'heatmap', component: HeatMapComponent },
+      { path: 'geojson-line', component: GeoJSONLineComponent },
+      { path: 'ngx-geojson-line', component: NgxGeoJSONLineComponent }
     ]
   }
 ];
@@ -59,7 +63,9 @@ const demoRoutes: Routes = [
     AddImageComponent,
     ToggleLayersComponent,
     ClusterComponent,
-    HeatMapComponent
+    HeatMapComponent,
+    GeoJSONLineComponent,
+    NgxGeoJSONLineComponent
   ]
 })
 export class DemoModule { }

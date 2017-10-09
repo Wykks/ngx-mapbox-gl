@@ -1,10 +1,11 @@
 import { VectorSource} from 'mapbox-gl';
-import { Component, Input, OnDestroy, OnInit, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { MapService } from '../map/map.service';
 
 @Component({
   selector: 'mgl-vector-source',
-  template: ''
+  template: '',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, VectorSource {
   /* Init inputs */

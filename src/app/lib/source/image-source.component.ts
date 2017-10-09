@@ -1,10 +1,11 @@
 import { ImageSourceOptions } from 'mapbox-gl';
-import { Component, Input, OnDestroy, OnInit, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { MapService } from '../map/map.service';
 
 @Component({
   selector: 'mgl-image-source',
-  template: ''
+  template: '',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, ImageSourceOptions {
   /* Init inputs */

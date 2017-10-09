@@ -1,10 +1,14 @@
-import { GeoJSONSourceOptions } from 'mapbox-gl';
-import { Component, Input, OnDestroy, OnInit, SimpleChanges, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { GeoJSONSource, GeoJSONSourceOptions } from 'mapbox-gl';
+import 'rxjs/add/operator/debounceTime';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 import { MapService } from '../../map/map.service';
 
 @Component({
   selector: 'mgl-geojson-source',
-  template: ''
+  template: '',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, GeoJSONSourceOptions {
   /* Init inputs */
@@ -19,11 +23,18 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
   @Input() clusterRadius?: number;
   @Input() clusterMaxZoom?: number;
 
+  private updateFeatureData = new Subject();
+  private sub: Subscription;
+
   constructor(
     private MapService: MapService
   ) { }
 
   ngOnInit() {
+    this.data = this.data ? this.data : {
+      type: 'FeatureCollection',
+      features: []
+    };
     this.MapService.addSource(this.id, {
       type: 'geojson',
       data: this.data,
@@ -34,11 +45,14 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
       clusterRadius: this.clusterRadius,
       clusterMaxZoom: this.clusterMaxZoom,
     });
+    this.sub = this.updateFeatureData.debounceTime(0).subscribe(() => {
+      const source = this.MapService.getSource<GeoJSONSource>(this.id);
+      source.setData(this.data!);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (
-      changes.data && !changes.data.isFirstChange() ||
       changes.maxzoom && !changes.maxzoom.isFirstChange() ||
       changes.buffer && !changes.buffer.isFirstChange() ||
       changes.tolerance && !changes.tolerance.isFirstChange() ||
@@ -49,9 +63,29 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
       this.ngOnDestroy();
       this.ngOnInit();
     }
+    if (changes.data && !changes.data.isFirstChange()) {
+      const source = this.MapService.getSource<GeoJSONSource>(this.id);
+      source.setData(this.data!);
+    }
   }
 
   ngOnDestroy() {
+    this.sub.unsubscribe();
     this.MapService.removeSource(this.id);
+  }
+
+  addFeature(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
+    const collection = <GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>this.data;
+    collection.features.push(feature);
+    this.updateFeatureData.next();
+  }
+
+  removeFeature(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
+    const collection = <GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>this.data;
+    const index = collection.features.indexOf(feature);
+    if (index > -1) {
+      collection.features.splice(index, 1);
+    }
+    this.updateFeatureData.next();
   }
 }

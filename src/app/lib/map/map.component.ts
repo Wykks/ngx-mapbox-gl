@@ -15,20 +15,21 @@ import {
 import 'rxjs/add/operator/first';
 import { MapService } from './map.service';
 import {
-  AfterViewInit,
-  ApplicationRef,
-  Component,
-  ContentChild,
-  ElementRef,
-  EmbeddedViewRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  Output,
-  SimpleChanges,
-  TemplateRef,
-  ViewChild
+    AfterViewInit,
+    ApplicationRef,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ElementRef,
+    EmbeddedViewRef,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnDestroy,
+    Output,
+    SimpleChanges,
+    TemplateRef,
+    ViewChild,
 } from '@angular/core';
 import { MapEvent } from './map.types';
 
@@ -58,7 +59,8 @@ declare global {
   `],
   providers: [
     MapService
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapboxOptions, MapEvent {
   /* Init inputs */

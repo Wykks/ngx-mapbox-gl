@@ -1,10 +1,11 @@
 import { RasterSource } from 'mapbox-gl';
-import { Component, Input, OnDestroy, OnInit, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { MapService } from '../map/map.service';
 
 @Component({
   selector: 'mgl-raster-source',
-  template: ''
+  template: '',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, RasterSource {
   /* Init inputs */

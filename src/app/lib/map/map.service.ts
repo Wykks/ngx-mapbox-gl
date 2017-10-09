@@ -126,9 +126,13 @@ export class MapService {
 
   addSource(sourceId: string, source: AllSource) {
     Object.keys(source)
-    .forEach((key) =>
-      (<any>source)[key] === undefined && delete (<any>source)[key]);
+      .forEach((key) =>
+        (<any>source)[key] === undefined && delete (<any>source)[key]);
     this.mapInstance.addSource(sourceId, <any>source); // Typings issue
+  }
+
+  getSource<T>(sourceId: string) {
+    return <T><any>this.mapInstance.getSource(sourceId);
   }
 
   removeSource(sourceId: string) {

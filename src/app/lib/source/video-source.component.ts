@@ -1,10 +1,11 @@
 import { VideoSourceOptions } from 'mapbox-gl';
-import { Component, Input, OnDestroy, OnInit, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { MapService } from '../map/map.service';
 
 @Component({
   selector: 'mgl-video-source',
-  template: ''
+  template: '',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VideoSourceComponent implements OnInit, OnDestroy, OnChanges, VideoSourceOptions {
   /* Init inputs */

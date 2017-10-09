@@ -10,6 +10,7 @@ import { ImageSourceComponent } from './source/image-source.component';
 import { RasterSourceComponent } from './source/raster-source.component';
 import { VectorSourceComponent } from './source/vector-source.component';
 import { VideoSourceComponent } from './source/video-source.component';
+import { FeatureComponent } from './source/geojson/feature.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { VideoSourceComponent } from './source/video-source.component';
     RasterSourceComponent,
     ImageSourceComponent,
     VideoSourceComponent,
-    CanvasSourceComponent
+    CanvasSourceComponent,
+    FeatureComponent
   ],
   exports: [
     MapComponent,
@@ -35,7 +37,8 @@ import { VideoSourceComponent } from './source/video-source.component';
     RasterSourceComponent,
     ImageSourceComponent,
     VideoSourceComponent,
-    CanvasSourceComponent
+    CanvasSourceComponent,
+    FeatureComponent
   ]
 })
 export class NgxMapboxGLModule {
