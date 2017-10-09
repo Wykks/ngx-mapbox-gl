@@ -11,7 +11,7 @@ export interface SetupOptions {
   mapEvents: MapEvent;
 }
 
-type AllSource = MapboxGl.VectorSource | MapboxGl.RasterSource | MapboxGl.GeoJSONSource | MapboxGl.ImageSource | MapboxGl.VideoSource | MapboxGl.GeoJSONSourceRaw;
+type AllSource = MapboxGl.VectorSource | MapboxGl.RasterSource | MapboxGl.GeoJSONSource | MapboxGl.ImageSourceOptions | MapboxGl.VideoSource | MapboxGl.GeoJSONSourceRaw | MapboxGl.CanvasSourceOptions;
 
 @Injectable()
 export class MapService {
@@ -126,9 +126,9 @@ export class MapService {
 
   addSource(sourceId: string, source: AllSource) {
     Object.keys(source)
-    .forEach((key: keyof AllSource) =>
-      source[key] === undefined && delete source[key]);
-    this.mapInstance.addSource(sourceId, source);
+    .forEach((key) =>
+      (<any>source)[key] === undefined && delete (<any>source)[key]);
+    this.mapInstance.addSource(sourceId, <any>source); // Typings issue
   }
 
   removeSource(sourceId: string) {

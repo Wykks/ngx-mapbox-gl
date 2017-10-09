@@ -1,0 +1,57 @@
+import { RasterSource } from 'mapbox-gl';
+import { Component, Input, OnDestroy, OnInit, SimpleChanges, OnChanges } from '@angular/core';
+import { MapService } from '../map/map.service';
+
+@Component({
+  selector: 'mgl-raster-source',
+  template: ''
+})
+export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, RasterSource {
+  /* Init inputs */
+  @Input() id: string;
+
+  /* Dynamic inputs */
+  @Input() url: string;
+  @Input() tiles?: string[];
+  @Input() bounds?: number[];
+  @Input() minzoom?: number;
+  @Input() maxzoom?: number;
+  @Input() tileSize?: number;
+
+  type: 'raster' = 'raster'; // Just to make ts happy
+
+  constructor(
+    private MapService: MapService
+  ) { }
+
+  ngOnInit() {
+    const source = {
+      type: this.type,
+      url: this.url,
+      tiles: this.tiles,
+      bounds: this.bounds,
+      minzoom: this.minzoom,
+      maxzoom: this.maxzoom,
+      tileSize: this.tileSize
+    };
+    this.MapService.addSource(this.id, source);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (
+      changes.url && !changes.url.isFirstChange() ||
+      changes.tiles && !changes.tiles.isFirstChange() ||
+      changes.bounds && !changes.bounds.isFirstChange() ||
+      changes.minzoom && !changes.minzoom.isFirstChange() ||
+      changes.maxzoom && !changes.maxzoom.isFirstChange() ||
+      changes.tileSize && !changes.tileSize.isFirstChange()
+    ) {
+      this.ngOnDestroy();
+      this.ngOnInit();
+    }
+  }
+
+  ngOnDestroy() {
+    this.MapService.removeSource(this.id);
+  }
+}

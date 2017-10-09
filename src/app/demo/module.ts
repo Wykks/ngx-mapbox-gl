@@ -1,19 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatRadioModule, MatButtonToggleModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
+import { MatButtonToggleModule, MatRadioModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxMapboxGLModule } from '../lib/module';
-import { CustomStyleIdComponent } from './examples/custom-style-id.component';
-import { DisplayMapComponent } from './examples/display-map.component';
-import { SetStyleComponent } from './examples/set-style.component';
-import { IndexComponent } from './index.component';
-import { LayoutComponent } from './layout/layout.component';
-import { FormsModule } from '@angular/forms';
-import { SatelliteMapComponent } from './examples/satellite-map.component';
 import { AddImageGeneratedComponent } from './examples/add-image-generated.component';
 import { AddImageComponent } from './examples/add-image.component';
+import { ClusterComponent } from './examples/cluster';
+import { CustomStyleIdComponent } from './examples/custom-style-id.component';
+import { DisplayMapComponent } from './examples/display-map.component';
+import { SatelliteMapComponent } from './examples/satellite-map.component';
+import { SetStyleComponent } from './examples/set-style.component';
 import { ToggleLayersComponent } from './examples/toggle-layers.component';
+import { IndexComponent } from './index.component';
+import { LayoutComponent } from './layout/layout.component';
+import { HeatMapComponent } from './examples/heatmap.component';
 
 const demoRoutes: Routes = [
   {
@@ -27,7 +29,9 @@ const demoRoutes: Routes = [
       { path: 'satellite-map', component: SatelliteMapComponent },
       { path: 'add-image-generated', component: AddImageGeneratedComponent },
       { path: 'add-image', component: AddImageComponent },
-      { path: 'toggle-layers', component: ToggleLayersComponent }
+      { path: 'toggle-layers', component: ToggleLayersComponent },
+      { path: 'cluster', component: ClusterComponent },
+      { path: 'heatmap', component: HeatMapComponent }
     ]
   }
 ];
@@ -53,7 +57,9 @@ const demoRoutes: Routes = [
     SatelliteMapComponent,
     AddImageGeneratedComponent,
     AddImageComponent,
-    ToggleLayersComponent
+    ToggleLayersComponent,
+    ClusterComponent,
+    HeatMapComponent
   ]
 })
 export class DemoModule { }

@@ -25,7 +25,6 @@ import {
   Input,
   OnChanges,
   OnDestroy,
-  OnInit,
   Output,
   SimpleChanges,
   TemplateRef,
@@ -61,7 +60,7 @@ declare global {
     MapService
   ]
 })
-export class MapComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit, MapboxOptions, MapEvent {
+export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapboxOptions, MapEvent {
   /* Init inputs */
   @Input() accessToken?: string;
   @Input() customMapboxApiUrl?: string;
@@ -170,7 +169,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit
     private MapService: MapService
   ) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     if (this.templateRef) {
       this.mapElementsView = this.templateRef.createEmbeddedView(undefined);
       this.load.first().subscribe(() => {
@@ -178,9 +177,6 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit
         this.ApplicationRef.attachView(this.mapElementsView);
       });
     }
-  }
-
-  ngAfterViewInit() {
     this.MapService.setup({
       accessToken: this.accessToken,
       customMapboxApiUrl: this.customMapboxApiUrl,
