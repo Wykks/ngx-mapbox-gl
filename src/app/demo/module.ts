@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonToggleModule, MatRadioModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { NgxMapboxGLModule } from '../lib/module';
+import { NgxMapboxGLModule } from '../lib/lib.module';
 import { AddImageGeneratedComponent } from './examples/add-image-generated.component';
 import { AddImageComponent } from './examples/add-image.component';
 import { ClusterComponent } from './examples/cluster';
@@ -16,8 +16,10 @@ import { ToggleLayersComponent } from './examples/toggle-layers.component';
 import { IndexComponent } from './index.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HeatMapComponent } from './examples/heatmap.component';
-import { GeoJSONLineComponent } from './examples/geojson-line';
-import { NgxGeoJSONLineComponent } from './examples/ngx-geojson-line';
+import { GeoJSONLineComponent } from './examples/geojson-line.component';
+import { NgxGeoJSONLineComponent } from './examples/ngx-geojson-line.component';
+import { CustomMarkerIconsComponent } from './examples/custom-marker-icons.component';
+import { NgxCustomMarkerIconsComponent } from './examples/ngx-custom-marker-icons.component';
 
 const demoRoutes: Routes = [
   {
@@ -35,7 +37,9 @@ const demoRoutes: Routes = [
       { path: 'cluster', component: ClusterComponent },
       { path: 'heatmap', component: HeatMapComponent },
       { path: 'geojson-line', component: GeoJSONLineComponent },
-      { path: 'ngx-geojson-line', component: NgxGeoJSONLineComponent }
+      { path: 'ngx-geojson-line', component: NgxGeoJSONLineComponent },
+      { path: 'custom-marker-icons', component: CustomMarkerIconsComponent },
+      { path: 'ngx-custom-marker-icons', component: NgxCustomMarkerIconsComponent }
     ]
   }
 ];
@@ -65,7 +69,9 @@ const demoRoutes: Routes = [
     ClusterComponent,
     HeatMapComponent,
     GeoJSONLineComponent,
-    NgxGeoJSONLineComponent
+    NgxGeoJSONLineComponent,
+    CustomMarkerIconsComponent,
+    NgxCustomMarkerIconsComponent
   ]
 })
 export class DemoModule { }

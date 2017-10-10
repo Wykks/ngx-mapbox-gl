@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { NgxMapboxGLModule } from './lib/module';
+import { NgxMapboxGLModule } from './lib/lib.module';
 import { LayoutComponent as DemoLayoutComponent } from './demo/layout/layout.component';
 
 const appRoutes: Routes = [

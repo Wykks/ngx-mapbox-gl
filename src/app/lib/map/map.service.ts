@@ -103,6 +103,14 @@ export class MapService {
     this.mapInstance.removeLayer(layerId);
   }
 
+  addMarker(marker: MapboxGl.Marker) {
+    marker.addTo(this.mapInstance);
+  }
+
+  removeMarker(marker: MapboxGl.Marker) {
+    marker.remove();
+  }
+
   async loadAndAddImage(imageId: string, url: string, options?: MapImageOptions) {
     return new Promise((resolve, reject) => {
       this.mapInstance.loadImage(url, (error: { status: number } | null, image: ImageData) => {
