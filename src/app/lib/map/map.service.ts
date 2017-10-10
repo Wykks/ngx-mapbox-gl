@@ -75,6 +75,10 @@ export class MapService {
     // TODO
   }
 
+  panTo(center: MapboxGl.LngLatLike) {
+    this.mapInstance.panTo(center);
+  }
+
   move(
     movingMethod: 'jumpTo' | 'easeTo' | 'flyTo',
     flyToOptions?: MapboxGl.FlyToOptions,

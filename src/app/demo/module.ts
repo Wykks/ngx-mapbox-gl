@@ -20,6 +20,7 @@ import { GeoJSONLineComponent } from './examples/geojson-line.component';
 import { NgxGeoJSONLineComponent } from './examples/ngx-geojson-line.component';
 import { CustomMarkerIconsComponent } from './examples/custom-marker-icons.component';
 import { NgxCustomMarkerIconsComponent } from './examples/ngx-custom-marker-icons.component';
+import { LiveUpdateFeatureComponent } from './examples/live-update-feature.component';
 
 const demoRoutes: Routes = [
   {
@@ -39,7 +40,8 @@ const demoRoutes: Routes = [
       { path: 'geojson-line', component: GeoJSONLineComponent },
       { path: 'ngx-geojson-line', component: NgxGeoJSONLineComponent },
       { path: 'custom-marker-icons', component: CustomMarkerIconsComponent },
-      { path: 'ngx-custom-marker-icons', component: NgxCustomMarkerIconsComponent }
+      { path: 'ngx-custom-marker-icons', component: NgxCustomMarkerIconsComponent },
+      { path: 'live-update-feature', component: LiveUpdateFeatureComponent }
     ]
   }
 ];
@@ -71,7 +73,8 @@ const demoRoutes: Routes = [
     GeoJSONLineComponent,
     NgxGeoJSONLineComponent,
     CustomMarkerIconsComponent,
-    NgxCustomMarkerIconsComponent
+    NgxCustomMarkerIconsComponent,
+    LiveUpdateFeatureComponent
   ]
 })
 export class DemoModule { }

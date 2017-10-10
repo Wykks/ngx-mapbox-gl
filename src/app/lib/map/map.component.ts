@@ -15,21 +15,21 @@ import {
 import 'rxjs/add/operator/first';
 import { MapService } from './map.service';
 import {
-    AfterViewInit,
-    ApplicationRef,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ElementRef,
-    EmbeddedViewRef,
-    EventEmitter,
-    Input,
-    OnChanges,
-    OnDestroy,
-    Output,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild,
+  AfterViewInit,
+  ApplicationRef,
+  ChangeDetectionStrategy,
+  Component,
+  ContentChild,
+  ElementRef,
+  EmbeddedViewRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Output,
+  SimpleChanges,
+  TemplateRef,
+  ViewChild,
 } from '@angular/core';
 import { MapEvent } from './map.types';
 
@@ -109,6 +109,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, Mapbox
     offset?: PointLike, maxZoom?: number
   };
   @Input() flyToOptions?: FlyToOptions;
+  @Input() centerWithPanTo?: boolean;
 
   @Output() resize = new EventEmitter<void>();
   @Output() remove = new EventEmitter<void>();
@@ -260,6 +261,12 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, Mapbox
       this.MapService.updateMaxBounds(changes.maxBounds.currentValue);
     }
     if (
+      this.centerWithPanTo &&
+      changes.center && !changes.center.isFirstChange() &&
+      !changes.zoom && !changes.bearing && !changes.pitch
+    ) {
+      this.MapService.panTo(this.center!);
+    } else if (
       changes.center && !changes.center.isFirstChange() ||
       changes.zoom && !changes.zoom.isFirstChange() ||
       changes.bearing && !changes.bearing.isFirstChange() ||
