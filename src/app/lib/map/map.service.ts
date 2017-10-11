@@ -11,7 +11,13 @@ export interface SetupOptions {
   mapEvents: MapEvent;
 }
 
-type AllSource = MapboxGl.VectorSource | MapboxGl.RasterSource | MapboxGl.GeoJSONSource | MapboxGl.ImageSourceOptions | MapboxGl.VideoSource | MapboxGl.GeoJSONSourceRaw | MapboxGl.CanvasSourceOptions;
+export type AllSource = MapboxGl.VectorSource |
+  MapboxGl.RasterSource |
+  MapboxGl.GeoJSONSource |
+  MapboxGl.ImageSourceOptions |
+  MapboxGl.VideoSource |
+  MapboxGl.GeoJSONSourceRaw |
+  MapboxGl.CanvasSourceOptions;
 
 @Injectable()
 export class MapService {
@@ -113,6 +119,14 @@ export class MapService {
 
   removeMarker(marker: MapboxGl.Marker) {
     marker.remove();
+  }
+
+  addPopup(popup: MapboxGl.Popup) {
+    popup.addTo(this.mapInstance);
+  }
+
+  removePopup(popup: MapboxGl.Popup) {
+    popup.remove();
   }
 
   async loadAndAddImage(imageId: string, url: string, options?: MapImageOptions) {

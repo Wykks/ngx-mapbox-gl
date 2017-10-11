@@ -1,3 +1,4 @@
+import { LngLatLike, Marker, PointLike } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import {
     Component,
@@ -9,8 +10,8 @@ import {
     ViewChild,
     AfterViewInit,
     OnInit,
+    ChangeDetectionStrategy,
 } from '@angular/core';
-import { PointLike, Marker, LngLatLike } from 'mapbox-gl';
 
 // NOTE
 // Marker does not need to wait 'load' event from mapbox-gl,
@@ -18,6 +19,7 @@ import { PointLike, Marker, LngLatLike } from 'mapbox-gl';
 @Component({
   selector: 'mgl-marker',
   template: '<div #content><ng-content></ng-content></div>',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnInit {
   /* Init input */
@@ -29,7 +31,7 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
 
   @ViewChild('content') content: ElementRef;
 
-  private marker: Marker;
+  markerInstance?: Marker;
 
   constructor(
     private MapService: MapService
@@ -43,21 +45,25 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.lngLat && !changes.lngLat.isFirstChange()) {
-      this.marker.setLngLat(this.lngLat!);
+      this.markerInstance!.setLngLat(this.lngLat!);
     }
     if (changes.feature && !changes.feature.isFirstChange()) {
-      this.marker.setLngLat(this.feature!.geometry.coordinates);
+      this.markerInstance!.setLngLat(this.feature!.geometry.coordinates);
     }
   }
 
   ngAfterViewInit() {
-    this.marker = new Marker(this.content.nativeElement, { offset: this.offset });
-    this.marker.setLngLat(this.feature ? this.feature.geometry.coordinates : this.lngLat!);
-    this.MapService.addMarker(this.marker);
+    this.markerInstance = new Marker(this.content.nativeElement, { offset: this.offset });
+    this.markerInstance.setLngLat(this.feature ? this.feature.geometry.coordinates : this.lngLat!);
+    this.MapService.addMarker(this.markerInstance);
   }
 
   ngOnDestroy() {
-    this.MapService.removeMarker(this.marker);
+    this.MapService.removeMarker(this.markerInstance!);
+    this.markerInstance = undefined;
   }
 
+  togglePopup() {
+    this.markerInstance!.togglePopup();
+  }
 }
