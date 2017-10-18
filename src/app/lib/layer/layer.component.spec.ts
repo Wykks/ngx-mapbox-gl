@@ -10,7 +10,7 @@ describe('LayerComponent', () => {
   class MapServiceSpy {
     addLayer = jasmine.createSpy('addLayer');
     removeLayer = jasmine.createSpy('removeLayer');
-    setAllPaintProperty = jasmine.createSpy('setAllPaintProperty');
+    setAllLayerPaintProperty = jasmine.createSpy('setAllPaintProperty');
     mapLoaded$ = of(undefined);
   }
 
@@ -66,7 +66,7 @@ describe('LayerComponent', () => {
       component.ngOnChanges({
         paint: new SimpleChange(null, component.paint, false)
       });
-      expect(msSpy.setAllPaintProperty).toHaveBeenCalledWith(component.id, component.paint);
+      expect(msSpy.setAllLayerPaintProperty).toHaveBeenCalledWith(component.id, component.paint);
     });
   });
 });
