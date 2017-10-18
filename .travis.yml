@@ -8,9 +8,9 @@ cache: yarn
 jobs:
   include:
     - stage: validation
-      script: yarn build --prod --no-progress
-    - script: yarn test --no-progress --single-run
-    - script: yarn e2e --no-progress
+      script: yarn build -- --no-progress
+    - script: yarn test -- --no-progress --single-run
+    - script: yarn e2e -- --no-progress
     - script: yarn lint
 
 stages:
