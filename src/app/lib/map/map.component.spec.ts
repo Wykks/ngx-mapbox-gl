@@ -1,4 +1,4 @@
-import { MapService, SetupOptions } from './map.service';
+import { MapService, SetupMap } from './map.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapComponent } from './map.component';
@@ -43,7 +43,7 @@ describe('MapComponent', () => {
     it('should init with custom inputs', (done: DoneFn) => {
       component.accessToken = 'tokenTest';
       component.style = 'style';
-      msSpy.setup.and.callFake((options: SetupOptions) => {
+      msSpy.setup.and.callFake((options: SetupMap) => {
         expect(options.accessToken).toEqual('tokenTest');
         expect(options.mapOptions.style).toEqual('style');
         done();

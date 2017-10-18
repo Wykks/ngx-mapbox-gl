@@ -1,16 +1,25 @@
 import { AsyncSubject } from 'rxjs/AsyncSubject';
-import { Inject, Injectable, InjectionToken, NgZone, Optional } from '@angular/core';
+import { EventEmitter, Inject, Injectable, InjectionToken, NgZone, Optional } from '@angular/core';
 import * as MapboxGl from 'mapbox-gl';
 import { MapEvent, MapImageData, MapImageOptions } from './map.types';
 import { Observable } from 'rxjs/Observable';
 
 export const MAPBOX_API_KEY = new InjectionToken('MapboxApiKey');
 
-export interface SetupOptions {
+export interface SetupMap {
   accessToken?: string;
   customMapboxApiUrl?: string;
   mapOptions: MapboxGl.MapboxOptions;
   mapEvents: MapEvent;
+}
+
+export interface SetupLayer {
+  layerOptions: MapboxGl.Layer;
+  layerEvents: {
+    click: EventEmitter<MapboxGl.MapMouseEvent>;
+    mouseEnter: EventEmitter<MapboxGl.MapMouseEvent>;
+    mouseLeave: EventEmitter<MapboxGl.MapMouseEvent>;
+  };
 }
 
 export type AllSource = MapboxGl.VectorSource |
@@ -38,7 +47,7 @@ export class MapService {
     this.mapLoaded$ = this.mapLoaded.asObservable();
   }
 
-  setup(options: SetupOptions) {
+  setup(options: SetupMap) {
     return this.zone.runOutsideAngular(() => {
       // Workaround rollup issue
       this.assign(MapboxGl, 'accessToken', options.accessToken || this.MAPBOX_API_KEY);
@@ -148,17 +157,36 @@ export class MapService {
     });
   }
 
-  addLayer(layer: MapboxGl.Layer, before?: string) {
-    return this.zone.runOutsideAngular(() => {
-      Object.keys(layer)
+  addLayer(layer: SetupLayer, before?: string) {
+    this.zone.runOutsideAngular(() => {
+      Object.keys(layer.layerOptions)
         .forEach((key: keyof MapboxGl.Layer) =>
-          layer[key] === undefined && delete layer[key]);
-      this.mapInstance.addLayer(layer, before);
+          layer.layerOptions[key] === undefined && delete layer.layerOptions[key]);
+      this.mapInstance.addLayer(layer.layerOptions, before);
+    });
+    this.mapInstance.on('click', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
+      this.zone.run(() => {
+        layer.layerEvents.click.emit(evt);
+      });
+    });
+    this.mapInstance.on('mouseenter', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
+      this.zone.run(() => {
+        layer.layerEvents.mouseEnter.emit(evt);
+      });
+    });
+    this.mapInstance.on('mouseleave', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
+      this.zone.run(() => {
+        layer.layerEvents.mouseLeave.emit(evt);
+      });
     });
   }
 
   removeLayer(layerId: string) {
     return this.zone.runOutsideAngular(() => {
+      // TEST THIS
+      this.mapInstance.off('click', layerId);
+      this.mapInstance.off('mouseenter', layerId);
+      this.mapInstance.off('mouseleave', layerId);
       this.mapInstance.removeLayer(layerId);
     });
   }

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonToggleModule, MatRadioModule, MatButtonModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { NgxMapboxGLModule } from '../lib/lib.module';
+import { NgxMapboxGLModule } from '../lib';
 import { AddImageGeneratedComponent } from './examples/add-image-generated.component';
 import { AddImageComponent } from './examples/add-image.component';
 import { AttachPopupComponent } from './examples/attach-popup.component';
@@ -29,7 +29,9 @@ import { LocateUserComponent } from './examples/locate-user.component';
 import { NgxAttributionComponent } from './examples/ngx-attribution.component';
 import { NgxScaleControlComponent } from './examples/ngx-scale-control.component';
 import { NgxCustomControlComponent } from './examples/ngx-custom-control.component';
-import { InteractiveFalseComponent } from './examples/interactive-false';
+import { InteractiveFalseComponent } from './examples/interactive-false.component';
+import { LanguageSwitchComponent } from './examples/language-switch.component';
+import { CenterOnSymbolComponent } from './examples/center-on-symbol.component';
 
 export const demoRoutes: Routes = [
   { path: '', component: IndexComponent },
@@ -56,6 +58,8 @@ export const demoRoutes: Routes = [
   { path: 'ngx-scale-control', component: NgxScaleControlComponent },
   { path: 'ngx-custom-control', component: NgxCustomControlComponent },
   { path: 'interactive-false', component: InteractiveFalseComponent },
+  { path: 'language-switch', component: LanguageSwitchComponent },
+  { path: 'ngx-center-on-symbol', component: CenterOnSymbolComponent },
 ];
 
 @NgModule({
@@ -96,7 +100,9 @@ export const demoRoutes: Routes = [
     NgxAttributionComponent,
     NgxScaleControlComponent,
     NgxCustomControlComponent,
-    InteractiveFalseComponent
+    InteractiveFalseComponent,
+    LanguageSwitchComponent,
+    CenterOnSymbolComponent
   ]
 })
 export class DemoModule { }

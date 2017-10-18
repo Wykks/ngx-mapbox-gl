@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import {
   BackgroundLayout,
   CircleLayout,
@@ -20,7 +20,8 @@ import {
   LinePaint,
   SymbolPaint,
   RasterPaint,
-  CirclePaint
+  CirclePaint,
+  MapMouseEvent
 } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 
@@ -34,9 +35,7 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   @Input() source?: string | VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource | GeoJSONSourceRaw;
   @Input() type?: 'symbol' | 'fill' | 'line' | 'circle' | 'fill-extrusion' | 'raster' | 'background';
   @Input() metadata?: any;
-  @Input() ref?: string;
   @Input() sourceLayer?: string;
-  @Input() interactive?: boolean;
 
   /* Dynamic inputs */
   @Input() filter?: any[];
@@ -46,6 +45,12 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   @Input() minzoom?: number;
   @Input() maxzoom?: number;
 
+  @Output() click = new EventEmitter<MapMouseEvent>();
+  @Output() mouseEnter = new EventEmitter<MapMouseEvent>();
+  @Output() mouseLeave = new EventEmitter<MapMouseEvent>();
+
+  private layerAdded = false;
+
   constructor(
     private MapService: MapService
   ) { }
@@ -53,23 +58,32 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   ngOnInit() {
     this.MapService.mapLoaded$.subscribe(() => {
       this.MapService.addLayer({
-        id: this.id,
-        type: this.type,
-        source: this.source,
-        metadata: this.metadata,
-        ref: this.ref,
-        'source-layer': this.sourceLayer,
-        minzoom: this.minzoom,
-        maxzoom: this.maxzoom,
-        interactive: this.interactive,
-        filter: this.filter,
-        layout: this.layout,
-        paint: this.paint
+        layerOptions: {
+          id: this.id,
+          type: this.type,
+          source: this.source,
+          metadata: this.metadata,
+          'source-layer': this.sourceLayer,
+          minzoom: this.minzoom,
+          maxzoom: this.maxzoom,
+          filter: this.filter,
+          layout: this.layout,
+          paint: this.paint
+        },
+        layerEvents: {
+          click: this.click,
+          mouseEnter: this.mouseEnter,
+          mouseLeave: this.mouseLeave
+        }
       }, this.before);
+      this.layerAdded = true;
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if (!this.layerAdded) {
+      return;
+    }
     if (changes.paint && !changes.paint.isFirstChange()) {
       this.MapService.setAllLayerPaintProperty(this.id, changes.paint.currentValue!);
     }

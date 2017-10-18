@@ -30,7 +30,8 @@ describe('Generic runtime error check', () => {
     'locate-user',
     'ngx-attribution',
     'ngx-scale-control',
-    'interactive-false'
+    'interactive-false',
+    'center-on-symbol'
   ].forEach((route: string) => {
     it(`should display a map without errors for /${route}`, async () => {
       await browser.get(`/${route}`);
