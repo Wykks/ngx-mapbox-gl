@@ -19,10 +19,10 @@ describe('Toggle layers', () => {
     const elm = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(elm), 2000);
     const buttons = await browser.findElements(by.tagName('mat-button-toggle'));
-    await browser.sleep(4000);
+    await browser.sleep(5000);
     const screen1 = await browser.takeScreenshot();
     await buttons[0].click();
-    await browser.sleep(250);
+    await browser.sleep(500);
     const screen2 = await browser.takeScreenshot();
     const result = new PixelDiff({
       imageA: new Buffer(screen1, 'base64'),
@@ -30,7 +30,7 @@ describe('Toggle layers', () => {
     }).runSync();
     expect(result.differences).toBeGreaterThan(0);
     await buttons[0].click();
-    await browser.sleep(250);
+    await browser.sleep(500);
     const screen1bis = await browser.takeScreenshot();
     const result2 = new PixelDiff({
       imageA: new Buffer(screen1, 'base64'),
