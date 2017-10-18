@@ -1,7 +1,24 @@
 {
   "name": "@ngx-mapbox-gl/core",
-  "version": "0.0.0",
+  "version": "0.0.2",
+  "description": "A Angular binding of mapbox-gl-js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wykks/ngx-mapbox-gl.git"
+  },
+  "keywords": [
+    "mapbox",
+    "angular",
+    "map",
+    "webgl",
+    "mapbox-gl",
+    "ngx"
+  ],
+  "bugs": {
+    "url": "https://github.com/Wykks/ngx-mapbox-gl/issues"
+  },
+  "homepage": "https://github.com/Wykks/ngx-mapbox-gl#readme",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
