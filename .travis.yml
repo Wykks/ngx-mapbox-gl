@@ -1,16 +1,21 @@
 #.travis.yml
 
 language: node_js
+
 node_js:
   - "8"
+
 cache: yarn
+
+addons:
+  chrome: stable
 
 jobs:
   include:
     - stage: validation
       script: yarn build -- --no-progress
     - script: yarn test -- --no-progress --single-run
-    - script: yarn e2e -- --no-progress
+    - script: xvfb-run -a yarn e2e -- --no-progress --config=protractor-ci.conf.js
     - script: yarn lint
 
 stages:
