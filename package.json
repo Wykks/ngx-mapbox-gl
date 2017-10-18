@@ -1,5 +1,5 @@
 {
-  "name": "ngx-mapbox-gl",
+  "name": "@ngx-mapbox-gl/core",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
