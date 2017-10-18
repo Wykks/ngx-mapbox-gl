@@ -15,26 +15,24 @@ const hike = require('./hike.geo.json');
     [pitch]="pitch"
     movingMethod="jumpTo"
   >
-    <ng-template>
-      <mgl-geojson-source
-        *ngIf="data"
-        id="trace"
-        [data]="data"
-      >
-      </mgl-geojson-source>
-      <mgl-layer
-        *ngIf="data"
-        id="trace"
-        type="line"
-        source="trace"
-        [paint]="{
-          'line-color': 'yellow',
-          'line-opacity': 0.75,
-          'line-width': 5
-        }"
-      >
-      </mgl-layer>
-    </ng-template>
+    <mgl-geojson-source
+      *ngIf="data"
+      id="trace"
+      [data]="data"
+    >
+    </mgl-geojson-source>
+    <mgl-layer
+      *ngIf="data"
+      id="trace"
+      type="line"
+      source="trace"
+      [paint]="{
+        'line-color': 'yellow',
+        'line-opacity': 0.75,
+        'line-width': 5
+      }"
+    >
+    </mgl-layer>
   </mgl-map>
   `,
   styleUrls: ['./examples.css']

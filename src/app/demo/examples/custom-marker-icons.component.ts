@@ -7,23 +7,21 @@ import { Component } from '@angular/core';
     [zoom]="5"
     [center]="[-65.017, -16.457]"
   >
-    <ng-template>
-      <mgl-marker
-        *ngFor="let feature of geojson.features"
-        [feature]="feature"
+    <mgl-marker
+      *ngFor="let feature of geojson.features"
+      [feature]="feature"
+    >
+      <div
+        (click)="alert(feature.properties.message)"
+        class="marker"
+        [ngStyle]="{
+          'background-image': 'url(https://placekitten.com/g/' + feature.properties.iconSize.join('/') + '/)',
+          width: feature.properties.iconSize[0]+'px',
+          height: feature.properties.iconSize[1]+'px'
+        }"
       >
-        <div
-          (click)="alert(feature.properties.message)"
-          class="marker"
-          [ngStyle]="{
-            'background-image': 'url(https://placekitten.com/g/' + feature.properties.iconSize.join('/') + '/)',
-            width: feature.properties.iconSize[0]+'px',
-            height: feature.properties.iconSize[1]+'px'
-          }"
-        >
-        </div>
-      </mgl-marker>
-    </ng-template>
+      </div>
+    </mgl-marker>
   </mgl-map>
   `,
   styleUrls: ['./examples.css', './custom-marker-icons.component.css']

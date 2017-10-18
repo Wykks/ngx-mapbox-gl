@@ -13,9 +13,6 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 
-// NOTE
-// Marker does not need to wait 'load' event from mapbox-gl,
-// so we may be able to load them earlier like in the example of mapbox-gl
 @Component({
   selector: 'mgl-marker',
   template: '<div #content><ng-content></ng-content></div>',
@@ -55,7 +52,9 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
   ngAfterViewInit() {
     this.markerInstance = new Marker(this.content.nativeElement, { offset: this.offset });
     this.markerInstance.setLngLat(this.feature ? this.feature.geometry.coordinates : this.lngLat!);
-    this.MapService.addMarker(this.markerInstance);
+    this.MapService.mapCreated$.subscribe(() => {
+      this.MapService.addMarker(this.markerInstance!);
+    });
   }
 
   ngOnDestroy() {

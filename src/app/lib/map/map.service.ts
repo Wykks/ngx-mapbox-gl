@@ -1,6 +1,8 @@
+import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 import * as MapboxGl from 'mapbox-gl';
 import { MapEvent, MapImageData, MapImageOptions } from './map.types';
+import { Observable } from 'rxjs/Observable';
 
 export const MAPBOX_API_KEY = new InjectionToken('MapboxApiKey');
 
@@ -22,10 +24,18 @@ export type AllSource = MapboxGl.VectorSource |
 @Injectable()
 export class MapService {
   mapInstance: MapboxGl.Map;
+  mapCreated$: Observable<void>;
+  mapLoaded$: Observable<void>;
+
+  private mapCreated = new AsyncSubject<void>();
+  private mapLoaded = new AsyncSubject<void>();
 
   constructor(
     @Optional() @Inject(MAPBOX_API_KEY) private readonly MAPBOX_API_KEY: string
-  ) { }
+  ) {
+    this.mapCreated$ = this.mapCreated.asObservable();
+    this.mapLoaded$ = this.mapLoaded.asObservable();
+  }
 
   setup(options: SetupOptions) {
     // Workaround rollup issue
@@ -33,6 +43,12 @@ export class MapService {
     this.assign(MapboxGl, 'config.customMapboxApiUrl', options.customMapboxApiUrl);
     this.createMap(options.mapOptions);
     this.hookEvents(options.mapEvents);
+    options.mapEvents.load.first().subscribe(() => {
+      this.mapLoaded.next(undefined);
+      this.mapLoaded.complete();
+    });
+    this.mapCreated.next(undefined);
+    this.mapCreated.complete();
     return this.mapInstance;
   }
 
@@ -127,6 +143,14 @@ export class MapService {
 
   removePopup(popup: MapboxGl.Popup) {
     popup.remove();
+  }
+
+  addControl(control: MapboxGl.Control | MapboxGl.IControl, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left') {
+    this.mapInstance.addControl(<any>control, position);
+  }
+
+  removeControl(control: MapboxGl.Control | MapboxGl.IControl) {
+    this.mapInstance.removeControl(<any>control);
   }
 
   async loadAndAddImage(imageId: string, url: string, options?: MapImageOptions) {

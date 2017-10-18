@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImageComponent } from './image.component';
@@ -8,6 +9,7 @@ describe('ImageComponent', () => {
   class MapServiceSpy {
     addImage = jasmine.createSpy('addImage');
     removeImage = jasmine.createSpy('removeImage');
+    mapCreated$ = Observable.of(undefined);
   }
 
   let msSpy: MapServiceSpy;

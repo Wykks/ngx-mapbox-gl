@@ -51,20 +51,22 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   ) { }
 
   ngOnInit() {
-    this.MapService.addLayer({
-      id: this.id,
-      type: this.type,
-      source: this.source,
-      metadata: this.metadata,
-      ref: this.ref,
-      'source-layer': this.sourceLayer,
-      minzoom: this.minzoom,
-      maxzoom: this.maxzoom,
-      interactive: this.interactive,
-      filter: this.filter,
-      layout: this.layout,
-      paint: this.paint
-    }, this.before);
+    this.MapService.mapLoaded$.subscribe(() => {
+      this.MapService.addLayer({
+        id: this.id,
+        type: this.type,
+        source: this.source,
+        metadata: this.metadata,
+        ref: this.ref,
+        'source-layer': this.sourceLayer,
+        minzoom: this.minzoom,
+        maxzoom: this.maxzoom,
+        interactive: this.interactive,
+        filter: this.filter,
+        layout: this.layout,
+        paint: this.paint
+      }, this.before);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {

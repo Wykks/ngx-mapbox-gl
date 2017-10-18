@@ -1,0 +1,39 @@
+import { Directive, Host, Input, OnInit } from '@angular/core';
+import { GeolocateControl, FitBoundsOptions } from 'mapbox-gl';
+import { MapService } from '../map/map.service';
+import { ControlComponent } from './control.component';
+
+@Directive({
+  selector: '[mglGeolocate]'
+})
+export class GeolocateControlDirective implements OnInit {
+  /* Init inputs */
+  @Input() positionOptions?: PositionOptions;
+  @Input() fitBoundsOptions?: FitBoundsOptions;
+  @Input() trackUserLocation?: boolean;
+  @Input() showUserLocation?: boolean;
+
+  constructor(
+    private MapService: MapService,
+    @Host() private ControlComponent: ControlComponent
+  ) { }
+
+  ngOnInit() {
+    this.MapService.mapCreated$.subscribe(() => {
+      if (this.ControlComponent.control) {
+        throw new Error('Another control is already set for this control');
+      }
+      const options = {
+        positionOptions: this.positionOptions,
+        fitBoundsOptions: this.fitBoundsOptions,
+        trackUserLocation: this.trackUserLocation,
+        showUserLocation: this.showUserLocation
+      };
+      Object.keys(options)
+        .forEach((key: keyof typeof options) =>
+          options[key] === undefined && delete options[key]);
+      this.ControlComponent.control = new GeolocateControl(options);
+      this.MapService.addControl(this.ControlComponent.control, this.ControlComponent.position);
+    });
+  }
+}

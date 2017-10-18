@@ -7,30 +7,28 @@ import { Component } from '@angular/core';
     [zoom]="15"
     [center]="[-122.486052, 37.830348]"
   >
-    <ng-template>
-      <mgl-geojson-source
-        id="oneline"
+    <mgl-geojson-source
+      id="oneline"
+    >
+      <mgl-feature
+        [geometry]="geometry"
       >
-        <mgl-feature
-          [geometry]="geometry"
-        >
-        </mgl-feature>
-      </mgl-geojson-source>
-      <mgl-layer
-        id="route"
-        type="line"
-        source="oneline"
-        [layout]="{
-          'line-join': 'round',
-          'line-cap': 'round'
-        }"
-        [paint]="{
-          'line-color': '#888',
-          'line-width': 8
-        }"
-      >
-      </mgl-layer>
-    </ng-template>
+      </mgl-feature>
+    </mgl-geojson-source>
+    <mgl-layer
+      id="route"
+      type="line"
+      source="oneline"
+      [layout]="{
+        'line-join': 'round',
+        'line-cap': 'round'
+      }"
+      [paint]="{
+        'line-color': '#888',
+        'line-width': 8
+      }"
+    >
+    </mgl-layer>
   </mgl-map>
   `,
   styleUrls: ['./examples.css']

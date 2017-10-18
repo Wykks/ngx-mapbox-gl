@@ -9,8 +9,7 @@
     "test": "ng test",
     "lint": "ng lint --format stylish",
     "e2e": "ng e2e",
-    "packagr": "ng-packagr -p ng-package.json",
-    "postinstall": "patch -N -p1 < fix-package.patch &2>/dev/null"
+    "packagr": "ng-packagr -p ng-package.json"
   },
   "peerDependencies": {
     "@angular/common": ">=4.0.0 <5.0.0 || >=4.0.0-beta <5.0.0",
@@ -20,7 +19,7 @@
   "devDependencies": {
     "@angular/animations": "^4.4.5",
     "@angular/cdk": "^2.0.0-beta.11",
-    "@angular/cli": "1.5.0-rc.0",
+    "@angular/cli": "1.4.7",
     "@angular/common": "^4.4.5",
     "@angular/compiler": "^4.4.5",
     "@angular/compiler-cli": "^4.4.5",
@@ -35,7 +34,7 @@
     "@types/jasmine": "~2.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/lodash-es": "^4.14.7",
-    "@types/mapbox-gl": "^0.39.6",
+    "@types/mapbox-gl": "^0.40.0",
     "@types/node": "~8.0.34",
     "codelyzer": "~3.2.1",
     "core-js": "^2.5.1",
@@ -49,9 +48,9 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-mocha-reporter": "^2.2.4",
     "lodash-es": "^4.17.4",
-    "mapbox-gl": "^0.40.1",
+    "mapbox-gl": "^0.41.0",
     "ng-packagr": "^1.4.1",
-    "protractor": "~5.1.2",
+    "protractor": "~5.2.0",
     "rxjs": "^5.4.3",
     "ts-node": "~3.3.0",
     "tslint": "~5.7.0",

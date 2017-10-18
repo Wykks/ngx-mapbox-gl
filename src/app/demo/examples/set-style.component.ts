@@ -8,14 +8,14 @@ import { Component, OnInit } from '@angular/core';
     [center]="[4.899, 52.372]"
   >
   </mgl-map>
-  <md-radio-group [ngModel]="layerId" (ngModelChange)="changeStyle($event)">
-    <md-radio-button value="basic">basic</md-radio-button>
-    <md-radio-button value="streets">streets</md-radio-button>
-    <md-radio-button value="bright">bright</md-radio-button>
-    <md-radio-button value="light">light</md-radio-button>
-    <md-radio-button value="dark">dark</md-radio-button>
-    <md-radio-button value="satellite">satellite</md-radio-button>
-  </md-radio-group>
+  <mat-radio-group [ngModel]="layerId" (ngModelChange)="changeStyle($event)">
+    <mat-radio-button value="basic">basic</mat-radio-button>
+    <mat-radio-button value="streets">streets</mat-radio-button>
+    <mat-radio-button value="bright">bright</mat-radio-button>
+    <mat-radio-button value="light">light</mat-radio-button>
+    <mat-radio-button value="dark">dark</mat-radio-button>
+    <mat-radio-button value="satellite">satellite</mat-radio-button>
+  </mat-radio-group>
   `,
   styleUrls: ['./examples.css', './set-style.component.css']
 })

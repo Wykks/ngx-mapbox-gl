@@ -35,19 +35,21 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
       type: 'FeatureCollection',
       features: []
     };
-    this.MapService.addSource(this.id, {
-      type: 'geojson',
-      data: this.data,
-      maxzoom: this.maxzoom,
-      buffer: this.buffer,
-      tolerance: this.tolerance,
-      cluster: this.cluster,
-      clusterRadius: this.clusterRadius,
-      clusterMaxZoom: this.clusterMaxZoom,
-    });
-    this.sub = this.updateFeatureData.debounceTime(0).subscribe(() => {
-      const source = this.MapService.getSource<GeoJSONSource>(this.id);
-      source.setData(this.data!);
+    this.MapService.mapLoaded$.subscribe(() => {
+      this.MapService.addSource(this.id, {
+        type: 'geojson',
+        data: this.data,
+        maxzoom: this.maxzoom,
+        buffer: this.buffer,
+        tolerance: this.tolerance,
+        cluster: this.cluster,
+        clusterRadius: this.clusterRadius,
+        clusterMaxZoom: this.clusterMaxZoom,
+      });
+      this.sub = this.updateFeatureData.debounceTime(0).subscribe(() => {
+        const source = this.MapService.getSource<GeoJSONSource>(this.id);
+        source.setData(this.data!);
+      });
     });
   }
 

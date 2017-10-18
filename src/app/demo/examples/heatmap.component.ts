@@ -10,39 +10,37 @@ const earthquakes = require('./earthquakes.geo.json');
     [zoom]="3"
     [center]="[-103.59179687498357, 40.66995747013945]"
   >
-    <ng-template>
-      <mgl-geojson-source
-        id="earthquakes"
-        [data]="earthquakes"
-        [cluster]="true"
-        [clusterMaxZoom]="15"
-        [clusterRadius]="20"
-      >
-      </mgl-geojson-source>
-      <mgl-layer
-        *ngFor="let layer of clusterLayers"
-        [id]="layer.id"
-        type="circle"
-        source="earthquakes"
-        [filter]="layer.filter"
-        [paint]="layer.paint"
-        before="waterway-label"
-      >
-      </mgl-layer>
-      <mgl-layer
-        id="unclustered-point"
-        type="circle"
-        source="earthquakes"
-        [filter]="['!=', 'cluster', true]"
-        [paint]="{
-          'circle-color': 'rgba(0,255,0,0.5)',
-          'circle-radius': 20,
-          'circle-blur': 1
-        }"
-        before="waterway-label"
-      >
-      </mgl-layer>
-    </ng-template>
+    <mgl-geojson-source
+      id="earthquakes"
+      [data]="earthquakes"
+      [cluster]="true"
+      [clusterMaxZoom]="15"
+      [clusterRadius]="20"
+    >
+    </mgl-geojson-source>
+    <mgl-layer
+      *ngFor="let layer of clusterLayers"
+      [id]="layer.id"
+      type="circle"
+      source="earthquakes"
+      [filter]="layer.filter"
+      [paint]="layer.paint"
+      before="waterway-label"
+    >
+    </mgl-layer>
+    <mgl-layer
+      id="unclustered-point"
+      type="circle"
+      source="earthquakes"
+      [filter]="['!=', 'cluster', true]"
+      [paint]="{
+        'circle-color': 'rgba(0,255,0,0.5)',
+        'circle-radius': 20,
+        'circle-blur': 1
+      }"
+      before="waterway-label"
+    >
+    </mgl-layer>
   </mgl-map>
   `,
   styleUrls: ['./examples.css']

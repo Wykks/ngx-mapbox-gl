@@ -9,14 +9,12 @@ import random from 'lodash-es/random';
     [style]="'mapbox://styles/mapbox/streets-v9'"
     [zoom]="zoom"
   >
-    <ng-template>
-      <mgl-layer
-        id="back"
-        type="background"
-        [paint]="paint"
-      >
-      </mgl-layer>
-    </ng-template>
+    <mgl-layer
+      id="back"
+      type="background"
+      [paint]="paint"
+    >
+    </mgl-layer>
   </mgl-map>
   `,
   styleUrls: ['examples/examples.css']

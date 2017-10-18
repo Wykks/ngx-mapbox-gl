@@ -24,12 +24,14 @@ export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, Vect
   ) { }
 
   ngOnInit() {
-    this.MapService.addSource(this.id, {
-      type: this.type,
-      url: this.url,
-      tiles: this.tiles,
-      minzoom: this.minzoom,
-      maxzoom: this.maxzoom,
+    this.MapService.mapLoaded$.subscribe(() => {
+      this.MapService.addSource(this.id, {
+        type: this.type,
+        url: this.url,
+        tiles: this.tiles,
+        minzoom: this.minzoom,
+        maxzoom: this.maxzoom,
+      });
     });
   }
 

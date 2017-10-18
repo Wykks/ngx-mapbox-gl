@@ -22,21 +22,23 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   ) { }
 
   ngOnInit() {
-    if (this.data) {
-      this.MapService.addImage(
-        this.id,
-        this.data,
-        this.options
-      );
-    } else if (this.url) {
-      this.MapService.loadAndAddImage(
-        this.id,
-        this.url,
-        this.options
-      ).catch((error) => {
-        this.error.emit(error);
-      });
-    }
+    this.MapService.mapCreated$.subscribe(() => {
+      if (this.data) {
+        this.MapService.addImage(
+          this.id,
+          this.data,
+          this.options
+        );
+      } else if (this.url) {
+        this.MapService.loadAndAddImage(
+          this.id,
+          this.url,
+          this.options
+        ).catch((error) => {
+          this.error.emit(error);
+        });
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {

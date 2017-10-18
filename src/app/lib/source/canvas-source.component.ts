@@ -29,7 +29,9 @@ export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, Canv
       animate: this.animate,
       contextType: this.contextType
     };
-    this.MapService.addSource(this.id, source);
+    this.MapService.mapLoaded$.subscribe(() => {
+      this.MapService.addSource(this.id, source);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {

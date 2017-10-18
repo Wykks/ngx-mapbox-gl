@@ -5,36 +5,34 @@ import { Component, OnInit } from '@angular/core';
   <mgl-map
     [style]="'mapbox://styles/mapbox/streets-v9'"
   >
-    <ng-template>
-      <mgl-image
-        id="gradient"
-        [data]="{
-          width: 64,
-          height: 64,
-          data: imageData
-        }"
-      >
-      </mgl-image>
-      <mgl-layer
-        id="points"
-        type="symbol"
-        [source]="{
-          'type': 'geojson',
-          'data': {
-              'type': 'FeatureCollection',
-              'features': [{
-                  'type': 'Feature',
-                  'geometry': {
-                      'type': 'Point',
-                      'coordinates': [0, 0]
-                  }
-              }]
-          }
-        }"
-        [layout]="{'icon-image': 'gradient'}"
-      >
-      </mgl-layer>
-    </ng-template>
+    <mgl-image
+      id="gradient"
+      [data]="{
+        width: 64,
+        height: 64,
+        data: imageData
+      }"
+    >
+    </mgl-image>
+    <mgl-layer
+      id="points"
+      type="symbol"
+      [source]="{
+        'type': 'geojson',
+        'data': {
+            'type': 'FeatureCollection',
+            'features': [{
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': [0, 0]
+                }
+            }]
+        }
+      }"
+      [layout]="{'icon-image': 'gradient'}"
+    >
+    </mgl-layer>
   </mgl-map>
   `,
   styleUrls: ['./examples.css']

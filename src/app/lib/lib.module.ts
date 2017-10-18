@@ -13,6 +13,12 @@ import { VideoSourceComponent } from './source/video-source.component';
 import { FeatureComponent } from './source/geojson/feature.component';
 import { MarkerComponent } from './marker/marker.component';
 import { PopupComponent } from './popup/popup.component';
+import { ControlComponent } from './control/control.component';
+import { FullscreenControlDirective } from './control/fullscreen-control.directive';
+import { NavigationControlDirective } from './control/navigation-control.directive';
+import { GeolocateControlDirective } from './control/geolocate-control.directive';
+import { AttributionControlDirective } from './control/attribution-control.directive';
+import { ScaleControlDirective } from './control/scale-control.directive';
 
 @NgModule({
   imports: [
@@ -30,7 +36,13 @@ import { PopupComponent } from './popup/popup.component';
     CanvasSourceComponent,
     FeatureComponent,
     MarkerComponent,
-    PopupComponent
+    PopupComponent,
+    ControlComponent,
+    FullscreenControlDirective,
+    NavigationControlDirective,
+    GeolocateControlDirective,
+    AttributionControlDirective,
+    ScaleControlDirective
   ],
   exports: [
     MapComponent,
@@ -44,7 +56,13 @@ import { PopupComponent } from './popup/popup.component';
     CanvasSourceComponent,
     FeatureComponent,
     MarkerComponent,
-    PopupComponent
+    PopupComponent,
+    ControlComponent,
+    FullscreenControlDirective,
+    NavigationControlDirective,
+    GeolocateControlDirective,
+    AttributionControlDirective,
+    ScaleControlDirective
   ]
 })
 export class NgxMapboxGLModule {
