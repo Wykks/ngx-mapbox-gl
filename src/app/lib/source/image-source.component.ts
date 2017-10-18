@@ -15,6 +15,8 @@ export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, Image
   @Input() url: string;
   @Input() coordinates: number[][];
 
+  private sourceAdded = false;
+
   constructor(
     private MapService: MapService
   ) { }
@@ -26,10 +28,14 @@ export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, Image
         url: this.url,
         coordinates: this.coordinates
       });
+      this.sourceAdded = true;
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if (!this.sourceAdded) {
+      return;
+    }
     if (
       changes.url && !changes.url.isFirstChange() ||
       changes.coordinates && !changes.coordinates.isFirstChange()

@@ -21,26 +21,32 @@ export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, Rast
 
   type: 'raster' = 'raster'; // Just to make ts happy
 
+  private sourceAdded = false;
+
   constructor(
     private MapService: MapService
   ) { }
 
   ngOnInit() {
-    const source = {
-      type: this.type,
-      url: this.url,
-      tiles: this.tiles,
-      bounds: this.bounds,
-      minzoom: this.minzoom,
-      maxzoom: this.maxzoom,
-      tileSize: this.tileSize
-    };
     this.MapService.mapLoaded$.subscribe(() => {
+      const source = {
+        type: this.type,
+        url: this.url,
+        tiles: this.tiles,
+        bounds: this.bounds,
+        minzoom: this.minzoom,
+        maxzoom: this.maxzoom,
+        tileSize: this.tileSize
+      };
       this.MapService.addSource(this.id, source);
+      this.sourceAdded = true;
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if (!this.sourceAdded) {
+      return;
+    }
     if (
       changes.url && !changes.url.isFirstChange() ||
       changes.tiles && !changes.tiles.isFirstChange() ||

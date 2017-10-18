@@ -19,6 +19,8 @@ export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, Vect
 
   type: 'vector' = 'vector'; // Just to make ts happy
 
+  private sourceAdded = false;
+
   constructor(
     private MapService: MapService
   ) { }
@@ -32,10 +34,14 @@ export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, Vect
         minzoom: this.minzoom,
         maxzoom: this.maxzoom,
       });
+      this.sourceAdded = true;
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if (!this.sourceAdded) {
+      return;
+    }
     if (
       changes.url && !changes.url.isFirstChange() ||
       changes.tiles && !changes.tiles.isFirstChange() ||

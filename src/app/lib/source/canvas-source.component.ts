@@ -17,24 +17,30 @@ export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, Canv
   @Input() contextType: '2d' | 'webgl' | 'experimental-webgl' | 'webgl2';
   @Input() animate?: boolean;
 
+  private sourceAdded = false;
+
   constructor(
     private MapService: MapService
   ) { }
 
   ngOnInit() {
-    const source = {
-      type: 'canvas',
-      coordinates: this.coordinates,
-      canvas: this.canvas,
-      animate: this.animate,
-      contextType: this.contextType
-    };
     this.MapService.mapLoaded$.subscribe(() => {
+      const source = {
+        type: 'canvas',
+        coordinates: this.coordinates,
+        canvas: this.canvas,
+        animate: this.animate,
+        contextType: this.contextType
+      };
       this.MapService.addSource(this.id, source);
+      this.sourceAdded = true;
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if (!this.sourceAdded) {
+      return;
+    }
     if (
       changes.coordinates && !changes.coordinates.isFirstChange() ||
       changes.canvas && !changes.canvas.isFirstChange() ||

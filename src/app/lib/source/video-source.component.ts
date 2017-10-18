@@ -15,6 +15,8 @@ export class VideoSourceComponent implements OnInit, OnDestroy, OnChanges, Video
   @Input() urls: string[];
   @Input() coordinates: number[][];
 
+  private sourceAdded = false;
+
   constructor(
     private MapService: MapService
   ) { }
@@ -26,10 +28,14 @@ export class VideoSourceComponent implements OnInit, OnDestroy, OnChanges, Video
         urls: this.urls,
         coordinates: this.coordinates
       });
+      this.sourceAdded = true;
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if (!this.sourceAdded) {
+      return;
+    }
     if (
       changes.urls && !changes.urls.isFirstChange() ||
       changes.coordinates && !changes.coordinates.isFirstChange()
