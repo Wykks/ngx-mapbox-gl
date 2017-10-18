@@ -16,6 +16,7 @@
       "dom"
     ],
     "strict": true,
+    "skipLibCheck": true,
     "noUnusedLocals": true
   }
 }
