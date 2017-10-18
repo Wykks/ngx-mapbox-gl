@@ -60,41 +60,42 @@ export class MapService {
     this.mapInstance.setMaxZoom(maxZoom);
   }
 
-  updateScrollZoom(_status: boolean) {
-    // TODO
+  updateScrollZoom(status: boolean) {
+    status ? this.mapInstance.scrollZoom.enable() : this.mapInstance.scrollZoom.disable();
   }
 
   updateDragRotate(_status: boolean) {
-    // TODO
+    status ? this.mapInstance.dragRotate.enable() : this.mapInstance.dragRotate.disable();
   }
 
   updateTouchZoomRotate(_status: boolean) {
-    // TODO
+    status ? this.mapInstance.touchZoomRotate.enable() : this.mapInstance.touchZoomRotate.disable();
   }
 
   updateDoubleClickZoom(_status: boolean) {
-    // TODO
+    status ? this.mapInstance.doubleClickZoom.enable() : this.mapInstance.doubleClickZoom.disable();
   }
 
   updateKeyboard(_status: boolean) {
-    // TODO
+    status ? this.mapInstance.keyboard.enable() : this.mapInstance.keyboard.disable();
   }
 
   updateDragPan(_status: boolean) {
-    // TODO
+    status ? this.mapInstance.dragPan.enable() : this.mapInstance.dragPan.disable();
   }
 
   updateBoxZoom(_status: boolean) {
-    // TODO
+    status ? this.mapInstance.boxZoom.enable() : this.mapInstance.boxZoom.disable();
   }
 
   updateStyle(style: MapboxGl.Style) {
-    // TODO Probably not so simple, write tests
+    // TODO Probably not so simple, write demo/tests
     this.mapInstance.setStyle(style);
   }
 
-  updateMaxBounds(_maxBounds: MapboxGl.LngLatBoundsLike) {
-    // TODO
+  updateMaxBounds(maxBounds: MapboxGl.LngLatBoundsLike) {
+    // TODO Probably not so simple, write demo/tests
+    this.mapInstance.setMaxBounds(maxBounds);
   }
 
   panTo(center: MapboxGl.LngLatLike) {
@@ -189,7 +190,7 @@ export class MapService {
     this.mapInstance.removeSource(sourceId);
   }
 
-  setAllPaintProperty(
+  setAllLayerPaintProperty(
     layerId: string,
     paint: MapboxGl.BackgroundPaint | MapboxGl.FillPaint | MapboxGl.FillExtrusionPaint | MapboxGl.LinePaint | MapboxGl.SymbolPaint | MapboxGl.RasterPaint | MapboxGl.CirclePaint
   ) {
@@ -199,7 +200,7 @@ export class MapService {
     });
   }
 
-  setAllLayoutProperty(
+  setAllLayerLayoutProperty(
     layerId: string,
     layout: MapboxGl.BackgroundLayout | MapboxGl.FillLayout | MapboxGl.FillExtrusionLayout | MapboxGl.LineLayout | MapboxGl.SymbolLayout | MapboxGl.RasterLayout | MapboxGl.CircleLayout
   ) {
@@ -207,6 +208,18 @@ export class MapService {
       // TODO Check for perf, setPaintProperty only on changed paint props maybe
       this.mapInstance.setLayoutProperty(layerId, key, (<any>layout)[key]);
     });
+  }
+
+  setLayerFilter(layerId: string, filter: any[]) {
+    this.mapInstance.setFilter(layerId, filter);
+  }
+
+  setLayerBefore(layerId: string, beforeId: string) {
+    this.mapInstance.moveLayer(layerId, beforeId);
+  }
+
+  setLayerZoomRange(layerId: string, minZoom?: number, maxZoom?: number) {
+    this.mapInstance.setLayerZoomRange(layerId, minZoom ? minZoom : 0, maxZoom ? maxZoom : 20);
   }
 
   private createMap(options: MapboxGl.MapboxOptions) {

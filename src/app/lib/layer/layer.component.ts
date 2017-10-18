@@ -71,12 +71,23 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.paint && !changes.paint.isFirstChange()) {
-      this.MapService.setAllPaintProperty(this.id, changes.paint.currentValue!);
+      this.MapService.setAllLayerPaintProperty(this.id, changes.paint.currentValue!);
     }
     if (changes.layout && !changes.layout.isFirstChange()) {
-      this.MapService.setAllLayoutProperty(this.id, changes.layout.currentValue!);
+      this.MapService.setAllLayerLayoutProperty(this.id, changes.layout.currentValue!);
     }
-    // TODO Update others dynamic inputs
+    if (changes.filter && !changes.filter.isFirstChange()) {
+      this.MapService.setLayerFilter(this.id, changes.filter.currentValue!);
+    }
+    if (changes.before && !changes.before.isFirstChange()) {
+      this.MapService.setLayerBefore(this.id, changes.before.currentValue!);
+    }
+    if (
+      changes.minzoom && !changes.minzoom.isFirstChange() ||
+      changes.maxzoom && !changes.maxzoom.isFirstChange()
+    ) {
+      this.MapService.setLayerZoomRange(this.id, this.minzoom, this.maxzoom);
+    }
   }
 
   ngOnDestroy() {
