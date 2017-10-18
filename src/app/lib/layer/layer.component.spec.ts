@@ -2,8 +2,8 @@ import { of } from 'rxjs/observable/of';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LayerComponent } from './layer.component';
-import { MapService } from '../map/map.service';
-import { Layer, BackgroundPaint } from 'mapbox-gl';
+import { MapService, SetupLayer } from '../map/map.service';
+import { BackgroundPaint } from 'mapbox-gl';
 import { SimpleChange } from '@angular/core';
 
 describe('LayerComponent', () => {
@@ -42,9 +42,9 @@ describe('LayerComponent', () => {
   describe('Init/Destroy tests', () => {
     it('should init with custom inputs', (done: DoneFn) => {
       component.paint = { 'background-color': 'green' };
-      msSpy.addLayer.and.callFake((options: Layer) => {
-        expect(options.id).toEqual(component.id);
-        expect((<BackgroundPaint>options.paint)['background-color']).toEqual('green');
+      msSpy.addLayer.and.callFake((options: SetupLayer) => {
+        expect(options.layerOptions.id).toEqual(component.id);
+        expect((<BackgroundPaint>options.layerOptions.paint)['background-color']).toEqual('green');
         done();
       });
       fixture.detectChanges();
@@ -58,6 +58,7 @@ describe('LayerComponent', () => {
 
   describe('Change tests', () => {
     it('should update paint', () => {
+      fixture.detectChanges();
       component.id = 'layerId';
       component.paint = {
         'background-color': 'green',
