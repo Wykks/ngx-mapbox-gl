@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   >
     <mgl-control
       mglScale
-      [unit]="imperial"
+      unit="imperial"
       position="top-right"
     ></mgl-control>
   </mgl-map>

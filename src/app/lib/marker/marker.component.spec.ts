@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 import { MarkerComponent } from './marker.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -10,7 +10,7 @@ describe('MarkerComponent', () => {
   class MapServiceSpy {
     addMarker = jasmine.createSpy('addMarker');
     removeMarker = jasmine.createSpy('removeMarker');
-    mapCreated$ = Observable.of(undefined);
+    mapCreated$ = of(undefined);
   }
 
   let msSpy: MapServiceSpy;

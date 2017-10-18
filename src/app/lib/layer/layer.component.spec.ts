@@ -1,17 +1,17 @@
+import { of } from 'rxjs/observable/of';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LayerComponent } from './layer.component';
 import { MapService } from '../map/map.service';
 import { Layer, BackgroundPaint } from 'mapbox-gl';
 import { SimpleChange } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 
 describe('LayerComponent', () => {
   class MapServiceSpy {
     addLayer = jasmine.createSpy('addLayer');
     removeLayer = jasmine.createSpy('removeLayer');
     setAllPaintProperty = jasmine.createSpy('setAllPaintProperty');
-    mapLoaded$ = Observable.of(undefined);
+    mapLoaded$ = of(undefined);
   }
 
   let msSpy: MapServiceSpy;

@@ -18,7 +18,7 @@ describe('Live update feature', () => {
     await browser.get('/live-update-feature');
     const elm = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(elm), 2000);
-    await browser.sleep(1000);
+    await browser.sleep(4000);
     const imageA = await browser.takeScreenshot();
     await browser.sleep(500);
     const imageB = await browser.takeScreenshot();
