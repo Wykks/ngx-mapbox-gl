@@ -81,9 +81,7 @@
     "tslint": "~5.7.0",
     "tslint-consistent-codestyle": "^1.8.0",
     "typescript": "~2.5.3",
-    "zone.js": "^0.8.18"
-  },
-  "dependencies": {
+    "zone.js": "^0.8.18",
     "protractor-browser-logs": "^1.0.351"
   }
 }
