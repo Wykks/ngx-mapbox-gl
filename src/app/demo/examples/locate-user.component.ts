@@ -4,14 +4,16 @@ import { Component } from '@angular/core';
   template: `
   <mgl-map
     [style]="'mapbox://styles/mapbox/streets-v9'"
-    [attributionControl]="false"
   >
     <mgl-control
-      mglAttribution
-      [compact]="true"
+      mglGeolocate
+      [positionOptions]="{
+        enableHighAccuracy: true
+      }"
+      [trackUserLocation]="true"
     ></mgl-control>
   </mgl-map>
   `,
   styleUrls: ['./examples.css']
 })
-export class NgxAttributionComponent { }
+export class LocateUserComponent { }

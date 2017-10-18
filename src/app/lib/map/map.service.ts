@@ -1,5 +1,5 @@
 import { AsyncSubject } from 'rxjs/AsyncSubject';
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { Inject, Injectable, InjectionToken, NgZone, Optional } from '@angular/core';
 import * as MapboxGl from 'mapbox-gl';
 import { MapEvent, MapImageData, MapImageOptions } from './map.types';
 import { Observable } from 'rxjs/Observable';
@@ -31,6 +31,7 @@ export class MapService {
   private mapLoaded = new AsyncSubject<void>();
 
   constructor(
+    private zone: NgZone,
     @Optional() @Inject(MAPBOX_API_KEY) private readonly MAPBOX_API_KEY: string
   ) {
     this.mapCreated$ = this.mapCreated.asObservable();
@@ -38,68 +39,94 @@ export class MapService {
   }
 
   setup(options: SetupOptions) {
-    // Workaround rollup issue
-    this.assign(MapboxGl, 'accessToken', options.accessToken || this.MAPBOX_API_KEY);
-    this.assign(MapboxGl, 'config.customMapboxApiUrl', options.customMapboxApiUrl);
-    this.createMap(options.mapOptions);
-    this.hookEvents(options.mapEvents);
-    options.mapEvents.load.first().subscribe(() => {
-      this.mapLoaded.next(undefined);
-      this.mapLoaded.complete();
+    return this.zone.runOutsideAngular(() => {
+      // Workaround rollup issue
+      this.assign(MapboxGl, 'accessToken', options.accessToken || this.MAPBOX_API_KEY);
+      this.assign(MapboxGl, 'config.customMapboxApiUrl', options.customMapboxApiUrl);
+      this.createMap(options.mapOptions);
+      this.hookEvents(options.mapEvents);
+      options.mapEvents.load.first().subscribe(() => {
+        this.mapLoaded.next(undefined);
+        this.mapLoaded.complete();
+      });
+      this.mapCreated.next(undefined);
+      this.mapCreated.complete();
+      return this.mapInstance;
     });
-    this.mapCreated.next(undefined);
-    this.mapCreated.complete();
-    return this.mapInstance;
   }
 
   updateMinZoom(minZoom: number) {
-    this.mapInstance.setMinZoom(minZoom);
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.setMinZoom(minZoom);
+    });
   }
 
   updateMaxZoom(maxZoom: number) {
-    this.mapInstance.setMaxZoom(maxZoom);
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.setMaxZoom(maxZoom);
+    });
   }
 
   updateScrollZoom(status: boolean) {
-    status ? this.mapInstance.scrollZoom.enable() : this.mapInstance.scrollZoom.disable();
+    return this.zone.runOutsideAngular(() => {
+      status ? this.mapInstance.scrollZoom.enable() : this.mapInstance.scrollZoom.disable();
+    });
   }
 
-  updateDragRotate(_status: boolean) {
-    status ? this.mapInstance.dragRotate.enable() : this.mapInstance.dragRotate.disable();
+  updateDragRotate(status: boolean) {
+    return this.zone.runOutsideAngular(() => {
+      status ? this.mapInstance.dragRotate.enable() : this.mapInstance.dragRotate.disable();
+    });
   }
 
-  updateTouchZoomRotate(_status: boolean) {
-    status ? this.mapInstance.touchZoomRotate.enable() : this.mapInstance.touchZoomRotate.disable();
+  updateTouchZoomRotate(status: boolean) {
+    return this.zone.runOutsideAngular(() => {
+      status ? this.mapInstance.touchZoomRotate.enable() : this.mapInstance.touchZoomRotate.disable();
+    });
   }
 
-  updateDoubleClickZoom(_status: boolean) {
-    status ? this.mapInstance.doubleClickZoom.enable() : this.mapInstance.doubleClickZoom.disable();
+  updateDoubleClickZoom(status: boolean) {
+    return this.zone.runOutsideAngular(() => {
+      status ? this.mapInstance.doubleClickZoom.enable() : this.mapInstance.doubleClickZoom.disable();
+    });
   }
 
-  updateKeyboard(_status: boolean) {
-    status ? this.mapInstance.keyboard.enable() : this.mapInstance.keyboard.disable();
+  updateKeyboard(status: boolean) {
+    return this.zone.runOutsideAngular(() => {
+      status ? this.mapInstance.keyboard.enable() : this.mapInstance.keyboard.disable();
+    });
   }
 
-  updateDragPan(_status: boolean) {
-    status ? this.mapInstance.dragPan.enable() : this.mapInstance.dragPan.disable();
+  updateDragPan(status: boolean) {
+    return this.zone.runOutsideAngular(() => {
+      status ? this.mapInstance.dragPan.enable() : this.mapInstance.dragPan.disable();
+    });
   }
 
-  updateBoxZoom(_status: boolean) {
-    status ? this.mapInstance.boxZoom.enable() : this.mapInstance.boxZoom.disable();
+  updateBoxZoom(status: boolean) {
+    return this.zone.runOutsideAngular(() => {
+      status ? this.mapInstance.boxZoom.enable() : this.mapInstance.boxZoom.disable();
+    });
   }
 
   updateStyle(style: MapboxGl.Style) {
     // TODO Probably not so simple, write demo/tests
-    this.mapInstance.setStyle(style);
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.setStyle(style);
+    });
   }
 
   updateMaxBounds(maxBounds: MapboxGl.LngLatBoundsLike) {
     // TODO Probably not so simple, write demo/tests
-    this.mapInstance.setMaxBounds(maxBounds);
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.setMaxBounds(maxBounds);
+    });
   }
 
   panTo(center: MapboxGl.LngLatLike) {
-    this.mapInstance.panTo(center);
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.panTo(center);
+    });
   }
 
   move(
@@ -110,76 +137,102 @@ export class MapService {
     bearing?: number,
     pitch?: number
   ) {
-    (<any>this.mapInstance[movingMethod])({
-      ...flyToOptions,
-      zoom: zoom ? zoom : this.mapInstance.getZoom(),
-      center: center ? center : this.mapInstance.getCenter(),
-      bearing: bearing ? bearing : this.mapInstance.getBearing(),
-      pitch: pitch ? pitch : this.mapInstance.getPitch()
+    return this.zone.runOutsideAngular(() => {
+      (<any>this.mapInstance[movingMethod])({
+        ...flyToOptions,
+        zoom: zoom ? zoom : this.mapInstance.getZoom(),
+        center: center ? center : this.mapInstance.getCenter(),
+        bearing: bearing ? bearing : this.mapInstance.getBearing(),
+        pitch: pitch ? pitch : this.mapInstance.getPitch()
+      });
     });
   }
 
   addLayer(layer: MapboxGl.Layer, before?: string) {
-    Object.keys(layer)
-      .forEach((key: keyof MapboxGl.Layer) =>
-        layer[key] === undefined && delete layer[key]);
-    this.mapInstance.addLayer(layer, before);
+    return this.zone.runOutsideAngular(() => {
+      Object.keys(layer)
+        .forEach((key: keyof MapboxGl.Layer) =>
+          layer[key] === undefined && delete layer[key]);
+      this.mapInstance.addLayer(layer, before);
+    });
   }
 
   removeLayer(layerId: string) {
-    this.mapInstance.removeLayer(layerId);
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.removeLayer(layerId);
+    });
   }
 
   addMarker(marker: MapboxGl.Marker) {
-    marker.addTo(this.mapInstance);
+    return this.zone.runOutsideAngular(() => {
+      marker.addTo(this.mapInstance);
+    });
   }
 
   removeMarker(marker: MapboxGl.Marker) {
-    marker.remove();
+    return this.zone.runOutsideAngular(() => {
+      marker.remove();
+    });
   }
 
   addPopup(popup: MapboxGl.Popup) {
-    popup.addTo(this.mapInstance);
+    return this.zone.runOutsideAngular(() => {
+      popup.addTo(this.mapInstance);
+    });
   }
 
   removePopup(popup: MapboxGl.Popup) {
-    popup.remove();
+    return this.zone.runOutsideAngular(() => {
+      popup.remove();
+    });
   }
 
   addControl(control: MapboxGl.Control | MapboxGl.IControl, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left') {
-    this.mapInstance.addControl(<any>control, position);
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.addControl(<any>control, position);
+    });
   }
 
   removeControl(control: MapboxGl.Control | MapboxGl.IControl) {
-    this.mapInstance.removeControl(<any>control);
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.removeControl(<any>control);
+    });
   }
 
   async loadAndAddImage(imageId: string, url: string, options?: MapImageOptions) {
-    return new Promise((resolve, reject) => {
-      this.mapInstance.loadImage(url, (error: { status: number } | null, image: ImageData) => {
-        if (error) {
-          reject(error);
-          return;
-        }
-        this.addImage(imageId, image, options);
-        resolve();
+    return this.zone.runOutsideAngular(() => {
+      return new Promise((resolve, reject) => {
+        this.mapInstance.loadImage(url, (error: { status: number } | null, image: ImageData) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+          this.addImage(imageId, image, options);
+          resolve();
+        });
       });
     });
   }
 
   addImage(imageId: string, data: MapImageData, options?: MapImageOptions) {
-    this.mapInstance.addImage(imageId, <any>data, options);
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.addImage(imageId, <any>data, options);
+    });
   }
 
   removeImage(imageId: string) {
-    this.mapInstance.removeImage(imageId);
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.removeImage(imageId);
+    });
   }
 
   addSource(sourceId: string, source: AllSource) {
-    Object.keys(source)
-      .forEach((key) =>
-        (<any>source)[key] === undefined && delete (<any>source)[key]);
-    this.mapInstance.addSource(sourceId, <any>source); // Typings issue
+    return this.zone.runOutsideAngular(() => {
+      Object.keys(source)
+        .forEach((key) =>
+          (<any>source)[key] === undefined && delete (<any>source)[key]);
+      this.mapInstance.addSource(sourceId, <any>source); // Typings issue
+    });
   }
 
   getSource<T>(sourceId: string) {
@@ -187,16 +240,20 @@ export class MapService {
   }
 
   removeSource(sourceId: string) {
-    this.mapInstance.removeSource(sourceId);
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.removeSource(sourceId);
+    });
   }
 
   setAllLayerPaintProperty(
     layerId: string,
     paint: MapboxGl.BackgroundPaint | MapboxGl.FillPaint | MapboxGl.FillExtrusionPaint | MapboxGl.LinePaint | MapboxGl.SymbolPaint | MapboxGl.RasterPaint | MapboxGl.CirclePaint
   ) {
-    Object.keys(paint).forEach((key) => {
-      // TODO Check for perf, setPaintProperty only on changed paint props maybe
-      this.mapInstance.setPaintProperty(layerId, key, (<any>paint)[key]);
+    return this.zone.runOutsideAngular(() => {
+      Object.keys(paint).forEach((key) => {
+        // TODO Check for perf, setPaintProperty only on changed paint props maybe
+        this.mapInstance.setPaintProperty(layerId, key, (<any>paint)[key]);
+      });
     });
   }
 
@@ -204,22 +261,30 @@ export class MapService {
     layerId: string,
     layout: MapboxGl.BackgroundLayout | MapboxGl.FillLayout | MapboxGl.FillExtrusionLayout | MapboxGl.LineLayout | MapboxGl.SymbolLayout | MapboxGl.RasterLayout | MapboxGl.CircleLayout
   ) {
-    Object.keys(layout).forEach((key) => {
-      // TODO Check for perf, setPaintProperty only on changed paint props maybe
-      this.mapInstance.setLayoutProperty(layerId, key, (<any>layout)[key]);
+    return this.zone.runOutsideAngular(() => {
+      Object.keys(layout).forEach((key) => {
+        // TODO Check for perf, setPaintProperty only on changed paint props maybe
+        this.mapInstance.setLayoutProperty(layerId, key, (<any>layout)[key]);
+      });
     });
   }
 
   setLayerFilter(layerId: string, filter: any[]) {
-    this.mapInstance.setFilter(layerId, filter);
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.setFilter(layerId, filter);
+    });
   }
 
   setLayerBefore(layerId: string, beforeId: string) {
-    this.mapInstance.moveLayer(layerId, beforeId);
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.moveLayer(layerId, beforeId);
+    });
   }
 
   setLayerZoomRange(layerId: string, minZoom?: number, maxZoom?: number) {
-    this.mapInstance.setLayerZoomRange(layerId, minZoom ? minZoom : 0, maxZoom ? maxZoom : 20);
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.setLayerZoomRange(layerId, minZoom ? minZoom : 0, maxZoom ? maxZoom : 20);
+    });
   }
 
   private createMap(options: MapboxGl.MapboxOptions) {

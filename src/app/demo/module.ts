@@ -25,41 +25,37 @@ import { SetStyleComponent } from './examples/set-style.component';
 import { ToggleLayersComponent } from './examples/toggle-layers.component';
 import { IndexComponent } from './index.component';
 import { LayoutComponent } from './layout/layout.component';
-import { NgxGeolocateComponent } from './examples/ngx-geolocate.component';
+import { LocateUserComponent } from './examples/locate-user.component';
 import { NgxAttributionComponent } from './examples/ngx-attribution.component';
 import { NgxScaleControlComponent } from './examples/ngx-scale-control.component';
 import { NgxCustomControlComponent } from './examples/ngx-custom-control.component';
+import { InteractiveFalseComponent } from './examples/interactive-false';
 
-const demoRoutes: Routes = [
-  {
-    path: '',
-    component: LayoutComponent,
-    children: [
-      { path: '', component: IndexComponent },
-      { path: 'display-map', component: DisplayMapComponent },
-      { path: 'custom-style-id', component: CustomStyleIdComponent },
-      { path: 'set-style', component: SetStyleComponent },
-      { path: 'satellite-map', component: SatelliteMapComponent },
-      { path: 'add-image-generated', component: AddImageGeneratedComponent },
-      { path: 'add-image', component: AddImageComponent },
-      { path: 'toggle-layers', component: ToggleLayersComponent },
-      { path: 'cluster', component: ClusterComponent },
-      { path: 'heatmap', component: HeatMapComponent },
-      { path: 'geojson-line', component: GeoJSONLineComponent },
-      { path: 'ngx-geojson-line', component: NgxGeoJSONLineComponent },
-      { path: 'custom-marker-icons', component: CustomMarkerIconsComponent },
-      { path: 'ngx-custom-marker-icons', component: NgxCustomMarkerIconsComponent },
-      { path: 'live-update-feature', component: LiveUpdateFeatureComponent },
-      { path: 'popup', component: PopupComponent },
-      { path: 'set-popup', component: AttachPopupComponent },
-      { path: 'fullscreen', component: FullscreenComponent },
-      { path: 'navigation', component: NavigationComponent },
-      { path: 'ngx-geolocate', component: NgxGeolocateComponent },
-      { path: 'ngx-attribution', component: NgxAttributionComponent },
-      { path: 'ngx-scale-control', component: NgxScaleControlComponent },
-      { path: 'ngx-custom-control', component: NgxCustomControlComponent }
-    ]
-  }
+export const demoRoutes: Routes = [
+  { path: '', component: IndexComponent },
+  { path: 'display-map', component: DisplayMapComponent },
+  { path: 'custom-style-id', component: CustomStyleIdComponent },
+  { path: 'set-style', component: SetStyleComponent },
+  { path: 'satellite-map', component: SatelliteMapComponent },
+  { path: 'add-image-generated', component: AddImageGeneratedComponent },
+  { path: 'add-image', component: AddImageComponent },
+  { path: 'toggle-layers', component: ToggleLayersComponent },
+  { path: 'cluster', component: ClusterComponent },
+  { path: 'heatmap', component: HeatMapComponent },
+  { path: 'geojson-line', component: GeoJSONLineComponent },
+  { path: 'ngx-geojson-line', component: NgxGeoJSONLineComponent },
+  { path: 'custom-marker-icons', component: CustomMarkerIconsComponent },
+  { path: 'ngx-custom-marker-icons', component: NgxCustomMarkerIconsComponent },
+  { path: 'live-update-feature', component: LiveUpdateFeatureComponent },
+  { path: 'popup', component: PopupComponent },
+  { path: 'set-popup', component: AttachPopupComponent },
+  { path: 'fullscreen', component: FullscreenComponent },
+  { path: 'navigation', component: NavigationComponent },
+  { path: 'locate-user', component: LocateUserComponent },
+  { path: 'ngx-attribution', component: NgxAttributionComponent },
+  { path: 'ngx-scale-control', component: NgxScaleControlComponent },
+  { path: 'ngx-custom-control', component: NgxCustomControlComponent },
+  { path: 'interactive-false', component: InteractiveFalseComponent },
 ];
 
 @NgModule({
@@ -96,10 +92,11 @@ const demoRoutes: Routes = [
     AttachPopupComponent,
     FullscreenComponent,
     NavigationComponent,
-    NgxGeolocateComponent,
+    LocateUserComponent,
     NgxAttributionComponent,
     NgxScaleControlComponent,
-    NgxCustomControlComponent
+    NgxCustomControlComponent,
+    InteractiveFalseComponent
   ]
 })
 export class DemoModule { }

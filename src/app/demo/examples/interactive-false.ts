@@ -4,10 +4,12 @@ import { Component } from '@angular/core';
   template: `
   <mgl-map
     [style]="'mapbox://styles/mapbox/streets-v9'"
+    [zoom]="9"
+    [center]="[-74.50, 40]"
+    [interactive]="false"
   >
-    <mgl-control mglGeolocate></mgl-control>
   </mgl-map>
   `,
   styleUrls: ['./examples.css']
 })
-export class NgxGeolocateComponent { }
+export class InteractiveFalseComponent { }

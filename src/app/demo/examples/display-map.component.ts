@@ -11,4 +11,4 @@ import { Component } from '@angular/core';
   `,
   styleUrls: ['./examples.css']
 })
-export class DisplayMapComponent { }
+export class DisplayMapComponent {}
