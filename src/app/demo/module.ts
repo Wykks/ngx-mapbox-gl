@@ -59,7 +59,7 @@ export const demoRoutes: Routes = [
   { path: 'ngx-custom-control', component: NgxCustomControlComponent },
   { path: 'interactive-false', component: InteractiveFalseComponent },
   { path: 'language-switch', component: LanguageSwitchComponent },
-  { path: 'ngx-center-on-symbol', component: CenterOnSymbolComponent },
+  { path: 'center-on-symbol', component: CenterOnSymbolComponent },
 ];
 
 @NgModule({
