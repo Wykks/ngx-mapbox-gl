@@ -33,10 +33,6 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
 
   ngOnInit() {
     this.MapService.mapLoaded$.subscribe(() => {
-      this.data = this.data ? this.data : {
-        type: 'FeatureCollection',
-        features: []
-      };
       this.MapService.addSource(this.id, {
         type: 'geojson',
         data: this.data,
@@ -82,6 +78,12 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
   }
 
   addFeature(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
+    if (!this.data) {
+      this.data = {
+        type: 'FeatureCollection',
+        features: []
+      };
+    }
     const collection = <GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>this.data;
     collection.features.push(feature);
     this.updateFeatureData.next();
