@@ -1,8 +1,8 @@
-# ngx-mapbox-gl [Doc](docs/API.md)
+# ngx-mapbox-gl
 
 ! WORK IN PROGRESS !
 [![Build Status](https://travis-ci.org/Wykks/ngx-mapbox-gl.svg?branch=master)](https://travis-ci.org/Wykks/ngx-mapbox-gl)
-[![npm version](https://img.shields.io/npm/v/@ngx-mapbox-gl/core.svg?style=flat)](https://www.npmjs.com/package/@ngx-mapbox-gl/core)
+[![npm version](https://img.shields.io/npm/v/ngx-mapbox-gl.svg?style=flat)](https://www.npmjs.com/package/@ngx-mapbox-gl/core)
 
 Angular (2+) wrapper for [mapbox-gl-js](https://www.mapbox.com/mapbox-gl-js/api/). Expose a bunch of component meant to be simple to use for Angular.
 
@@ -28,13 +28,13 @@ Include the following components:
 ## How to start
 
 ```javascript
-npm install @ngx-mapbox-gl/core mapbox-gl --save
+npm install ngx-mapbox-gl mapbox-gl --save
 ```
 
 Then, in your app's main module (or in any other module), import the NgxMapboxGLModule
 ```typescript
 ...
-import { NgxMapboxGLModule } from '@ngx-mapbox-gl/core';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 
 @NgModule({
   imports: [
