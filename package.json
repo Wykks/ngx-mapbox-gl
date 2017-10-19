@@ -1,11 +1,11 @@
 {
-  "name": "@ngx-mapbox-gl/core",
+  "name": "ngx-mapbox-gl",
   "version": "0.1.0-alpha.1",
   "description": "A Angular binding of mapbox-gl-js",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Wykks/ngx-mapbox-gl.git"
+    "url": "https://github.com/Wykks/ngx-mapbox-gl.git"
   },
   "keywords": [
     "mapbox",
@@ -75,13 +75,13 @@
     "ng-packagr": "^1.4.1",
     "pixel-diff": "^1.0.1",
     "protractor": "~5.2.0",
+    "protractor-browser-logs": "^1.0.351",
     "rxjs": "^5.4.3",
     "standard-version": "^4.2.0",
     "ts-node": "~3.3.0",
     "tslint": "~5.7.0",
     "tslint-consistent-codestyle": "^1.8.0",
     "typescript": "~2.5.3",
-    "zone.js": "^0.8.18",
-    "protractor-browser-logs": "^1.0.351"
+    "zone.js": "^0.8.18"
   }
 }
