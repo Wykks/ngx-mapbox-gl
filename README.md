@@ -31,6 +31,21 @@ Include the following components:
 npm install ngx-mapbox-gl mapbox-gl --save
 ```
 
+Load the css of mapbox-gl
+
+For example, with angular-cli add this in .angular-cli.json
+```json
+"styles": [
+        ...
+        "../node_modules/mapbox-gl/dist/mapbox-gl.css"
+      ],
+```
+Or in global css 
+```css
+@import "../node_modules/mapbox-gl/dist/mapbox-gl.css";
+```
+
+
 Then, in your app's main module (or in any other module), import the NgxMapboxGLModule
 ```typescript
 ...
@@ -69,6 +84,12 @@ import { Component } from '@angular/core';
 })
 export class DisplayMapComponent { }
 ```
+
+## Important notes for production build
+
+@angular/cli users: >= 1.5.0 version is required (https://github.com/angular/angular-cli/issues/5804)
+
+Webpack users: add `noParse: /(mapbox-gl)\.js$/`
 
 ## Built with ngx-mapbox-gl
 Todo
