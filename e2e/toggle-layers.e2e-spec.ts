@@ -18,7 +18,7 @@ describe('Toggle layers', () => {
     await browser.get('/toggle-layers');
     const elm = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(elm), 2000);
-    const buttons = await element(by.tagName('mat-button-toggle'));
+    const buttons = await browser.findElements(by.tagName('mat-button-toggle'));
     await browser.sleep(5000);
     const screen1 = await browser.takeScreenshot();
     await buttons[0].click();
