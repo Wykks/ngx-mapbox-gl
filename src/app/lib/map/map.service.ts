@@ -59,6 +59,10 @@ export class MapService {
     });
   }
 
+  destroyMap() {
+    this.mapInstance.remove();
+  }
+
   updateMinZoom(minZoom: number) {
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.setMinZoom(minZoom);

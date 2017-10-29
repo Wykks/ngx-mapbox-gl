@@ -8,6 +8,7 @@ describe('MapComponent', () => {
   class MapServiceSpy {
     setup = jasmine.createSpy('setup');
     updateMinZoom = jasmine.createSpy('updateMinZoom');
+    destroyMap = jasmine.createSpy('destroyMap');
   }
 
   let msSpy: MapServiceSpy;

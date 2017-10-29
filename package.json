@@ -23,7 +23,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --aot --prod",
-    "test": "ng test",
+    "test": "ng test -sm=false",
     "lint": "ng lint --format stylish",
     "e2e": "ng e2e",
     "packagr": "ng-packagr -p ng-package.json",
