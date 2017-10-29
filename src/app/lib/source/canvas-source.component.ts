@@ -1,5 +1,6 @@
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { CanvasSourceOptions } from 'mapbox-gl';
-import { Component, Input, OnDestroy, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import 'rxjs/add/operator/switchMap';
 import { MapService } from '../map/map.service';
 
 @Component({
@@ -24,7 +25,7 @@ export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, Canv
   ) { }
 
   ngOnInit() {
-    this.MapService.mapLoaded$.subscribe(() => {
+    this.MapService.mapCreated$.switchMap(() => this.MapService.mapEvents.load).first().subscribe(() => {
       const source = {
         type: 'canvas',
         coordinates: this.coordinates,

@@ -8,7 +8,7 @@ import { GeoJSONSourceComponent } from './geojson-source.component';
 })
 export class FeatureComponent implements OnInit, OnDestroy, OnChanges, GeoJSON.Feature<GeoJSON.GeometryObject> {
   /* Init inputs */
-  @Input() id?: string;
+  @Input() id?: number; // FIXME number only for now https://github.com/mapbox/mapbox-gl-js/issues/2716
   @Input() geometry: GeoJSON.GeometryObject;
   @Input() properties: any;
   type: 'Feature' = 'Feature';
@@ -17,7 +17,7 @@ export class FeatureComponent implements OnInit, OnDestroy, OnChanges, GeoJSON.F
 
   constructor(
     @Inject(forwardRef(() => GeoJSONSourceComponent)) private GeoJSONSourceComponent: GeoJSONSourceComponent
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.feature = {
@@ -25,17 +25,22 @@ export class FeatureComponent implements OnInit, OnDestroy, OnChanges, GeoJSON.F
       geometry: this.geometry,
       properties: this.properties ? this.properties : {}
     };
-    if (this.id) {
-      this.feature.id = this.id;
-    }
+    this.feature.id = this.id;
     this.GeoJSONSourceComponent.addFeature(this.feature);
   }
 
   ngOnChanges() {
-
+    if (!this.id) {
+      this.id = this.GeoJSONSourceComponent.getNewFeatureId();
+    }
   }
 
   ngOnDestroy() {
     this.GeoJSONSourceComponent.removeFeature(this.feature);
+  }
+
+  updateCoordinates(coordinates: number[]) {
+    (<GeoJSON.DirectGeometryObject>this.feature.geometry).coordinates = coordinates;
+    this.GeoJSONSourceComponent.updateFeatureData.next();
   }
 }

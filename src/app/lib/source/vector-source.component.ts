@@ -1,5 +1,6 @@
-import { VectorSource} from 'mapbox-gl';
-import { Component, Input, OnDestroy, OnInit, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { VectorSource } from 'mapbox-gl';
+import 'rxjs/add/operator/switchMap';
 import { MapService } from '../map/map.service';
 
 @Component({
@@ -26,7 +27,7 @@ export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, Vect
   ) { }
 
   ngOnInit() {
-    this.MapService.mapLoaded$.subscribe(() => {
+    this.MapService.mapCreated$.switchMap(() => this.MapService.mapEvents.load).first().subscribe(() => {
       this.MapService.addSource(this.id, {
         type: this.type,
         url: this.url,

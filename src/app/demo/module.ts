@@ -32,6 +32,7 @@ import { NgxCustomControlComponent } from './examples/ngx-custom-control.compone
 import { InteractiveFalseComponent } from './examples/interactive-false.component';
 import { LanguageSwitchComponent } from './examples/language-switch.component';
 import { CenterOnSymbolComponent } from './examples/center-on-symbol.component';
+import { NgxDragAPointComponent } from './examples/ngx-drag-a-point.component';
 
 export const demoRoutes: Routes = [
   { path: '', component: IndexComponent },
@@ -60,6 +61,7 @@ export const demoRoutes: Routes = [
   { path: 'interactive-false', component: InteractiveFalseComponent },
   { path: 'language-switch', component: LanguageSwitchComponent },
   { path: 'center-on-symbol', component: CenterOnSymbolComponent },
+  { path: 'ngx-drag-a-point', component: NgxDragAPointComponent },
 ];
 
 @NgModule({
@@ -102,7 +104,8 @@ export const demoRoutes: Routes = [
     NgxCustomControlComponent,
     InteractiveFalseComponent,
     LanguageSwitchComponent,
-    CenterOnSymbolComponent
+    CenterOnSymbolComponent,
+    NgxDragAPointComponent
   ]
 })
 export class DemoModule { }

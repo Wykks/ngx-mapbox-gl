@@ -34,17 +34,15 @@ export type AllSource = MapboxGl.VectorSource |
 export class MapService {
   mapInstance: MapboxGl.Map;
   mapCreated$: Observable<void>;
-  mapLoaded$: Observable<void>;
+  mapEvents: MapEvent;
 
   private mapCreated = new AsyncSubject<void>();
-  private mapLoaded = new AsyncSubject<void>();
 
   constructor(
     private zone: NgZone,
     @Optional() @Inject(MAPBOX_API_KEY) private readonly MAPBOX_API_KEY: string
   ) {
     this.mapCreated$ = this.mapCreated.asObservable();
-    this.mapLoaded$ = this.mapLoaded.asObservable();
   }
 
   setup(options: SetupMap) {
@@ -54,10 +52,7 @@ export class MapService {
       this.assign(MapboxGl, 'config.customMapboxApiUrl', options.customMapboxApiUrl);
       this.createMap(options.mapOptions);
       this.hookEvents(options.mapEvents);
-      options.mapEvents.load.first().subscribe(() => {
-        this.mapLoaded.next(undefined);
-        this.mapLoaded.complete();
-      });
+      this.mapEvents = options.mapEvents;
       this.mapCreated.next(undefined);
       this.mapCreated.complete();
       return this.mapInstance;
@@ -132,6 +127,18 @@ export class MapService {
     });
   }
 
+  changeCanvasCursor(cursor: string) {
+    const canvas = this.mapInstance.getCanvasContainer();
+    canvas.style.cursor = cursor;
+  }
+
+  queryRenderedFeatures(
+    pointOrBox?: MapboxGl.PointLike | MapboxGl.PointLike[],
+    parameters?: { layers?: string[], filter?: any[] }
+  ) {
+    return this.mapInstance.queryRenderedFeatures(pointOrBox, parameters);
+  }
+
   panTo(center: MapboxGl.LngLatLike) {
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.panTo(center);
@@ -163,20 +170,20 @@ export class MapService {
         .forEach((key: keyof MapboxGl.Layer) =>
           layer.layerOptions[key] === undefined && delete layer.layerOptions[key]);
       this.mapInstance.addLayer(layer.layerOptions, before);
-    });
-    this.mapInstance.on('click', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
-      this.zone.run(() => {
-        layer.layerEvents.click.emit(evt);
+      this.mapInstance.on('click', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
+        this.zone.run(() => {
+          layer.layerEvents.click.emit(evt);
+        });
       });
-    });
-    this.mapInstance.on('mouseenter', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
-      this.zone.run(() => {
-        layer.layerEvents.mouseEnter.emit(evt);
+      this.mapInstance.on('mouseenter', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
+        this.zone.run(() => {
+          layer.layerEvents.mouseEnter.emit(evt);
+        });
       });
-    });
-    this.mapInstance.on('mouseleave', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
-      this.zone.run(() => {
-        layer.layerEvents.mouseLeave.emit(evt);
+      this.mapInstance.on('mouseleave', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
+        this.zone.run(() => {
+          layer.layerEvents.mouseLeave.emit(evt);
+        });
       });
     });
   }

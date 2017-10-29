@@ -1,28 +1,38 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import {
   BackgroundLayout,
+  BackgroundPaint,
   CircleLayout,
+  CirclePaint,
   FillExtrusionLayout,
+  FillExtrusionPaint,
   FillLayout,
+  FillPaint,
   GeoJSONSource,
   GeoJSONSourceRaw,
   ImageSource,
   Layer,
   LineLayout,
+  LinePaint,
+  MapMouseEvent,
   RasterLayout,
+  RasterPaint,
   RasterSource,
   SymbolLayout,
-  VectorSource,
-  VideoSource,
-  BackgroundPaint,
-  FillPaint,
-  FillExtrusionPaint,
-  LinePaint,
   SymbolPaint,
-  RasterPaint,
-  CirclePaint,
-  MapMouseEvent
+  VectorSource,
+  VideoSource
 } from 'mapbox-gl';
+import 'rxjs/add/operator/switchMap';
 import { MapService } from '../map/map.service';
 
 @Component({
@@ -56,7 +66,7 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   ) { }
 
   ngOnInit() {
-    this.MapService.mapLoaded$.subscribe(() => {
+    this.MapService.mapCreated$.switchMap(() => this.MapService.mapEvents.load).first().subscribe(() => {
       this.MapService.addLayer({
         layerOptions: {
           id: this.id,

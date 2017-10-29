@@ -11,6 +11,7 @@ import { RasterSourceComponent } from './source/raster-source.component';
 import { VectorSourceComponent } from './source/vector-source.component';
 import { VideoSourceComponent } from './source/video-source.component';
 import { FeatureComponent } from './source/geojson/feature.component';
+import { DraggableDirective } from './source/geojson/draggable.directive';
 import { MarkerComponent } from './marker/marker.component';
 import { PopupComponent } from './popup/popup.component';
 import { ControlComponent } from './control/control.component';
@@ -27,6 +28,7 @@ import { ScaleControlDirective } from './control/scale-control.directive';
   declarations: [
     MapComponent,
     LayerComponent,
+    DraggableDirective,
     ImageComponent,
     VectorSourceComponent,
     GeoJSONSourceComponent,
@@ -47,6 +49,7 @@ import { ScaleControlDirective } from './control/scale-control.directive';
   exports: [
     MapComponent,
     LayerComponent,
+    DraggableDirective,
     ImageComponent,
     VectorSourceComponent,
     GeoJSONSourceComponent,

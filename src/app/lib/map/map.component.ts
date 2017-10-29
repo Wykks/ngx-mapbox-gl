@@ -200,7 +200,9 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, Mapbox
     });
   }
 
-  ngOnDestroy() { }
+  ngOnDestroy() {
+    this.mapInstance.remove();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.minZoom && !changes.minZoom.isFirstChange()) {
