@@ -29,7 +29,7 @@ describe('Custom control', () => {
     const button = element(by.tagName('button'));
     await browser.wait(EC.presenceOf(button), 1000);
     await button.click();
-    await browser.wait(EC.alertIsPresent(), 500);
+    await browser.wait(EC.alertIsPresent(), 1000);
     await browser.switchTo().alert().accept();
   });
 });
