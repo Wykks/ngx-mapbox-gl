@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.1.0-beta.0"></a>
+# [0.1.0-beta.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v0.1.0-alpha.2...v0.1.0-beta.0) (2017-10-29)
+
+
+### Features
+
+* feature draggable directive + example ([1166346](https://github.com/Wykks/ngx-mapbox-gl/commit/1166346))
+
+
+
 <a name="0.1.0-alpha.2"></a>
 # [0.1.0-alpha.2](https://github.com/Wykks/ngx-mapbox-gl/compare/v0.1.0-alpha.1...v0.1.0-alpha.2) (2017-10-19)
 
