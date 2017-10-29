@@ -17,12 +17,12 @@ describe('Language switch', () => {
     await browser.get('/language-switch');
     const elm = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(elm), 2000);
-    const buttons = await browser.findElements(by.tagName('button'));
+    const buttons = element.all(by.tagName('button'));
     await browser.sleep(4000);
-    await buttons[0].click();
+    await buttons.get(0).click();
     await browser.sleep(2000);
     const screen1 = await browser.takeScreenshot();
-    await buttons[1].click();
+    await buttons.get(1).click();
     await browser.sleep(2000);
     const screen2 = await browser.takeScreenshot();
     const result = new PixelDiff({
@@ -30,7 +30,7 @@ describe('Language switch', () => {
       imageB: new Buffer(screen2, 'base64')
     }).runSync();
     expect(result.differences).toBeGreaterThan(0);
-    await buttons[0].click();
+    await buttons.get(0).click();
     await browser.sleep(2000);
     const screen1bis = await browser.takeScreenshot();
     const result2 = new PixelDiff({
