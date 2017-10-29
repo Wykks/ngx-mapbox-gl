@@ -27,7 +27,7 @@
     "lint": "ng lint --format stylish",
     "e2e": "ng e2e",
     "packagr": "ng-packagr -p ng-package.json",
-    "release": "standard-version --prerelease alpha"
+    "release": "standard-version --prerelease beta"
   },
   "standard-version": {
     "scripts": {
