@@ -1,6 +1,5 @@
 # ngx-mapbox-gl
 
-! WORK IN PROGRESS !
 [![Build Status](https://travis-ci.org/Wykks/ngx-mapbox-gl.svg?branch=master)](https://travis-ci.org/Wykks/ngx-mapbox-gl)
 [![npm version](https://img.shields.io/npm/v/ngx-mapbox-gl.svg?style=flat)](https://www.npmjs.com/package/ngx-mapbox-gl)
 
