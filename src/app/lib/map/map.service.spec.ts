@@ -100,13 +100,13 @@ describe('MapService', () => {
   }));
 
   it('should fire load event', (done: DoneFn) => {
-    mapEvents.mapEvents.load.first().subscribe(() => {
+    mapEvents.load.first().subscribe(() => {
       done();
     });
   });
 
   it('should update minZoom', (done: DoneFn) => inject([MapService], (service: MapService) => {
-    mapEvents.mapEvents.load.first().subscribe(() => {
+    mapEvents.load.first().subscribe(() => {
       service.updateMinZoom(6);
       expect(service.mapInstance.getMinZoom()).toEqual(6);
       done();
