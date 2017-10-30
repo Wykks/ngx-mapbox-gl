@@ -39,7 +39,7 @@ describe('Generic runtime error check', () => {
       await browser.get(`/${route}`);
       const elm = element(by.tagName('canvas'));
       await browser.wait(EC.presenceOf(elm), 2000);
-      await browser.sleep(1000);
+      await browser.sleep(2000);
     });
   });
 });

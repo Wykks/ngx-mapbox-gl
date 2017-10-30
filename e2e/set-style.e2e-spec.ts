@@ -18,7 +18,7 @@ describe('Set style', () => {
     const elm = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(elm), 2000);
     const radios = element.all(by.tagName('mat-radio-button'));
-    await browser.sleep(5000);
+    await browser.sleep(6000);
     const style1 = await browser.takeScreenshot();
     await radios.get(1).click();
     await browser.sleep(1000);
