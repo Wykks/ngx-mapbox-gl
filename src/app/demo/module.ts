@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButtonToggleModule, MatRadioModule, MatButtonModule } from '@angular/material';
+import { MatButtonModule, MatButtonToggleModule, MatRadioModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxMapboxGLModule } from '../lib';
 import { AddImageGeneratedComponent } from './examples/add-image-generated.component';
 import { AddImageComponent } from './examples/add-image.component';
 import { AttachPopupComponent } from './examples/attach-popup.component';
+import { CenterOnSymbolComponent } from './examples/center-on-symbol.component';
 import { ClusterComponent } from './examples/cluster.component';
 import { CustomMarkerIconsComponent } from './examples/custom-marker-icons.component';
 import { CustomStyleIdComponent } from './examples/custom-style-id.component';
@@ -15,24 +16,24 @@ import { DisplayMapComponent } from './examples/display-map.component';
 import { FullscreenComponent } from './examples/fullscreen.component';
 import { GeoJSONLineComponent } from './examples/geojson-line.component';
 import { HeatMapComponent } from './examples/heatmap.component';
+import { HoverStylesComponent } from './examples/hover-styles.component';
+import { InteractiveFalseComponent } from './examples/interactive-false.component';
+import { LanguageSwitchComponent } from './examples/language-switch.component';
 import { LiveUpdateFeatureComponent } from './examples/live-update-feature.component';
+import { LocateUserComponent } from './examples/locate-user.component';
 import { NavigationComponent } from './examples/navigation.component';
+import { NgxAttributionComponent } from './examples/ngx-attribution.component';
+import { NgxCustomControlComponent } from './examples/ngx-custom-control.component';
 import { NgxCustomMarkerIconsComponent } from './examples/ngx-custom-marker-icons.component';
+import { NgxDragAPointComponent } from './examples/ngx-drag-a-point.component';
 import { NgxGeoJSONLineComponent } from './examples/ngx-geojson-line.component';
+import { NgxScaleControlComponent } from './examples/ngx-scale-control.component';
 import { PopupComponent } from './examples/popup.component';
 import { SatelliteMapComponent } from './examples/satellite-map.component';
 import { SetStyleComponent } from './examples/set-style.component';
 import { ToggleLayersComponent } from './examples/toggle-layers.component';
 import { IndexComponent } from './index.component';
 import { LayoutComponent } from './layout/layout.component';
-import { LocateUserComponent } from './examples/locate-user.component';
-import { NgxAttributionComponent } from './examples/ngx-attribution.component';
-import { NgxScaleControlComponent } from './examples/ngx-scale-control.component';
-import { NgxCustomControlComponent } from './examples/ngx-custom-control.component';
-import { InteractiveFalseComponent } from './examples/interactive-false.component';
-import { LanguageSwitchComponent } from './examples/language-switch.component';
-import { CenterOnSymbolComponent } from './examples/center-on-symbol.component';
-import { NgxDragAPointComponent } from './examples/ngx-drag-a-point.component';
 
 export const demoRoutes: Routes = [
   { path: '', component: IndexComponent },
@@ -62,6 +63,7 @@ export const demoRoutes: Routes = [
   { path: 'language-switch', component: LanguageSwitchComponent },
   { path: 'center-on-symbol', component: CenterOnSymbolComponent },
   { path: 'ngx-drag-a-point', component: NgxDragAPointComponent },
+  { path: 'hover-styles', component: HoverStylesComponent },
 ];
 
 @NgModule({
@@ -105,7 +107,8 @@ export const demoRoutes: Routes = [
     InteractiveFalseComponent,
     LanguageSwitchComponent,
     CenterOnSymbolComponent,
-    NgxDragAPointComponent
+    NgxDragAPointComponent,
+    HoverStylesComponent
   ]
 })
 export class DemoModule { }

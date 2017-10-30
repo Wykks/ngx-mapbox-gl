@@ -58,6 +58,7 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   @Output() click = new EventEmitter<MapMouseEvent>();
   @Output() mouseEnter = new EventEmitter<MapMouseEvent>();
   @Output() mouseLeave = new EventEmitter<MapMouseEvent>();
+  @Output() mouseMove = new EventEmitter<MapMouseEvent>();
 
   private layerAdded = false;
 
@@ -83,7 +84,8 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
         layerEvents: {
           click: this.click,
           mouseEnter: this.mouseEnter,
-          mouseLeave: this.mouseLeave
+          mouseLeave: this.mouseLeave,
+          mouseMove: this.mouseMove
         }
       }, this.before);
       this.layerAdded = true;

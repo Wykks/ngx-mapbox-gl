@@ -19,6 +19,7 @@ export interface SetupLayer {
     click: EventEmitter<MapboxGl.MapMouseEvent>;
     mouseEnter: EventEmitter<MapboxGl.MapMouseEvent>;
     mouseLeave: EventEmitter<MapboxGl.MapMouseEvent>;
+    mouseMove: EventEmitter<MapboxGl.MapMouseEvent>;
   };
 }
 
@@ -189,6 +190,11 @@ export class MapService {
           layer.layerEvents.mouseLeave.emit(evt);
         });
       });
+      this.mapInstance.on('mousemove', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
+        this.zone.run(() => {
+          layer.layerEvents.mouseMove.emit(evt);
+        });
+      });
     });
   }
 
@@ -198,6 +204,7 @@ export class MapService {
       this.mapInstance.off('click', layerId);
       this.mapInstance.off('mouseenter', layerId);
       this.mapInstance.off('mouseleave', layerId);
+      this.mapInstance.off('mousemove', layerId);
       this.mapInstance.removeLayer(layerId);
     });
   }
