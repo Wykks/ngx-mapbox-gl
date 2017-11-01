@@ -50,7 +50,9 @@ export class MapService {
     return this.zone.runOutsideAngular(() => {
       // Workaround rollup issue
       this.assign(MapboxGl, 'accessToken', options.accessToken || this.MAPBOX_API_KEY);
-      this.assign(MapboxGl, 'config.customMapboxApiUrl', options.customMapboxApiUrl);
+      if (options.customMapboxApiUrl) {
+        this.assign(MapboxGl, 'config.API_URL', options.customMapboxApiUrl);
+      }
       this.createMap(options.mapOptions);
       this.hookEvents(options.mapEvents);
       this.mapEvents = options.mapEvents;
