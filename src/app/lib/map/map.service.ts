@@ -343,7 +343,6 @@ export class MapService {
   }
 
   private hookEvents(events: MapEvent) {
-    this.mapInstance.on('load', () => this.zone.run(() => events.load.emit()));
     this.mapInstance.on('resize', () => this.zone.run(() => events.resize.emit()));
     this.mapInstance.on('remove', () => this.zone.run(() => events.remove.emit()));
     this.mapInstance.on('mousedown', (evt: MapboxGl.MapMouseEvent) => this.zone.run(() => events.mouseDown.emit(evt)));
