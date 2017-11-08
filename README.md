@@ -6,9 +6,9 @@
 Angular (2+) wrapper for [mapbox-gl-js](https://www.mapbox.com/mapbox-gl-js/api/). Expose a bunch of component meant to be simple to use for Angular.
 
 Include the following components:
-- mgl-map
+- [mgl-map](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-map-mapbox-gl-api)
 - mgl-image
-- mgl-layer
+- [mgl-layer](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-layer-mapbox-gl-style-spec)
 - mgl-geojson-source
 - mgl-canvas-source
 - mgl-image-source
