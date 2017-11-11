@@ -20,7 +20,7 @@ import {
 })
 export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnInit {
   /* Init input */
-  @Input() offset: PointLike;
+  @Input() offset?: PointLike;
 
   /* Dynamic input */
   @Input() feature?: GeoJSON.Feature<GeoJSON.Point>;
