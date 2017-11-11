@@ -15,7 +15,6 @@ export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, Canv
   /* Dynamic inputs */
   @Input() coordinates: number[][];
   @Input() canvas: string;
-  @Input() contextType: '2d' | 'webgl' | 'experimental-webgl' | 'webgl2';
   @Input() animate?: boolean;
 
   private sourceAdded = false;
@@ -31,7 +30,6 @@ export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, Canv
         coordinates: this.coordinates,
         canvas: this.canvas,
         animate: this.animate,
-        contextType: this.contextType
       };
       this.MapService.addSource(this.id, source);
       this.sourceAdded = true;
