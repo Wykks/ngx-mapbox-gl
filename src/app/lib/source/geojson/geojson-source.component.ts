@@ -20,7 +20,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
   @Input() maxzoom?: number;
   @Input() buffer?: number;
   @Input() tolerance?: number;
-  @Input() cluster?: number | boolean;
+  @Input() cluster?: boolean;
   @Input() clusterRadius?: number;
   @Input() clusterMaxZoom?: number;
 
