@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-beta.0"></a>
+# [1.0.0-beta.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v0.1.0-beta.0...v1.0.0-beta.0) (2017-11-14)
+
+
+### Bug Fixes
+
+* **canvas:** remove contextType ([3ca702c](https://github.com/Wykks/ngx-mapbox-gl/commit/3ca702c))
+* **geojsonSource:** adjust cluster input type ([4ae0151](https://github.com/Wykks/ngx-mapbox-gl/commit/4ae0151))
+* use AsyncSubject for internal load event ([456013a](https://github.com/Wykks/ngx-mapbox-gl/commit/456013a))
+* **geojsonSource:** fill data with empty FeatureCollection ([a8df1cd](https://github.com/Wykks/ngx-mapbox-gl/commit/a8df1cd))
+* **map:** customMapboxApiUrl now correctly set API_URL ([ef295a3](https://github.com/Wykks/ngx-mapbox-gl/commit/ef295a3))
+* **map:** remove duplicate load event listener ([c92da66](https://github.com/Wykks/ngx-mapbox-gl/commit/c92da66))
+* **marker:** set offset as optionnal ([4f60ce1](https://github.com/Wykks/ngx-mapbox-gl/commit/4f60ce1))
+
+
+### Features
+
+* **layer:** add mouseMove event ([45f99ff](https://github.com/Wykks/ngx-mapbox-gl/commit/45f99ff))
+* emit map instance on load output ([17e9fe2](https://github.com/Wykks/ngx-mapbox-gl/commit/17e9fe2))
+* **map:** add cursorStyle input ([3848618](https://github.com/Wykks/ngx-mapbox-gl/commit/3848618))
+* **popup:** add close output ([7e93c5a](https://github.com/Wykks/ngx-mapbox-gl/commit/7e93c5a))
+
+
+### BREAKING CHANGES
+
+* MapComponent is no longer exposed in the package
+* **canvas:** remove contextType
+
+
+
 <a name="0.1.0-beta.0"></a>
 # [0.1.0-beta.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v0.1.0-alpha.2...v0.1.0-beta.0) (2017-10-29)
 
