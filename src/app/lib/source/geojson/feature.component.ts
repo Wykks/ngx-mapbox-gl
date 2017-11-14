@@ -1,4 +1,4 @@
-import { Component, forwardRef, Inject, Input, OnChanges, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, forwardRef, Inject, Input, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { GeoJSONSourceComponent } from './geojson-source.component';
 
 @Component({
@@ -6,7 +6,7 @@ import { GeoJSONSourceComponent } from './geojson-source.component';
   template: '',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FeatureComponent implements OnInit, OnDestroy, OnChanges, GeoJSON.Feature<GeoJSON.GeometryObject> {
+export class FeatureComponent implements OnInit, OnDestroy, GeoJSON.Feature<GeoJSON.GeometryObject> {
   /* Init inputs */
   @Input() id?: number; // FIXME number only for now https://github.com/mapbox/mapbox-gl-js/issues/2716
   @Input() geometry: GeoJSON.GeometryObject;
@@ -20,6 +20,9 @@ export class FeatureComponent implements OnInit, OnDestroy, OnChanges, GeoJSON.F
   ) { }
 
   ngOnInit() {
+    if (!this.id) {
+      this.id = this.GeoJSONSourceComponent.getNewFeatureId();
+    }
     this.feature = {
       type: this.type,
       geometry: this.geometry,
@@ -27,12 +30,6 @@ export class FeatureComponent implements OnInit, OnDestroy, OnChanges, GeoJSON.F
     };
     this.feature.id = this.id;
     this.GeoJSONSourceComponent.addFeature(this.feature);
-  }
-
-  ngOnChanges() {
-    if (!this.id) {
-      this.id = this.GeoJSONSourceComponent.getNewFeatureId();
-    }
   }
 
   ngOnDestroy() {
