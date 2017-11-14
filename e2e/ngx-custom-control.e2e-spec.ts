@@ -21,15 +21,15 @@ describe('Custom control', () => {
 
   it('should show', async () => {
     const button = element(by.tagName('button'));
-    await browser.wait(EC.presenceOf(button), 1000);
+    await browser.wait(EC.presenceOf(button), 3000);
     expect(button.getText()).toBe('Hello');
   });
 
   it('should do something on click', async () => {
     const button = element(by.tagName('button'));
-    await browser.wait(EC.presenceOf(button), 1000);
+    await browser.wait(EC.presenceOf(button), 3000);
     await button.click();
-    await browser.wait(EC.alertIsPresent(), 1000);
+    await browser.wait(EC.alertIsPresent(), 2000);
     await browser.switchTo().alert().accept();
   });
 });

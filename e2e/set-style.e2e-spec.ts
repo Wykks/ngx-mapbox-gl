@@ -18,10 +18,10 @@ describe('Set style', () => {
     const elm = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(elm), 2000);
     const radios = element.all(by.tagName('mat-radio-button'));
-    await browser.sleep(6000);
+    await browser.sleep(7000);
     const style1 = await browser.takeScreenshot();
     await radios.get(1).click();
-    await browser.sleep(1000);
+    await browser.sleep(3000);
     const style2 = await browser.takeScreenshot();
     const result = new PixelDiff({
       imageA: new Buffer(style1, 'base64'),
@@ -29,7 +29,7 @@ describe('Set style', () => {
     }).runSync();
     expect(result.differences).toBeGreaterThan(0);
     await radios.get(0).click();
-    await browser.sleep(2500);
+    await browser.sleep(4000);
     const style1bis = await browser.takeScreenshot();
     const result2 = new PixelDiff({
       imageA: new Buffer(style1, 'base64'),
