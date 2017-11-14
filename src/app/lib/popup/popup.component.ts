@@ -8,7 +8,9 @@ import {
   OnDestroy,
   OnInit,
   SimpleChanges,
-  ViewChild
+  ViewChild,
+  EventEmitter,
+  Output
 } from '@angular/core';
 import { PointLike, Popup, LngLatLike } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
@@ -29,6 +31,8 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
   /* Dynamic input */
   @Input() lngLat?: LngLatLike;
   @Input() marker?: MarkerComponent;
+
+  @Output() close = new EventEmitter<void>();
 
   @ViewChild('content') content: ElementRef;
 
@@ -70,6 +74,9 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
       .forEach((key) =>
         (<any>options)[key] === undefined && delete (<any>options)[key]);
     this.popupInstance = new Popup(options);
+    this.popupInstance.once('close', () => {
+      this.close.emit();
+    });
     this.popupInstance.setDOMContent(this.content.nativeElement);
     this.MapService.mapCreated$.subscribe(() => {
       if (this.lngLat) {
