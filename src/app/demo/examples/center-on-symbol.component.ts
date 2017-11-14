@@ -7,6 +7,7 @@ import { MapMouseEvent, Map } from 'mapbox-gl';
     [style]="'mapbox://styles/mapbox/light-v9'"
     [zoom]="8"
     [center]="center"
+    [cursorStyle]="cursorStyle"
     (load)="map = $event"
   >
     <mgl-geojson-source
@@ -25,8 +26,8 @@ import { MapMouseEvent, Map } from 'mapbox-gl';
         'icon-image': 'rocket-15'
       }"
       (click)="centerMapTo($event)"
-      (mouseEnter)="changeCursorToPointer()"
-      (mouseLeave)="changeCursorToDefault()"
+      (mouseEnter)="cursorStyle = 'pointer'"
+      (mouseLeave)="cursorStyle = ''"
     >
     </mgl-layer>
   </mgl-map>
@@ -35,6 +36,7 @@ import { MapMouseEvent, Map } from 'mapbox-gl';
 })
 export class CenterOnSymbolComponent {
   map: Map;
+  cursorStyle: string;
 
   center = [-90.96, -0.47];
 
@@ -65,13 +67,5 @@ export class CenterOnSymbolComponent {
 
   centerMapTo(evt: MapMouseEvent) {
     this.center = (<any>evt).features[0].geometry.coordinates;
-  }
-
-  changeCursorToPointer() {
-    this.map.getCanvas().style.cursor = 'pointer';
-  }
-
-  changeCursorToDefault() {
-    this.map.getCanvas().style.cursor = '';
   }
 }

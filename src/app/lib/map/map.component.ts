@@ -102,6 +102,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, Mapbox
   };
   @Input() flyToOptions?: FlyToOptions;
   @Input() centerWithPanTo?: boolean;
+  @Input() cursorStyle?: string;
 
   @Output() resize = new EventEmitter<void>();
   @Output() remove = new EventEmitter<void>();
@@ -198,6 +199,9 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, Mapbox
       },
       mapEvents: this
     });
+    if (this.cursorStyle) {
+      this.MapService.changeCanvasCursor(this.cursorStyle);
+    }
   }
 
   ngOnDestroy() {
@@ -205,6 +209,9 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, Mapbox
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if (changes.cursorStyle && !changes.cursorStyle.isFirstChange()) {
+      this.MapService.changeCanvasCursor(changes.cursorStyle.currentValue);
+    }
     if (changes.minZoom && !changes.minZoom.isFirstChange()) {
       this.MapService.updateMinZoom(changes.minZoom.currentValue);
     }
