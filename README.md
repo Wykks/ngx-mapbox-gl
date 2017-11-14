@@ -84,9 +84,10 @@ import { Component } from '@angular/core';
 export class DisplayMapComponent { }
 ```
 
-## Important notes for production build
+## Important notes for **production** build
 
 @angular/cli users: >= 1.5.0 version is required (https://github.com/angular/angular-cli/issues/5804)
++ Also this patch is required for now: https://github.com/angular/angular-cli/pull/7931
 
 Webpack users: add `noParse: /(mapbox-gl)\.js$/`
 
