@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { MapComponent } from '../../lib';
+import { Component } from '@angular/core';
+import { Map } from 'mapbox-gl';
 
 @Component({
   template: `
@@ -7,7 +7,7 @@ import { MapComponent } from '../../lib';
     style="mapbox://styles/mapbox/light-v9"
     [zoom]="2.9"
     [center]="[16.05, 48]"
-    #map
+    (load)="map = $event"
   >
     <mgl-control>
       <button
@@ -32,9 +32,9 @@ import { MapComponent } from '../../lib';
   styleUrls: ['./examples.css', './toggle-layers.component.css']
 })
 export class LanguageSwitchComponent {
-  @ViewChild('map') map: MapComponent;
+  map: Map;
 
   changeLangTo(language: string) {
-    this.map.mapInstance.setLayoutProperty('country-label-lg', 'text-field', '{name_' + language + '}');
+    this.map.setLayoutProperty('country-label-lg', 'text-field', '{name_' + language + '}');
   }
 }

@@ -1,6 +1,5 @@
-import { MapComponent } from '../../lib';
-import { Component, ViewChild } from '@angular/core';
-import { MapMouseEvent } from 'mapbox-gl';
+import { Component } from '@angular/core';
+import { MapMouseEvent, Map } from 'mapbox-gl';
 
 @Component({
   template: `
@@ -8,7 +7,7 @@ import { MapMouseEvent } from 'mapbox-gl';
     [style]="'mapbox://styles/mapbox/light-v9'"
     [zoom]="8"
     [center]="center"
-    #map
+    (load)="map = $event"
   >
     <mgl-geojson-source
       id="symbols-source"
@@ -35,7 +34,7 @@ import { MapMouseEvent } from 'mapbox-gl';
   styleUrls: ['./examples.css']
 })
 export class CenterOnSymbolComponent {
-  @ViewChild('map') map: MapComponent;
+  map: Map;
 
   center = [-90.96, -0.47];
 
@@ -69,10 +68,10 @@ export class CenterOnSymbolComponent {
   }
 
   changeCursorToPointer() {
-    this.map.mapInstance.getCanvas().style.cursor = 'pointer';
+    this.map.getCanvas().style.cursor = 'pointer';
   }
 
   changeCursorToDefault() {
-    this.map.mapInstance.getCanvas().style.cursor = '';
+    this.map.getCanvas().style.cursor = '';
   }
 }

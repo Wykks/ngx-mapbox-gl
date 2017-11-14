@@ -1,6 +1,6 @@
 // Can't use MapEvent interface from @types/mapbox because some event name are changed (eg zoomChange)
 import { EventEmitter } from '@angular/core';
-import { MapMouseEvent, MapTouchEvent, EventData, MapBoxZoomEvent } from 'mapbox-gl';
+import { MapMouseEvent, MapTouchEvent, EventData, MapBoxZoomEvent, Map } from 'mapbox-gl';
 
 export interface MapEvent {
   resize: EventEmitter<void>;
@@ -39,7 +39,7 @@ export interface MapEvent {
   boxZoomCancel: EventEmitter<MapBoxZoomEvent>;
   webGlContextLost: EventEmitter<void>;
   webGlContextRestored: EventEmitter<void>;
-  load: EventEmitter<any>;
+  load: EventEmitter<Map>;
   render: EventEmitter<void>;
   error: EventEmitter<any>; // TODO Check type
   data: EventEmitter<EventData>;

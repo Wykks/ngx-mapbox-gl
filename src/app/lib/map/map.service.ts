@@ -349,7 +349,7 @@ export class MapService {
     this.mapInstance.on('load', () => {
       this.mapLoaded.next(undefined);
       this.mapLoaded.complete();
-      this.zone.run(() => events.load.emit());
+      this.zone.run(() => events.load.emit(this.mapInstance));
     });
     this.mapInstance.on('resize', () => this.zone.run(() => events.resize.emit()));
     this.mapInstance.on('remove', () => this.zone.run(() => events.remove.emit()));
