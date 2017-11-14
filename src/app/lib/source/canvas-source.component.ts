@@ -24,7 +24,7 @@ export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, Canv
   ) { }
 
   ngOnInit() {
-    this.MapService.mapCreated$.switchMap(() => this.MapService.mapEvents.load).first().subscribe(() => {
+    this.MapService.mapLoaded$.subscribe(() => {
       const source = {
         type: 'canvas',
         coordinates: this.coordinates,

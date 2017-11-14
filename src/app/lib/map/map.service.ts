@@ -35,15 +35,18 @@ export type AllSource = MapboxGl.VectorSource |
 export class MapService {
   mapInstance: MapboxGl.Map;
   mapCreated$: Observable<void>;
+  mapLoaded$: Observable<void>;
   mapEvents: MapEvent;
 
   private mapCreated = new AsyncSubject<void>();
+  private mapLoaded = new AsyncSubject<void>();
 
   constructor(
     private zone: NgZone,
     @Optional() @Inject(MAPBOX_API_KEY) private readonly MAPBOX_API_KEY: string
   ) {
     this.mapCreated$ = this.mapCreated.asObservable();
+    this.mapLoaded$ = this.mapLoaded.asObservable();
   }
 
   setup(options: SetupMap) {
@@ -343,6 +346,11 @@ export class MapService {
   }
 
   private hookEvents(events: MapEvent) {
+    this.mapInstance.on('load', () => {
+      this.mapLoaded.next(undefined);
+      this.mapLoaded.complete();
+      this.zone.run(() => events.load.emit());
+    });
     this.mapInstance.on('resize', () => this.zone.run(() => events.resize.emit()));
     this.mapInstance.on('remove', () => this.zone.run(() => events.remove.emit()));
     this.mapInstance.on('mousedown', (evt: MapboxGl.MapMouseEvent) => this.zone.run(() => events.mouseDown.emit(evt)));
@@ -379,7 +387,6 @@ export class MapService {
     this.mapInstance.on('boxzoomcancel', (evt: MapboxGl.MapBoxZoomEvent) => this.zone.run(() => events.boxZoomCancel.emit(evt)));
     this.mapInstance.on('webglcontextlost', () => this.zone.run(() => events.webGlContextLost.emit()));
     this.mapInstance.on('webglcontextrestored', () => this.zone.run(() => events.webGlContextRestored.emit()));
-    this.mapInstance.on('load', () => this.zone.run(() => events.load.emit()));
     this.mapInstance.on('render', () => this.zone.run(() => events.render.emit()));
     this.mapInstance.on('error', () => this.zone.run(() => events.error.emit()));
     this.mapInstance.on('data', (evt: MapboxGl.EventData) => this.zone.run(() => events.data.emit(evt)));

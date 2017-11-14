@@ -35,7 +35,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
   ) { }
 
   ngOnInit() {
-    this.MapService.mapCreated$.switchMap(() => this.MapService.mapEvents.load).first().subscribe(() => {
+    this.MapService.mapLoaded$.subscribe(() => {
       this.MapService.addSource(this.id, {
         type: 'geojson',
         data: this.data,

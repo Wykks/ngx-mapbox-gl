@@ -27,7 +27,7 @@ export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, Vect
   ) { }
 
   ngOnInit() {
-    this.MapService.mapCreated$.switchMap(() => this.MapService.mapEvents.load).first().subscribe(() => {
+    this.MapService.mapLoaded$.subscribe(() => {
       this.MapService.addSource(this.id, {
         type: this.type,
         url: this.url,

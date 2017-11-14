@@ -11,10 +11,7 @@ describe('LayerComponent', () => {
     addLayer = jasmine.createSpy('addLayer');
     removeLayer = jasmine.createSpy('removeLayer');
     setAllLayerPaintProperty = jasmine.createSpy('setAllPaintProperty');
-    mapCreated$ = of(undefined);
-    mapEvents = {
-      load: of(undefined)
-    };
+    mapLoaded$ = of(undefined);
   }
 
   let msSpy: MapServiceSpy;

@@ -23,7 +23,7 @@ export class VideoSourceComponent implements OnInit, OnDestroy, OnChanges, Video
   ) { }
 
   ngOnInit() {
-    this.MapService.mapCreated$.switchMap(() => this.MapService.mapEvents.load).first().subscribe(() => {
+    this.MapService.mapLoaded$.subscribe(() => {
       this.MapService.addSource(this.id, {
         type: 'video',
         urls: this.urls,

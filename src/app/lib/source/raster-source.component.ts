@@ -29,7 +29,7 @@ export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, Rast
   ) { }
 
   ngOnInit() {
-    this.MapService.mapCreated$.switchMap(() => this.MapService.mapEvents.load).first().subscribe(() => {
+    this.MapService.mapLoaded$.subscribe(() => {
       const source = {
         type: this.type,
         url: this.url,
