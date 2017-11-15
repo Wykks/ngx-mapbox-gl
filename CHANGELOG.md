@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-beta.1"></a>
+# [1.0.0-beta.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2017-11-15)
+
+
+### Bug Fixes
+
+* remove accidentally added [@turf](https://github.com/turf)/random from deps... [skip ci] ([642f60c](https://github.com/Wykks/ngx-mapbox-gl/commit/642f60c))
+
+
+
 <a name="1.0.0-beta.0"></a>
 # [1.0.0-beta.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v0.1.0-beta.0...v1.0.0-beta.0) (2017-11-14)
 
