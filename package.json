@@ -55,6 +55,7 @@
     "@angular/platform-browser": "^4.4.6",
     "@angular/platform-browser-dynamic": "^4.4.6",
     "@angular/router": "^4.4.6",
+    "@turf/random": "^5.0.4",
     "@types/jasmine": "~2.6.2",
     "@types/jasminewd2": "~2.0.3",
     "@types/lodash-es": "^4.17.0",
@@ -84,8 +85,5 @@
     "tslint-consistent-codestyle": "^1.8.0",
     "typescript": "~2.5.3",
     "zone.js": "^0.8.18"
-  },
-  "dependencies": {
-    "@turf/random": "^5.0.4"
   }
 }
