@@ -177,8 +177,12 @@ export class MapService {
   addLayer(layer: SetupLayer, before?: string) {
     this.zone.runOutsideAngular(() => {
       Object.keys(layer.layerOptions)
-        .forEach((key: keyof MapboxGl.Layer) =>
-          layer.layerOptions[key] === undefined && delete layer.layerOptions[key]);
+        .forEach((key: string) => {
+          const tkey = <keyof MapboxGl.Layer>key;
+          if (layer.layerOptions[tkey] === undefined) {
+            delete layer.layerOptions[tkey];
+          }
+        });
       this.mapInstance.addLayer(layer.layerOptions, before);
       this.mapInstance.on('click', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
         this.zone.run(() => {
@@ -340,8 +344,12 @@ export class MapService {
 
   private createMap(options: MapboxGl.MapboxOptions) {
     Object.keys(options)
-      .forEach((key: keyof MapboxGl.MapboxOptions) =>
-        options[key] === undefined && delete options[key]);
+      .forEach((key: string) => {
+        const tkey = <keyof MapboxGl.MapboxOptions>key;
+        if (options[tkey] === undefined) {
+          delete options[tkey];
+        }
+      });
     this.mapInstance = new MapboxGl.Map(options);
   }
 

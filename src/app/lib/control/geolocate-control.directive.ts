@@ -29,9 +29,14 @@ export class GeolocateControlDirective implements OnInit {
         trackUserLocation: this.trackUserLocation,
         showUserLocation: this.showUserLocation
       };
+
       Object.keys(options)
-        .forEach((key: keyof typeof options) =>
-          options[key] === undefined && delete options[key]);
+        .forEach((key: string) => {
+          const tkey = <keyof typeof options>key;
+          if (options[tkey] === undefined) {
+            delete options[tkey];
+          }
+        });
       this.ControlComponent.control = new GeolocateControl(options);
       this.MapService.addControl(this.ControlComponent.control, this.ControlComponent.position);
     });
