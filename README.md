@@ -26,8 +26,12 @@ Include the following components:
 
 ## How to start
 
-```javascript
+```
 npm install ngx-mapbox-gl mapbox-gl --save
+```
+Also add mapbox-gl types if using typescript
+```
+npm install @types/mapbox-gl --save-dev
 ```
 
 Load the css of mapbox-gl
