@@ -82,8 +82,10 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
-    this.MapService.removeSource(this.id);
+    if (this.sourceAdded) {
+      this.sub.unsubscribe();
+      this.MapService.removeSource(this.id);
+    }
   }
 
   addFeature(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
