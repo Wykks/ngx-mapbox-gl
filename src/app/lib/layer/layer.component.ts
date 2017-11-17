@@ -43,7 +43,7 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   /* Init inputs */
   @Input() id: string;
   @Input() source?: string | VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource | GeoJSONSourceRaw;
-  @Input() type?: 'symbol' | 'fill' | 'line' | 'circle' | 'fill-extrusion' | 'raster' | 'background';
+  @Input() type: 'symbol' | 'fill' | 'line' | 'circle' | 'fill-extrusion' | 'raster' | 'background';
   @Input() metadata?: any;
   @Input() sourceLayer?: string;
 
