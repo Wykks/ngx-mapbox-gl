@@ -22,7 +22,7 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   ) { }
 
   ngOnInit() {
-    this.MapService.mapCreated$.subscribe(() => {
+    this.MapService.mapLoaded$.subscribe(() => {
       if (this.data) {
         this.MapService.addImage(
           this.id,
