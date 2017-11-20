@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   template: `
   <mgl-map
     [style]="style"
-    [zoom]="13"
+    [zoom]="[13]"
     [center]="[4.899, 52.372]"
   >
   </mgl-map>

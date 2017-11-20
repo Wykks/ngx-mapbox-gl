@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   template: `
   <mgl-map
     style="mapbox://styles/mapbox/streets-v9"
-    [zoom]="15"
+    [zoom]="[15]"
     [center]="[-71.97722138410576, -13.517379300798098]"
   >
     <mgl-vector-source

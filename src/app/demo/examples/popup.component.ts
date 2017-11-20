@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   template: `
   <mgl-map
     [style]="'mapbox://styles/mapbox/streets-v9'"
-    [zoom]="3"
+    [zoom]="[3]"
     [center]="[-96, 37.8]"
   >
     <mgl-popup

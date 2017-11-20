@@ -4,7 +4,6 @@ import {
   LngLatBoundsLike,
   LngLatLike,
   Map,
-  MapboxOptions,
   MapBoxZoomEvent,
   MapMouseEvent,
   MapTouchEvent,
@@ -54,7 +53,7 @@ declare global {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapboxOptions, MapEvent {
+export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEvent {
   /* Init inputs */
   @Input() accessToken?: string;
   @Input() customMapboxApiUrl?: string;
@@ -86,10 +85,10 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, Mapbox
   @Input() boxZoom?: boolean;
   @Input() style: Style | string;
   @Input() center?: LngLatLike;
-  @Input() zoom?: number;
   @Input() maxBounds?: LngLatBoundsLike;
-  @Input() bearing?: number;
-  @Input() pitch?: number;
+  @Input() zoom?: [number];
+  @Input() bearing?: [number];
+  @Input() pitch?: [number];
 
   /* Added by ngx-mapbox-gl */
   @Input() movingMethod: 'jumpTo' | 'easeTo' | 'flyTo' = 'flyTo';
@@ -260,10 +259,10 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, Mapbox
       this.MapService.move(
         this.movingMethod,
         this.flyToOptions,
-        this.zoom,
-        this.center,
-        this.bearing,
-        this.pitch
+        changes.zoom && this.zoom ? this.zoom[0] : undefined,
+        changes.center ? this.center : undefined,
+        changes.bearing && this.bearing ? this.bearing[0] : undefined,
+        changes.pitch && this.pitch ? this.pitch[0] : undefined
       );
     }
   }

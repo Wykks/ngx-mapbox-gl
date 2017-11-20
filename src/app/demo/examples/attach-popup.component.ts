@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   template: `
   <mgl-map
     [style]="'mapbox://styles/mapbox/light-v9'"
-    [zoom]="15"
+    [zoom]="[15]"
     [center]="[-77.0353, 38.8895]"
   >
     <mgl-marker

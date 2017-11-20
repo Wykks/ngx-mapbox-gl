@@ -9,7 +9,7 @@ export const MAPBOX_API_KEY = new InjectionToken('MapboxApiKey');
 export interface SetupMap {
   accessToken?: string;
   customMapboxApiUrl?: string;
-  mapOptions: MapboxGl.MapboxOptions;
+  mapOptions: any; // MapboxGl.MapboxOptions
   mapEvents: MapEvent;
 }
 
