@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-beta.2"></a>
+# [1.0.0-beta.2](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-11-20)
+
+
+### Bug Fixes
+
+* **geojsonSource:** protect onDestroy ([ac8172e](https://github.com/Wykks/ngx-mapbox-gl/commit/ac8172e)), closes [#6](https://github.com/Wykks/ngx-mapbox-gl/issues/6)
+* **image:** addImage seems to need to wait for mapLoaded now ([cd51115](https://github.com/Wykks/ngx-mapbox-gl/commit/cd51115))
+* **layer:** type is not optional ([b9edaac](https://github.com/Wykks/ngx-mapbox-gl/commit/b9edaac)), closes [#4](https://github.com/Wykks/ngx-mapbox-gl/issues/4)
+* **map:** rename zoomChange and pitchChange events ([0142f88](https://github.com/Wykks/ngx-mapbox-gl/commit/0142f88))
+* **map:** zoom/bearing/pitch inputs are now an array ([0c19c5f](https://github.com/Wykks/ngx-mapbox-gl/commit/0c19c5f)), closes [#2](https://github.com/Wykks/ngx-mapbox-gl/issues/2)
+
+
+### Features
+
+* update to mapbox-gl 0.42.0 ([3ae818f](https://github.com/Wykks/ngx-mapbox-gl/commit/3ae818f))
+
+
+### BREAKING CHANGES
+
+* **map:** zoom/bearing/pitch inputs are now an array.
+This allow to force input changes for theses inputs
+* **map:** Rename zoomChange and pitchChange events to zoomEvt and pitchEvt, because the "Change" suffix allow incorrecty two-way binding.
+
+
+
 <a name="1.0.0-beta.1"></a>
 # [1.0.0-beta.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2017-11-15)
 
