@@ -145,7 +145,7 @@ export class MapService {
   queryRenderedFeatures(
     pointOrBox?: MapboxGl.PointLike | MapboxGl.PointLike[],
     parameters?: { layers?: string[], filter?: any[] }
-  ) {
+  ): GeoJSON.Feature<GeoJSON.GeometryObject>[] {
     return this.mapInstance.queryRenderedFeatures(pointOrBox, parameters);
   }
 
