@@ -40,7 +40,7 @@ const hike = require('./hike.geo.json');
 export class LiveUpdateFeatureComponent implements OnInit {
   data: GeoJSON.FeatureCollection<GeoJSON.LineString>;
   center: LngLatLike;
-  zoom = 0;
+  zoom = [0];
   pitch: number;
 
   constructor() { }
@@ -53,7 +53,7 @@ export class LiveUpdateFeatureComponent implements OnInit {
         data.features[0].geometry.coordinates = [coordinates[0]];
         this.data = data;
         this.center = coordinates[0];
-        this.zoom = 14;
+        this.zoom = [14];
         this.pitch = 30;
         let i = 0;
         const timer = window.setInterval(() => {

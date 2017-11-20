@@ -9,7 +9,7 @@ describe('ImageComponent', () => {
   class MapServiceSpy {
     addImage = jasmine.createSpy('addImage');
     removeImage = jasmine.createSpy('removeImage');
-    mapCreated$ = of(undefined);
+    mapLoaded$ = of(undefined);
   }
 
   let msSpy: MapServiceSpy;
