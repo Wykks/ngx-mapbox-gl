@@ -382,13 +382,13 @@ export class MapService {
     this.mapInstance.on('drag', (evt: MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent) => this.zone.run(() => events.drag.emit(evt)));
     this.mapInstance.on('dragend', (evt: DragEvent) => this.zone.run(() => events.dragEnd.emit(evt)));
     this.mapInstance.on('zoomstart', (evt: MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent) => this.zone.run(() => events.zoomStart.emit(evt)));
-    this.mapInstance.on('zoom', (evt: MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent) => this.zone.run(() => events.zoomChange.emit(evt)));
+    this.mapInstance.on('zoom', (evt: MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent) => this.zone.run(() => events.zoomEvt.emit(evt)));
     this.mapInstance.on('zoomend', (evt: MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent) => this.zone.run(() => events.zoomEnd.emit(evt)));
     this.mapInstance.on('rotatestart', (evt: MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent) => this.zone.run(() => events.rotateStart.emit(evt)));
     this.mapInstance.on('rotate', (evt: MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent) => this.zone.run(() => events.rotate.emit(evt)));
     this.mapInstance.on('rotateend', (evt: MapboxGl.MapTouchEvent | MapboxGl.MapMouseEvent) => this.zone.run(() => events.rotateEnd.emit(evt)));
     this.mapInstance.on('pitchstart', (evt: MapboxGl.EventData) => this.zone.run(() => events.pitchStart.emit(evt)));
-    this.mapInstance.on('pitch', (evt: MapboxGl.EventData) => this.zone.run(() => events.pitchChange.emit(evt)));
+    this.mapInstance.on('pitch', (evt: MapboxGl.EventData) => this.zone.run(() => events.pitchEvt.emit(evt)));
     this.mapInstance.on('pitchend', (evt: MapboxGl.EventData) => this.zone.run(() => events.pitchEnd.emit(evt)));
     this.mapInstance.on('boxzoomstart', (evt: MapboxGl.MapBoxZoomEvent) => this.zone.run(() => events.boxZoomStart.emit(evt)));
     this.mapInstance.on('boxzoomend', (evt: MapboxGl.MapBoxZoomEvent) => this.zone.run(() => events.boxZoomEnd.emit(evt)));

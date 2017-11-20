@@ -127,13 +127,13 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, Mapbox
   @Output() drag = new EventEmitter<MapTouchEvent | MapMouseEvent>();
   @Output() dragEnd = new EventEmitter<DragEvent>();
   @Output() zoomStart = new EventEmitter<MapTouchEvent | MapMouseEvent>();
-  @Output() zoomChange = new EventEmitter<MapTouchEvent | MapMouseEvent>();
+  @Output() zoomEvt = new EventEmitter<MapTouchEvent | MapMouseEvent>();
   @Output() zoomEnd = new EventEmitter<MapTouchEvent | MapMouseEvent>();
   @Output() rotateStart = new EventEmitter<MapTouchEvent | MapMouseEvent>();
   @Output() rotate = new EventEmitter<MapTouchEvent | MapMouseEvent>();
   @Output() rotateEnd = new EventEmitter<MapTouchEvent | MapMouseEvent>();
   @Output() pitchStart = new EventEmitter<EventData>();
-  @Output() pitchChange = new EventEmitter<EventData>();
+  @Output() pitchEvt = new EventEmitter<EventData>();
   @Output() pitchEnd = new EventEmitter<EventData>();
   @Output() boxZoomStart = new EventEmitter<MapBoxZoomEvent>();
   @Output() boxZoomEnd = new EventEmitter<MapBoxZoomEvent>();

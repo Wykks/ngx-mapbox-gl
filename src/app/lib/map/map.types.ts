@@ -26,13 +26,13 @@ export interface MapEvent {
   drag: EventEmitter<MapTouchEvent | MapMouseEvent>;
   dragEnd: EventEmitter<DragEvent>;
   zoomStart: EventEmitter<MapTouchEvent | MapMouseEvent>;
-  zoomChange: EventEmitter<MapTouchEvent | MapMouseEvent>;
+  zoomEvt: EventEmitter<MapTouchEvent | MapMouseEvent>;
   zoomEnd: EventEmitter<MapTouchEvent | MapMouseEvent>;
   rotateStart: EventEmitter<MapTouchEvent | MapMouseEvent>;
   rotate: EventEmitter<MapTouchEvent | MapMouseEvent>;
   rotateEnd: EventEmitter<MapTouchEvent | MapMouseEvent>;
   pitchStart: EventEmitter<EventData>;
-  pitchChange: EventEmitter<EventData>;
+  pitchEvt: EventEmitter<EventData>;
   pitchEnd: EventEmitter<EventData>;
   boxZoomStart: EventEmitter<MapBoxZoomEvent>;
   boxZoomEnd: EventEmitter<MapBoxZoomEvent>;
