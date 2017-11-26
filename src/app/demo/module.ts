@@ -27,7 +27,7 @@ import { NgxCustomControlComponent } from './examples/ngx-custom-control.compone
 import { NgxCustomMarkerIconsComponent } from './examples/ngx-custom-marker-icons.component';
 import { NgxDragAPointComponent } from './examples/ngx-drag-a-point.component';
 import { NgxGeoJSONLineComponent } from './examples/ngx-geojson-line.component';
-import { PopupOnClickComponent } from './examples/popup-on-click';
+import { PopupOnClickComponent } from './examples/popup-on-click.component';
 import { NgxScaleControlComponent } from './examples/ngx-scale-control.component';
 import { PopupComponent } from './examples/popup.component';
 import { SatelliteMapComponent } from './examples/satellite-map.component';
