@@ -1,0 +1,14 @@
+--- a/node_modules/@angular/cli/models/webpack-configs/production.js
++++ b/node_modules/@angular/cli/models/webpack-configs/production.js
+@@ -92,7 +92,9 @@ function getProdConfig(wco) {
+             outputFilename: `3rdpartylicenses.txt`
+         }));
+     }
+-    const uglifyCompressOptions = {};
++    const uglifyCompressOptions = {
++      comparisons: false
++    };
+     if (buildOptions.buildOptimizer) {
+         // This plugin must be before webpack.optimize.UglifyJsPlugin.
+         extraPlugins.push(new build_optimizer_1.PurifyPlugin());
+

@@ -27,7 +27,8 @@
     "lint": "ng lint --format stylish",
     "e2e": "ng e2e",
     "packagr": "ng-packagr -p ng-package.json",
-    "release": "standard-version --prerelease beta"
+    "release": "standard-version --prerelease beta",
+    "postinstall": "patch -N -p1 < ngcli-comparisons-false.patch &2>/dev/null"
   },
   "standard-version": {
     "scripts": {
