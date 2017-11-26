@@ -27,7 +27,7 @@ import { NgxCustomControlComponent } from './examples/ngx-custom-control.compone
 import { NgxCustomMarkerIconsComponent } from './examples/ngx-custom-marker-icons.component';
 import { NgxDragAPointComponent } from './examples/ngx-drag-a-point.component';
 import { NgxGeoJSONLineComponent } from './examples/ngx-geojson-line.component';
-import { NgxPopupForLayerComponent } from './examples/ngx-popup-for-layer';
+import { PopupOnClickComponent } from './examples/popup-on-click';
 import { NgxScaleControlComponent } from './examples/ngx-scale-control.component';
 import { PopupComponent } from './examples/popup.component';
 import { SatelliteMapComponent } from './examples/satellite-map.component';
@@ -65,7 +65,7 @@ export const demoRoutes: Routes = [
   { path: 'center-on-symbol', component: CenterOnSymbolComponent },
   { path: 'ngx-drag-a-point', component: NgxDragAPointComponent },
   { path: 'hover-styles', component: HoverStylesComponent },
-  { path: 'ngx-popup-for-layer', component: NgxPopupForLayerComponent },
+  { path: 'popup-on-click', component: PopupOnClickComponent },
 ];
 
 @NgModule({
@@ -111,7 +111,7 @@ export const demoRoutes: Routes = [
     CenterOnSymbolComponent,
     NgxDragAPointComponent,
     HoverStylesComponent,
-    NgxPopupForLayerComponent
+    PopupOnClickComponent
   ]
 })
 export class DemoModule { }
