@@ -38,7 +38,7 @@
   "peerDependencies": {
     "@angular/common": ">=4.0.0 <6.0.0 || >=4.0.0-beta <6.0.0",
     "@angular/core": ">=4.0.0 <6.0.0 || >=4.0.0-beta <6.0.0",
-    "mapbox-gl": "^0.42.1",
+    "mapbox-gl": "0.42.2",
     "rxjs": "^5.4.3"
   },
   "devDependencies": {
@@ -60,7 +60,7 @@
     "@types/jasmine": "~2.8.2",
     "@types/jasminewd2": "~2.0.3",
     "@types/lodash-es": "^4.17.0",
-    "@types/mapbox-gl": "^0.40.1",
+    "@types/mapbox-gl": "^0.41.0",
     "@types/node": "~8.0.53",
     "codelyzer": "~4.0.1",
     "core-js": "^2.5.1",
@@ -74,7 +74,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-mocha-reporter": "^2.2.5",
     "lodash-es": "^4.17.4",
-    "mapbox-gl": "^0.42.1",
+    "mapbox-gl": "0.42.2",
     "ng-packagr": "^1.6.0",
     "pixel-diff": "^1.0.1",
     "protractor": "~5.2.0",

@@ -264,9 +264,9 @@
   version "4.14.77"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.77.tgz#0bc699413e84d6ed5d927ca30ea0f0a890b42d75"
 
-"@types/mapbox-gl@^0.40.1":
-  version "0.40.1"
-  resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-0.40.1.tgz#7a0fb3e29d66cd7ecd9c4855626959cf890bdb4e"
+"@types/mapbox-gl@^0.41.0":
+  version "0.41.0"
+  resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-0.41.0.tgz#1a30dff82a676c82907d69bb49ea8aef2a78902e"
   dependencies:
     "@types/geojson" "*"
 
@@ -4310,9 +4310,9 @@ mapbox-gl-supported@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/mapbox-gl-supported/-/mapbox-gl-supported-1.2.0.tgz#cbd34df894206cadda9a33c8d9a4609f26bb1989"
 
-mapbox-gl@^0.42.1:
-  version "0.42.1"
-  resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-0.42.1.tgz#ed676e450a5df9bcde4f3f47233444fc035e9e3e"
+mapbox-gl@0.42.2:
+  version "0.42.2"
+  resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-0.42.2.tgz#b349142d0b0a3c2f4225b30d301c9bf6c507a272"
   dependencies:
     "@mapbox/gl-matrix" "^0.0.1"
     "@mapbox/point-geometry" "^0.1.0"
