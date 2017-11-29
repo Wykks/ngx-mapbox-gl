@@ -83,8 +83,8 @@
     "standard-version": "^4.2.0",
     "ts-node": "~3.3.0",
     "tslint": "~5.8.0",
-    "tslint-consistent-codestyle": "^1.10.0",
-    "typescript": "~2.6.1",
+    "tslint-consistent-codestyle": "^1.10.2",
+    "typescript": "~2.6.2",
     "zone.js": "^0.8.18"
   }
 }

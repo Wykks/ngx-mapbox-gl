@@ -116,8 +116,6 @@
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
     "directive-class-suffix": true,
-    "templates-use-public": true,
-    "invoke-injectable": true,
     "no-sparse-arrays": true,
     "no-object-literal-type-assertion": true,
     "no-irregular-whitespace": true,
