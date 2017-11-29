@@ -90,10 +90,15 @@ export class DisplayMapComponent { }
 
 ## Important notes for **production** build
 
-@angular/cli users: >= 1.5.0 version is required (https://github.com/angular/angular-cli/issues/5804)
-+ Also this patch is required for now: https://github.com/angular/angular-cli/pull/7931 (available in this repo as ngcli-comparisons-false.patch)
+### @angular/cli users:
 
-Webpack users: add `noParse: /(mapbox-gl)\.js$/`
+\>= 1.6.0 version is required (https://github.com/angular/angular-cli/issues/5804)
+
+< 1.6.0 version users can use this patch: https://github.com/angular/angular-cli/pull/7931 (available in this repo as ngcli-comparisons-false.patch)
+
+### Webpack users:
+
+Add `noParse: /(mapbox-gl)\.js$/`
 
 ## Built with ngx-mapbox-gl
 Todo
