@@ -92,9 +92,9 @@ export class DisplayMapComponent { }
 
 ### @angular/cli users:
 
-\>= 1.6.0 version is required (https://github.com/angular/angular-cli/issues/5804)
+\>= 1.5.5 version is required (https://github.com/angular/angular-cli/issues/5804)
 
-< 1.6.0 version users can use this patch: https://github.com/angular/angular-cli/pull/7931 (available in this repo as ngcli-comparisons-false.patch)
+< 1.5.5 version users can use this patch: https://github.com/angular/angular-cli/pull/7931 (available in this repo as ngcli-comparisons-false.patch)
 
 ### Webpack users:
 
