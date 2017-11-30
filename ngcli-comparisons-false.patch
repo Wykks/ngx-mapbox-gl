@@ -6,7 +6,7 @@
      }
 -    const uglifyCompressOptions = {};
 +    const uglifyCompressOptions = {
-+      comparisons: false
++      typeofs: false
 +    };
      if (buildOptions.buildOptimizer) {
          // This plugin must be before webpack.optimize.UglifyJsPlugin.
