@@ -47,6 +47,8 @@ export class VideoSourceComponent implements OnInit, OnDestroy, OnChanges, Video
   }
 
   ngOnDestroy() {
-    this.MapService.removeSource(this.id);
+    if (this.sourceAdded) {
+      this.MapService.removeSource(this.id);
+    }
   }
 }

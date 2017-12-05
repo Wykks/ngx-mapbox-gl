@@ -47,6 +47,8 @@ export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, Image
   }
 
   ngOnDestroy() {
-    this.MapService.removeSource(this.id);
+    if (this.sourceAdded) {
+      this.MapService.removeSource(this.id);
+    }
   }
 }

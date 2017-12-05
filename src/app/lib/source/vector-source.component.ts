@@ -55,6 +55,8 @@ export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, Vect
   }
 
   ngOnDestroy() {
-    this.MapService.removeSource(this.id);
+    if (this.sourceAdded) {
+      this.MapService.removeSource(this.id);
+    }
   }
 }

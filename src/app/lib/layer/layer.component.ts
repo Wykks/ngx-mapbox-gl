@@ -117,6 +117,8 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   }
 
   ngOnDestroy() {
-    this.MapService.removeLayer(this.id);
+    if (this.layerAdded) {
+      this.MapService.removeLayer(this.id);
+    }
   }
 }

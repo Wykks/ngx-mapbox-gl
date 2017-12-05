@@ -62,6 +62,8 @@ export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, Rast
   }
 
   ngOnDestroy() {
-    this.MapService.removeSource(this.id);
+    if (this.sourceAdded) {
+      this.MapService.removeSource(this.id);
+    }
   }
 }

@@ -17,26 +17,32 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
 
   @Output() error = new EventEmitter<{ status: number }>();
 
+  private imageAdded = false;
+
   constructor(
     private MapService: MapService
   ) { }
 
   ngOnInit() {
-    this.MapService.mapLoaded$.subscribe(() => {
+    this.MapService.mapLoaded$.subscribe(async () => {
       if (this.data) {
         this.MapService.addImage(
           this.id,
           this.data,
           this.options
         );
+        this.imageAdded = true;
       } else if (this.url) {
-        this.MapService.loadAndAddImage(
-          this.id,
-          this.url,
-          this.options
-        ).catch((error) => {
+        try {
+          await this.MapService.loadAndAddImage(
+            this.id,
+            this.url,
+            this.options
+          );
+          this.imageAdded = true;
+        } catch (error) {
           this.error.emit(error);
-        });
+        }
       }
     });
   }
@@ -53,6 +59,8 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy() {
-    this.MapService.removeImage(this.id);
+    if (this.imageAdded) {
+      this.MapService.removeImage(this.id);
+    }
   }
 }

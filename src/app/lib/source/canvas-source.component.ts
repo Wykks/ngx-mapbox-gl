@@ -51,6 +51,8 @@ export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, Canv
   }
 
   ngOnDestroy() {
-    this.MapService.removeSource(this.id);
+    if (this.sourceAdded) {
+      this.MapService.removeSource(this.id);
+    }
   }
 }
