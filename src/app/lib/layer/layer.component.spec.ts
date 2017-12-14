@@ -51,19 +51,26 @@ describe('LayerComponent', () => {
     });
 
     it('should remove layer on destroy', () => {
+      component.paint = { 'background-color': 'green' };
+      fixture.detectChanges();
       component.ngOnDestroy();
       expect(msSpy.removeLayer).toHaveBeenCalledWith(component.id);
+    });
+
+    it('should not remove layer on destroy if not added', () => {
+      component.ngOnDestroy();
+      expect(msSpy.removeLayer).not.toHaveBeenCalled();
     });
   });
 
   describe('Change tests', () => {
     it('should update paint', () => {
-      fixture.detectChanges();
       component.id = 'layerId';
       component.paint = {
         'background-color': 'green',
         'background-opacity': 0.5
       };
+      fixture.detectChanges();
       component.ngOnChanges({
         paint: new SimpleChange(null, component.paint, false)
       });

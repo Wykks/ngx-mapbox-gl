@@ -45,8 +45,15 @@ describe('ImageComponent', () => {
     });
 
     it('should remove image on destroy', () => {
+      component.data = { width: 500, height: 500, data: new Uint8Array([5, 5]) };
+      fixture.detectChanges();
       component.ngOnDestroy();
       expect(msSpy.removeImage).toHaveBeenCalledWith(component.id);
+    });
+
+    it('should not remove image on destroy if not added', () => {
+      component.ngOnDestroy();
+      expect(msSpy.removeImage).not.toHaveBeenCalled();
     });
   });
 
@@ -54,6 +61,7 @@ describe('ImageComponent', () => {
     it('should update image', () => {
       component.id = 'layerId';
       component.data = { width: 500, height: 500, data: new Uint8Array([5, 5]) };
+      fixture.detectChanges();
       component.ngOnChanges({
         data: new SimpleChange(null, component.data, false)
       });
