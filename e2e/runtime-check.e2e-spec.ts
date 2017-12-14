@@ -28,7 +28,7 @@ describe('Generic runtime error check', () => {
     'fullscreen',
     'navigation',
     'locate-user',
-    'ngx-attribution',
+    'attribution-position',
     'ngx-scale-control',
     'interactive-false',
     'center-on-symbol',

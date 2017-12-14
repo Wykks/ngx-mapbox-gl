@@ -1,5 +1,21 @@
-:host {
+:host, .content {
   display: flex;
   flex: 1;
+  flex-direction: row;
+}
+
+.sidenav {
+  display: flex;
   flex-direction: column;
+  height: 100vh;
+  overflow: scroll;
+}
+
+nav {
+  display: flex;
+  flex: 1;
+}
+
+mat-nav-list {
+  flex: 1;
 }

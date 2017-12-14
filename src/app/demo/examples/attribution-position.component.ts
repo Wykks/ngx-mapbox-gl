@@ -3,15 +3,17 @@ import { Component } from '@angular/core';
 @Component({
   template: `
   <mgl-map
-    [style]="'mapbox://styles/mapbox/streets-v9'"
+    [style]="'mapbox://styles/mapbox/light-v9'"
+    [center]="[-77.04, 38.907]"
+    [zoom]="[11.15]"
     [attributionControl]="false"
   >
     <mgl-control
       mglAttribution
-      [compact]="true"
+      position="top-left"
     ></mgl-control>
   </mgl-map>
   `,
   styleUrls: ['./examples.css']
 })
-export class NgxAttributionComponent { }
+export class AttributionPositionComponent { }
