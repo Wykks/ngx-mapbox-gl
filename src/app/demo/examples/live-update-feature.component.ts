@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LngLatLike } from 'mapbox-gl';
 import { of } from 'rxjs/observable/of';
-import 'rxjs/add/operator/delay';
+import { delay } from 'rxjs/operators/delay';
 
 const hike = require('./hike.geo.json');
 
@@ -46,26 +46,26 @@ export class LiveUpdateFeatureComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    of(hike)
-      .delay(500) // Simulate call
-      .subscribe((data) => {
-        const coordinates = data.features[0].geometry.coordinates;
-        data.features[0].geometry.coordinates = [coordinates[0]];
-        this.data = data;
-        this.center = coordinates[0];
-        this.zoom = [14];
-        this.pitch = 30;
-        let i = 0;
-        const timer = window.setInterval(() => {
-          if (i < coordinates.length) {
-            this.center = coordinates[i];
-            data.features[0].geometry.coordinates.push(coordinates[i]);
-            this.data = { ...this.data };
-            i++;
-          } else {
-            window.clearInterval(timer);
-          }
-        }, 10);
-      });
+    of(hike).pipe(
+      delay(500), // Simulate call
+    ).subscribe((data) => {
+      const coordinates = data.features[0].geometry.coordinates;
+      data.features[0].geometry.coordinates = [coordinates[0]];
+      this.data = data;
+      this.center = coordinates[0];
+      this.zoom = [14];
+      this.pitch = 30;
+      let i = 0;
+      const timer = window.setInterval(() => {
+        if (i < coordinates.length) {
+          this.center = coordinates[i];
+          data.features[0].geometry.coordinates.push(coordinates[i]);
+          this.data = { ...this.data };
+          i++;
+        } else {
+          window.clearInterval(timer);
+        }
+      }, 10);
+    });
   }
 }

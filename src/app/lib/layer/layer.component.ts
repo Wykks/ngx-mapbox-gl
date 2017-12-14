@@ -32,7 +32,6 @@ import {
   VectorSource,
   VideoSource
 } from 'mapbox-gl';
-import 'rxjs/add/operator/switchMap';
 import { MapService } from '../map/map.service';
 
 @Component({

@@ -3,6 +3,9 @@
     "codelyzer",
     "tslint-consistent-codestyle"
   ],
+  "extends": [
+    "rxjs-tslint-rules"
+  ],
   "rules": {
     "callable-types": true,
     "class-name": true,
@@ -129,6 +132,18 @@
     "no-parameter-reassignment": true,
     "no-duplicate-imports": true,
     "space-within-parens": false,
-    "object-literal-shorthand": true
+    "object-literal-shorthand": true,
+    "rxjs-no-add": {
+      "severity": "error"
+    },
+    "rxjs-no-operator": {
+      "severity": "error"
+    },
+    "rxjs-no-patched": {
+      "severity": "error"
+    },
+    "rxjs-no-wholesale": {
+      "severity": "error"
+    }
   }
 }

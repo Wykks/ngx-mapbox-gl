@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { VectorSource } from 'mapbox-gl';
-import 'rxjs/add/operator/switchMap';
 import { MapService } from '../map/map.service';
 
 @Component({

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { GeoJSONSource, GeoJSONSourceOptions } from 'mapbox-gl';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/switchMap';
+import { debounceTime } from 'rxjs/operators/debounceTime';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { MapService } from '../../map/map.service';
@@ -52,7 +51,9 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
         clusterRadius: this.clusterRadius,
         clusterMaxZoom: this.clusterMaxZoom,
       });
-      this.sub = this.updateFeatureData.debounceTime(0).subscribe(() => {
+      this.sub = this.updateFeatureData.pipe(
+        debounceTime(0)
+      ).subscribe(() => {
         const source = this.MapService.getSource<GeoJSONSource>(this.id);
         source.setData(this.data!);
       });

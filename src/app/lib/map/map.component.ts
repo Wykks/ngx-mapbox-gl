@@ -11,7 +11,6 @@ import {
   PointLike,
   Style
 } from 'mapbox-gl';
-import 'rxjs/add/operator/first';
 import { MapService } from './map.service';
 import {
   AfterViewInit,

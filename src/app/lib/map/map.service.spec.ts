@@ -1,8 +1,9 @@
 import { EventEmitter } from '@angular/core';
-import { TestBed, inject } from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 
+import { EventData, MapBoxZoomEvent, MapMouseEvent, MapTouchEvent, Style } from 'mapbox-gl';
+import { first } from 'rxjs/operators/first';
 import { MapService } from './map.service';
-import { MapMouseEvent, MapTouchEvent, EventData, MapBoxZoomEvent, Style } from 'mapbox-gl';
 import { MapEvent } from './map.types';
 
 const countries = require('./countries.geo.json');
@@ -100,13 +101,13 @@ describe('MapService', () => {
   }));
 
   it('should fire load event', (done: DoneFn) => {
-    mapEvents.load.first().subscribe(() => {
+    mapEvents.load.pipe(first()).subscribe(() => {
       done();
     });
   });
 
   it('should update minZoom', (done: DoneFn) => inject([MapService], (service: MapService) => {
-    mapEvents.load.first().subscribe(() => {
+    mapEvents.load.pipe(first()).subscribe(() => {
       service.updateMinZoom(6);
       expect(service.mapInstance.getMinZoom()).toEqual(6);
       done();

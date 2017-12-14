@@ -38,7 +38,7 @@
     "@angular/common": ">=5.0.0 <6.0.0 || >=5.0.0-beta <6.0.0",
     "@angular/core": ">=5.0.0 <6.0.0 || >=5.0.0-beta <6.0.0",
     "mapbox-gl": "0.42.2",
-    "rxjs": "^5.5.5"
+    "rxjs": "^5.5.0"
   },
   "devDependencies": {
     "@angular/animations": "^5.1.1",
@@ -79,6 +79,7 @@
     "protractor": "~5.2.2",
     "protractor-browser-logs": "^1.0.351",
     "rxjs": "^5.5.5",
+    "rxjs-tslint-rules": "^3.3.0",
     "standard-version": "^4.2.0",
     "ts-node": "~4.0.1",
     "tslint": "~5.8.0",
