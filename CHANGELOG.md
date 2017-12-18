@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-beta.3"></a>
+# [1.0.0-beta.3](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2017-12-18)
+
+
+### Bug Fixes
+
+* add guard to ngOnDestroy of each components ([311cbb9](https://github.com/Wykks/ngx-mapbox-gl/commit/311cbb9))
+* use rxjs lettable operators ([73530cd](https://github.com/Wykks/ngx-mapbox-gl/commit/73530cd))
+* **image:** add a loaded event ([32c4557](https://github.com/Wykks/ngx-mapbox-gl/commit/32c4557))
+* **map:** implement fitBounds ([0234881](https://github.com/Wykks/ngx-mapbox-gl/commit/0234881))
+* **map:** wait for onStable before initializing mapbox-gl ([ebc2fe9](https://github.com/Wykks/ngx-mapbox-gl/commit/ebc2fe9))
+
+
+### build
+
+* update deps ([9f42a60](https://github.com/Wykks/ngx-mapbox-gl/commit/9f42a60))
+
+
+### Performance Improvements
+
+* **map, layer:** only listen observed event ([57bd275](https://github.com/Wykks/ngx-mapbox-gl/commit/57bd275))
+
+
+### BREAKING CHANGES
+
+* rxjs >=5.5.0 is now required
+* Now require angular 5 (sorry !)
+
+
+
 <a name="1.0.0-beta.2"></a>
 # [1.0.0-beta.2](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2017-11-20)
 
