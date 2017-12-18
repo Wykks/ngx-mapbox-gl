@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LngLatLike } from 'mapbox-gl';
 import { of } from 'rxjs/observable/of';
 import { delay } from 'rxjs/operators/delay';
@@ -37,11 +37,13 @@ const hike = require('./hike.geo.json');
   `,
   styleUrls: ['./examples.css']
 })
-export class LiveUpdateFeatureComponent implements OnInit {
+export class LiveUpdateFeatureComponent implements OnInit, OnDestroy {
   data: GeoJSON.FeatureCollection<GeoJSON.LineString>;
   center: LngLatLike;
   zoom = [0];
   pitch: number;
+
+  private timer: number;
 
   constructor() { }
 
@@ -56,16 +58,20 @@ export class LiveUpdateFeatureComponent implements OnInit {
       this.zoom = [14];
       this.pitch = 30;
       let i = 0;
-      const timer = window.setInterval(() => {
+      this.timer = window.setInterval(() => {
         if (i < coordinates.length) {
           this.center = coordinates[i];
           data.features[0].geometry.coordinates.push(coordinates[i]);
           this.data = { ...this.data };
           i++;
         } else {
-          window.clearInterval(timer);
+          window.clearInterval(this.timer);
         }
       }, 10);
     });
+  }
+
+  ngOnDestroy() {
+    window.clearInterval(this.timer);
   }
 }
