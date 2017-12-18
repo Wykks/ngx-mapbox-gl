@@ -35,4 +35,6 @@ import { Component } from '@angular/core';
   `,
   styleUrls: ['./examples.css']
 })
-export class AddImageComponent {}
+export class AddImageComponent {
+  imageLoaded = false;
+}
