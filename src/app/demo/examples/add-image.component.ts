@@ -8,9 +8,11 @@ import { Component } from '@angular/core';
     <mgl-image
       id="cat"
       url="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png"
+      (loaded)="imageLoaded = true"
     >
     </mgl-image>
     <mgl-layer
+      *ngIf="imageLoaded"
       id="points"
       type="symbol"
       [source]="{

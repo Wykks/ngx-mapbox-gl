@@ -1,6 +1,16 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  NgZone,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { MapService } from '../map/map.service';
-import { MapImageOptions, MapImageData } from '../map/map.types';
+import { MapImageData, MapImageOptions } from '../map/map.types';
 
 @Component({
   selector: 'mgl-image',
@@ -16,11 +26,13 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   @Input() url?: string;
 
   @Output() error = new EventEmitter<{ status: number }>();
+  @Output() loaded = new EventEmitter<void>();
 
   private imageAdded = false;
 
   constructor(
-    private MapService: MapService
+    private MapService: MapService,
+    private zone: NgZone
   ) { }
 
   ngOnInit() {
@@ -40,8 +52,13 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
             this.options
           );
           this.imageAdded = true;
+          this.zone.run(() => {
+            this.loaded.emit();
+          });
         } catch (error) {
-          this.error.emit(error);
+          this.zone.run(() => {
+            this.error.emit(error);
+          });
         }
       }
     });
