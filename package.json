@@ -26,12 +26,21 @@
     "test": "ng test -sm=false",
     "lint": "ng lint --format stylish",
     "e2e": "ng e2e",
-    "packagr": "ng-packagr -p ng-package.json",
+    "packagr": "ng-packagr -p package.json",
     "release": "standard-version --prerelease beta"
   },
   "standard-version": {
     "scripts": {
       "postbump": "yarn packagr"
+    }
+  },
+  "$schema": "./node_modules/ng-packagr/package.schema.json",
+  "ngPackage": {
+    "lib": {
+      "externals": {
+        "mapbox-gl": "mapboxgl"
+      },
+      "entryFile": "public_api.ts"
     }
   },
   "peerDependencies": {
@@ -74,17 +83,17 @@
     "karma-mocha-reporter": "^2.2.5",
     "lodash-es": "^4.17.4",
     "mapbox-gl": "0.42.2",
-    "ng-packagr": "^1.6.0",
+    "ng-packagr": "^2.0.0-rc.7",
     "pixel-diff": "^1.0.1",
     "protractor": "~5.2.2",
     "protractor-browser-logs": "^1.0.351",
     "rxjs": "^5.5.5",
     "rxjs-tslint-rules": "^3.3.0",
     "standard-version": "^4.2.0",
-    "ts-node": "~4.0.1",
+    "ts-node": "~4.0.2",
     "tslint": "~5.8.0",
     "tslint-consistent-codestyle": "^1.11.0",
-    "typescript": "~2.6.2",
+    "typescript": "~2.5.3",
     "zone.js": "^0.8.18"
   }
 }
