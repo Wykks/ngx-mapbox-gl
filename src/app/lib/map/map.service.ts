@@ -1,8 +1,9 @@
-import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { EventEmitter, Inject, Injectable, InjectionToken, NgZone, Optional } from '@angular/core';
 import * as MapboxGl from 'mapbox-gl';
-import { MapEvent, MapImageData, MapImageOptions } from './map.types';
+import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { Observable } from 'rxjs/Observable';
+import { first } from 'rxjs/operators/first';
+import { MapEvent, MapImageData, MapImageOptions } from './map.types';
 
 export const MAPBOX_API_KEY = new InjectionToken('MapboxApiKey');
 
@@ -50,7 +51,8 @@ export class MapService {
   }
 
   setup(options: SetupMap) {
-    return this.zone.runOutsideAngular(() => {
+    // Need onStable to wait for a potential @angular/route transition to end
+    return this.zone.onStable.pipe(first()).subscribe(() => {
       // Workaround rollup issue
       this.assign(MapboxGl, 'accessToken', options.accessToken || this.MAPBOX_API_KEY);
       if (options.customMapboxApiUrl) {

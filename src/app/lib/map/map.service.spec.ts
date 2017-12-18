@@ -1,10 +1,10 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, NgZone } from '@angular/core';
 import { inject, TestBed } from '@angular/core/testing';
-
 import { EventData, MapBoxZoomEvent, MapMouseEvent, MapTouchEvent, Style } from 'mapbox-gl';
 import { first } from 'rxjs/operators/first';
 import { MapService } from './map.service';
 import { MapEvent } from './map.types';
+import { MockNgZone } from './mock-ng-zone';
 
 const countries = require('./countries.geo.json');
 
@@ -30,10 +30,20 @@ const geoJSONStyle: Style = {
 describe('MapService', () => {
   let container: HTMLElement;
   let mapEvents: MapEvent;
+  let zone: MockNgZone;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MapService]
+      providers: [
+        MapService,
+        {
+          provide: NgZone,
+          useFactory: () => {
+            zone = new MockNgZone();
+            return zone;
+          }
+        }
+      ]
     });
     container = document.createElement('div');
     mapEvents = {
@@ -94,6 +104,7 @@ describe('MapService', () => {
       },
       mapEvents
     });
+    zone.simulateZoneExit();
   }));
 
   it('should create a map', inject([MapService], (service: MapService) => {
