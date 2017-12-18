@@ -52,7 +52,7 @@ export class MapService {
 
   setup(options: SetupMap) {
     // Need onStable to wait for a potential @angular/route transition to end
-    return this.zone.onStable.pipe(first()).subscribe(() => {
+    this.zone.onStable.pipe(first()).subscribe(() => {
       // Workaround rollup issue
       this.assign(MapboxGl, 'accessToken', options.accessToken || this.MAPBOX_API_KEY);
       if (options.customMapboxApiUrl) {
@@ -63,7 +63,6 @@ export class MapService {
       this.mapEvents = options.mapEvents;
       this.mapCreated.next(undefined);
       this.mapCreated.complete();
-      return this.mapInstance;
     });
   }
 
