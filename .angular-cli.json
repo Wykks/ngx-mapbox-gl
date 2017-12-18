@@ -55,6 +55,9 @@
   },
   "defaults": {
     "styleExt": "css",
+    "build": {
+      "showCircularDependencies": false
+    },
     "component": {
       "changeDetection": "OnPush",
       "inlineStyle": true,
