@@ -5,7 +5,7 @@ import { Map } from 'mapbox-gl';
   template: `
   <mgl-map
     style="mapbox://styles/mapbox/light-v9"
-    [zoom]="2.9"
+    [zoom]="[2.9]"
     [center]="[16.05, 48]"
     (load)="map = $event"
   >
@@ -13,23 +13,32 @@ import { Map } from 'mapbox-gl';
       <button
         mat-raised-button
         (click)="changeLangTo('fr')"
-      >French</button>
+      >
+        French
+      </button>
       <button
         mat-raised-button
         (click)="changeLangTo('ru')"
-      >Russian</button>
+      >
+        Russian
+      </button>
       <button
         mat-raised-button
         (click)="changeLangTo('de')"
-      >German</button>
+      >
+        German
+      </button>
       <button
         mat-raised-button
         (click)="changeLangTo('es')"
-      >Spanish</button>
+      >
+        Spanish
+      </button>
     </mgl-control>
   </mgl-map>
   `,
-  styleUrls: ['./examples.css', './toggle-layers.component.css']
+  styleUrls: ['./examples.css'],
+  preserveWhitespaces: false
 })
 export class LanguageSwitchComponent {
   map: Map;

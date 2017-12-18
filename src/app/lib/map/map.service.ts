@@ -350,6 +350,12 @@ export class MapService {
     });
   }
 
+  fitBounds(bounds: MapboxGl.LngLatBoundsLike, options?: any) {
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.fitBounds(bounds, options);
+    });
+  }
+
   private createMap(options: MapboxGl.MapboxOptions) {
     Object.keys(options)
       .forEach((key: string) => {

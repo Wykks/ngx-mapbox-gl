@@ -96,7 +96,8 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
     linear?: boolean,
     easing?: Function,
     padding?: number | PaddingOptions,
-    offset?: PointLike, maxZoom?: number
+    offset?: PointLike,
+    maxZoom?: number
   };
   @Input() flyToOptions?: FlyToOptions;
   @Input() centerWithPanTo?: boolean;
@@ -243,6 +244,9 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
     if (changes.maxBounds && !changes.maxBounds.isFirstChange()) {
       this.MapService.updateMaxBounds(changes.maxBounds.currentValue);
     }
+    if (changes.fitBounds && !changes.fitBounds.isFirstChange()) {
+      this.MapService.fitBounds(changes.fitBounds.currentValue, this.fitBoundsOptions);
+    }
     if (
       this.centerWithPanTo &&
       changes.center && !changes.center.isFirstChange() &&
@@ -265,5 +269,4 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
       );
     }
   }
-
 }

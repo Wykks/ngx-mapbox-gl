@@ -33,6 +33,7 @@ import { PopupComponent } from './examples/popup.component';
 import { SatelliteMapComponent } from './examples/satellite-map.component';
 import { SetStyleComponent } from './examples/set-style.component';
 import { ToggleLayersComponent } from './examples/toggle-layers.component';
+import { ZoomtoLinestringComponent } from './examples/zoomto-linestring.component';
 import { IndexComponent } from './index.component';
 import { LayoutComponent } from './layout/layout.component';
 
@@ -78,7 +79,8 @@ export const demoRoutes: Routes = [
       { path: 'center-on-symbol', component: CenterOnSymbolComponent, data: { label: 'Center the map on a clicked symbol', cat: Category.USER_INTERACTION } },
       { path: 'ngx-drag-a-point', component: NgxDragAPointComponent, data: { label: '[NGX] Create a draggable point', cat: Category.USER_INTERACTION } },
       { path: 'hover-styles', component: HoverStylesComponent, data: { label: 'Create a hover effect', cat: Category.USER_INTERACTION } },
-      { path: 'popup-on-click', component: PopupOnClickComponent, data: { label: 'Display a popup on click', cat: Category.CONTROLS_AND_OVERLAYS } }
+      { path: 'popup-on-click', component: PopupOnClickComponent, data: { label: 'Display a popup on click', cat: Category.CONTROLS_AND_OVERLAYS } },
+      { path: 'zoomto-linestring', component: ZoomtoLinestringComponent, data: { label: 'Fit to the bounds of a LineString', cat: Category.USER_INTERACTION } },
     ]
   }
 ];
@@ -128,7 +130,8 @@ export const demoRoutes: Routes = [
     CenterOnSymbolComponent,
     NgxDragAPointComponent,
     HoverStylesComponent,
-    PopupOnClickComponent
+    PopupOnClickComponent,
+    ZoomtoLinestringComponent
   ]
 })
 export class DemoModule { }
