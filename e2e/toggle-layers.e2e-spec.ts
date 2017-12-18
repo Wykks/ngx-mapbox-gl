@@ -22,7 +22,7 @@ describe('Toggle layers', () => {
     await browser.sleep(6000);
     const screen1 = await browser.takeScreenshot();
     await buttons.get(0).click();
-    await browser.sleep(700);
+    await browser.sleep(1500);
     const screen2 = await browser.takeScreenshot();
     const result = new PixelDiff({
       imageA: new Buffer(screen1, 'base64'),
@@ -30,7 +30,7 @@ describe('Toggle layers', () => {
     }).runSync();
     expect(result.differences).toBeGreaterThan(0);
     await buttons.get(0).click();
-    await browser.sleep(700);
+    await browser.sleep(1500);
     const screen1bis = await browser.takeScreenshot();
     const result2 = new PixelDiff({
       imageA: new Buffer(screen1, 'base64'),
