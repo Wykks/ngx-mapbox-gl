@@ -27,6 +27,7 @@ import { NgxCustomControlComponent } from './examples/ngx-custom-control.compone
 import { NgxCustomMarkerIconsComponent } from './examples/ngx-custom-marker-icons.component';
 import { NgxDragAPointComponent } from './examples/ngx-drag-a-point.component';
 import { NgxGeoJSONLineComponent } from './examples/ngx-geojson-line.component';
+import { NgxMarkerClusterComponent } from './examples/ngx-marker-cluster.component';
 import { NgxScaleControlComponent } from './examples/ngx-scale-control.component';
 import { PopupOnClickComponent } from './examples/popup-on-click.component';
 import { PopupComponent } from './examples/popup.component';
@@ -81,6 +82,7 @@ export const demoRoutes: Routes = [
       { path: 'hover-styles', component: HoverStylesComponent, data: { label: 'Create a hover effect', cat: Category.USER_INTERACTION } },
       { path: 'popup-on-click', component: PopupOnClickComponent, data: { label: 'Display a popup on click', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'zoomto-linestring', component: ZoomtoLinestringComponent, data: { label: 'Fit to the bounds of a LineString', cat: Category.USER_INTERACTION } },
+      { path: 'ngx-marker-cluster', component: NgxMarkerClusterComponent, data: { label: '[NGX] Create a clusters of html markers', cat: Category.CONTROLS_AND_OVERLAYS } }
     ]
   }
 ];
@@ -131,7 +133,8 @@ export const demoRoutes: Routes = [
     NgxDragAPointComponent,
     HoverStylesComponent,
     PopupOnClickComponent,
-    ZoomtoLinestringComponent
+    ZoomtoLinestringComponent,
+    NgxMarkerClusterComponent
   ]
 })
 export class DemoModule { }

@@ -70,6 +70,7 @@
     "@types/lodash-es": "^4.17.0",
     "@types/mapbox-gl": "^0.42.0",
     "@types/node": "~8.5.1",
+    "@types/supercluster": "^3.0.2",
     "codelyzer": "~4.0.2",
     "core-js": "^2.5.3",
     "jasmine-core": "~2.8.0",
@@ -95,5 +96,9 @@
     "tslint-consistent-codestyle": "^1.11.0",
     "typescript": "~2.5.3",
     "zone.js": "^0.8.18"
+  },
+  "dependencies": {
+    "@turf/bbox": "^5.1.5",
+    "@turf/helpers": "^5.1.5"
   }
 }

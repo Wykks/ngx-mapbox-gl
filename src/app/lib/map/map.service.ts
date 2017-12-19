@@ -1,8 +1,11 @@
 import { EventEmitter, Inject, Injectable, InjectionToken, NgZone, Optional } from '@angular/core';
+import bbox from '@turf/bbox';
+import { polygon } from '@turf/helpers';
 import * as MapboxGl from 'mapbox-gl';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { Observable } from 'rxjs/Observable';
 import { first } from 'rxjs/operators/first';
+import { BBox } from 'supercluster';
 import { MapEvent, MapImageData, MapImageOptions } from './map.types';
 
 export const MAPBOX_API_KEY = new InjectionToken('MapboxApiKey');
@@ -355,6 +358,17 @@ export class MapService {
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.fitBounds(bounds, options);
     });
+  }
+
+  getCurrentViewportBbox(): BBox {
+    const canvas = this.mapInstance.getCanvas();
+    const w = canvas.width;
+    const h = canvas.height;
+    const upLeft = this.mapInstance.unproject([0, 0]).toArray();
+    const upRight = this.mapInstance.unproject([w, 0]).toArray();
+    const downRight = this.mapInstance.unproject([w, h]).toArray();
+    const downLeft = this.mapInstance.unproject([0, h]).toArray();
+    return bbox(polygon([[upLeft, upRight, downRight, downLeft, upLeft]]));
   }
 
   private createMap(options: MapboxGl.MapboxOptions) {
