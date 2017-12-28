@@ -37,8 +37,12 @@
   "$schema": "./node_modules/ng-packagr/package.schema.json",
   "ngPackage": {
     "lib": {
-      "externals": {
-        "mapbox-gl": "mapboxgl"
+      "umdModuleIds": {
+        "mapbox-gl": "mapboxgl",
+        "@turf/bbox": "turfbbox",
+        "@turf/helpers": "turfhelpers",
+        "@turf/meta": "turfmeta",
+        "supercluster": "supercluster"
       },
       "entryFile": "public_api.ts"
     }
