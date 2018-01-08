@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { first } from 'rxjs/operators/first';
 import { BBox } from 'supercluster';
 import { MapEvent, MapImageData, MapImageOptions } from './map.types';
+import { Subscription } from 'rxjs/Subscription';
 
 export const MAPBOX_API_KEY = new InjectionToken('MapboxApiKey');
 
@@ -44,6 +45,10 @@ export class MapService {
 
   private mapCreated = new AsyncSubject<void>();
   private mapLoaded = new AsyncSubject<void>();
+  private layerIdsToRemove: string[] = [];
+  private sourceIdsToRemove: string[] = [];
+  private markersToRemove: MapboxGl.Marker[] = [];
+  private subscription = new Subscription();
 
   constructor(
     private zone: NgZone,
@@ -70,6 +75,7 @@ export class MapService {
   }
 
   destroyMap() {
+    this.subscription.unsubscribe();
     this.mapInstance.remove();
   }
 
@@ -220,14 +226,7 @@ export class MapService {
   }
 
   removeLayer(layerId: string) {
-    return this.zone.runOutsideAngular(() => {
-      // TEST THIS
-      this.mapInstance.off('click', layerId);
-      this.mapInstance.off('mouseenter', layerId);
-      this.mapInstance.off('mouseleave', layerId);
-      this.mapInstance.off('mousemove', layerId);
-      this.mapInstance.removeLayer(layerId);
-    });
+    this.layerIdsToRemove.push(layerId);
   }
 
   addMarker(marker: MapboxGl.Marker) {
@@ -237,9 +236,7 @@ export class MapService {
   }
 
   removeMarker(marker: MapboxGl.Marker) {
-    return this.zone.runOutsideAngular(() => {
-      marker.remove();
-    });
+    this.markersToRemove.push(marker);
   }
 
   addPopup(popup: MapboxGl.Popup) {
@@ -307,9 +304,7 @@ export class MapService {
   }
 
   removeSource(sourceId: string) {
-    return this.zone.runOutsideAngular(() => {
-      this.mapInstance.removeSource(sourceId);
-    });
+    this.sourceIdsToRemove.push(sourceId);
   }
 
   setAllLayerPaintProperty(
@@ -372,6 +367,7 @@ export class MapService {
   }
 
   private createMap(options: MapboxGl.MapboxOptions) {
+    NgZone.assertNotInAngularZone();
     Object.keys(options)
       .forEach((key: string) => {
         const tkey = <keyof MapboxGl.MapboxOptions>key;
@@ -380,6 +376,37 @@ export class MapService {
         }
       });
     this.mapInstance = new MapboxGl.Map(options);
+    const sub = this.zone.onMicrotaskEmpty
+      .subscribe(() => {
+        this.zone.runOutsideAngular(() => {
+          this.removeLayers();
+          this.removeSources();
+          this.removeMarkers();
+        });
+      });
+    this.subscription.add(sub);
+  }
+
+  private removeLayers() {
+    for (const layerId of this.layerIdsToRemove) {
+      this.mapInstance.off('click', layerId);
+      this.mapInstance.off('mouseenter', layerId);
+      this.mapInstance.off('mouseleave', layerId);
+      this.mapInstance.off('mousemove', layerId);
+      this.mapInstance.removeLayer(layerId);
+    }
+  }
+
+  private removeSources() {
+    for (const sourceId of this.sourceIdsToRemove) {
+      this.mapInstance.removeSource(sourceId);
+    }
+  }
+
+  private removeMarkers() {
+    for (const marker of this.markersToRemove) {
+      marker.remove();
+    }
   }
 
   private hookEvents(events: MapEvent) {
