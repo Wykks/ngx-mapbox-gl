@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   template: `
   <mgl-map
     [style]="'mapbox://styles/mapbox/streets-v9'"
   >
-    <mgl-control
-      *ngIf="showControl"
-    >
+    <mgl-control>
       <button
         mat-fab
         color="primary"
@@ -20,14 +18,7 @@ import { Component, OnInit } from '@angular/core';
   `,
   styleUrls: ['./examples.css']
 })
-export class NgxCustomControlComponent implements OnInit {
-  showControl = true;
-
-  ngOnInit() {
-    setInterval(() => {
-      this.showControl = !this.showControl;
-    }, 1000);
-  }
+export class NgxCustomControlComponent {
   alert(message: string) {
     alert(message);
   }
