@@ -48,6 +48,8 @@ export class MapService {
   private layerIdsToRemove: string[] = [];
   private sourceIdsToRemove: string[] = [];
   private markersToRemove: MapboxGl.Marker[] = [];
+  private popupsToRemove: MapboxGl.Popup[] = [];
+  private imageIdsToRemove: string[] = [];
   private subscription = new Subscription();
 
   constructor(
@@ -246,9 +248,7 @@ export class MapService {
   }
 
   removePopup(popup: MapboxGl.Popup) {
-    return this.zone.runOutsideAngular(() => {
-      popup.remove();
-    });
+    this.popupsToRemove.push(popup);
   }
 
   addControl(control: MapboxGl.Control | MapboxGl.IControl, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left') {
@@ -285,9 +285,7 @@ export class MapService {
   }
 
   removeImage(imageId: string) {
-    return this.zone.runOutsideAngular(() => {
-      this.mapInstance.removeImage(imageId);
-    });
+    this.imageIdsToRemove.push(imageId);
   }
 
   addSource(sourceId: string, source: AllSource) {
@@ -382,6 +380,8 @@ export class MapService {
           this.removeLayers();
           this.removeSources();
           this.removeMarkers();
+          this.removePopups();
+          this.removeImages();
         });
       });
     this.subscription.add(sub);
@@ -406,6 +406,18 @@ export class MapService {
   private removeMarkers() {
     for (const marker of this.markersToRemove) {
       marker.remove();
+    }
+  }
+
+  private removePopups() {
+    for (const popup of this.popupsToRemove) {
+      popup.remove();
+    }
+  }
+
+  private removeImages() {
+    for (const imageId of this.imageIdsToRemove) {
+      this.mapInstance.removeImage(imageId);
     }
   }
 
