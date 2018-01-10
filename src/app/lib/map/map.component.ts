@@ -42,6 +42,9 @@ declare global {
   selector: 'mgl-map',
   template: '<div #container></div>',
   styles: [`
+  :host {
+    display: block;
+  }
   div {
     height: 100%;
     width: 100%;
