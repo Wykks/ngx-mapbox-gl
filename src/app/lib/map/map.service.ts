@@ -364,6 +364,16 @@ export class MapService {
     return bbox(polygon([[upLeft, upRight, downRight, downLeft, upLeft]]));
   }
 
+  applyChanges() {
+    this.zone.runOutsideAngular(() => {
+      this.removeLayers();
+      this.removeSources();
+      this.removeMarkers();
+      this.removePopups();
+      this.removeImages();
+    });
+  }
+
   private createMap(options: MapboxGl.MapboxOptions) {
     NgZone.assertNotInAngularZone();
     Object.keys(options)
@@ -375,15 +385,7 @@ export class MapService {
       });
     this.mapInstance = new MapboxGl.Map(options);
     const sub = this.zone.onMicrotaskEmpty
-      .subscribe(() => {
-        this.zone.runOutsideAngular(() => {
-          this.removeLayers();
-          this.removeSources();
-          this.removeMarkers();
-          this.removePopups();
-          this.removeImages();
-        });
-      });
+      .subscribe(() => this.applyChanges());
     this.subscription.add(sub);
   }
 
@@ -395,30 +397,35 @@ export class MapService {
       this.mapInstance.off('mousemove', layerId);
       this.mapInstance.removeLayer(layerId);
     }
+    this.layerIdsToRemove = [];
   }
 
   private removeSources() {
     for (const sourceId of this.sourceIdsToRemove) {
       this.mapInstance.removeSource(sourceId);
     }
+    this.sourceIdsToRemove = [];
   }
 
   private removeMarkers() {
     for (const marker of this.markersToRemove) {
       marker.remove();
     }
+    this.markersToRemove = [];
   }
 
   private removePopups() {
     for (const popup of this.popupsToRemove) {
       popup.remove();
     }
+    this.popupsToRemove = [];
   }
 
   private removeImages() {
     for (const imageId of this.imageIdsToRemove) {
       this.mapInstance.removeImage(imageId);
     }
+    this.imageIdsToRemove = [];
   }
 
   private hookEvents(events: MapEvent) {
