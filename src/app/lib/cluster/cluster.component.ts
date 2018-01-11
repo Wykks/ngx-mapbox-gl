@@ -1,23 +1,23 @@
-import { merge } from 'rxjs/observable/merge';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { startWith } from 'rxjs/operators/startWith';
-import { Subscription } from 'rxjs/Subscription';
-import supercluster, { Supercluster } from 'supercluster';
-import { MapService } from '../map/map.service';
 import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  ContentChild,
+  Directive,
   Input,
   OnChanges,
   OnDestroy,
-  SimpleChanges,
   OnInit,
-  ChangeDetectionStrategy,
-  Directive,
-  TemplateRef,
-  ContentChild,
-  AfterContentInit,
-  ChangeDetectorRef,
-} from '@angular/core';
+  SimpleChanges,
+  TemplateRef
+  } from '@angular/core';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { merge } from 'rxjs/observable/merge';
+import { startWith } from 'rxjs/operators/startWith';
+import { Subscription } from 'rxjs/Subscription';
+import supercluster, { Options as SuperclusterOptions, Supercluster } from 'supercluster';
+import { MapService } from '../map/map.service';
 
 @Directive({ selector: 'ng-template[mglPoint]' })
 export class PointDirective { }
@@ -42,12 +42,15 @@ export class ClusterPointDirective { }
 })
 export class ClusterComponent implements OnChanges, OnDestroy, AfterContentInit, OnInit {
   /* Init input */
-  @Input() radius: any;
-  @Input() maxZoom: any;
-  @Input() minZoom: any;
-  @Input() extent: any;
-  @Input() nodeSize: any;
-  @Input() log: any;
+  @Input() radius?: number;
+  @Input() maxZoom?: number;
+  @Input() minZoom?: number;
+  @Input() extent?: number;
+  @Input() nodeSize?: number;
+  @Input() log?: boolean;
+  @Input() reduce?: (accumulated: any, props: any) => void;
+  @Input() initial?: () => any;
+  @Input() map?: (props: any) => any;
 
   /* Dynamic input */
   @Input() data: GeoJSON.FeatureCollection<GeoJSON.Point>;
@@ -66,10 +69,25 @@ export class ClusterComponent implements OnChanges, OnDestroy, AfterContentInit,
   ) { }
 
   ngOnInit() {
-    this.supercluster = supercluster({
+    const options: SuperclusterOptions = {
       radius: this.radius,
-      maxZoom: this.maxZoom
-    });
+      maxZoom: this.maxZoom,
+      minZoom: this.minZoom,
+      extent: this.extent,
+      nodeSize: this.nodeSize,
+      log: this.log,
+      reduce: this.reduce,
+      initial: this.initial,
+      map: this.map
+    };
+    Object.keys(options)
+      .forEach((key: string) => {
+        const tkey = <keyof SuperclusterOptions>key;
+        if (options[tkey] === undefined) {
+          delete options[tkey];
+        }
+      });
+    this.supercluster = supercluster(options);
     this.supercluster.load(this.data.features);
   }
 
@@ -101,5 +119,6 @@ export class ClusterComponent implements OnChanges, OnDestroy, AfterContentInit,
     const currentZoom = Math.round(this.MapService.mapInstance.getZoom());
     this.clusterPoints = this.supercluster.getClusters(bbox, currentZoom);
     this.ChangeDetectorRef.detectChanges();
+    this.MapService.applyChanges();
   }
 }
