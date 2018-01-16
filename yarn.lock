@@ -287,9 +287,9 @@
   version "4.14.77"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.77.tgz#0bc699413e84d6ed5d927ca30ea0f0a890b42d75"
 
-"@types/mapbox-gl@^0.42.0":
-  version "0.42.0"
-  resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-0.42.0.tgz#3c9c910ef39aa9928195f394a8201fb5b05d332f"
+"@types/mapbox-gl@^0.43.0":
+  version "0.43.0"
+  resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-0.43.0.tgz#0098f72195fcc6bf1f504e4d6d5dac04189c2bdd"
   dependencies:
     "@types/geojson" "*"
 
