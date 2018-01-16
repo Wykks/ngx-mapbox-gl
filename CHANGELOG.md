@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-beta.4"></a>
+# [1.0.0-beta.4](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2018-01-16)
+
+
+### Bug Fixes
+
+* **map:** add display block :man_facepalming: ([9f40d12](https://github.com/Wykks/ngx-mapbox-gl/commit/9f40d12)), closes [#11](https://github.com/Wykks/ngx-mapbox-gl/issues/11)
+* **map:** ensure layer are removed before source ([9779693](https://github.com/Wykks/ngx-mapbox-gl/commit/9779693)), closes [#10](https://github.com/Wykks/ngx-mapbox-gl/issues/10)
+* corrected type definitons ([853e4de](https://github.com/Wykks/ngx-mapbox-gl/commit/853e4de))
+
+
+### build
+
+* deps upgrade ([2879c5d](https://github.com/Wykks/ngx-mapbox-gl/commit/2879c5d))
+
+
+### Features
+
+* **cluster:** add clusterComponent! ([1cb6daa](https://github.com/Wykks/ngx-mapbox-gl/commit/1cb6daa))
+
+
+### Performance Improvements
+
+* also buffer popup and images to remove ([2534739](https://github.com/Wykks/ngx-mapbox-gl/commit/2534739))
+
+
+### BREAKING CHANGES
+
+* Update to mapbox-gl 0.43.0
+
+
+
 <a name="1.0.0-beta.3"></a>
 # [1.0.0-beta.3](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2017-12-18)
 
