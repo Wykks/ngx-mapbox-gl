@@ -9,35 +9,27 @@ const earthquakes = require('./earthquakes.geo.json');
     [zoom]="[3]"
     [center]="[-103.59179687498357, 40.66995747013945]"
   >
-    <mgl-cluster
+    <mgl-marker-cluster
       [data]="earthquakes"
       [maxZoom]="14"
       [radius]="50"
     >
       <ng-template mglPoint let-feature>
-        <mgl-marker
-          [feature]="feature"
+        <div
+          class="marker"
+          [title]="feature.properties['Secondary ID']"
         >
-          <div
-            class="marker"
-            [title]="feature.properties['Secondary ID']"
-          >
-            {{ feature.properties['Primary ID'] }}
-          </div>
-        </mgl-marker>
+          {{ feature.properties['Primary ID'] }}
+        </div>
       </ng-template>
       <ng-template mglClusterPoint let-feature>
-        <mgl-marker
-          [feature]="feature"
+        <div
+          class="marker-cluster"
         >
-          <div
-            class="marker-cluster"
-          >
-            {{ feature.properties['point_count'] }}
-          </div>
-        </mgl-marker>
+          {{ feature.properties['point_count'] }}
+        </div>
       </ng-template>
-    </mgl-cluster>
+    </mgl-marker-cluster>
   </mgl-map>
   `,
   styleUrls: ['./examples.css', './ngx-marker-cluster.component.css']

@@ -11,7 +11,7 @@ import {
   OnInit,
   SimpleChanges,
   TemplateRef
-  } from '@angular/core';
+} from '@angular/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
 import { startWith } from 'rxjs/operators/startWith';
@@ -26,21 +26,29 @@ export class PointDirective { }
 export class ClusterPointDirective { }
 
 @Component({
-  selector: 'mgl-cluster',
+  selector: 'mgl-marker-cluster',
   template: `
     <ng-container *ngFor="let feature of clusterPoints">
       <ng-container *ngIf="feature.properties.cluster; else point">
-        <ng-container *ngTemplateOutlet="clusterPointTpl; context: { $implicit: feature }"></ng-container>
+        <mgl-marker
+          [feature]="feature"
+        >
+          <ng-container *ngTemplateOutlet="clusterPointTpl; context: { $implicit: feature }"></ng-container>
+        </mgl-marker>
       </ng-container>
       <ng-template #point>
-        <ng-container *ngTemplateOutlet="pointTpl; context: { $implicit: feature }"></ng-container>
+        <mgl-marker
+          [feature]="feature"
+        >
+          <ng-container *ngTemplateOutlet="pointTpl; context: { $implicit: feature }"></ng-container>
+        </mgl-marker>
       </ng-template>
     </ng-container>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false
 })
-export class ClusterComponent implements OnChanges, OnDestroy, AfterContentInit, OnInit {
+export class MarkerClusterComponent implements OnChanges, OnDestroy, AfterContentInit, OnInit {
   /* Init input */
   @Input() radius?: number;
   @Input() maxZoom?: number;

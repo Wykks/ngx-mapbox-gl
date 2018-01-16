@@ -23,7 +23,7 @@ Include the following components:
   - mglNavigation
 - [mgl-marker](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-marker-mapbox-gl-api)
 - [mgl-popup](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-popup-mapbox-gl-api)
-- mgl-cluster (cluster of html marker!)
+- mgl-marker-cluster
 
 ## How to start
 
