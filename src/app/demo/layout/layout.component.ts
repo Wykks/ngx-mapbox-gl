@@ -17,7 +17,7 @@ export class LayoutComponent implements OnInit {
   categories: Category[];
 
   constructor() {
-    this.routes = <RoutesByCategory>groupBy(demoRoutes[0].children, (route) => route.data ? route.data.cat : null);
+    this.routes = <RoutesByCategory><any>groupBy(demoRoutes[0].children, (route) => route.data ? route.data.cat : null);
     this.categories = [
       Category.STYLES,
       Category.LAYERS,

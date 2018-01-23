@@ -37,7 +37,7 @@ export class FeatureComponent implements OnInit, OnDestroy, GeoJSON.Feature<GeoJ
   }
 
   updateCoordinates(coordinates: number[]) {
-    (<GeoJSON.DirectGeometryObject>this.feature.geometry).coordinates = coordinates;
+    (<GeoJSON.Point>this.feature.geometry).coordinates = coordinates;
     this.GeoJSONSourceComponent.updateFeatureData.next();
   }
 }
