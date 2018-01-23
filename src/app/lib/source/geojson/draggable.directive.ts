@@ -1,4 +1,6 @@
 import { Directive, Host, Input, OnDestroy, OnInit } from '@angular/core';
+import { MapMouseEvent } from 'mapbox-gl';
+import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
@@ -44,11 +46,11 @@ export class DraggableDirective implements OnInit, OnDestroy {
         }
         this.MapService.changeCanvasCursor('move');
         this.MapService.updateDragPan(false);
-        this.MapService.mapEvents.mouseDown.pipe(
+        fromEvent(this.MapService.mapInstance, 'mousedown').pipe(
           takeUntil(merge(this.destroyed$, this.source.mouseLeave))
         ).subscribe(() => {
-          this.MapService.mapEvents.mouseMove.pipe(
-            takeUntil(merge(this.destroyed$, this.MapService.mapEvents.mouseUp))
+          fromEvent<MapMouseEvent>(this.MapService.mapInstance, 'mousemove').pipe(
+            takeUntil(merge(this.destroyed$, fromEvent(this.MapService.mapInstance, 'mouseup')))
           ).subscribe((evt) => {
             this.FeatureComponent.updateCoordinates([evt.lngLat.lng, evt.lngLat.lat]);
           });
