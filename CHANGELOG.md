@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-rc.0"></a>
+# [1.0.0-rc.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-beta.5...v1.0.0-rc.0) (2018-01-28)
+
+
+### Bug Fixes
+
+* **draggable:** works again ([9ae98df](https://github.com/Wykks/ngx-mapbox-gl/commit/9ae98df))
+* **markerCluster:** include custom supercluster version ([6ad4526](https://github.com/Wykks/ngx-mapbox-gl/commit/6ad4526))
+* custom control ignored a supplied position ([3253776](https://github.com/Wykks/ngx-mapbox-gl/commit/3253776))
+
+
+### Features
+
+* expose MapService for ngx-mapbox-gl extensions ([908b8fe](https://github.com/Wykks/ngx-mapbox-gl/commit/908b8fe)), closes [#19](https://github.com/Wykks/ngx-mapbox-gl/issues/19)
+
+
+
 <a name="1.0.0-beta.5"></a>
 # [1.0.0-beta.5](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2018-01-16)
 

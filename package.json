@@ -1,6 +1,6 @@
 {
   "name": "ngx-mapbox-gl",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-rc.0",
   "description": "A Angular binding of mapbox-gl-js",
   "license": "MIT",
   "repository": {
@@ -27,7 +27,7 @@
     "lint": "ng lint --format stylish",
     "e2e": "ng e2e",
     "packagr": "ng-packagr -p package.json",
-    "release": "standard-version --prerelease beta"
+    "release": "standard-version --prerelease rc"
   },
   "standard-version": {
     "scripts": {
