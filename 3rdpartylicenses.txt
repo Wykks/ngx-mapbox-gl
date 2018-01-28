@@ -67,6 +67,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+kdbush@1.0.1
+ISC
+ISC
+
 lodash-es@4.17.4
 MIT
 Copyright JS Foundation and other contributors <https://js.foundation/>
@@ -117,11 +121,11 @@ maintained libraries used by this software which have their own
 licenses; we recommend you read them, as their terms may differ from the
 terms above.
 
-kdbush@1.0.1
-ISC
-ISC
+@angular/core@5.2.2
+MIT
+MIT
 
-supercluster@2.3.0
+supercluster@3.0.2
 ISC
 ISC License
 
@@ -138,7 +142,3 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
 OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
 TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
 THIS SOFTWARE.
-
-@angular/core@5.2.0
-MIT
-MIT
