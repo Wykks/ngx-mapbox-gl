@@ -50,7 +50,7 @@ export class ControlComponent implements OnDestroy, AfterContentInit {
     if (this.content.nativeElement.childNodes.length) {
       this.control = new CustomControl(this.content.nativeElement);
       this.MapService.mapCreated$.subscribe(() => {
-        this.MapService.addControl(this.control!);
+        this.MapService.addControl(this.control!, this.position);
       });
     }
   }
