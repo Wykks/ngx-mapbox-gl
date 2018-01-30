@@ -1,4 +1,4 @@
-import { Directive, Host, Input, OnDestroy, OnInit } from '@angular/core';
+import { Directive, Host, Input, OnDestroy, OnInit, EventEmitter, Output } from '@angular/core';
 import { MapMouseEvent } from 'mapbox-gl';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
@@ -14,6 +14,10 @@ import { FeatureComponent } from './feature.component';
 export class DraggableDirective implements OnInit, OnDestroy {
   // tslint:disable-next-line:no-input-rename
   @Input('mglDraggable') source: LayerComponent;
+
+  @Output() dragStart = new EventEmitter<MapMouseEvent>();
+  @Output() dragEnd = new EventEmitter<MapMouseEvent>();
+  @Output() drag = new EventEmitter<MapMouseEvent>();
 
   private destroyed$: ReplaySubject<void> = new ReplaySubject(1);
 
@@ -46,14 +50,21 @@ export class DraggableDirective implements OnInit, OnDestroy {
         }
         this.MapService.changeCanvasCursor('move');
         this.MapService.updateDragPan(false);
+
         fromEvent(this.MapService.mapInstance, 'mousedown').pipe(
           takeUntil(merge(this.destroyed$, this.source.mouseLeave))
         ).subscribe(() => {
+          this.dragStart.emit(evt);
           fromEvent<MapMouseEvent>(this.MapService.mapInstance, 'mousemove').pipe(
             takeUntil(merge(this.destroyed$, fromEvent(this.MapService.mapInstance, 'mouseup')))
-          ).subscribe((evt) => {
-            this.FeatureComponent.updateCoordinates([evt.lngLat.lng, evt.lngLat.lat]);
-          });
+          ).subscribe(
+            evt => {
+              this.drag.emit(evt);
+              this.FeatureComponent.updateCoordinates([evt.lngLat.lng, evt.lngLat.lat]);
+            },
+            err => err,
+            () => this.dragEnd.emit(evt)
+          );
         });
       });
       this.source.mouseLeave.pipe(
