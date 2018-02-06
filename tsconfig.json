@@ -18,9 +18,5 @@
     "strict": true,
     "skipLibCheck": true,
     "noUnusedLocals": true
-  },
-  "angularCompilerOption": {
-    "fullTemplateTypeCheck": true,
-    "preserveWhitespaces": false
   }
 }

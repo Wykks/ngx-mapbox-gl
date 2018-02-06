@@ -5,6 +5,10 @@
     "baseUrl": "./",
     "module": "es2015"
   },
+  "angularCompilerOption": {
+    "fullTemplateTypeCheck": true,
+    "preserveWhitespaces": false
+  },
   "exclude": [
     "test.ts",
     "**/*.spec.ts"
