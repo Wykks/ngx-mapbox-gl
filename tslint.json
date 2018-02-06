@@ -144,6 +144,7 @@
     },
     "rxjs-no-wholesale": {
       "severity": "error"
-    }
+    },
+    "arrow-parens": true
   }
 }

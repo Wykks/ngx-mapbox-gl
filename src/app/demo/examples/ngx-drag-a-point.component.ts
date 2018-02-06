@@ -32,6 +32,12 @@ import { MapMouseEvent } from 'mapbox-gl';
       (mouseEnter)="changeColor('#3bb2d0')"
       (mouseLeave)="changeColor('#3887be')"
     ></mgl-layer>
+    <mgl-control position="bottom-left">
+      <mat-card>
+        <div>Longitude:&nbsp;{{ coordinates[0]}}</div>
+        <div>Latitude:&nbsp;{{ coordinates[1]}}</div>
+      </mat-card>
+    </mgl-control>
   </mgl-map>
   `,
   styleUrls: ['./examples.css']
@@ -41,6 +47,8 @@ export class NgxDragAPointComponent {
     'circle-radius': 10,
     'circle-color': '#3887be'
   };
+
+  coordinates = [0, 0];
 
   onDragStart(event: MapMouseEvent) {
     console.log('onDragStart', event);
@@ -52,6 +60,7 @@ export class NgxDragAPointComponent {
 
   onDrag(event: MapMouseEvent) {
     console.log('onDrag', event);
+    this.coordinates = event.lngLat.toArray();
   }
 
   changeColor(color: string) {
