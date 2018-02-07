@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule, MatButtonToggleModule, MatListModule, MatRadioModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule, MatButtonToggleModule, MatCardModule, MatListModule, MatRadioModule, MatToolbarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxMapboxGLModule } from '../lib';
@@ -96,6 +96,7 @@ export const demoRoutes: Routes = [
     MatButtonModule,
     MatListModule,
     MatToolbarModule,
+    MatCardModule,
     FormsModule,
     NgxMapboxGLModule.forRoot({
       accessToken: 'pk.eyJ1Ijoid3lra3NzIiwiYSI6ImNqMjR6aTdmdzAwNHMzMnBvbjBucjlqNm8ifQ.6GjGpofWBVaIuSnhdXQb5w'

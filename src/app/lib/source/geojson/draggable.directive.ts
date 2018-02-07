@@ -1,4 +1,4 @@
-import { Directive, Host, Input, OnDestroy, OnInit, EventEmitter, Output } from '@angular/core';
+import { Directive, Host, Input, OnDestroy, OnInit, EventEmitter, Output, NgZone } from '@angular/core';
 import { MapMouseEvent } from 'mapbox-gl';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
@@ -23,7 +23,8 @@ export class DraggableDirective implements OnInit, OnDestroy {
 
   constructor(
     private MapService: MapService,
-    @Host() private FeatureComponent: FeatureComponent
+    @Host() private FeatureComponent: FeatureComponent,
+    private NgZone: NgZone
   ) { }
 
   ngOnInit() {
@@ -54,16 +55,24 @@ export class DraggableDirective implements OnInit, OnDestroy {
         fromEvent(this.MapService.mapInstance, 'mousedown').pipe(
           takeUntil(merge(this.destroyed$, this.source.mouseLeave))
         ).subscribe(() => {
-          this.dragStart.emit(evt);
+          if (this.dragStart.observers.length) {
+            this.NgZone.run(() => this.dragStart.emit(evt));
+          }
           fromEvent<MapMouseEvent>(this.MapService.mapInstance, 'mousemove').pipe(
             takeUntil(merge(this.destroyed$, fromEvent(this.MapService.mapInstance, 'mouseup')))
           ).subscribe(
-            evt => {
-              this.drag.emit(evt);
+            (evt) => {
+              if (this.drag.observers.length) {
+                this.NgZone.run(() => this.drag.emit(evt));
+              }
               this.FeatureComponent.updateCoordinates([evt.lngLat.lng, evt.lngLat.lat]);
             },
-            err => err,
-            () => this.dragEnd.emit(evt)
+            (err) => err,
+            () => {
+              if (this.dragEnd.observers.length) {
+                this.NgZone.run(() => this.dragEnd.emit(evt));
+              }
+            }
           );
         });
       });
