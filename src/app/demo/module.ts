@@ -5,6 +5,7 @@ import { MatButtonModule, MatButtonToggleModule, MatCardModule, MatListModule, M
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxMapboxGLModule } from '../lib';
+import { Display3dBuildingsComponent } from './examples/3d-buildings.component';
 import { AddImageGeneratedComponent } from './examples/add-image-generated.component';
 import { AddImageComponent } from './examples/add-image.component';
 import { AttachPopupComponent } from './examples/attach-popup.component';
@@ -60,6 +61,7 @@ export const demoRoutes: Routes = [
       { path: 'add-image-generated', component: AddImageGeneratedComponent, data: { label: 'Add a generated icon to the map', cat: Category.LAYERS } },
       { path: 'add-image', component: AddImageComponent, data: { label: 'Add an icon to the map', cat: Category.LAYERS } },
       { path: 'toggle-layers', component: ToggleLayersComponent, data: { label: 'Show and hide layers', cat: Category.LAYERS } },
+      { path: '3d-buildings', component: Display3dBuildingsComponent, data: { label: 'Display 3d buildings', cat: Category.LAYERS } },
       { path: 'cluster', component: ClusterComponent, data: { label: 'Create and style clusters', cat: Category.LAYERS } },
       { path: 'heatmap', component: HeatMapComponent, data: { label: 'Create a heatmap layer', cat: Category.LAYERS } },
       { path: 'geojson-line', component: GeoJSONLineComponent, data: { label: 'Add a GeoJSON line', cat: Category.LAYERS } },
@@ -135,7 +137,8 @@ export const demoRoutes: Routes = [
     HoverStylesComponent,
     PopupOnClickComponent,
     ZoomtoLinestringComponent,
-    NgxMarkerClusterComponent
+    NgxMarkerClusterComponent,
+    Display3dBuildingsComponent
   ]
 })
 export class DemoModule { }
