@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-const earthquakes = require('./earthquakes.geo.json');
+import earthquakes from './earthquakes.geo.json';
 
 @Component({
   template: `

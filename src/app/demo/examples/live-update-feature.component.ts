@@ -3,7 +3,7 @@ import { LngLatLike } from 'mapbox-gl';
 import { of } from 'rxjs/observable/of';
 import { delay } from 'rxjs/operators/delay';
 
-const hike = require('./hike.geo.json');
+import hike from './hike.geo.json';
 
 @Component({
   template: `
