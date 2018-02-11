@@ -8,8 +8,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* **draggable:** run drag events in NgZone ([5897eef](https://github.com/Wykks/ngx-mapbox-gl/commit/5897eef))
 * **popup:** now easier to use ([1ca82c1](https://github.com/Wykks/ngx-mapbox-gl/commit/1ca82c1))
+
+
+### Features
+
+* **draggable:** add drag event emitters
 
 
 
