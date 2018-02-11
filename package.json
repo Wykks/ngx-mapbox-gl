@@ -88,7 +88,7 @@
     "karma-mocha-reporter": "^2.2.5",
     "lodash-es": "^4.17.5",
     "mapbox-gl": "0.44.0",
-    "ng-packagr": "2.0.0",
+    "ng-packagr": "2.0.0-rc.12",
     "pixel-diff": "^1.0.1",
     "protractor": "~5.3.0",
     "protractor-browser-logs": "^1.0.351",
