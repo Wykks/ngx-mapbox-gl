@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-rc.1"></a>
+# [1.0.0-rc.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-rc.0...v1.0.0-rc.1) (2018-02-11)
+
+
+### Bug Fixes
+
+* **draggable:** run drag events in NgZone ([5897eef](https://github.com/Wykks/ngx-mapbox-gl/commit/5897eef))
+* **popup:** now easier to use ([1ca82c1](https://github.com/Wykks/ngx-mapbox-gl/commit/1ca82c1))
+
+
+
 <a name="1.0.0-rc.0"></a>
 # [1.0.0-rc.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-beta.5...v1.0.0-rc.0) (2018-01-28)
 
