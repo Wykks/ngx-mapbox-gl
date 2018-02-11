@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { MapMouseEvent } from 'mapbox-gl';
 
 @Component({
@@ -28,7 +28,6 @@ import { MapMouseEvent } from 'mapbox-gl';
     <mgl-popup
       *ngIf="selectedPoint"
       [lngLat]="selectedPoint.geometry.coordinates"
-      (close)="selectedPoint = null"
     >
       <span [innerHTML]="selectedPoint.properties.description"></span>
     </mgl-popup>
@@ -41,9 +40,7 @@ export class PopupOnClickComponent {
   selectedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
   cursorStyle: string;
 
-  constructor(
-    private ChangeDetectorRef: ChangeDetectorRef
-  ) {
+  constructor() {
     this.points = {
       'type': 'FeatureCollection',
       'features': [{
@@ -150,8 +147,6 @@ export class PopupOnClickComponent {
   }
 
   onClick(evt: MapMouseEvent) {
-    this.selectedPoint = null;
-    this.ChangeDetectorRef.detectChanges();
     this.selectedPoint = (<any>evt).features[0];
   }
 }

@@ -50,7 +50,10 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.lngLat && !changes.lngLat.isFirstChange()) {
-      this.popupInstance!.setLngLat(this.lngLat!);
+      this.MapService.removePopup(this.popupInstance!);
+      const popupInstanceTmp = this.createPopup();
+      this.MapService.addPopup(popupInstanceTmp);
+      this.popupInstance = popupInstanceTmp;
     }
     if (changes.marker && !changes.marker.isFirstChange()) {
       const previousMarker: MarkerComponent = changes.marker.previousValue;
@@ -64,6 +67,15 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
   }
 
   ngAfterViewInit() {
+    this.popupInstance = this.createPopup();
+  }
+
+  ngOnDestroy() {
+    this.MapService.removePopup(this.popupInstance!);
+    this.popupInstance = undefined;
+  }
+
+  private createPopup() {
     const options = {
       closeButton: this.closeButton,
       closeOnClick: this.closeOnClick,
@@ -73,23 +85,19 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
     Object.keys(options)
       .forEach((key) =>
         (<any>options)[key] === undefined && delete (<any>options)[key]);
-    this.popupInstance = new Popup(options);
-    this.popupInstance.once('close', () => {
+    const popupInstance = new Popup(options);
+    popupInstance.once('close', () => {
       this.close.emit();
     });
-    this.popupInstance.setDOMContent(this.content.nativeElement);
+    popupInstance.setDOMContent(this.content.nativeElement);
     this.MapService.mapCreated$.subscribe(() => {
       if (this.lngLat) {
-        this.popupInstance!.setLngLat(this.lngLat);
-        this.MapService.addPopup(this.popupInstance!);
+        popupInstance.setLngLat(this.lngLat);
+        this.MapService.addPopup(popupInstance);
       } else if (this.marker && this.marker.markerInstance) {
-        this.marker.markerInstance.setPopup(this.popupInstance);
+        this.marker.markerInstance.setPopup(popupInstance);
       }
     });
-  }
-
-  ngOnDestroy() {
-    this.MapService.removePopup(this.popupInstance!);
-    this.popupInstance = undefined;
+    return popupInstance;
   }
 }
