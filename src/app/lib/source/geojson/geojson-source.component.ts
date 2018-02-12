@@ -16,6 +16,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
 
   /* Dynamic inputs */
   @Input() data?: GeoJSON.Feature<GeoJSONGeometry> | GeoJSON.FeatureCollection<GeoJSONGeometry> | string;
+  @Input() minzoom?: number;
   @Input() maxzoom?: number;
   @Input() buffer?: number;
   @Input() tolerance?: number;
@@ -45,6 +46,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
         type: 'geojson',
         data: this.data,
         maxzoom: this.maxzoom,
+        minzoom: this.minzoom,
         buffer: this.buffer,
         tolerance: this.tolerance,
         cluster: this.cluster,
@@ -67,6 +69,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
     }
     if (
       changes.maxzoom && !changes.maxzoom.isFirstChange() ||
+      changes.minzoom && !changes.minzoom.isFirstChange() ||
       changes.buffer && !changes.buffer.isFirstChange() ||
       changes.tolerance && !changes.tolerance.isFirstChange() ||
       changes.cluster && !changes.cluster.isFirstChange() ||
