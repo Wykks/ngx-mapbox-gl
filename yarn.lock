@@ -4668,9 +4668,9 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapbox-gl@0.44.0:
-  version "0.44.0"
-  resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-0.44.0.tgz#5f4c58d2c64fba8e61183c67f98217f1db432f99"
+mapbox-gl@0.44.1:
+  version "0.44.1"
+  resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-0.44.1.tgz#bd4964f71a937c0eca4cc8b00330f2bfcbddc37c"
   dependencies:
     "@mapbox/gl-matrix" "^0.0.1"
     "@mapbox/mapbox-gl-supported" "^1.3.0"
