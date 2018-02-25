@@ -1,11 +1,10 @@
 import { EventEmitter, Inject, Injectable, InjectionToken, NgZone, Optional } from '@angular/core';
 import bbox from '@turf/bbox';
-import { polygon } from '@turf/helpers';
+import { polygon, BBox } from '@turf/helpers';
 import * as MapboxGl from 'mapbox-gl';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { Observable } from 'rxjs/Observable';
 import { first } from 'rxjs/operators/first';
-import { BBox } from 'supercluster';
 import { MapEvent, MapImageData, MapImageOptions } from './map.types';
 import { Subscription } from 'rxjs/Subscription';
 
