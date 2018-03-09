@@ -86,7 +86,7 @@ export const demoRoutes: Routes = [
       { path: 'popup-on-click', component: PopupOnClickComponent, data: { label: 'Display a popup on click', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'zoomto-linestring', component: ZoomtoLinestringComponent, data: { label: 'Fit to the bounds of a LineString', cat: Category.USER_INTERACTION } },
       { path: 'ngx-marker-cluster', component: NgxMarkerClusterComponent, data: { label: '[NGX] Create a clusters of html markers', cat: Category.CONTROLS_AND_OVERLAYS } },
-      { path: 'geocode-address', component: GeocodeAddressComponent, data: { label: 'Geocode and Address by Input', cat: Category.CONTROLS_AND_OVERLAYS } }
+      { path: 'geocode-address', component: GeocodeAddressComponent, data: { label: 'Geocode an address with input control', cat: Category.CONTROLS_AND_OVERLAYS } }
     ]
   }
 ];
