@@ -3,6 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { AttributionControlDirective } from './control/attribution-control.directive';
 import { ControlComponent } from './control/control.component';
 import { FullscreenControlDirective } from './control/fullscreen-control.directive';
+import { GeocoderControlDirective, MAPBOX_GEOCODER_API_KEY } from './control/geocode-control.directive';
 import { GeolocateControlDirective } from './control/geolocate-control.directive';
 import { NavigationControlDirective } from './control/navigation-control.directive';
 import { ScaleControlDirective } from './control/scale-control.directive';
@@ -43,6 +44,7 @@ import { VideoSourceComponent } from './source/video-source.component';
     ControlComponent,
     FullscreenControlDirective,
     NavigationControlDirective,
+    GeocoderControlDirective,
     GeolocateControlDirective,
     AttributionControlDirective,
     ScaleControlDirective,
@@ -67,6 +69,7 @@ import { VideoSourceComponent } from './source/video-source.component';
     ControlComponent,
     FullscreenControlDirective,
     NavigationControlDirective,
+    GeocoderControlDirective,
     GeolocateControlDirective,
     AttributionControlDirective,
     ScaleControlDirective,
@@ -82,6 +85,10 @@ export class NgxMapboxGLModule {
       providers: [
         {
           provide: MAPBOX_API_KEY,
+          useValue: config.accessToken
+        },
+        {
+          provide: MAPBOX_GEOCODER_API_KEY,
           useValue: config.accessToken
         }
       ],
