@@ -50,6 +50,14 @@ export interface MapEvent {
   sourceDataLoading: EventEmitter<EventData>;
 }
 
+export interface GeocoderEvent {
+  clear: EventEmitter<any>;
+  loading: EventEmitter<any>;
+  results: EventEmitter<any>;
+  result: EventEmitter<any>;
+  error: EventEmitter<any>;
+}
+
 export type MapImageData = HTMLImageElement | ImageData | { width: number, height: number, data: Uint8Array | Uint8ClampedArray };
 
 export interface MapImageOptions {
