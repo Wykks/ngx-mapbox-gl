@@ -15,10 +15,10 @@ import { ControlComponent } from './control.component';
 import { GeocoderEvent } from '../map/map.types';
 declare var require: any;
 import { first } from 'rxjs/operators';
-import { FeatureCollection, GeometryObject } from 'geojson';
+import { FeatureCollection, Feature, Point } from 'geojson';
 const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 
-export interface GeocoderControlResult extends GeometryObject {
+export interface GeocoderControlResult extends Feature<Point> {
   address: string;
   text: string;
   place_name: string;
@@ -51,7 +51,7 @@ export class GeocoderControlDirective implements OnInit, GeocoderEvent {
   @Input() accessToken?: string;
   @Output() clear = new EventEmitter<undefined>();
   @Output() loading = new EventEmitter<{ query: string }>();
-  @Output() results = new EventEmitter<FeatureCollection<GeocoderControlResult>>();
+  @Output() results = new EventEmitter<FeatureCollection<Point>>();
   @Output() result = new EventEmitter<{ result: GeocoderControlResult }>();
   @Output() error = new EventEmitter<any>();
 
