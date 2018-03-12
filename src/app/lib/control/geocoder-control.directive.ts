@@ -16,7 +16,7 @@ import { GeocoderEvent } from '../map/map.types';
 declare var require: any;
 import { first } from 'rxjs/operators';
 import { FeatureCollection, GeometryObject } from 'geojson';
-const MapboxGeocoder = require('@mapbox/mapbox-gl-Geocoder');
+const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 
 export interface GeocoderControlResult extends GeometryObject {
   address: string;
