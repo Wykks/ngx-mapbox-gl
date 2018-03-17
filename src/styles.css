@@ -1,6 +1,7 @@
 /* This is for demo only */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~mapbox-gl/dist/mapbox-gl.css";
+@import "~@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css";
 
 body {
   margin: 0;

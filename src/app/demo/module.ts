@@ -17,6 +17,7 @@ import { CustomStyleIdComponent } from './examples/custom-style-id.component';
 import { DisplayMapComponent } from './examples/display-map.component';
 import { FullscreenComponent } from './examples/fullscreen.component';
 import { GeoJSONLineComponent } from './examples/geojson-line.component';
+import { GeocodeAddressComponent } from './examples/geocode-address.component';
 import { HeatMapComponent } from './examples/heatmap.component';
 import { HoverStylesComponent } from './examples/hover-styles.component';
 import { InteractiveFalseComponent } from './examples/interactive-false.component';
@@ -84,7 +85,8 @@ export const demoRoutes: Routes = [
       { path: 'hover-styles', component: HoverStylesComponent, data: { label: 'Create a hover effect', cat: Category.USER_INTERACTION } },
       { path: 'popup-on-click', component: PopupOnClickComponent, data: { label: 'Display a popup on click', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'zoomto-linestring', component: ZoomtoLinestringComponent, data: { label: 'Fit to the bounds of a LineString', cat: Category.USER_INTERACTION } },
-      { path: 'ngx-marker-cluster', component: NgxMarkerClusterComponent, data: { label: '[NGX] Create a clusters of html markers', cat: Category.CONTROLS_AND_OVERLAYS } }
+      { path: 'ngx-marker-cluster', component: NgxMarkerClusterComponent, data: { label: '[NGX] Create a clusters of html markers', cat: Category.CONTROLS_AND_OVERLAYS } },
+      { path: 'geocode-address', component: GeocodeAddressComponent, data: { label: 'Geocode an address with input control', cat: Category.CONTROLS_AND_OVERLAYS } }
     ]
   }
 ];
@@ -127,6 +129,7 @@ export const demoRoutes: Routes = [
     FullscreenComponent,
     NavigationComponent,
     LocateUserComponent,
+    GeocodeAddressComponent,
     AttributionPositionComponent,
     NgxScaleControlComponent,
     NgxCustomControlComponent,

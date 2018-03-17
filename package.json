@@ -103,6 +103,7 @@
     "zone.js": "^0.8.20"
   },
   "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^2.2.0",
     "@turf/bbox": "^5.1.5",
     "@turf/helpers": "^5.1.5",
     "supercluster": "^3.0.2"
