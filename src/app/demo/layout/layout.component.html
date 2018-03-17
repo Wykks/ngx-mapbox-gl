@@ -7,7 +7,7 @@
       <ng-container *ngFor="let cat of categories">
         <h3 matSubheader>{{cat}}</h3>
         <a
-          *ngFor="let route of routes[cat]"
+          *ngFor="let route of $any(routes)[cat]"
           mat-list-item
           [routerLink]="'/'+route.path"
           routerLinkActive="active"

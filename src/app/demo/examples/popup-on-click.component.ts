@@ -27,9 +27,9 @@ import { MapMouseEvent } from 'mapbox-gl';
     ></mgl-layer>
     <mgl-popup
       *ngIf="selectedPoint"
-      [lngLat]="selectedPoint.geometry.coordinates"
+      [lngLat]="selectedPoint.geometry?.coordinates"
     >
-      <span [innerHTML]="selectedPoint.properties.description"></span>
+      <span [innerHTML]="selectedPoint.properties?.description"></span>
     </mgl-popup>
   </mgl-map>
   `,

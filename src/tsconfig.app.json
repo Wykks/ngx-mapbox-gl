@@ -5,7 +5,7 @@
     "baseUrl": "./",
     "module": "es2015"
   },
-  "angularCompilerOption": {
+  "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "preserveWhitespaces": false
   },
