@@ -23,6 +23,7 @@ Include the following components:
   - mglAttribution
   - mglGeolocate
   - mglNavigation
+  - mglGeocoder (see '@mapbox/mapbox-gl-geocoder')
 - [mgl-marker](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-marker-mapbox-gl-api)
 - [mgl-popup](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-popup-mapbox-gl-api)
 - [mgl-marker-cluster](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#ngx-mgl-marker-cluster-supercluster-api)
@@ -37,18 +38,20 @@ Also add mapbox-gl types if using typescript
 npm install @types/mapbox-gl --save-dev
 ```
 
-Load the css of mapbox-gl
+Load the css of mapbox-gl (and mapbox-gl-geocoder if mglGeocoder is used)
 
 For example, with angular-cli add this in .angular-cli.json
 ```json
 "styles": [
         ...
-        "../node_modules/mapbox-gl/dist/mapbox-gl.css"
+        "../node_modules/mapbox-gl/dist/mapbox-gl.css",
+        "../node_modules/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css"
       ],
 ```
 Or in global css 
 ```css
-@import "../node_modules/mapbox-gl/dist/mapbox-gl.css";
+@import "~mapbox-gl/dist/mapbox-gl.css";
+@import "~@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css";
 ```
 
 
