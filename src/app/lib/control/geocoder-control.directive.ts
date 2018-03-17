@@ -1,44 +1,30 @@
 import {
   Directive,
+  EventEmitter,
   Host,
-  Input,
-  OnInit,
-  Optional,
   Inject,
   InjectionToken,
+  Input,
   NgZone,
+  OnChanges,
+  OnInit,
+  Optional,
   Output,
-  EventEmitter
-} from '@angular/core';
+  SimpleChanges
+  } from '@angular/core';
 import { MapService } from '../map/map.service';
-import { ControlComponent } from './control.component';
 import { GeocoderEvent } from '../map/map.types';
-declare var require: any;
-import { first } from 'rxjs/operators';
-import { FeatureCollection, Feature, Point } from 'geojson';
-const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
+import { ControlComponent } from './control.component';
 
-export interface GeocoderControlResult extends Feature<Point> {
-  address: string;
-  text: string;
-  place_name: string;
-  place_type: any[];
-  relevance: number;
-  center: [number, number];
-  context: any[];
-}
+const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 
 export const MAPBOX_GEOCODER_API_KEY = new InjectionToken('MapboxApiKey');
 
 @Directive({
   selector: '[mglGeocoder]'
 })
-export class GeocoderControlDirective implements OnInit, GeocoderEvent {
+export class GeocoderControlDirective implements OnInit, OnChanges, GeocoderEvent {
   /* Init inputs */
-  @Input() proximity?: {
-    latitude: number;
-    longitude: number;
-  };
   @Input() country?: string;
   @Input() placeholder?: string;
   @Input() zoom?: number;
@@ -49,27 +35,33 @@ export class GeocoderControlDirective implements OnInit, GeocoderEvent {
   @Input() limit?: number;
   @Input() language?: string;
   @Input() accessToken?: string;
+  @Input() filter?: (feature: MapboxGeocoder.Result) => boolean;
+  @Input() localGeocoder?: (query: string) => MapboxGeocoder.Result[];
+
+  /* Dynamic inputs */
+  @Input() proximity?: MapboxGeocoder.LngLatLiteral;
+
   @Output() clear = new EventEmitter<undefined>();
   @Output() loading = new EventEmitter<{ query: string }>();
-  @Output() results = new EventEmitter<FeatureCollection<Point>>();
-  @Output() result = new EventEmitter<{ result: GeocoderControlResult }>();
+  @Output() results = new EventEmitter<MapboxGeocoder.Results>();
+  @Output() result = new EventEmitter<{ result: MapboxGeocoder.Result }>();
   @Output() error = new EventEmitter<any>();
 
-  geocoder: any; // Mapbox Geocoder
+  geocoder: MapboxGeocoder.MapboxGeocoder;
 
   constructor(
     private MapService: MapService,
     private zone: NgZone,
     @Host() private ControlComponent: ControlComponent,
     @Optional() @Inject(MAPBOX_GEOCODER_API_KEY) private readonly MAPBOX_GEOCODER_API_KEY: string
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.MapService.mapCreated$.subscribe(() => {
       if (this.ControlComponent.control) {
         throw new Error('Another control is already set for this control');
       }
-      const options = {
+      const options: MapboxGeocoder.Options = {
         proximity: this.proximity,
         country: this.country,
         placeholder: this.placeholder,
@@ -80,6 +72,8 @@ export class GeocoderControlDirective implements OnInit, GeocoderEvent {
         minLength: this.minLength,
         limit: this.limit,
         language: this.language,
+        filter: this.filter,
+        localGeocoder: this.localGeocoder,
         accessToken: this.accessToken || this.MAPBOX_GEOCODER_API_KEY
       };
 
@@ -89,18 +83,19 @@ export class GeocoderControlDirective implements OnInit, GeocoderEvent {
           delete options[tkey];
         }
       });
-
       this.geocoder = new MapboxGeocoder(options);
-
-      // Inline with map.service
-      this.zone.onStable.pipe(first()).subscribe(() => {
-        this.hookEvents(this);
-        this.addControl();
-      });
+      this.hookEvents(this);
+      this.addControl();
     });
   }
 
-  private addControl(): void {
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.proximity && !changes.proximity.isFirstChange()) {
+      this.geocoder.setProximity(changes.proximity.currentValue);
+    }
+  }
+
+  private addControl() {
     this.ControlComponent.control = this.geocoder;
     this.MapService.addControl(
       this.ControlComponent.control,
@@ -110,10 +105,10 @@ export class GeocoderControlDirective implements OnInit, GeocoderEvent {
 
   private hookEvents(events: GeocoderEvent) {
     if (events.results.observers.length) {
-      this.geocoder.on('results', (evt: Array<string>) => this.zone.run(() => events.results.emit(evt)));
+      this.geocoder.on('results', (evt: MapboxGeocoder.Results) => this.zone.run(() => events.results.emit(evt)));
     }
     if (events.result.observers.length) {
-      this.geocoder.on('result', (evt: { result: GeocoderControlResult }) => this.zone.run(() => events.result.emit(evt)));
+      this.geocoder.on('result', (evt: { result: MapboxGeocoder.Result }) => this.zone.run(() => events.result.emit(evt)));
     }
     if (events.error.observers.length) {
       this.geocoder.on('error', (evt: any) => this.zone.run(() => events.error.emit(evt)));

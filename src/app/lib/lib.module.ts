@@ -79,7 +79,7 @@ import { VideoSourceComponent } from './source/video-source.component';
   ]
 })
 export class NgxMapboxGLModule {
-  static forRoot(config: { accessToken: string }): ModuleWithProviders {
+  static forRoot(config: { accessToken: string, geocoderAccessToken?: string }): ModuleWithProviders {
     return {
       ngModule: NgxMapboxGLModule,
       providers: [
@@ -89,7 +89,7 @@ export class NgxMapboxGLModule {
         },
         {
           provide: MAPBOX_GEOCODER_API_KEY,
-          useValue: config.accessToken
+          useValue: config.geocoderAccessToken || config.accessToken
         }
       ],
     };

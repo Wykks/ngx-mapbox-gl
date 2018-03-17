@@ -61,7 +61,8 @@ import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
   imports: [
     ...
     NgxMapboxGLModule.forRoot({
-      accessToken: 'TOKEN' // accessToken can also be set per map (accessToken input of mgl-map)
+      accessToken: 'TOKEN', // Can also be set per map (accessToken input of mgl-map)
+      geocoderAccessToken: 'TOKEN' // Optionnal, specify if different from the map access token, can also be set per mgl-geocoder (accessToken input of mgl-geocoder)
     })
   ]
 })

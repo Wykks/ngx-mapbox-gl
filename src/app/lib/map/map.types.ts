@@ -52,8 +52,8 @@ export interface MapEvent {
 
 export interface GeocoderEvent {
   clear: EventEmitter<any>;
-  loading: EventEmitter<any>;
-  results: EventEmitter<any>;
+  loading: EventEmitter<{ query: string }>;
+  results: EventEmitter<MapboxGeocoder.Results>;
   result: EventEmitter<any>;
   error: EventEmitter<any>;
 }
