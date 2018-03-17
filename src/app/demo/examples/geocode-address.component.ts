@@ -4,17 +4,11 @@ import { Component } from '@angular/core';
   template: `
   <mgl-map
     [style]="'mapbox://styles/mapbox/streets-v9'"
+    [center]="[-79.4512, 43.6568]"
+    [zoom]="[13]"
   >
     <mgl-control
       mglGeocoder
-      [position]="'top-left'"
-      [country]="'us'"
-      [zoom]="15"
-      (results)="onResults($event)"
-      (error)="onError($event)"
-      (result)="onResult($event)"
-      (loading)="onLoading($event)"
-      (clear)="onClear()"
     ></mgl-control>
   </mgl-map>
   `,
@@ -22,20 +16,4 @@ import { Component } from '@angular/core';
 })
 export class GeocodeAddressComponent {
   constructor() {}
-
-  onResults(results: any) {
-    console.log('results', results);
-  }
-  onResult(result: any) {
-    console.log('result', result);
-  }
-  onLoading(loading: any) {
-    console.log('loading', loading);
-  }
-  onError(error: any) {
-    console.log('error emitted', error);
-  }
-  onClear() {
-    console.log('clear emitted');
-  }
 }
