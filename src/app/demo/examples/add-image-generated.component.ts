@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
+  selector: 'mgl-demo',
   template: `
   <mgl-map
     [style]="'mapbox://styles/mapbox/streets-v9'"

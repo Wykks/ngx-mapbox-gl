@@ -8,7 +8,6 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow: scroll;
 }
 
 nav {
@@ -18,4 +17,10 @@ nav {
 
 mat-nav-list {
   flex: 1;
+  overflow-y: scroll;
+}
+
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
 }

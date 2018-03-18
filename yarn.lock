@@ -271,6 +271,10 @@
     semver "^5.3.0"
     semver-intersect "^1.1.2"
 
+"@stackblitz/sdk@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@stackblitz/sdk/-/sdk-1.1.1.tgz#05acfc11fcaa016d226939b3919e3b65d9df2b44"
+
 "@turf/bbox@^5.1.5":
   version "5.1.5"
   resolved "https://registry.yarnpkg.com/@turf/bbox/-/bbox-5.1.5.tgz#3051df514ad4c50f4a4f9b8a2d15fd8b6840eda3"

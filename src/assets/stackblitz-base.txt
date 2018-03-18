@@ -1,0 +1,30 @@
+import 'core-js/es6/reflect';
+import 'core-js/es7/reflect';
+import 'zone.js/dist/zone';
+
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import * as demo from './demo';
+
+const k = Object.keys(demo)[0];
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    NgxMapboxGLModule.forRoot({
+      accessToken: 'pk.eyJ1Ijoid3lra3NzIiwiYSI6ImNqMjR6aTdmdzAwNHMzMnBvbjBucjlqNm8ifQ.6GjGpofWBVaIuSnhdXQb5w'
+    })
+  ],
+  declarations: [demo[k]],
+  bootstrap: [demo[k]]
+})
+export class AppModule { }
+
+platformBrowserDynamic().bootstrapModule(AppModule).then((ref) => {
+  if (window['ngRef']) {
+    window['ngRef'].destroy();
+  }
+  window['ngRef'] = ref;
+}).catch((err) => console.error(err));

@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule, MatButtonToggleModule, MatCardModule, MatListModule, MatRadioModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule, MatButtonToggleModule, MatCardModule, MatListModule, MatRadioModule, MatSlideToggleModule, MatToolbarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxMapboxGLModule } from '../lib';
@@ -16,8 +17,8 @@ import { CustomMarkerIconsComponent } from './examples/custom-marker-icons.compo
 import { CustomStyleIdComponent } from './examples/custom-style-id.component';
 import { DisplayMapComponent } from './examples/display-map.component';
 import { FullscreenComponent } from './examples/fullscreen.component';
-import { GeoJSONLineComponent } from './examples/geojson-line.component';
 import { GeocodeAddressComponent } from './examples/geocode-address.component';
+import { GeoJSONLineComponent } from './examples/geojson-line.component';
 import { HeatMapComponent } from './examples/heatmap.component';
 import { HoverStylesComponent } from './examples/hover-styles.component';
 import { InteractiveFalseComponent } from './examples/interactive-false.component';
@@ -39,6 +40,8 @@ import { ToggleLayersComponent } from './examples/toggle-layers.component';
 import { ZoomtoLinestringComponent } from './examples/zoomto-linestring.component';
 import { IndexComponent } from './index.component';
 import { LayoutComponent } from './layout/layout.component';
+import { StackblitzEditGuard } from './stackblitz-edit/stackblitz-edit-guard.service';
+import { StackblitzEditComponent } from './stackblitz-edit/stackblitz-edit.component';
 
 export enum Category {
   STYLES = 'Styles',
@@ -54,7 +57,7 @@ export const demoRoutes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      { path: '', redirectTo: '/display-map', pathMatch: 'full' },
+      { path: 'edit/:demoUrl', component: StackblitzEditComponent, canActivate: [StackblitzEditGuard]},
       { path: 'display-map', component: DisplayMapComponent, data: { label: 'Display a map', cat: Category.STYLES } },
       { path: 'custom-style-id', component: CustomStyleIdComponent, data: { label: 'Display a map with a custom style', cat: Category.STYLES } },
       { path: 'set-style', component: SetStyleComponent, data: { label: 'Change a map\'s style', cat: Category.STYLES } },
@@ -86,7 +89,8 @@ export const demoRoutes: Routes = [
       { path: 'popup-on-click', component: PopupOnClickComponent, data: { label: 'Display a popup on click', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'zoomto-linestring', component: ZoomtoLinestringComponent, data: { label: 'Fit to the bounds of a LineString', cat: Category.USER_INTERACTION } },
       { path: 'ngx-marker-cluster', component: NgxMarkerClusterComponent, data: { label: '[NGX] Create a clusters of html markers', cat: Category.CONTROLS_AND_OVERLAYS } },
-      { path: 'mapbox-gl-geocoder', component: GeocodeAddressComponent, data: { label: 'Add a geocoder', cat: Category.CONTROLS_AND_OVERLAYS } }
+      { path: 'mapbox-gl-geocoder', component: GeocodeAddressComponent, data: { label: 'Add a geocoder', cat: Category.CONTROLS_AND_OVERLAYS } },
+      { path: '**', redirectTo: '/display-map', pathMatch: 'full' }
     ]
   }
 ];
@@ -101,15 +105,21 @@ export const demoRoutes: Routes = [
     MatListModule,
     MatToolbarModule,
     MatCardModule,
+    MatSlideToggleModule,
     FormsModule,
+    HttpClientModule,
     NgxMapboxGLModule.forRoot({
       accessToken: 'pk.eyJ1Ijoid3lra3NzIiwiYSI6ImNqMjR6aTdmdzAwNHMzMnBvbjBucjlqNm8ifQ.6GjGpofWBVaIuSnhdXQb5w'
     }),
     RouterModule.forChild(demoRoutes)
   ],
+  providers: [
+    StackblitzEditGuard
+  ],
   declarations: [
     LayoutComponent,
     IndexComponent,
+    StackblitzEditComponent,
     DisplayMapComponent,
     CustomStyleIdComponent,
     SetStyleComponent,

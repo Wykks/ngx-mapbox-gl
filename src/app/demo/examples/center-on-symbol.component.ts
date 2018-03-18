@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MapMouseEvent, Map } from 'mapbox-gl';
 
 @Component({
+  selector: 'mgl-demo',
   template: `
   <mgl-map
     [style]="'mapbox://styles/mapbox/light-v9'"

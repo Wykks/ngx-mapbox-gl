@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import earthquakes from './earthquakes.geo.json';
 
 @Component({
+  selector: 'mgl-demo',
   template: `
   <mgl-map
     style="mapbox://styles/mapbox/dark-v9"

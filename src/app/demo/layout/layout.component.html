@@ -1,6 +1,12 @@
 <div class="sidenav">
   <mat-toolbar color="primary">
     <span>NGX-MAPBOX-GL</span>
+    <mat-slide-toggle
+      [ngModel]="isEditing"
+      (ngModelChange)="toggleEdit()"
+    >
+      Edit!
+    </mat-slide-toggle>
   </mat-toolbar>
   <nav>
     <mat-nav-list>
@@ -9,7 +15,7 @@
         <a
           *ngFor="let route of $any(routes)[cat]"
           mat-list-item
-          [routerLink]="'/'+route.path"
+          [routerLink]="'/'+(isEditing ? '/edit/' : '')+route.path"
           routerLinkActive="active"
         >
           {{route.data.label}}

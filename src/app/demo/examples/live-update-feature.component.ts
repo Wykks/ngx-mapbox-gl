@@ -6,6 +6,7 @@ import { delay } from 'rxjs/operators/delay';
 import hike from './hike.geo.json';
 
 @Component({
+  selector: 'mgl-demo',
   template: `
   <mgl-map
     [style]="'mapbox://styles/mapbox/satellite-v9'"
