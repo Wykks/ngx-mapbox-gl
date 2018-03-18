@@ -1,6 +1,4 @@
-import { Component } from '@angular/core';
-
-import earthquakes from './earthquakes.geo.json';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'mgl-demo',
@@ -11,6 +9,7 @@ import earthquakes from './earthquakes.geo.json';
     [center]="[-103.59179687498357, 40.66995747013945]"
   >
     <mgl-marker-cluster
+      *ngIf="earthquakes"
       [data]="earthquakes"
       [maxZoom]="14"
       [radius]="50"
@@ -35,6 +34,10 @@ import earthquakes from './earthquakes.geo.json';
   `,
   styleUrls: ['./examples.css', './ngx-marker-cluster.component.css']
 })
-export class NgxMarkerClusterComponent {
-  earthquakes = earthquakes;
+export class NgxMarkerClusterComponent implements OnInit {
+  earthquakes: object;
+
+  async ngOnInit() {
+    this.earthquakes = await import('./earthquakes.geo.json');
+  }
 }
