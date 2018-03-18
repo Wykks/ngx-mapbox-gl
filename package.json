@@ -78,6 +78,7 @@
     "@types/supercluster": "^3.0.2",
     "codelyzer": "~4.2.1",
     "core-js": "^2.5.3",
+    "hammerjs": "^2.0.8",
     "jasmine-core": "2.9.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~2.0.0",

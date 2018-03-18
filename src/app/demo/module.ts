@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatButtonToggleModule, MatCardModule, MatListModule, MatRadioModule, MatSlideToggleModule, MatToolbarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+import 'hammerjs';
 import { NgxMapboxGLModule } from '../lib';
 import { DemoFileLoaderService } from './demo-file-loader.service';
 import { Display3dBuildingsComponent } from './examples/3d-buildings.component';
