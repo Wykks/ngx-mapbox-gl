@@ -20,6 +20,27 @@ const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
 
 export const MAPBOX_GEOCODER_API_KEY = new InjectionToken('MapboxApiKey');
 
+export interface LngLatLiteral {
+  latitude: number;
+  longitude: number;
+}
+
+export interface Results extends GeoJSON.FeatureCollection<GeoJSON.Point> {
+  attribution: string;
+  query: string[];
+}
+
+export interface Result extends GeoJSON.Feature<GeoJSON.Point> {
+  bbox: [number, number, number, number];
+  center: number[];
+  place_name: string;
+  place_type: string[];
+  relevance: number;
+  text: string;
+  address: string;
+  context: any[];
+}
+
 @Directive({
   selector: '[mglGeocoder]'
 })
@@ -35,19 +56,19 @@ export class GeocoderControlDirective implements OnInit, OnChanges, GeocoderEven
   @Input() limit?: number;
   @Input() language?: string;
   @Input() accessToken?: string;
-  @Input() filter?: (feature: MapboxGeocoder.Result) => boolean;
-  @Input() localGeocoder?: (query: string) => MapboxGeocoder.Result[];
+  @Input() filter?: (feature: Result) => boolean;
+  @Input() localGeocoder?: (query: string) => Result[];
 
   /* Dynamic inputs */
-  @Input() proximity?: MapboxGeocoder.LngLatLiteral;
+  @Input() proximity?: LngLatLiteral;
 
-  @Output() clear = new EventEmitter<undefined>();
+  @Output() clear = new EventEmitter<void>();
   @Output() loading = new EventEmitter<{ query: string }>();
-  @Output() results = new EventEmitter<MapboxGeocoder.Results>();
-  @Output() result = new EventEmitter<{ result: MapboxGeocoder.Result }>();
+  @Output() results = new EventEmitter<Results>();
+  @Output() result = new EventEmitter<{ result: Result }>();
   @Output() error = new EventEmitter<any>();
 
-  geocoder: MapboxGeocoder.MapboxGeocoder;
+  geocoder: any;
 
   constructor(
     private MapService: MapService,
@@ -61,7 +82,7 @@ export class GeocoderControlDirective implements OnInit, OnChanges, GeocoderEven
       if (this.ControlComponent.control) {
         throw new Error('Another control is already set for this control');
       }
-      const options: MapboxGeocoder.Options = {
+      const options = {
         proximity: this.proximity,
         country: this.country,
         placeholder: this.placeholder,
@@ -105,10 +126,10 @@ export class GeocoderControlDirective implements OnInit, OnChanges, GeocoderEven
 
   private hookEvents(events: GeocoderEvent) {
     if (events.results.observers.length) {
-      this.geocoder.on('results', (evt: MapboxGeocoder.Results) => this.zone.run(() => events.results.emit(evt)));
+      this.geocoder.on('results', (evt: Results) => this.zone.run(() => events.results.emit(evt)));
     }
     if (events.result.observers.length) {
-      this.geocoder.on('result', (evt: { result: MapboxGeocoder.Result }) => this.zone.run(() => events.result.emit(evt)));
+      this.geocoder.on('result', (evt: { result: Result }) => this.zone.run(() => events.result.emit(evt)));
     }
     if (events.error.observers.length) {
       this.geocoder.on('error', (evt: any) => this.zone.run(() => events.error.emit(evt)));
