@@ -5,8 +5,6 @@
 
 Angular (5+) wrapper for [mapbox-gl-js](https://www.mapbox.com/mapbox-gl-js/api/). Expose a bunch of component meant to be simple to use for Angular.
 
-Play with ngx-mapbox-gl on stackblitz: https://stackblitz.com/edit/ngx-mapbox-gl
-
 Include the following components:
 - [mgl-map](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-map-mapbox-gl-api)
 - [mgl-layer](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-layer-mapbox-gl-style-spec)
