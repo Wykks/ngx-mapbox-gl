@@ -9,7 +9,7 @@ import { NgxMapboxGLModule } from '../lib';
 import { Display3dBuildingsComponent } from './examples/3d-buildings.component';
 import { AddImageGeneratedComponent } from './examples/add-image-generated.component';
 import { AddImageComponent } from './examples/add-image.component';
-import { AttachPopupComponent } from './examples/attach-popup.component';
+import { SetPopupComponent } from './examples/set-popup.component';
 import { AttributionPositionComponent } from './examples/attribution-position.component';
 import { CenterOnSymbolComponent } from './examples/center-on-symbol.component';
 import { ClusterComponent } from './examples/cluster.component';
@@ -74,7 +74,7 @@ export const demoRoutes: Routes = [
       { path: 'ngx-custom-marker-icons', component: NgxCustomMarkerIconsComponent, data: { label: '[NGX] Add custom icons with Markers', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'live-update-feature', component: LiveUpdateFeatureComponent, data: { label: 'Update a feature in realtime', cat: Category.SOURCES } },
       { path: 'popup', component: PopupComponent, data: { label: 'Display a popup', cat: Category.CONTROLS_AND_OVERLAYS } },
-      { path: 'set-popup', component: AttachPopupComponent, data: { label: 'Attach a popup to a marker instance', cat: Category.CONTROLS_AND_OVERLAYS } },
+      { path: 'set-popup', component: SetPopupComponent, data: { label: 'Attach a popup to a marker instance', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'fullscreen', component: FullscreenComponent, data: { label: 'View a fullscreen map', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'navigation', component: NavigationComponent, data: { label: 'Display map navigation controls', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'locate-user', component: LocateUserComponent, data: { label: 'Locate the user', cat: Category.CONTROLS_AND_OVERLAYS } },
@@ -135,7 +135,7 @@ export const demoRoutes: Routes = [
     NgxCustomMarkerIconsComponent,
     LiveUpdateFeatureComponent,
     PopupComponent,
-    AttachPopupComponent,
+    SetPopupComponent,
     FullscreenComponent,
     NavigationComponent,
     LocateUserComponent,
