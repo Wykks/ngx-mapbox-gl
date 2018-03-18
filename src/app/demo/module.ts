@@ -6,6 +6,8 @@ import {
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
+  MatIconModule,
+  MatInputModule,
   MatListModule,
   MatProgressSpinnerModule,
   MatRadioModule,
@@ -118,6 +120,8 @@ export const demoRoutes: Routes = [
     MatCardModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
+    MatInputModule,
+    MatIconModule,
     FormsModule,
     HttpClientModule,
     NgxMapboxGLModule.forRoot({

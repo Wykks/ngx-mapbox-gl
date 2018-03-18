@@ -9,17 +9,25 @@
     </mat-slide-toggle>
   </mat-toolbar>
   <nav>
+    <mat-form-field class="search">
+      <input matInput type="text" placeholder="Search" [(ngModel)]="searchTerm" (ngModelChange)="search()"/>
+      <button mat-button *ngIf="searchTerm" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
     <mat-nav-list>
       <ng-container *ngFor="let cat of categories">
         <h3 matSubheader>{{cat}}</h3>
-        <a
-          *ngFor="let route of $any(routes)[cat]"
-          mat-list-item
-          [routerLink]="'/'+(isEditing ? '/edit/' : '')+route.path"
-          routerLinkActive="active"
-        >
-          {{route.data.label}}
-        </a>
+        <ng-container *ngFor="let route of $any(routes)[cat]">
+          <a
+            *ngIf="route"
+            mat-list-item
+            [routerLink]="'/'+(isEditing ? '/edit/' : '')+route.path"
+            routerLinkActive="active"
+          >
+            {{route.data.label}}
+          </a>
+        </ng-container>
         <mat-divider></mat-divider>
       </ng-container>
     </mat-nav-list>

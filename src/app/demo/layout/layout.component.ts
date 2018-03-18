@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationStart, Router, Routes } from '@angular/router';
+import cloneDeep from 'lodash-es/cloneDeep';
 import groupBy from 'lodash-es/groupBy';
 import { filter } from 'rxjs/operators/filter';
 import { first } from 'rxjs/operators/first';
@@ -11,18 +12,20 @@ type RoutesByCategory = { [P in Category]: Routes };
 
 @Component({
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
   routes: RoutesByCategory;
+  originalRoutes: RoutesByCategory;
   categories: Category[];
   isEditing = false;
+  searchTerm: string;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
-    this.routes = <RoutesByCategory><any>groupBy(demoRoutes[0].children, (route) => route.data ? route.data.cat : null);
+    this.originalRoutes = <RoutesByCategory><any>groupBy(demoRoutes[0].children, (route) => route.data ? route.data.cat : null);
     this.categories = [
       Category.STYLES,
       Category.LAYERS,
@@ -41,6 +44,7 @@ export class LayoutComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.routes = this.originalRoutes;
   }
 
   toggleEdit() {
@@ -54,6 +58,23 @@ export class LayoutComponent implements OnInit {
         this.router.navigate(['edit', currentUrl[0].path]);
       });
     }
+  }
+
+  search() {
+    // Quick and dirty
+    this.routes = cloneDeep(this.originalRoutes);
+     Object.values(this.routes).forEach((category) => {
+      category.forEach((route, index) => {
+        if (route.data && !(<string>route.data.label).toLowerCase().includes(this.searchTerm)) {
+          delete category[index];
+        }
+      });
+    });
+  }
+
+  clearSearch() {
+    this.searchTerm = '';
+    this.routes = this.originalRoutes;
   }
 
 }
