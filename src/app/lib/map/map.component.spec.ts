@@ -1,14 +1,16 @@
 import { MapService, SetupMap } from './map.service';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, flushMicrotasks } from '@angular/core/testing';
 
 import { MapComponent } from './map.component';
 import { SimpleChange } from '@angular/core';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 describe('MapComponent', () => {
   class MapServiceSpy {
     setup = jasmine.createSpy('setup');
     updateMinZoom = jasmine.createSpy('updateMinZoom');
     destroyMap = jasmine.createSpy('destroyMap');
+    mapCreated$ = new ReplaySubject(1);
   }
 
   let msSpy: MapServiceSpy;
@@ -54,13 +56,14 @@ describe('MapComponent', () => {
   });
 
   describe('Change tests', () => {
-    it('should update minzoom', (done: DoneFn) => {
+    it('should update minzoom', fakeAsync(() => {
+      msSpy.mapCreated$.complete();
       component.minZoom = 6;
       component.ngOnChanges({
         minZoom: new SimpleChange(null, component.minZoom, false)
       });
+      flushMicrotasks();
       expect(msSpy.updateMinZoom).toHaveBeenCalledWith(6);
-      done();
-    });
+    }));
   });
 });
