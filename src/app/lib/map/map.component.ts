@@ -210,7 +210,8 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
     this.MapService.destroyMap();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  async ngOnChanges(changes: SimpleChanges) {
+    await this.MapService.mapLoaded$.toPromise();
     if (changes.cursorStyle && !changes.cursorStyle.isFirstChange()) {
       this.MapService.changeCanvasCursor(changes.cursorStyle.currentValue);
     }
