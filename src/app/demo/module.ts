@@ -6,10 +6,10 @@ import { MatButtonModule, MatButtonToggleModule, MatCardModule, MatListModule, M
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxMapboxGLModule } from '../lib';
+import { DemoFileLoaderService } from './demo-file-loader.service';
 import { Display3dBuildingsComponent } from './examples/3d-buildings.component';
 import { AddImageGeneratedComponent } from './examples/add-image-generated.component';
 import { AddImageComponent } from './examples/add-image.component';
-import { SetPopupComponent } from './examples/set-popup.component';
 import { AttributionPositionComponent } from './examples/attribution-position.component';
 import { CenterOnSymbolComponent } from './examples/center-on-symbol.component';
 import { ClusterComponent } from './examples/cluster.component';
@@ -17,7 +17,6 @@ import { CustomMarkerIconsComponent } from './examples/custom-marker-icons.compo
 import { CustomStyleIdComponent } from './examples/custom-style-id.component';
 import { DisplayMapComponent } from './examples/display-map.component';
 import { FullscreenComponent } from './examples/fullscreen.component';
-import { MapboxGlGeocoderComponent } from './examples/mapbox-gl-geocoder.component';
 import { GeoJSONLineComponent } from './examples/geojson-line.component';
 import { HeatMapComponent } from './examples/heatmap.component';
 import { HoverStylesComponent } from './examples/hover-styles.component';
@@ -25,6 +24,7 @@ import { InteractiveFalseComponent } from './examples/interactive-false.componen
 import { LanguageSwitchComponent } from './examples/language-switch.component';
 import { LiveUpdateFeatureComponent } from './examples/live-update-feature.component';
 import { LocateUserComponent } from './examples/locate-user.component';
+import { MapboxGlGeocoderComponent } from './examples/mapbox-gl-geocoder.component';
 import { NavigationComponent } from './examples/navigation.component';
 import { NgxCustomControlComponent } from './examples/ngx-custom-control.component';
 import { NgxCustomMarkerIconsComponent } from './examples/ngx-custom-marker-icons.component';
@@ -35,6 +35,7 @@ import { NgxScaleControlComponent } from './examples/ngx-scale-control.component
 import { PopupOnClickComponent } from './examples/popup-on-click.component';
 import { PopupComponent } from './examples/popup.component';
 import { SatelliteMapComponent } from './examples/satellite-map.component';
+import { SetPopupComponent } from './examples/set-popup.component';
 import { SetStyleComponent } from './examples/set-style.component';
 import { ToggleLayersComponent } from './examples/toggle-layers.component';
 import { ZoomtoLinestringComponent } from './examples/zoomto-linestring.component';
@@ -114,7 +115,8 @@ export const demoRoutes: Routes = [
     RouterModule.forChild(demoRoutes)
   ],
   providers: [
-    StackblitzEditGuard
+    StackblitzEditGuard,
+    DemoFileLoaderService
   ],
   declarations: [
     LayoutComponent,

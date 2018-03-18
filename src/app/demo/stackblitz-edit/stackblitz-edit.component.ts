@@ -8,6 +8,8 @@ import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { shareReplay } from 'rxjs/operators/shareReplay';
 import { Subscription } from 'rxjs/Subscription';
+import { DemoFileLoaderService } from '../demo-file-loader.service';
+import { Dictionary } from 'lodash';
 
 @Component({
   template: `<div #container></div>`,
@@ -29,14 +31,14 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
   private sub: Subscription;
   private base$: Observable<string>;
 
-  private demoFileCache = new Map<string, Observable<string>>();
   private afterViewInit = new AsyncSubject<void>();
   private vm: VM;
 
   constructor(
     private http: HttpClient,
     private zone: NgZone,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private DemoFileLoaderService: DemoFileLoaderService
   ) {
     this.base$ = this.http.get('assets/stackblitz-base.txt', {
       responseType: 'text'
@@ -44,8 +46,8 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
     this.sub = this.activatedRoute.params.subscribe((params) => {
       forkJoin(
         this.base$,
-        this.getDemoFile(params.demoUrl)
-      ).subscribe(([base, demo]) => this.openExample(base, demo));
+        this.DemoFileLoaderService.getDemoFiles(params.demoUrl)
+      ).subscribe(([base, demoFiles]) => this.openExample(base, demoFiles));
     });
   }
 
@@ -57,24 +59,12 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
     this.afterViewInit.complete();
   }
 
-  private getDemoFile(exampleFileName: string) {
-    let req$ = this.demoFileCache.get(exampleFileName);
-    if (req$) {
-      return req$;
-    }
-    req$ = this.http.get(`app/demo/examples/${exampleFileName}.component.ts`, {
-      responseType: 'text'
-    }).pipe(shareReplay(1));
-    this.demoFileCache.set(exampleFileName, req$);
-    return req$;
-  }
-
-  private async openExample(base: string, demo: string) {
+  private async openExample(base: string, demoFiles: Dictionary<string>) {
     await this.afterViewInit.toPromise();
     if (this.vm) {
       this.vm.applyFsDiff({
         create: {
-          'demo.ts': demo
+          ...demoFiles
         },
         destroy: []
       });
@@ -84,15 +74,6 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
       files: {
         'main.ts': base,
         'index.html': '<mgl-demo></mgl-demo>',
-        'examples.css': `
-:host {
-display: flex;
-flex: 1;
-}
-mgl-map {
-height: 100%;
-width: 100%;
-}`,
         '.angular-cli.json': `
 {
 "apps": [{
@@ -109,18 +90,19 @@ min-height: 100vh;
 margin: 0;
 }
 `,
-        'demo.ts': demo
+        ...demoFiles
       },
       title: '',
       description: '',
       template: 'angular-cli',
       dependencies: {
-        tslib: '^1.9.0',
+        tslib: '*',
         'mapbox-gl': '*',
         'ngx-mapbox-gl': '*',
-        '@angular/cdk': '^5.2.4',
-        '@angular/material': '^5.2.4',
-        '@angular/animations': '*'
+        '@angular/cdk': '*',
+        '@angular/material': '*',
+        '@angular/animations': '*',
+        '@angular/forms': '*'
       }
     };
     this.zone.runOutsideAngular(async () => {
