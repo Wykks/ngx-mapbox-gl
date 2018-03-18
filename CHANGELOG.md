@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-rc.2"></a>
+# [1.0.0-rc.2](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-rc.1...v1.0.0-rc.2) (2018-03-18)
+
+
+### Bug Fixes
+
+* **geojsonSource:** add missing input ([#23](https://github.com/Wykks/ngx-mapbox-gl/issues/23)) ([a38d06e](https://github.com/Wykks/ngx-mapbox-gl/commit/a38d06e))
+* update mapbox-gl to 0.44.1 ([814fc3a](https://github.com/Wykks/ngx-mapbox-gl/commit/814fc3a))
+* **map:** wait for map created before handling changes ([87a5da9](https://github.com/Wykks/ngx-mapbox-gl/commit/87a5da9))
+
+
+### Features
+
+* new control mglGeocoder
+* **public_api:** Expose MapComponent ([74d3886](https://github.com/Wykks/ngx-mapbox-gl/commit/74d3886))
+
+
 <a name="1.0.0-rc.1"></a>
 # [1.0.0-rc.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-rc.0...v1.0.0-rc.1) (2018-02-11)
 
