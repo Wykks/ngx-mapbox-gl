@@ -129,7 +129,9 @@ margin: 0;
         '@angular/cdk': '*',
         '@angular/material': '*',
         '@angular/animations': '*',
-        '@angular/forms': '*'
+        '@angular/forms': '*',
+        'url': '*',
+        'querystring': '*'
       }
     };
     this.zone.runOutsideAngular(async () => {
