@@ -2,7 +2,16 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule, MatButtonToggleModule, MatCardModule, MatListModule, MatRadioModule, MatSlideToggleModule, MatToolbarModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatListModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatSlideToggleModule,
+  MatToolbarModule
+  } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import 'hammerjs';
@@ -108,6 +117,7 @@ export const demoRoutes: Routes = [
     MatToolbarModule,
     MatCardModule,
     MatSlideToggleModule,
+    MatProgressSpinnerModule,
     FormsModule,
     HttpClientModule,
     NgxMapboxGLModule.forRoot({
