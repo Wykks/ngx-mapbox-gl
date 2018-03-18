@@ -119,7 +119,8 @@ margin: 0;
         'mapbox-gl': '*',
         'ngx-mapbox-gl': '*',
         '@angular/cdk': '^5.2.4',
-        '@angular/material': '^5.2.4'
+        '@angular/material': '^5.2.4',
+        '@angular/animations': '*'
       }
     };
     this.zone.runOutsideAngular(async () => {
