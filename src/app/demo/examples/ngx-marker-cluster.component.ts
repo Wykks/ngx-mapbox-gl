@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'cluster-point',
+  // tslint:disable-next-line:component-selector
+  selector: 'demo-cluster-point',
   template: `
     <div class="marker-cluster" (click)="alert()">
-      {{ feature.properties['point_count'] }}
+      {{ feature.properties?.point_count }}
     </div>
   `
 })
@@ -18,7 +19,7 @@ export class ClusterPointComponent {
     let message = 'childs: ';
     message += clusters.map((cluster) => cluster.properties!['Primary ID']).join(', ');
     message += ` getClusterExpansionZoom(): ${this.getClusterExpansionZoomFn()}`;
-    alert(message)
+    alert(message);
   }
 }
 
@@ -45,7 +46,7 @@ export class ClusterPointComponent {
         </div>
       </ng-template>
       <ng-template mglClusterPoint let-feature let-getLeavesFn="getLeavesFn" let-getClusterExpansionZoomFn="getClusterExpansionZoomFn">
-        <cluster-point [feature]="feature" [getLeavesFn]="getLeavesFn" [getClusterExpansionZoomFn]="getClusterExpansionZoomFn"></cluster-point>
+        <demo-cluster-point [feature]="feature" [getLeavesFn]="getLeavesFn" [getClusterExpansionZoomFn]="getClusterExpansionZoomFn"></demo-cluster-point>
       </ng-template>
     </mgl-marker-cluster>
   </mgl-map>
