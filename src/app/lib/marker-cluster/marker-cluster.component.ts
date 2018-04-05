@@ -16,7 +16,7 @@ import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
 import { startWith } from 'rxjs/operators/startWith';
 import { Subscription } from 'rxjs/Subscription';
-import supercluster, { Options as SuperclusterOptions, Supercluster } from 'supercluster';
+import supercluster, { Cluster, Options as SuperclusterOptions, Supercluster } from 'supercluster';
 import { MapService } from '../map/map.service';
 
 @Directive({ selector: 'ng-template[mglPoint]' })
@@ -33,7 +33,12 @@ export class ClusterPointDirective { }
         <mgl-marker
           [feature]="feature"
         >
-          <ng-container *ngTemplateOutlet="clusterPointTpl; context: { $implicit: feature }"></ng-container>
+          <ng-container *ngTemplateOutlet="clusterPointTpl; context: {
+            $implicit: feature,
+            getLeavesFn: getLeavesFn(feature),
+            getChildrenFn: getChildrenFn(feature),
+            getClusterExpansionZoomFn: getClusterExpansionZoomFn(feature)
+          }"></ng-container>
         </mgl-marker>
       </ng-container>
       <ng-template #point>
@@ -120,6 +125,18 @@ export class MarkerClusterComponent implements OnChanges, OnDestroy, AfterConten
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  getLeavesFn = (feature: Cluster) => {
+    return (limit?: number, offset?: number) => (<any>this.supercluster.getLeaves)(feature.properties.cluster_id!, limit, offset);
+  }
+
+  getChildrenFn = (feature: Cluster) => {
+    return () => (<any>this.supercluster.getChildren)(feature.properties.cluster_id!);
+  }
+
+  getClusterExpansionZoomFn = (feature: Cluster) => {
+    return () => (<any>this.supercluster.getClusterExpansionZoom)(feature.properties.cluster_id!);
   }
 
   private updateCluster() {

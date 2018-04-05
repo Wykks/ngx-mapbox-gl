@@ -1,4 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+@Component({
+  selector: 'cluster-point',
+  template: `
+    <div class="marker-cluster" (click)="alert()">
+      {{ feature.properties['point_count'] }}
+    </div>
+  `
+})
+export class ClusterPointComponent {
+  @Input() feature: GeoJSON.Feature<GeoJSON.Point>;
+  @Input() getLeavesFn: (limit?: number, offset?: number) => GeoJSON.Feature<GeoJSON.Point>[];
+  @Input() getClusterExpansionZoomFn: () => number;
+
+  alert() {
+    const clusters = this.getLeavesFn();
+    let message = 'childs: ';
+    message += clusters.map((cluster) => cluster.properties!['Primary ID']).join(', ');
+    message += ` getClusterExpansionZoom(): ${this.getClusterExpansionZoomFn()}`;
+    alert(message)
+  }
+}
 
 @Component({
   selector: 'mgl-demo',
@@ -22,12 +44,8 @@ import { Component, OnInit } from '@angular/core';
           {{ feature.properties['Primary ID'] }}
         </div>
       </ng-template>
-      <ng-template mglClusterPoint let-feature>
-        <div
-          class="marker-cluster"
-        >
-          {{ feature.properties['point_count'] }}
-        </div>
+      <ng-template mglClusterPoint let-feature let-getLeavesFn="getLeavesFn" let-getClusterExpansionZoomFn="getClusterExpansionZoomFn">
+        <cluster-point [feature]="feature" [getLeavesFn]="getLeavesFn" [getClusterExpansionZoomFn]="getClusterExpansionZoomFn"></cluster-point>
       </ng-template>
     </mgl-marker-cluster>
   </mgl-map>
