@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0-rc.3"></a>
+# [1.0.0-rc.3](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-rc.2...v1.0.0-rc.3) (2018-04-05)
+
+
+### Features
+
+* **markerCluster:** expose getChildren, getLeaves, getClusterExpansionZoom methods ([11a0604](https://github.com/Wykks/ngx-mapbox-gl/commit/11a0604))
+
+
+
 <a name="1.0.0-rc.2"></a>
 # [1.0.0-rc.2](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-rc.1...v1.0.0-rc.2) (2018-03-18)
 
