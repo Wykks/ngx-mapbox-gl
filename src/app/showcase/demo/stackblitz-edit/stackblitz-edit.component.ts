@@ -131,7 +131,8 @@ margin: 0;
         '@angular/animations': '*',
         '@angular/forms': '*',
         'url': '*',
-        'querystring': '*'
+        'querystring': '*',
+        '@types/mapbox-gl': '*'
       }
     };
     this.zone.runOutsideAngular(async () => {
