@@ -13,6 +13,7 @@ import { Map, SymbolLayout } from 'mapbox-gl';
     (load)="onLoad($event)"
   >
     <mgl-layer
+      *ngIf="labelLayerId"
       id="3d-buildings"
       source="composite"
       sourceLayer="building"

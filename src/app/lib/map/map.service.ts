@@ -44,6 +44,15 @@ export class MapService {
 
   private mapCreated = new AsyncSubject<void>();
   private mapLoaded = new AsyncSubject<void>();
+  private layerToAdd: (SetupLayer & { before?: string })[] = [];
+  private sourceToAdd: (AllSource & { sourceId: string })[] = [];
+  private markersToAdd: MapboxGl.Marker[] = [];
+  private popupsToAdd: MapboxGl.Popup[] = [];
+  private imageToAdd: {
+    imageId: string;
+    data: MapImageData;
+    options?: MapImageOptions;
+  }[] = [];
   private layerIdsToRemove: string[] = [];
   private sourceIdsToRemove: string[] = [];
   private markersToRemove: MapboxGl.Marker[] = [];
@@ -68,7 +77,7 @@ export class MapService {
         this.assign(MapboxGl, 'config.API_URL', options.customMapboxApiUrl);
       }
       this.createMap(options.mapOptions);
-      this.hookEvents(options.mapEvents);
+      this.hookMapEvents(options.mapEvents);
       this.mapEvents = options.mapEvents;
       this.mapCreated.next(undefined);
       this.mapCreated.complete();
@@ -194,35 +203,7 @@ export class MapService {
             delete layer.layerOptions[tkey];
           }
         });
-      this.mapInstance.addLayer(layer.layerOptions, before);
-      if (layer.layerEvents.click.observers.length) {
-        this.mapInstance.on('click', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
-          this.zone.run(() => {
-            layer.layerEvents.click.emit(evt);
-          });
-        });
-      }
-      if (layer.layerEvents.mouseEnter.observers.length) {
-        this.mapInstance.on('mouseenter', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
-          this.zone.run(() => {
-            layer.layerEvents.mouseEnter.emit(evt);
-          });
-        });
-      }
-      if (layer.layerEvents.mouseLeave.observers.length) {
-        this.mapInstance.on('mouseleave', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
-          this.zone.run(() => {
-            layer.layerEvents.mouseLeave.emit(evt);
-          });
-        });
-      }
-      if (layer.layerEvents.mouseMove.observers.length) {
-        this.mapInstance.on('mousemove', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
-          this.zone.run(() => {
-            layer.layerEvents.mouseMove.emit(evt);
-          });
-        });
-      }
+      this.layerToAdd.push({ ...layer, before });
     });
   }
 
@@ -231,9 +212,7 @@ export class MapService {
   }
 
   addMarker(marker: MapboxGl.Marker) {
-    return this.zone.runOutsideAngular(() => {
-      marker.addTo(this.mapInstance);
-    });
+    this.markersToAdd.push(marker);
   }
 
   removeMarker(marker: MapboxGl.Marker) {
@@ -241,9 +220,7 @@ export class MapService {
   }
 
   addPopup(popup: MapboxGl.Popup) {
-    return this.zone.runOutsideAngular(() => {
-      popup.addTo(this.mapInstance);
-    });
+    this.popupsToAdd.push(popup);
   }
 
   removePopup(popup: MapboxGl.Popup) {
@@ -278,9 +255,7 @@ export class MapService {
   }
 
   addImage(imageId: string, data: MapImageData, options?: MapImageOptions) {
-    return this.zone.runOutsideAngular(() => {
-      this.mapInstance.addImage(imageId, <any>data, options);
-    });
+    this.imageToAdd.push({imageId, data, options});
   }
 
   removeImage(imageId: string) {
@@ -288,12 +263,10 @@ export class MapService {
   }
 
   addSource(sourceId: string, source: AllSource) {
-    return this.zone.runOutsideAngular(() => {
-      Object.keys(source)
-        .forEach((key) =>
-          (<any>source)[key] === undefined && delete (<any>source)[key]);
-      this.mapInstance.addSource(sourceId, <any>source); // Typings issue
-    });
+    Object.keys(source)
+      .forEach((key) =>
+        (<any>source)[key] === undefined && delete (<any>source)[key]);
+    this.sourceToAdd.push({ ...source, sourceId });
   }
 
   getSource<T>(sourceId: string) {
@@ -365,6 +338,11 @@ export class MapService {
 
   applyChanges() {
     this.zone.runOutsideAngular(() => {
+      this.addMarkers();
+      this.addPopups();
+      this.addImages();
+      this.addSources();
+      this.addLayers();
       this.removeLayers();
       this.removeSources();
       this.removeMarkers();
@@ -388,6 +366,41 @@ export class MapService {
     this.subscription.add(sub);
   }
 
+  private addLayers() {
+    for (const layer of this.layerToAdd) {
+      this.mapInstance.addLayer(layer.layerOptions, layer.before);
+      if (layer.layerEvents.click.observers.length) {
+        this.mapInstance.on('click', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
+          this.zone.run(() => {
+            layer.layerEvents.click.emit(evt);
+          });
+        });
+      }
+      if (layer.layerEvents.mouseEnter.observers.length) {
+        this.mapInstance.on('mouseenter', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
+          this.zone.run(() => {
+            layer.layerEvents.mouseEnter.emit(evt);
+          });
+        });
+      }
+      if (layer.layerEvents.mouseLeave.observers.length) {
+        this.mapInstance.on('mouseleave', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
+          this.zone.run(() => {
+            layer.layerEvents.mouseLeave.emit(evt);
+          });
+        });
+      }
+      if (layer.layerEvents.mouseMove.observers.length) {
+        this.mapInstance.on('mousemove', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
+          this.zone.run(() => {
+            layer.layerEvents.mouseMove.emit(evt);
+          });
+        });
+      }
+    }
+    this.layerToAdd = [];
+  }
+
   private removeLayers() {
     for (const layerId of this.layerIdsToRemove) {
       this.mapInstance.off('click', layerId);
@@ -399,11 +412,26 @@ export class MapService {
     this.layerIdsToRemove = [];
   }
 
+  private addSources() {
+    for (const sourceWithId of this.sourceToAdd) {
+      const { sourceId, ...source} = sourceWithId;
+      this.mapInstance.addSource(sourceId, <any>source); // Typings issue
+    }
+    this.sourceToAdd = [];
+  }
+
   private removeSources() {
     for (const sourceId of this.sourceIdsToRemove) {
       this.mapInstance.removeSource(sourceId);
     }
     this.sourceIdsToRemove = [];
+  }
+
+  private addMarkers() {
+    for (const marker of this.markersToAdd) {
+      marker.addTo(this.mapInstance);
+    }
+    this.markersToAdd = [];
   }
 
   private removeMarkers() {
@@ -413,11 +441,25 @@ export class MapService {
     this.markersToRemove = [];
   }
 
+  private addPopups() {
+    for (const popup of this.popupsToAdd) {
+      popup.addTo(this.mapInstance);
+    }
+    this.popupsToAdd = [];
+  }
+
   private removePopups() {
     for (const popup of this.popupsToRemove) {
       popup.remove();
     }
     this.popupsToRemove = [];
+  }
+
+  private addImages() {
+    for (const image of this.imageToAdd) {
+      this.mapInstance.addImage(image.imageId, <any>image.data, image.options);
+    }
+    this.imageToAdd = [];
   }
 
   private removeImages() {
@@ -427,7 +469,7 @@ export class MapService {
     this.imageIdsToRemove = [];
   }
 
-  private hookEvents(events: MapEvent) {
+  private hookMapEvents(events: MapEvent) {
     this.mapInstance.on('load', () => {
       this.mapLoaded.next(undefined);
       this.mapLoaded.complete();
