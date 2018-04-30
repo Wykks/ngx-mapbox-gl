@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
-
-import { demoRoutes } from '../module';
+import { DEMO_ROUTES } from '../demo.module';
 
 @Injectable()
 export class StackblitzEditGuard implements CanActivate {
@@ -10,10 +9,10 @@ export class StackblitzEditGuard implements CanActivate {
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot) {
-    if (demoRoutes[0].children!.some((r) => r.path === route.params.demoUrl)) {
+    if (DEMO_ROUTES[0].children!.some((r) => r.path === route.params.demoUrl)) {
       return true;
     }
-    this.router.navigate(['/']);
+    this.router.navigate(['/demo']);
     return false;
   }
 }

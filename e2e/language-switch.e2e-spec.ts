@@ -14,7 +14,7 @@ describe('Language switch', () => {
   });
 
   it('should change language', async () => {
-    await browser.get('/language-switch');
+    await browser.get('/demo/language-switch');
     const elm = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(elm), 2000);
     const buttons = element.all(by.tagName('button'));

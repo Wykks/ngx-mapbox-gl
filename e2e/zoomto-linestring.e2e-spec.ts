@@ -14,7 +14,7 @@ describe('Zoomto Linestring', () => {
   });
 
   it('should zoom to linestring', async () => {
-    await browser.get('/zoomto-linestring');
+    await browser.get('/demo/zoomto-linestring');
     const elm = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(elm), 2000);
     const buttons = element.all(by.tagName('button'));

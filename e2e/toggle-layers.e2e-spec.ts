@@ -15,7 +15,7 @@ describe('Toggle layers', () => {
   });
 
   it('should toggle layers', async () => {
-    await browser.get('/toggle-layers');
+    await browser.get('/demo/toggle-layers');
     const elm = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(elm), 2000);
     const buttons = element.all(by.tagName('mat-button-toggle'));

@@ -6,22 +6,23 @@
   flex-direction: row;
 }
 
-.sidenav {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  min-width: 350px;
-}
-
-nav {
+mat-sidenav {
+  width: 345px;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 mat-nav-list {
-  flex: 1;
   overflow-y: auto;
+}
+
+mat-sidenav-container {
+  flex: 1;
+}
+
+.content {
+  height: 100%;
 }
 
 mat-form-field.search {
@@ -32,7 +33,3 @@ a.active {
   background-color: mat-color(mat-palette($mat-indigo)) !important;
 }
 
-mat-toolbar {
-  display: flex;
-  justify-content: space-between;
-}

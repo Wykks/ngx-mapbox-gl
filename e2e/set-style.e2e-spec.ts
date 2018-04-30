@@ -14,7 +14,7 @@ describe('Set style', () => {
   });
 
   it('should change the style', async () => {
-    await browser.get('/set-style');
+    await browser.get('/demo/set-style');
     const elm = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(elm), 2000);
     const radios = element.all(by.tagName('mat-radio-button'));

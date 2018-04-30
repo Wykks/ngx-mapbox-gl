@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+}

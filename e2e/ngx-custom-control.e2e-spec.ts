@@ -13,7 +13,7 @@ describe('Custom control', () => {
   });
 
   beforeEach(async () => {
-    await browser.get('/ngx-custom-control');
+    await browser.get('/demo/ngx-custom-control');
     const canvas = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(canvas), 2000);
   });

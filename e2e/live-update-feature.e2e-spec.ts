@@ -15,7 +15,7 @@ describe('Live update feature', () => {
 
   it('should move the map', async () => {
     browser.ignoreSynchronization = true;
-    await browser.get('/live-update-feature');
+    await browser.get('/demo/live-update-feature');
     const elm = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(elm), 2000);
     await browser.sleep(6000);

@@ -8,6 +8,8 @@ import { switchMap } from 'rxjs/operators/switchMap';
 import { map } from 'rxjs/operators/map';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 
+const FILES_PATH = 'app/showcase/demo/examples/';
+
 @Injectable()
 export class DemoFileLoaderService {
 
@@ -25,7 +27,7 @@ export class DemoFileLoaderService {
     if (req$) {
       return req$;
     }
-    req$ = this.http.get(`app/demo/examples/${exampleName}.component.ts`, {
+    req$ = this.http.get(`${FILES_PATH}${exampleName}.component.ts`, {
       responseType: 'text'
     }).pipe(
       switchMap((fileContent) => this.loadAdditionnalFilesIfNecessary(fileContent)),
@@ -63,7 +65,7 @@ export class DemoFileLoaderService {
     if (req$) {
       return req$;
     }
-    req$ = this.http.get(`app/demo/examples/${fileName}`, {
+    req$ = this.http.get(`${FILES_PATH}${fileName}`, {
       responseType: 'text'
     }).pipe(
       map((fileContent) => ({

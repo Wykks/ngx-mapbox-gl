@@ -39,7 +39,7 @@ describe('Generic runtime error check', () => {
     '3d-buildings'
   ].forEach((route: string) => {
     it(`should display a map without errors for /${route}`, async () => {
-      await browser.get(`/${route}`);
+      await browser.get(`/demo/${route}`);
       const elm = element(by.tagName('canvas'));
       await browser.wait(EC.presenceOf(elm), 2000);
       await browser.sleep(2000);

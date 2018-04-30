@@ -1,24 +1,8 @@
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import {
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatCardModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatSlideToggleModule,
-  MatToolbarModule
-  } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import 'hammerjs';
-import { NgxMapboxGLModule } from '../lib';
+import { SharedModule } from '../shared.module';
 import { DemoFileLoaderService } from './demo-file-loader.service';
+import { DemoIndexComponent } from './demo-index.component';
 import { Display3dBuildingsComponent } from './examples/3d-buildings.component';
 import { AddImageGeneratedComponent } from './examples/add-image-generated.component';
 import { AddImageComponent } from './examples/add-image.component';
@@ -51,8 +35,6 @@ import { SetPopupComponent } from './examples/set-popup.component';
 import { SetStyleComponent } from './examples/set-style.component';
 import { ToggleLayersComponent } from './examples/toggle-layers.component';
 import { ZoomtoLinestringComponent } from './examples/zoomto-linestring.component';
-import { IndexComponent } from './index.component';
-import { LayoutComponent } from './layout/layout.component';
 import { StackblitzEditGuard } from './stackblitz-edit/stackblitz-edit-guard.service';
 import { StackblitzEditComponent } from './stackblitz-edit/stackblitz-edit.component';
 
@@ -65,10 +47,10 @@ export enum Category {
   CONTROLS_AND_OVERLAYS = 'Controls and overlays',
 }
 
-export const demoRoutes: Routes = [
+export const DEMO_ROUTES: Routes = [
   {
     path: '',
-    component: LayoutComponent,
+    component: DemoIndexComponent,
     children: [
       { path: 'edit/:demoUrl', component: StackblitzEditComponent, canActivate: [StackblitzEditGuard]},
       { path: 'display-map', component: DisplayMapComponent, data: { label: 'Display a map', cat: Category.STYLES } },
@@ -103,39 +85,22 @@ export const demoRoutes: Routes = [
       { path: 'zoomto-linestring', component: ZoomtoLinestringComponent, data: { label: 'Fit to the bounds of a LineString', cat: Category.USER_INTERACTION } },
       { path: 'ngx-marker-cluster', component: NgxMarkerClusterComponent, data: { label: '[NGX] Create a clusters of html markers', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'mapbox-gl-geocoder', component: MapboxGlGeocoderComponent, data: { label: 'Add a geocoder', cat: Category.CONTROLS_AND_OVERLAYS } },
-      { path: '**', redirectTo: '/display-map', pathMatch: 'full' }
+      { path: '**', redirectTo: 'display-map' }
     ]
   }
 ];
 
 @NgModule({
   imports: [
-    CommonModule,
-    BrowserAnimationsModule,
-    MatRadioModule,
-    MatButtonToggleModule,
-    MatButtonModule,
-    MatListModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatSlideToggleModule,
-    MatProgressSpinnerModule,
-    MatInputModule,
-    MatIconModule,
-    FormsModule,
-    HttpClientModule,
-    NgxMapboxGLModule.forRoot({
-      accessToken: 'pk.eyJ1Ijoid3lra3NzIiwiYSI6ImNqMjR6aTdmdzAwNHMzMnBvbjBucjlqNm8ifQ.6GjGpofWBVaIuSnhdXQb5w'
-    }),
-    RouterModule.forChild(demoRoutes)
+    SharedModule,
+    RouterModule
   ],
   providers: [
     StackblitzEditGuard,
     DemoFileLoaderService
   ],
   declarations: [
-    LayoutComponent,
-    IndexComponent,
+    DemoIndexComponent,
     StackblitzEditComponent,
     DisplayMapComponent,
     CustomStyleIdComponent,

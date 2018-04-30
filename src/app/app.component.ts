@@ -9,7 +9,7 @@ import { Component, HostBinding } from '@angular/core';
   styles: [`
   :host {
     display: flex;
-    min-height: 100vh;
+    flex: 1;
   }
   `]
 })

@@ -6,26 +6,27 @@ import { filter } from 'rxjs/operators/filter';
 import { first } from 'rxjs/operators/first';
 import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
-import { Category, demoRoutes } from '../module';
+import { Category, DEMO_ROUTES } from './demo.module';
 
 type RoutesByCategory = { [P in Category]: Routes };
 
 @Component({
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  templateUrl: './demo-index.component.html',
+  styleUrls: ['./demo-index.component.scss']
 })
-export class LayoutComponent implements OnInit {
+export class DemoIndexComponent implements OnInit {
   routes: RoutesByCategory;
   originalRoutes: RoutesByCategory;
   categories: Category[];
   isEditing = false;
   searchTerm: string;
+  sidenavOpened = true;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
-    this.originalRoutes = <RoutesByCategory><any>groupBy(demoRoutes[0].children, (route) => route.data ? route.data.cat : null);
+    this.originalRoutes = <RoutesByCategory><any>groupBy(DEMO_ROUTES[0].children, (route) => route.data ? route.data.cat : null);
     this.categories = [
       Category.STYLES,
       Category.LAYERS,
@@ -51,11 +52,11 @@ export class LayoutComponent implements OnInit {
     const activatedRoute = this.activatedRoute.children[0];
     if (this.isEditing) {
       activatedRoute.params.pipe(first()).subscribe((params) => {
-        this.router.navigate([params.demoUrl]);
+        this.router.navigate(['demo', params.demoUrl]);
       });
     } else {
       activatedRoute.url.pipe(first()).subscribe((currentUrl) => {
-        this.router.navigate(['edit', currentUrl[0].path]);
+        this.router.navigate(['demo', 'edit', currentUrl[0].path]);
       });
     }
   }

@@ -1,10 +1,8 @@
-import { DemoModule } from './demo/module';
-import { RouterModule } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { NgxMapboxGLModule } from './lib/lib.module';
+import { ShowcaseModule } from './showcase/showcase.module';
 
 @NgModule({
   declarations: [
@@ -12,8 +10,7 @@ import { NgxMapboxGLModule } from './lib/lib.module';
   ],
   imports: [
     BrowserModule,
-    NgxMapboxGLModule,
-    DemoModule,
+    ShowcaseModule,
     RouterModule.forRoot([])
   ],
   providers: [],
