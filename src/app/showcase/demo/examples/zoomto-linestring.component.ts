@@ -16,6 +16,7 @@ import { LngLatBounds } from 'mapbox-gl';
     <mgl-control>
       <button
         mat-raised-button
+        class="zoom-button"
         (click)="zoomToBounds()"
       >
         Zoom to bounds

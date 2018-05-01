@@ -17,7 +17,7 @@ describe('Zoomto Linestring', () => {
     await browser.get('/demo/zoomto-linestring');
     const elm = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(elm), 2000);
-    const buttons = element.all(by.tagName('button'));
+    const buttons = element.all(by.className('zoom-button'));
     await browser.sleep(4000);
     const screen1 = await browser.takeScreenshot();
     await buttons.get(0).click();
