@@ -10,6 +10,7 @@ import { Component } from '@angular/core';
       <button
         mat-fab
         color="primary"
+        class="custom-control"
         (click)="alert('Hello')"
       >
         Hello

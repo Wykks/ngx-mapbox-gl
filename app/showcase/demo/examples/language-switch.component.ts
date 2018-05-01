@@ -13,24 +13,28 @@ import { Map } from 'mapbox-gl';
     <mgl-control>
       <button
         mat-raised-button
+        class="lang-button"
         (click)="changeLangTo('fr')"
       >
         French
       </button>
       <button
         mat-raised-button
+        class="lang-button"
         (click)="changeLangTo('ru')"
       >
         Russian
       </button>
       <button
         mat-raised-button
+        class="lang-button"
         (click)="changeLangTo('de')"
       >
         German
       </button>
       <button
         mat-raised-button
+        class="lang-button"
         (click)="changeLangTo('es')"
       >
         Spanish
