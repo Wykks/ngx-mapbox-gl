@@ -41,11 +41,17 @@
         "mapbox-gl": "mapboxgl",
         "@turf/bbox": "turfbbox",
         "@turf/helpers": "turfhelpers",
-        "@turf/meta": "turfmeta",
         "supercluster": "supercluster"
       },
       "entryFile": "src/public_api.ts"
-    }
+    },
+    "whitelistedNonPeerDependencies": [
+      "@mapbox/mapbox-gl-geocoder",
+      "@turf/bbox",
+      "@turf/helpers",
+      "@turf/meta",
+      "supercluster"
+    ]
   },
   "peerDependencies": {
     "@angular/common": ">=5.0.0 <6.0.0 || >=5.0.0-beta <6.0.0",
