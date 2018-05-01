@@ -103,6 +103,7 @@
     "lodash-es": "^4.17.10",
     "mapbox-gl": "0.44.2",
     "ng-packagr": "2.4.2",
+    "ngx-md": "^3.1.1",
     "pixel-diff": "^1.0.1",
     "protractor": "~5.3.1",
     "protractor-browser-logs": "^1.0.351",

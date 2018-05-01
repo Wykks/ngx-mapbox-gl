@@ -27,6 +27,10 @@ export const demoRoutes: Routes = [
           component: HomeIndexComponent
         }],
         pathMatch: 'full'
+      },
+      {
+        path: 'doc',
+        loadChildren: 'app/showcase/doc/doc.module#DocModule'
       }
     ]
   },
