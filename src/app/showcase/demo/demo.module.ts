@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { MglResizeEventEmitter } from '../../lib/index';
 import { SharedModule } from '../shared.module';
 import { DemoFileLoaderService } from './demo-file-loader.service';
 import { DemoIndexComponent } from './demo-index.component';
+import { DemoEffects } from './demo.effects';
+import * as fromDemo from './demo.reducer';
 import { Display3dBuildingsComponent } from './examples/3d-buildings.component';
 import { AddImageGeneratedComponent } from './examples/add-image-generated.component';
 import { AddImageComponent } from './examples/add-image.component';
@@ -52,7 +57,7 @@ export const DEMO_ROUTES: Routes = [
     path: '',
     component: DemoIndexComponent,
     children: [
-      { path: 'edit/:demoUrl', component: StackblitzEditComponent, canActivate: [StackblitzEditGuard]},
+      { path: 'edit/:demoUrl', component: StackblitzEditComponent, canActivate: [StackblitzEditGuard] },
       { path: 'display-map', component: DisplayMapComponent, data: { label: 'Display a map', cat: Category.STYLES } },
       { path: 'custom-style-id', component: CustomStyleIdComponent, data: { label: 'Display a map with a custom style', cat: Category.STYLES } },
       { path: 'set-style', component: SetStyleComponent, data: { label: 'Change a map\'s style', cat: Category.STYLES } },
@@ -93,11 +98,14 @@ export const DEMO_ROUTES: Routes = [
 @NgModule({
   imports: [
     SharedModule,
-    RouterModule
+    RouterModule,
+    StoreModule.forFeature('demo', fromDemo.reducer),
+    EffectsModule.forFeature([DemoEffects])
   ],
   providers: [
     StackblitzEditGuard,
-    DemoFileLoaderService
+    DemoFileLoaderService,
+    { provide: MglResizeEventEmitter, useExisting: DemoEffects } // Please don't mind me (╭ರ_⊙)
   ],
   declarations: [
     DemoIndexComponent,

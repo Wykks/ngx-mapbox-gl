@@ -56,13 +56,16 @@
   },
   "defaults": {
     "styleExt": "css",
+    "component": {
+      "inlineStyle": true,
+      "inlineTemplate": true,
+      "changeDetection": "OnPush"
+    },
     "build": {
       "showCircularDependencies": false
     },
-    "component": {
-      "changeDetection": "OnPush",
-      "inlineStyle": true,
-      "inlineTemplate": true
+    "schematics": {
+      "collection": "@ngrx/schematics"
     }
   }
 }

@@ -9,15 +9,22 @@ import {
   OnDestroy,
   ViewChild
   } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import StackBlitzSDK from '@stackblitz/sdk';
 import { VM } from '@stackblitz/sdk/typings/VM';
 import { Dictionary } from 'lodash';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { fromPromise } from 'rxjs/observable/fromPromise';
+import { filter } from 'rxjs/operators/filter';
 import { shareReplay } from 'rxjs/operators/shareReplay';
+import { switchMap } from 'rxjs/operators/switchMap';
+import { tap } from 'rxjs/operators/tap';
+import { withLatestFrom } from 'rxjs/operators/withLatestFrom';
 import { Subscription } from 'rxjs/Subscription';
+import { State } from '../../showcase.module';
+import * as fromShowcase from '../../showcase.selectors';
 import { DemoFileLoaderService } from '../demo-file-loader.service';
 
 @Component({
@@ -50,6 +57,7 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
 
   loading: boolean;
 
+  private isDemoEditing$ = this.store.pipe(select(fromShowcase.isDemoEditing));
   private sub: Subscription;
   private base$: Observable<string>;
 
@@ -59,20 +67,39 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private zone: NgZone,
-    private activatedRoute: ActivatedRoute,
+    private store: Store<State>,
     private DemoFileLoaderService: DemoFileLoaderService,
     private ChangeDetectorRef: ChangeDetectorRef
   ) {
     this.base$ = this.http.get('assets/stackblitz-base.txt', {
       responseType: 'text'
     }).pipe(shareReplay(1));
-    this.sub = this.activatedRoute.params.subscribe((params) => {
-      this.loading = true;
-      this.ChangeDetectorRef.markForCheck();
-      forkJoin(
-        this.base$,
-        this.DemoFileLoaderService.getDemoFiles(params.demoUrl)
-      ).subscribe(([base, demoFiles]) => this.openExample(base, demoFiles));
+    this.sub = this.store.pipe(
+      select(fromShowcase.getCurrentRouterState),
+      withLatestFrom(this.isDemoEditing$),
+      filter(([, isDemoEditing]) => isDemoEditing),
+      tap(() => {
+        this.loading = true;
+        this.ChangeDetectorRef.markForCheck();
+      }),
+      switchMap(([state]) =>
+        forkJoin(
+          this.base$,
+          this.DemoFileLoaderService.getDemoFiles(state.params.demoUrl)
+        )
+      ),
+      switchMap(([base, demoFiles]) =>
+        fromPromise(this.openExample(base, demoFiles))
+      ),
+      tap(() => {
+        this.loading = false;
+        this.ChangeDetectorRef.markForCheck();
+      }),
+    ).subscribe({
+      error: () => {
+        this.loading = false;
+        this.ChangeDetectorRef.markForCheck();
+      }
     });
   }
 
@@ -88,13 +115,9 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
     await this.afterViewInit.toPromise();
     if (this.vm) {
       await this.vm.applyFsDiff({
-        create: {
-          ...demoFiles
-        },
+        create: demoFiles,
         destroy: []
       });
-      this.loading = false;
-      this.ChangeDetectorRef.markForCheck();
       return;
     }
     const project = {
@@ -135,15 +158,13 @@ margin: 0;
         '@types/mapbox-gl': '*'
       }
     };
-    this.zone.runOutsideAngular(async () => {
+    await this.zone.runOutsideAngular(async () => {
       this.vm = await StackBlitzSDK.embedProject(this.stackblitzContainer.nativeElement, project, {
         hideExplorer: true,
         hideNavigation: true,
         forceEmbedLayout: true,
         openFile: 'demo.ts'
       });
-      this.loading = false;
-      this.ChangeDetectorRef.detectChanges();
     });
   }
 }

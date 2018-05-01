@@ -7,4 +7,15 @@
 mat-toolbar {
   display: flex;
   justify-content: space-between;
+  padding: 0 16px 0 0;
+}
+
+div {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.menu-button {
+  height: 100%;
 }

@@ -1,5 +1,5 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" [opened]="sidenavOpened">
+  <mat-sidenav #sidenav mode="side" [opened]="isSidenavOpen$ | async" (openedChange)="onSidenavChange()">
     <mat-form-field class="search">
       <input matInput type="text" placeholder="Search" [(ngModel)]="searchTerm" (ngModelChange)="search()" />
       <button mat-button *ngIf="searchTerm" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
@@ -10,7 +10,14 @@
       <ng-container *ngFor="let cat of categories">
         <h3 matSubheader>{{cat}}</h3>
         <ng-container *ngFor="let route of $any(routes)[cat]">
-          <a *ngIf="route" mat-list-item [routerLink]="'/demo/'+(isEditing ? '/edit/' : '')+route.path" routerLinkActive="active">
+          <a
+            *ngIf="route"
+            mat-list-item
+            [routerLink]="'/demo/'+((isEditing$ | async) ? '/edit/' : '')+route.path"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ _routerLinkActiveWakeUpHack_: (isEditing$ | async) }"
+            #exampleLink
+          >
             {{route.data.label}}
           </a>
         </ng-container>

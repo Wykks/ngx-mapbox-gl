@@ -10,6 +10,10 @@ import { Subscription } from 'rxjs/Subscription';
 
 export const MAPBOX_API_KEY = new InjectionToken('MapboxApiKey');
 
+export abstract class MglResizeEventEmitter {
+  abstract resizeEvent: Observable<void>;
+}
+
 export interface SetupMap {
   accessToken?: string;
   customMapboxApiUrl?: string;
@@ -53,7 +57,8 @@ export class MapService {
 
   constructor(
     private zone: NgZone,
-    @Optional() @Inject(MAPBOX_API_KEY) private readonly MAPBOX_API_KEY: string
+    @Optional() @Inject(MAPBOX_API_KEY) private readonly MAPBOX_API_KEY: string,
+    @Optional() private readonly MglResizeEventEmitter: MglResizeEventEmitter
   ) {
     this.mapCreated$ = this.mapCreated.asObservable();
     this.mapLoaded$ = this.mapLoaded.asObservable();
@@ -383,9 +388,15 @@ export class MapService {
         }
       });
     this.mapInstance = new MapboxGl.Map(options);
-    const sub = this.zone.onMicrotaskEmpty
+    const subChanges = this.zone.onMicrotaskEmpty
       .subscribe(() => this.applyChanges());
-    this.subscription.add(sub);
+    if (this.MglResizeEventEmitter) {
+      const subResize = this.MglResizeEventEmitter.resizeEvent.subscribe(() => {
+        this.mapInstance.resize();
+      });
+      this.subscription.add(subResize);
+    }
+    this.subscription.add(subChanges);
   }
 
   private removeLayers() {

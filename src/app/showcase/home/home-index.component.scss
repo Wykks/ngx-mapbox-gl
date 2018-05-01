@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+  flex: 1;
+  position: relative;
+}
+
+.main {
+  position: absolute;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.logo {
+  width: 150px;
+  height: 150px;
+}
+
+mgl-map {
+  flex: 1;
+}

@@ -1,5 +1,13 @@
 <mat-toolbar color="primary">
   <div>
+    <button
+      *ngIf="isInDemo$ | async"
+      class="menu-button"
+      mat-button
+      (click)="toggleSidenav()"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
     <a mat-button routerLink="/">
       <mat-icon svgIcon="ngx-mapbox-gl"></mat-icon>
       ngx-mapbox-gl
@@ -12,6 +20,14 @@
     </a>
   </div>
   <div>
+    <mat-slide-toggle
+      *ngIf="isInDemo$ | async"
+      color="accent"
+      [ngModel]="isDemoEditing$ | async"
+      (ngModelChange)="toggleEdit()"
+    >
+      Edit!
+    </mat-slide-toggle>
     <a mat-button href="https://github.com/Wykks/ngx-mapbox-gl">
       <mat-icon svgIcon="github"></mat-icon>
       GitHub

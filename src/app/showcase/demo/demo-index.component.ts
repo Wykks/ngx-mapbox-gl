@@ -1,30 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationStart, Router, Routes } from '@angular/router';
+import { AfterViewInit, Component, ElementRef, NgZone, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Routes } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import cloneDeep from 'lodash-es/cloneDeep';
 import groupBy from 'lodash-es/groupBy';
-import { filter } from 'rxjs/operators/filter';
 import { first } from 'rxjs/operators/first';
-import { map } from 'rxjs/operators/map';
-import { startWith } from 'rxjs/operators/startWith';
+import scrollIntoView from 'scroll-into-view-if-needed';
+import { State } from '../showcase.module';
+import * as fromShowcase from '../showcase.selectors';
+import * as demo from './demo.actions';
 import { Category, DEMO_ROUTES } from './demo.module';
 
-type RoutesByCategory = { [P in Category]: Routes };
+type RoutesByCategory = {[P in Category]: Routes };
 
 @Component({
   templateUrl: './demo-index.component.html',
   styleUrls: ['./demo-index.component.scss']
 })
-export class DemoIndexComponent implements OnInit {
+export class DemoIndexComponent implements OnInit, AfterViewInit {
   routes: RoutesByCategory;
   originalRoutes: RoutesByCategory;
   categories: Category[];
-  isEditing = false;
   searchTerm: string;
-  sidenavOpened = true;
+
+  isEditing$ = this.store.pipe(select(fromShowcase.isDemoEditing));
+  isSidenavOpen$ = this.store.pipe(select(fromShowcase.isDemoSidenavOpen));
+
+  @ViewChildren('exampleLink', { read: ElementRef }) exampleLinks: QueryList<ElementRef>;
 
   constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    private store: Store<State>,
+    private zone: NgZone
   ) {
     this.originalRoutes = <RoutesByCategory><any>groupBy(DEMO_ROUTES[0].children, (route) => route.data ? route.data.cat : null);
     this.categories = [
@@ -35,38 +40,31 @@ export class DemoIndexComponent implements OnInit {
       Category.CAMERA,
       Category.CONTROLS_AND_OVERLAYS
     ];
-    this.router.events.pipe(
-      filter((event): event is NavigationStart => event instanceof NavigationStart),
-      map((e) => <string>(<any>e).url), // TODO wait TS 2.7
-      startWith(this.router.url)
-    ).subscribe((e) => {
-      this.isEditing = e.startsWith('/edit/');
-    });
   }
 
   ngOnInit() {
     this.routes = this.originalRoutes;
   }
 
-  toggleEdit() {
-    const activatedRoute = this.activatedRoute.children[0];
-    if (this.isEditing) {
-      activatedRoute.params.pipe(first()).subscribe((params) => {
-        this.router.navigate(['demo', params.demoUrl]);
-      });
-    } else {
-      activatedRoute.url.pipe(first()).subscribe((currentUrl) => {
-        this.router.navigate(['demo', 'edit', currentUrl[0].path]);
-      });
-    }
+  ngAfterViewInit() {
+    this.zone.onStable.pipe(first()).subscribe(() => {
+      const activeLink = this.exampleLinks.find((elm) => (<HTMLElement>elm.nativeElement).classList.contains('active'));
+      if (activeLink) {
+        scrollIntoView(<HTMLElement>activeLink.nativeElement, { centerIfNeeded: true });
+      }
+    });
+  }
+
+  onSidenavChange() {
+    this.store.dispatch(new demo.ToggleSidenavEnd());
   }
 
   search() {
     // Quick and dirty
     this.routes = cloneDeep(this.originalRoutes);
-     Object.values(this.routes).forEach((category) => {
+    Object.values(this.routes).forEach((category) => {
       category.forEach((route, index) => {
-        if (route.data && !(<string>route.data.label).toLowerCase().includes(this.searchTerm)) {
+        if (route.data && !(<string>route.data.label).toLowerCase().includes(this.searchTerm.toLowerCase())) {
           delete category[index];
         }
       });

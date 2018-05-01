@@ -236,6 +236,26 @@
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@mapbox/whoots-js/-/whoots-js-3.0.0.tgz#c1de4293081424da3ac30c23afa850af1019bb54"
 
+"@ngrx/effects@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-5.2.0.tgz#aa762b69cb6fd4644d724a1cecd265caa42baf09"
+
+"@ngrx/router-store@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-5.2.0.tgz#bf4b174ce19a36eba8211fc1ddeaf1e35ae74368"
+
+"@ngrx/schematics@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/schematics/-/schematics-5.2.0.tgz#ab7180d79f0ec68bd4ac3ef4ec83b9348d18d26c"
+
+"@ngrx/store-devtools@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-5.2.0.tgz#2fff916a9aa349375826772b359dbb64b9e5d622"
+
+"@ngrx/store@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-5.2.0.tgz#627ed74c9cd95462930485d912a557117b23903e"
+
 "@ngtools/json-schema@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@ngtools/json-schema/-/json-schema-1.2.0.tgz#06e5ecd29e9a37d260a447dd873ea2becd228c4f"
@@ -483,6 +503,12 @@ align-text@^0.1.1, align-text@^0.1.3:
     kind-of "^3.0.2"
     longest "^1.0.1"
     repeat-string "^1.5.2"
+
+amator@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/amator/-/amator-1.0.1.tgz#0fd3663fef5f3334d088cf68a70ba74398aa0e26"
+  dependencies:
+    bezier-easing "^2.0.3"
 
 amdefine@>=0.0.4:
   version "1.0.1"
@@ -885,6 +911,10 @@ better-assert@~1.0.0:
   resolved "https://registry.yarnpkg.com/better-assert/-/better-assert-1.0.2.tgz#40866b9e1b9e0b55b481894311e68faffaebc522"
   dependencies:
     callsite "1.0.0"
+
+bezier-easing@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/bezier-easing/-/bezier-easing-2.0.3.tgz#cb493fddb7f8920ecca00973344ce0518885f17e"
 
 big.js@^3.1.3:
   version "3.2.0"
@@ -6578,6 +6608,12 @@ schema-utils@^0.4.2:
   dependencies:
     ajv "^5.0.0"
     ajv-keywords "^2.1.0"
+
+scroll-into-view-if-needed@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/scroll-into-view-if-needed/-/scroll-into-view-if-needed-1.5.0.tgz#39e8ce15cb74348a897ee96110e848fed50aaf95"
+  dependencies:
+    amator "1.0.1"
 
 scss-tokenizer@^0.2.3:
   version "0.2.3"
