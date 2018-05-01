@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-rc.3...v1.0.0) (2018-05-01)
+
+
+### Bug Fixes
+
+* **marker:** remove line-height as it can incorrectly change the height (thus the position) of a marker ([550f665](https://github.com/Wykks/ngx-mapbox-gl/commit/550f665))
+
+
+### Code Refactoring
+
+* **map:** rename flyToOptions to movingOptions ([5bd8982](https://github.com/Wykks/ngx-mapbox-gl/commit/5bd8982))
+
+
+### Features
+
+* **draggable:** support draggable on Marker! ([8aa02a8](https://github.com/Wykks/ngx-mapbox-gl/commit/8aa02a8))
+* **map:** add panToOptions ([171957b](https://github.com/Wykks/ngx-mapbox-gl/commit/171957b))
+
+
+### BREAKING CHANGES
+
+* **map:** Rename flyToOptions to movingOptions
+
+
+
 <a name="1.0.0-rc.3"></a>
 # [1.0.0-rc.3](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-rc.2...v1.0.0-rc.3) (2018-04-05)
 
