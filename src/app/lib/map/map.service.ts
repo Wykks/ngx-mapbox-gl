@@ -39,6 +39,10 @@ export type AllSource = MapboxGl.VectorSource |
   MapboxGl.GeoJSONSourceRaw |
   MapboxGl.CanvasSourceOptions;
 
+export type MovingOptions = MapboxGl.FlyToOptions |
+  (MapboxGl.AnimationOptions & MapboxGl.CameraOptions) |
+  MapboxGl.CameraOptions;
+
 @Injectable()
 export class MapService {
   mapInstance: MapboxGl.Map;
@@ -173,7 +177,7 @@ export class MapService {
 
   move(
     movingMethod: 'jumpTo' | 'easeTo' | 'flyTo',
-    flyToOptions?: MapboxGl.FlyToOptions,
+    movingOptions?: MovingOptions,
     zoom?: number,
     center?: MapboxGl.LngLatLike,
     bearing?: number,
@@ -181,7 +185,7 @@ export class MapService {
   ) {
     return this.zone.runOutsideAngular(() => {
       (<any>this.mapInstance[movingMethod])({
-        ...flyToOptions,
+        ...movingOptions,
         zoom: zoom ? zoom : this.mapInstance.getZoom(),
         center: center ? center : this.mapInstance.getCenter(),
         bearing: bearing ? bearing : this.mapInstance.getBearing(),

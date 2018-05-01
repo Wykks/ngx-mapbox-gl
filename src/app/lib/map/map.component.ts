@@ -11,7 +11,8 @@ import {
   PointLike,
   Style
 } from 'mapbox-gl';
-import { MapService } from './map.service';
+import { MapService, MovingOptions } from './map.service';
+import { MapEvent } from './map.types';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -25,7 +26,6 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { MapEvent } from './map.types';
 
 declare global {
   namespace mapboxgl {
@@ -94,6 +94,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
 
   /* Added by ngx-mapbox-gl */
   @Input() movingMethod: 'jumpTo' | 'easeTo' | 'flyTo' = 'flyTo';
+  @Input() movingOptions?: MovingOptions;
   @Input() fitBounds?: LngLatBoundsLike;
   @Input() fitBoundsOptions?: {
     linear?: boolean,
@@ -265,7 +266,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
     ) {
       this.MapService.move(
         this.movingMethod,
-        this.flyToOptions,
+        this.movingOptions,
         changes.zoom && this.zoom ? this.zoom[0] : undefined,
         changes.center ? this.center : undefined,
         changes.bearing && this.bearing ? this.bearing[0] : undefined,
