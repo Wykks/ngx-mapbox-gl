@@ -1,6 +1,6 @@
 import {
+  AnimationOptions,
   EventData,
-  FlyToOptions,
   LngLatBoundsLike,
   LngLatLike,
   Map,
@@ -10,7 +10,7 @@ import {
   PaddingOptions,
   PointLike,
   Style
-} from 'mapbox-gl';
+  } from 'mapbox-gl';
 import { MapService, MovingOptions } from './map.service';
 import { MapEvent } from './map.types';
 import {
@@ -103,8 +103,8 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
     offset?: PointLike,
     maxZoom?: number
   };
-  @Input() flyToOptions?: FlyToOptions;
   @Input() centerWithPanTo?: boolean;
+  @Input() panToOptions?: AnimationOptions;
   @Input() cursorStyle?: string;
 
   @Output() resize = new EventEmitter<void>();
@@ -257,7 +257,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
       changes.center && !changes.center.isFirstChange() &&
       !changes.zoom && !changes.bearing && !changes.pitch
     ) {
-      this.MapService.panTo(this.center!);
+      this.MapService.panTo(this.center!, this.panToOptions);
     } else if (
       changes.center && !changes.center.isFirstChange() ||
       changes.zoom && !changes.zoom.isFirstChange() ||

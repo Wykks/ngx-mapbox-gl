@@ -169,9 +169,9 @@ export class MapService {
     return this.mapInstance.queryRenderedFeatures(pointOrBox, parameters);
   }
 
-  panTo(center: MapboxGl.LngLatLike) {
+  panTo(center: MapboxGl.LngLatLike, options?: MapboxGl.AnimationOptions) {
     return this.zone.runOutsideAngular(() => {
-      this.mapInstance.panTo(center);
+      this.mapInstance.panTo(center, options);
     });
   }
 
