@@ -29,6 +29,7 @@ import { MapboxGlGeocoderComponent } from './examples/mapbox-gl-geocoder.compone
 import { NavigationComponent } from './examples/navigation.component';
 import { NgxCustomControlComponent } from './examples/ngx-custom-control.component';
 import { NgxCustomMarkerIconsComponent } from './examples/ngx-custom-marker-icons.component';
+import { NgxDragAMarkerComponent } from './examples/ngx-drag-a-marker.component';
 import { NgxDragAPointComponent } from './examples/ngx-drag-a-point.component';
 import { NgxGeoJSONLineComponent } from './examples/ngx-geojson-line.component';
 import { ClusterPointComponent, NgxMarkerClusterComponent } from './examples/ngx-marker-cluster.component';
@@ -85,6 +86,7 @@ export const DEMO_ROUTES: Routes = [
       { path: 'language-switch', component: LanguageSwitchComponent, data: { label: 'Change a map\'s language', cat: Category.USER_INTERACTION } },
       { path: 'center-on-symbol', component: CenterOnSymbolComponent, data: { label: 'Center the map on a clicked symbol', cat: Category.USER_INTERACTION } },
       { path: 'ngx-drag-a-point', component: NgxDragAPointComponent, data: { label: '[NGX] Create a draggable point', cat: Category.USER_INTERACTION } },
+      { path: 'ngx-drag-a-marker', component: NgxDragAMarkerComponent, data: { label: '[NGX] Create a draggable marker', cat: Category.USER_INTERACTION } },
       { path: 'hover-styles', component: HoverStylesComponent, data: { label: 'Create a hover effect', cat: Category.USER_INTERACTION } },
       { path: 'popup-on-click', component: PopupOnClickComponent, data: { label: 'Display a popup on click', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'zoomto-linestring', component: ZoomtoLinestringComponent, data: { label: 'Fit to the bounds of a LineString', cat: Category.USER_INTERACTION } },
@@ -137,6 +139,7 @@ export const DEMO_ROUTES: Routes = [
     LanguageSwitchComponent,
     CenterOnSymbolComponent,
     NgxDragAPointComponent,
+    NgxDragAMarkerComponent,
     HoverStylesComponent,
     PopupOnClickComponent,
     ZoomtoLinestringComponent,

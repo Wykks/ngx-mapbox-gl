@@ -7,15 +7,15 @@ import { GeocoderControlDirective, MAPBOX_GEOCODER_API_KEY } from './control/geo
 import { GeolocateControlDirective } from './control/geolocate-control.directive';
 import { NavigationControlDirective } from './control/navigation-control.directive';
 import { ScaleControlDirective } from './control/scale-control.directive';
+import { DraggableDirective } from './draggable/draggable.directive';
 import { ImageComponent } from './image/image.component';
 import { LayerComponent } from './layer/layer.component';
 import { MapComponent } from './map/map.component';
 import { MAPBOX_API_KEY } from './map/map.service';
-import { MarkerClusterComponent, ClusterPointDirective, PointDirective } from './marker-cluster/marker-cluster.component';
+import { ClusterPointDirective, MarkerClusterComponent, PointDirective } from './marker-cluster/marker-cluster.component';
 import { MarkerComponent } from './marker/marker.component';
 import { PopupComponent } from './popup/popup.component';
 import { CanvasSourceComponent } from './source/canvas-source.component';
-import { DraggableDirective } from './source/geojson/draggable.directive';
 import { FeatureComponent } from './source/geojson/feature.component';
 import { GeoJSONSourceComponent } from './source/geojson/geojson-source.component';
 import { ImageSourceComponent } from './source/image-source.component';

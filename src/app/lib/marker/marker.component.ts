@@ -72,4 +72,8 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
   togglePopup() {
     this.markerInstance!.togglePopup();
   }
+
+  updateCoordinates(coordinates: number[]) {
+    this.markerInstance!.setLngLat(coordinates);
+  }
 }
