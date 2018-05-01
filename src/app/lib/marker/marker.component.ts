@@ -1,5 +1,3 @@
-import { LngLatLike, Marker, PointLike } from 'mapbox-gl';
-import { MapService } from '../map/map.service';
 import {
     Component,
     ElementRef,
@@ -11,11 +9,20 @@ import {
     AfterViewInit,
     OnInit,
     ChangeDetectionStrategy,
+    ViewEncapsulation
 } from '@angular/core';
+import { LngLatLike, Marker, PointLike } from 'mapbox-gl';
+import { MapService } from '../map/map.service';
 
 @Component({
   selector: 'mgl-marker',
   template: '<div #content><ng-content></ng-content></div>',
+  styles: [`
+    .mapboxgl-marker {
+      line-height: 0;
+    }
+  `],
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnInit {
