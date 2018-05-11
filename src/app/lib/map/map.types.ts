@@ -20,6 +20,7 @@ export interface MapEvent {
   touchEnd: EventEmitter<MapTouchEvent>;
   touchMove: EventEmitter<MapTouchEvent>;
   touchCancel: EventEmitter<MapTouchEvent>;
+  wheel: EventEmitter<any>; // TODO MapWheelEvent
   moveStart: EventEmitter<DragEvent>; // TODO Check type
   move: EventEmitter<MapTouchEvent | MapMouseEvent>;
   moveEnd: EventEmitter<DragEvent>;

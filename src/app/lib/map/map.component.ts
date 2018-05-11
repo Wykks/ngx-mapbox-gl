@@ -123,6 +123,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
   @Output() touchEnd = new EventEmitter<MapTouchEvent>();
   @Output() touchMove = new EventEmitter<MapTouchEvent>();
   @Output() touchCancel = new EventEmitter<MapTouchEvent>();
+  @Output() wheel = new EventEmitter<any>(); // TODO MapWheelEvent
   @Output() moveStart = new EventEmitter<DragEvent>(); // TODO Check type
   @Output() move = new EventEmitter<MapTouchEvent | MapMouseEvent>();
   @Output() moveEnd = new EventEmitter<DragEvent>();

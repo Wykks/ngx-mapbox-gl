@@ -542,6 +542,10 @@ export class MapService {
     if (events.touchCancel.observers.length) {
       this.mapInstance.on('touchcancel', (evt: MapboxGl.MapTouchEvent) => this.zone.run(() => events.touchCancel.emit(evt)));
     }
+    if (events.wheel.observers.length) {
+      // MapboxGl.MapWheelEvent
+      this.mapInstance.on('wheel', (evt: any) => this.zone.run(() => events.wheel.emit(evt)));
+    }
     if (events.moveStart.observers.length) {
       this.mapInstance.on('movestart', (evt: DragEvent) => this.zone.run(() => events.moveStart.emit(evt)));
     }
