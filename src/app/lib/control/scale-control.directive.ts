@@ -1,4 +1,4 @@
-import { Directive, Host, Input, OnInit } from '@angular/core';
+import { Directive, Host, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ScaleControl } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import { ControlComponent } from './control.component';
@@ -6,15 +6,23 @@ import { ControlComponent } from './control.component';
 @Directive({
   selector: '[mglScale]'
 })
-export class ScaleControlDirective implements OnInit {
+export class ScaleControlDirective implements OnInit, OnChanges {
   /* Init inputs */
   @Input() maxWidth?: number;
+
+  /* Dynamic inputs */
   @Input() unit?: 'imperial' | 'metric' | 'nautical';
 
   constructor(
     private MapService: MapService,
     @Host() private ControlComponent: ControlComponent
   ) { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.unit && !changes.unit.isFirstChange()) {
+      (<any>this.ControlComponent.control).setUnit(changes.unit.currentValue);
+    }
+  }
 
   ngOnInit() {
     this.MapService.mapCreated$.subscribe(() => {
