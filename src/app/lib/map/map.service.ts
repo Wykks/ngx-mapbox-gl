@@ -31,6 +31,14 @@ export interface SetupLayer {
   };
 }
 
+export interface SetupPopup {
+  popupOptions: MapboxGl.PopupOptions;
+  popupEvents: {
+    open: EventEmitter<void>;
+    close: EventEmitter<void>;
+  };
+}
+
 export type AllSource = MapboxGl.VectorSource |
   MapboxGl.RasterSource |
   MapboxGl.GeoJSONSource |
@@ -249,14 +257,52 @@ export class MapService {
     this.markersToRemove.push(marker);
   }
 
-  addPopup(popup: MapboxGl.Popup) {
+  createPopup(popup: SetupPopup, element: Node) {
     return this.zone.runOutsideAngular(() => {
+      Object.keys(popup.popupOptions)
+        .forEach((key) =>
+          (<any>popup.popupOptions)[key] === undefined && delete (<any>popup.popupOptions)[key]);
+      const popupInstance = new MapboxGl.Popup(popup.popupOptions);
+      popupInstance.setDOMContent(element);
+      if (popup.popupEvents.close.observers.length) {
+        popupInstance.on('close', () => {
+          this.zone.run(() => {
+            popup.popupEvents.close.emit();
+          });
+        });
+      }
+      if (popup.popupEvents.open.observers.length) {
+        popupInstance.on('open', () => {
+          this.zone.run(() => {
+            popup.popupEvents.open.emit();
+          });
+        });
+      }
+      return popupInstance;
+    });
+  }
+
+  addPopupToMap(popup: MapboxGl.Popup, lngLat: MapboxGl.LngLatLike) {
+    return this.zone.runOutsideAngular(() => {
+      popup.setLngLat(lngLat);
       popup.addTo(this.mapInstance);
     });
   }
 
-  removePopup(popup: MapboxGl.Popup) {
+  addPopupToMarker(marker: MapboxGl.Marker, popup: MapboxGl.Popup) {
+    return this.zone.runOutsideAngular(() => {
+      marker.setPopup(popup);
+    });
+  }
+
+  removePopupFromMap(popup: MapboxGl.Popup) {
     this.popupsToRemove.push(popup);
+  }
+
+  removePopupFromMarker(marker: MapboxGl.Marker) {
+    return this.zone.runOutsideAngular(() => {
+      marker.setPopup(undefined);
+    });
   }
 
   addControl(control: MapboxGl.Control | MapboxGl.IControl, position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left') {

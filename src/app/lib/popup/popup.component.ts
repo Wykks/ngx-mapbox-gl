@@ -33,6 +33,7 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
   @Input() marker?: MarkerComponent;
 
   @Output() close = new EventEmitter<void>();
+  @Output() open = new EventEmitter<void>();
 
   @ViewChild('content') content: ElementRef;
 
@@ -50,54 +51,62 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.lngLat && !changes.lngLat.isFirstChange()) {
-      this.MapService.removePopup(this.popupInstance!);
+      this.MapService.removePopupFromMap(this.popupInstance!);
       const popupInstanceTmp = this.createPopup();
-      this.MapService.addPopup(popupInstanceTmp);
+      this.MapService.addPopupToMap(popupInstanceTmp, changes.lngLat.currentValue);
       this.popupInstance = popupInstanceTmp;
     }
     if (changes.marker && !changes.marker.isFirstChange()) {
       const previousMarker: MarkerComponent = changes.marker.previousValue;
       if (previousMarker.markerInstance) {
-        previousMarker.markerInstance.setPopup(undefined);
+        this.MapService.removePopupFromMarker(previousMarker.markerInstance);
       }
-      if (this.marker && this.marker.markerInstance) {
-        this.marker.markerInstance.setPopup(this.popupInstance);
+      if (this.marker && this.marker.markerInstance && this.popupInstance) {
+        this.MapService.addPopupToMarker(this.marker.markerInstance, this.popupInstance);
       }
     }
   }
 
   ngAfterViewInit() {
     this.popupInstance = this.createPopup();
+    this.addPopup(this.popupInstance);
   }
 
   ngOnDestroy() {
-    this.MapService.removePopup(this.popupInstance!);
+    if (this.popupInstance) {
+      if (this.lngLat) {
+        this.MapService.removePopupFromMap(this.popupInstance);
+      } else if (this.marker && this.marker.markerInstance) {
+        this.MapService.removePopupFromMarker(this.marker.markerInstance);
+      }
+    }
     this.popupInstance = undefined;
   }
 
   private createPopup() {
-    const options = {
-      closeButton: this.closeButton,
-      closeOnClick: this.closeOnClick,
-      anchor: this.anchor,
-      offset: this.offset
-    };
-    Object.keys(options)
-      .forEach((key) =>
-        (<any>options)[key] === undefined && delete (<any>options)[key]);
-    const popupInstance = new Popup(options);
-    popupInstance.once('close', () => {
-      this.close.emit();
-    });
-    popupInstance.setDOMContent(this.content.nativeElement);
+    return this.MapService.createPopup({
+      popupOptions: {
+        closeButton: this.closeButton,
+        closeOnClick: this.closeOnClick,
+        anchor: this.anchor,
+        offset: this.offset
+      },
+      popupEvents: {
+        open: this.open,
+        close: this.close
+      }
+    }, this.content.nativeElement);
+  }
+
+  private addPopup(popup: Popup) {
     this.MapService.mapCreated$.subscribe(() => {
       if (this.lngLat) {
-        popupInstance.setLngLat(this.lngLat);
-        this.MapService.addPopup(popupInstance);
+        this.MapService.addPopupToMap(popup, this.lngLat);
       } else if (this.marker && this.marker.markerInstance) {
-        this.marker.markerInstance.setPopup(popupInstance);
+        this.MapService.addPopupToMarker(this.marker.markerInstance, popup);
+      } else {
+        throw new Error('mgl-popup need either lngLat or marker to be set');
       }
     });
-    return popupInstance;
   }
 }
