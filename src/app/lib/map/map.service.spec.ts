@@ -63,6 +63,7 @@ describe('MapService', () => {
       touchEnd: new EventEmitter<MapTouchEvent>(),
       touchMove: new EventEmitter<MapTouchEvent>(),
       touchCancel: new EventEmitter<MapTouchEvent>(),
+      wheel: new EventEmitter<any>(),
       moveStart: new EventEmitter<DragEvent>(), // TODO Check type
       move: new EventEmitter<MapTouchEvent | MapMouseEvent>(),
       moveEnd: new EventEmitter<DragEvent>(),
