@@ -57,7 +57,7 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
   }
 
   ngAfterViewInit() {
-    this.markerInstance = new Marker(this.content.nativeElement, { offset: this.offset });
+    this.markerInstance = new Marker(<any>{ offset: this.offset, element: this.content.nativeElement });
     this.markerInstance.setLngLat(this.feature ? this.feature.geometry!.coordinates : this.lngLat!);
     this.MapService.mapCreated$.subscribe(() => {
       this.MapService.addMarker(this.markerInstance!);
