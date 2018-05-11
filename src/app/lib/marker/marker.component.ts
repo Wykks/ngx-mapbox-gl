@@ -28,6 +28,7 @@ import { MapService } from '../map/map.service';
 export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnInit {
   /* Init input */
   @Input() offset?: PointLike;
+  @Input() anchor?: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left';
 
   /* Dynamic input */
   @Input() feature?: GeoJSON.Feature<GeoJSON.Point>;
@@ -57,7 +58,7 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
   }
 
   ngAfterViewInit() {
-    this.markerInstance = new Marker(<any>{ offset: this.offset, element: this.content.nativeElement });
+    this.markerInstance = new Marker(<any>{ offset: this.offset, element: this.content.nativeElement, anchor: this.anchor });
     this.markerInstance.setLngLat(this.feature ? this.feature.geometry!.coordinates : this.lngLat!);
     this.MapService.mapCreated$.subscribe(() => {
       this.MapService.addMarker(this.markerInstance!);
