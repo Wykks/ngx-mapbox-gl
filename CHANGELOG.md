@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0...v1.1.0) (2018-05-11)
+
+
+### Features
+
+* update mapbox-gl to 0.45.0 ([339562c](https://github.com/Wykks/ngx-mapbox-gl/commit/339562c))
+* **map:** add wheel event (from mapbox-gl v0.45.0) ([8daaebe](https://github.com/Wykks/ngx-mapbox-gl/commit/8daaebe))
+* **marker:** add anchor input (new with mapbox-gl v0.45.0) ([e4920ad](https://github.com/Wykks/ngx-mapbox-gl/commit/e4920ad))
+* **popup:** add open event (from mapbox-gl v0.45.0) ([c417d82](https://github.com/Wykks/ngx-mapbox-gl/commit/c417d82))
+* **scaleControl:** unit is now dynamic (new with mapbox-gl v0.45.0) ([3d72ac0](https://github.com/Wykks/ngx-mapbox-gl/commit/3d72ac0))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0-rc.3...v1.0.0) (2018-05-01)
 
