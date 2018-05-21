@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.1.0...v1.2.0) (2018-05-21)
+
+
+### Bug Fixes
+
+* **markerCluster:** run clustering inside NgZone ([e708040](https://github.com/Wykks/ngx-mapbox-gl/commit/e708040)), closes [#36](https://github.com/Wykks/ngx-mapbox-gl/issues/36)
+
+
+### Features
+
+* **geocoder:** add searchInput ([dfd1cd2](https://github.com/Wykks/ngx-mapbox-gl/commit/dfd1cd2)), closes [#37](https://github.com/Wykks/ngx-mapbox-gl/issues/37)
+* **markerCluster:** expose supercluster by Ouput load event ([a87bd6f](https://github.com/Wykks/ngx-mapbox-gl/commit/a87bd6f))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.0.0...v1.1.0) (2018-05-11)
 
