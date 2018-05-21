@@ -61,6 +61,7 @@ export class GeocoderControlDirective implements OnInit, OnChanges, GeocoderEven
 
   /* Dynamic inputs */
   @Input() proximity?: LngLatLiteral;
+  @Input() searchInput?: string;
 
   @Output() clear = new EventEmitter<void>();
   @Output() loading = new EventEmitter<{ query: string }>();
@@ -108,11 +109,22 @@ export class GeocoderControlDirective implements OnInit, OnChanges, GeocoderEven
       this.hookEvents(this);
       this.addControl();
     });
+    if (this.searchInput) {
+      this.MapService.mapLoaded$.subscribe(() => {
+        this.geocoder.query(this.searchInput);
+      });
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if (!this.geocoder) {
+      return;
+    }
     if (changes.proximity && !changes.proximity.isFirstChange()) {
       this.geocoder.setProximity(changes.proximity.currentValue);
+    }
+    if (changes.searchInput) {
+      this.geocoder.query(this.searchInput);
     }
   }
 
