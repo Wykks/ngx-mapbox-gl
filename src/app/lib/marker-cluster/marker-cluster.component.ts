@@ -10,7 +10,8 @@ import {
   OnDestroy,
   OnInit,
   SimpleChanges,
-  TemplateRef
+  TemplateRef,
+  NgZone
 } from '@angular/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
@@ -78,7 +79,8 @@ export class MarkerClusterComponent implements OnChanges, OnDestroy, AfterConten
 
   constructor(
     private MapService: MapService,
-    private ChangeDetectorRef: ChangeDetectorRef
+    private ChangeDetectorRef: ChangeDetectorRef,
+    private zone: NgZone
   ) { }
 
   ngOnInit() {
@@ -118,7 +120,11 @@ export class MarkerClusterComponent implements OnChanges, OnDestroy, AfterConten
       );
       const sub = mapMove$.pipe(
         startWith<any>(undefined)
-      ).subscribe(() => this.updateCluster());
+      ).subscribe(() => {
+        this.zone.run(() => {
+          this.updateCluster();
+        });
+      });
       this.sub.add(sub);
     });
   }
@@ -143,7 +149,8 @@ export class MarkerClusterComponent implements OnChanges, OnDestroy, AfterConten
     const bbox = this.MapService.getCurrentViewportBbox();
     const currentZoom = Math.round(this.MapService.mapInstance.getZoom());
     this.clusterPoints = this.supercluster.getClusters(bbox, currentZoom);
-    this.ChangeDetectorRef.detectChanges();
-    this.MapService.applyChanges();
+    this.ChangeDetectorRef.markForCheck();
+    // this.ChangeDetectorRef.detectChanges();
+    // this.MapService.applyChanges();
   }
 }
