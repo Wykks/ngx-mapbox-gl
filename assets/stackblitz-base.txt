@@ -12,7 +12,8 @@ import {
   MatProgressSpinnerModule,
   MatRadioModule,
   MatSlideToggleModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatPaginatorModule
   } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -33,6 +34,7 @@ const demoArray = Object.values(demo);
     MatCardModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
     NgxMapboxGLModule.forRoot({
       accessToken: 'pk.eyJ1Ijoid3lra3NzIiwiYSI6ImNqMjR6aTdmdzAwNHMzMnBvbjBucjlqNm8ifQ.6GjGpofWBVaIuSnhdXQb5w'
     })
