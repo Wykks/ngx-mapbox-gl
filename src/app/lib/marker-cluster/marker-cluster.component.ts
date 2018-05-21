@@ -11,7 +11,9 @@ import {
   OnInit,
   SimpleChanges,
   TemplateRef,
-  NgZone
+  NgZone,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
@@ -69,6 +71,8 @@ export class MarkerClusterComponent implements OnChanges, OnDestroy, AfterConten
   /* Dynamic input */
   @Input() data: GeoJSON.FeatureCollection<GeoJSON.Point>;
 
+  @Output() load = new EventEmitter<Supercluster>();
+
   @ContentChild(PointDirective, { read: TemplateRef }) pointTpl: TemplateRef<any>;
   @ContentChild(ClusterPointDirective, { read: TemplateRef }) clusterPointTpl: TemplateRef<any>;
 
@@ -104,6 +108,7 @@ export class MarkerClusterComponent implements OnChanges, OnDestroy, AfterConten
       });
     this.supercluster = supercluster(options);
     this.supercluster.load(this.data.features);
+    this.load.emit(this.supercluster);
   }
 
   ngOnChanges(changes: SimpleChanges) {

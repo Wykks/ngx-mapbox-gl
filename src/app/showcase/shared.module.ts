@@ -13,7 +13,8 @@ import {
   MatRadioModule,
   MatSidenavModule,
   MatSlideToggleModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatPaginatorModule
   } from '@angular/material';
 import { NgxMapboxGLModule } from '../lib';
 
@@ -31,6 +32,7 @@ const Modules = [
   MatInputModule,
   MatIconModule,
   MatSidenavModule,
+  MatPaginatorModule,
   FormsModule,
   NgxMapboxGLModule
 ];

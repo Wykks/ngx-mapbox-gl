@@ -32,7 +32,7 @@ import { NgxCustomMarkerIconsComponent } from './examples/ngx-custom-marker-icon
 import { NgxDragAMarkerComponent } from './examples/ngx-drag-a-marker.component';
 import { NgxDragAPointComponent } from './examples/ngx-drag-a-point.component';
 import { NgxGeoJSONLineComponent } from './examples/ngx-geojson-line.component';
-import { ClusterPointComponent, NgxMarkerClusterComponent } from './examples/ngx-marker-cluster.component';
+import { ClusterPopupComponent, NgxMarkerClusterComponent } from './examples/ngx-marker-cluster.component';
 import { NgxScaleControlComponent } from './examples/ngx-scale-control.component';
 import { PopupOnClickComponent } from './examples/popup-on-click.component';
 import { PopupComponent } from './examples/popup.component';
@@ -144,7 +144,7 @@ export const DEMO_ROUTES: Routes = [
     PopupOnClickComponent,
     ZoomtoLinestringComponent,
     NgxMarkerClusterComponent,
-    ClusterPointComponent,
+    ClusterPopupComponent,
     Display3dBuildingsComponent
   ]
 })

@@ -155,7 +155,9 @@ margin: 0;
         '@angular/forms': '*',
         'url': '*',
         'querystring': '*',
-        '@types/mapbox-gl': '*'
+        'rxjs-compat': '*',
+        '@types/mapbox-gl': '*',
+        '@types/supercluster': '*'
       }
     };
     await this.zone.runOutsideAngular(async () => {
