@@ -3,7 +3,10 @@
 [![Build Status](https://travis-ci.org/Wykks/ngx-mapbox-gl.svg?branch=master)](https://travis-ci.org/Wykks/ngx-mapbox-gl)
 [![npm version](https://img.shields.io/npm/v/ngx-mapbox-gl.svg?style=flat)](https://www.npmjs.com/package/ngx-mapbox-gl)
 
-Angular (5+) wrapper for [mapbox-gl-js](https://www.mapbox.com/mapbox-gl-js/api/). Expose a bunch of component meant to be simple to use for Angular.
+Angular wrapper for [mapbox-gl-js](https://www.mapbox.com/mapbox-gl-js/api/). Expose a bunch of component meant to be simple to use for Angular.
+
+v1.X : Angular 5 & 6 (rxjs 5)
+v2.X : Angular 6+ (rxjs 6)
 
 Include the following components:
 - [mgl-map](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-map-mapbox-gl-api)
@@ -31,7 +34,7 @@ Include the following components:
 ```
 npm install ngx-mapbox-gl mapbox-gl --save
 ```
-Also add mapbox-gl types if using typescript
+If using typescript add mapbox-gl types 
 ```
 npm install @types/mapbox-gl --save-dev
 ```
@@ -61,7 +64,7 @@ import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 @NgModule({
   imports: [
     ...
-    NgxMapboxGLModule.forRoot({
+    NgxMapboxGLModule.withConfig({
       accessToken: 'TOKEN', // Can also be set per map (accessToken input of mgl-map)
       geocoderAccessToken: 'TOKEN' // Optionnal, specify if different from the map access token, can also be set per mgl-geocoder (accessToken input of mgl-geocoder)
     })

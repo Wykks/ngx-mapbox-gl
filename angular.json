@@ -1,0 +1,171 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "ngx-mapbox-gl": {
+      "root": "projects/ngx-mapbox-gl",
+      "sourceRoot": "projects/ngx-mapbox-gl/src",
+      "projectType": "library",
+      "prefix": "mgl",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-mapbox-gl/tsconfig.lib.json",
+            "project": "projects/ngx-mapbox-gl/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/ngx-mapbox-gl/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-mapbox-gl/src/test.ts",
+            "tsConfig": "projects/ngx-mapbox-gl/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-mapbox-gl/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-mapbox-gl/tsconfig.lib.json",
+              "projects/ngx-mapbox-gl/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "format": "stylish"
+          }
+        }
+      }
+    },
+    "showcase": {
+      "root": "projects/showcase/",
+      "sourceRoot": "projects/showcase/src",
+      "projectType": "application",
+      "prefix": "showcase",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/showcase",
+            "index": "projects/showcase/src/index.html",
+            "main": "projects/showcase/src/main.ts",
+            "polyfills": "projects/showcase/src/polyfills.ts",
+            "tsConfig": "projects/showcase/tsconfig.app.json",
+            "assets": [
+              "projects/showcase/src/favicon.ico",
+              "projects/showcase/src/assets"
+            ],
+            "styles": [
+              "projects/showcase/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/showcase/src/environments/environment.ts",
+                  "with": "projects/showcase/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "showCircularDependencies": false
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "showcase:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "showcase:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "showcase:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/showcase/src/test.ts",
+            "polyfills": "projects/showcase/src/polyfills.ts",
+            "tsConfig": "projects/showcase/tsconfig.spec.json",
+            "karmaConfig": "projects/showcase/karma.conf.js",
+            "styles": [
+              "projects/showcase/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/showcase/src/favicon.ico",
+              "projects/showcase/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/showcase/tsconfig.app.json",
+              "projects/showcase/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "format": "stylish"
+          }
+        }
+      }
+    },
+    "showcase-e2e": {
+      "root": "projects/showcase-e2e/",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/showcase-e2e/protractor.conf.js",
+            "devServerTarget": "showcase:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "showcase:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/showcase-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "format": "stylish"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ngx-mapbox-gl"
+}

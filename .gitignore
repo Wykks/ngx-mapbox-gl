@@ -4,11 +4,9 @@
 /dist
 /tmp
 /out-tsc
-/.ng_build
-/dist.tgz
 
 # dependencies
-/node_modules
+node_modules
 
 # IDEs and editors
 /.idea
@@ -37,11 +35,6 @@ package-lock.json
 testem.log
 /typings
 
-# e2e
-/e2e/*.js
-/e2e/*.map
-
 # System Files
 .DS_Store
 Thumbs.db
-

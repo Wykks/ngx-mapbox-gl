@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  flex: 1;
+  overflow: auto;
+  justify-content: center;
+}
+
+ngx-md {
+  margin: 8px;
+  width: 60%;
+}

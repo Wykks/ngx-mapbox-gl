@@ -14,8 +14,8 @@ jobs:
   include:
     - stage: validation
       script: yarn build --no-progress
-    - script: xvfb-run -a yarn test --single-run --no-progress --browser=ChromeNoSandbox
-    - script: xvfb-run -a yarn e2e --no-progress --config=protractor-ci.conf.js
+    - script: xvfb-run -a yarn test --watch=false --no-progress --browsers=ChromeNoSandbox
+    - script: xvfb-run -a yarn e2e --no-progress
     - script: yarn lint
 
 stages:

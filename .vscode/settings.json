@@ -7,5 +7,6 @@
     "**/.DS_Store": true,
     ".ng_build": true
   },
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "eslint.enable": false
 }

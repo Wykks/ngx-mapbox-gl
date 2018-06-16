@@ -1,0 +1,34 @@
+{
+  "name": "ngx-mapbox-gl",
+  "version": "1.2.0",
+  "description": "A Angular binding of mapbox-gl-js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wykks/ngx-mapbox-gl.git"
+  },
+  "keywords": [
+    "mapbox",
+    "angular",
+    "map",
+    "webgl",
+    "mapbox-gl",
+    "ngx"
+  ],
+  "bugs": {
+    "url": "https://github.com/Wykks/ngx-mapbox-gl/issues"
+  },
+  "homepage": "https://github.com/Wykks/ngx-mapbox-gl#readme",
+  "peerDependencies": {
+    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
+    "mapbox-gl": "0.45.0",
+    "rxjs": "^6.0.0"
+  },
+  "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^2.3.0",
+    "@turf/bbox": "^6.0.1",
+    "@turf/helpers": "^6.1.4",
+    "supercluster": "^4.0.1"
+  }
+}

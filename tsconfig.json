@@ -1,9 +1,11 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
+    "module": "esnext",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -15,8 +17,17 @@
       "es2017",
       "dom"
     ],
+    "paths": {
+      "ngx-mapbox-gl": [
+        "dist/ngx-mapbox-gl"
+      ],
+      "ngx-mapbox-gl/*": [
+        "dist/ngx-mapbox-gl/*"
+      ]
+    },
     "strict": true,
     "skipLibCheck": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "strictPropertyInitialization": false
   }
 }
