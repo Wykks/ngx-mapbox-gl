@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-beta.0"></a>
+# [2.0.0-beta.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.2.0...v2.0.0-beta.0) (2018-06-16)
+
+
+### Features
+
+* full upgrade to angular 6 (& rxjs 6) ([18577cf](https://github.com/Wykks/ngx-mapbox-gl/commit/18577cf))
+
+
+### BREAKING CHANGES
+
+* Now angular 6 compatible only
+
+NgxMapboxGLModule.forRoot changed to NgxMapboxGLModule.withConfig
+
+
+
 <a name="1.2.1-beta.0"></a>
 ## [1.2.1-beta.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.2.0...v1.2.1-beta.0) (2018-06-16)
 
