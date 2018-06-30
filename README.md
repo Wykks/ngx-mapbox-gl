@@ -6,6 +6,7 @@
 Angular wrapper for [mapbox-gl-js](https://www.mapbox.com/mapbox-gl-js/api/). Expose a bunch of component meant to be simple to use for Angular.
 
 v1.X : Angular 5 & 6 (rxjs 5)
+
 v2.X : Angular 6+ (rxjs 6)
 
 Include the following components:
@@ -102,11 +103,8 @@ export class DisplayMapComponent { }
 
 \>= 1.5.5 version is required (https://github.com/angular/angular-cli/issues/5804)
 
-< 1.5.5 version users can use this patch: https://github.com/angular/angular-cli/pull/7931 (available in this repo as ngcli-comparisons-false.patch)
+< 1.5.5 version users can use this patch: https://github.com/angular/angular-cli/pull/7931
 
 ### Webpack users:
 
 Add `noParse: /(mapbox-gl)\.js$/`
-
-## Built with ngx-mapbox-gl
-Todo
