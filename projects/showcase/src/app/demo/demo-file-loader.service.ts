@@ -4,7 +4,7 @@ import { Dictionary } from 'lodash';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map, shareReplay, switchMap } from 'rxjs/operators';
 
-const FILES_PATH = 'app/showcase/demo/examples/';
+const FILES_PATH = 'projects/showcase/src/app/demo/examples/';
 
 @Injectable()
 export class DemoFileLoaderService {

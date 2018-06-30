@@ -140,15 +140,14 @@ margin: 0;
       template: 'angular-cli',
       dependencies: {
         tslib: '*',
-        'mapbox-gl': '*',
-        'ngx-mapbox-gl': '*',
+        'mapbox-gl': '0.45.0',
+        'ngx-mapbox-gl': '2.0.0-beta.0',
         '@angular/cdk': '*',
         '@angular/material': '*',
         '@angular/animations': '*',
         '@angular/forms': '*',
         'url': '*',
         'querystring': '*',
-        'rxjs-compat': '*',
         '@types/mapbox-gl': '*',
         '@types/supercluster': '*'
       }

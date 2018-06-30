@@ -61,7 +61,8 @@
             "tsConfig": "projects/showcase/tsconfig.app.json",
             "assets": [
               "projects/showcase/src/favicon.ico",
-              "projects/showcase/src/assets"
+              "projects/showcase/src/assets",
+              "projects/showcase/src/app/demo/examples"
             ],
             "styles": [
               "projects/showcase/src/styles.css"
