@@ -35,7 +35,7 @@ const demoArray = Object.values(demo);
     MatSlideToggleModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
-    NgxMapboxGLModule.forRoot({
+    NgxMapboxGLModule.withConfig({
       accessToken: 'pk.eyJ1Ijoid3lra3NzIiwiYSI6ImNqMjR6aTdmdzAwNHMzMnBvbjBucjlqNm8ifQ.6GjGpofWBVaIuSnhdXQb5w'
     })
   ],
