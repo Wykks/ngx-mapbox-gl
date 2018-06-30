@@ -1,0 +1,52 @@
+import 'core-js/es6/reflect';
+import 'core-js/es7/reflect';
+import 'zone.js/dist/zone';
+
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatListModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatSlideToggleModule,
+  MatToolbarModule,
+  MatPaginatorModule
+  } from '@angular/material';
+import { BrowserModule } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import * as demo from './demo';
+
+const demoArray = Object.values(demo);
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    MatRadioModule,
+    MatButtonToggleModule,
+    MatButtonModule,
+    MatListModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatSlideToggleModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    NgxMapboxGLModule.withConfig({
+      accessToken: 'pk.eyJ1Ijoid3lra3NzIiwiYSI6ImNqMjR6aTdmdzAwNHMzMnBvbjBucjlqNm8ifQ.6GjGpofWBVaIuSnhdXQb5w'
+    })
+  ],
+  declarations: [...demoArray],
+  bootstrap: [demoArray[demoArray.length - 1]]
+})
+export class AppModule { }
+
+platformBrowserDynamic().bootstrapModule(AppModule).then((ref) => {
+  if (window['ngRef']) {
+    window['ngRef'].destroy();
+  }
+  window['ngRef'] = ref;
+}).catch((err) => console.error(err));
