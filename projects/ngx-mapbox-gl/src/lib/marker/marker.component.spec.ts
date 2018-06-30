@@ -5,6 +5,23 @@ import { of } from 'rxjs';
 import { MapService } from '../map/map.service';
 import { MarkerComponent } from './marker.component';
 
+@Component({
+  template: `
+    <mgl-marker
+      [offset]="offset"
+      [lngLat]="lngLat"
+    >
+      ...
+    </mgl-marker>
+  `
+})
+class MarkerTestComponent implements OnDestroy {
+  offset: PointLike;
+  lngLat: [number, number];
+
+  ngOnDestroy() { }
+}
+
 describe('MarkerComponent', () => {
   class MapServiceSpy {
     addMarker = jasmine.createSpy('addMarker');
@@ -33,7 +50,7 @@ describe('MarkerComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MarkerTestComponent);
     component = fixture.componentInstance;
-    msSpy = <any>fixture.debugElement.injector.get(MapService);
+    msSpy = <any>fixture.debugElement.injector.get<MapService>(MapService);
   });
 
   describe('Init/Destroy tests', () => {
@@ -49,20 +66,3 @@ describe('MarkerComponent', () => {
     });
   });
 });
-
-@Component({
-  template: `
-    <mgl-marker
-      [offset]="offset"
-      [lngLat]="lngLat"
-    >
-      ...
-    </mgl-marker>
-  `
-})
-class MarkerTestComponent implements OnDestroy {
-  offset: PointLike;
-  lngLat: [number, number];
-
-  ngOnDestroy() { }
-}

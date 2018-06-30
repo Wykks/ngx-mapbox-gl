@@ -14,7 +14,7 @@ describe('Live update feature', () => {
   });
 
   it('should move the map', async () => {
-    browser.ignoreSynchronization = true;
+    browser.waitForAngularEnabled(false);
     await browser.get('/demo/live-update-feature');
     const elm = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(elm), 2000);
@@ -23,8 +23,8 @@ describe('Live update feature', () => {
     await browser.sleep(700);
     const imageB = await browser.takeScreenshot();
     const diff = new PixelDiff({
-      imageA: new Buffer(imageA, 'base64'),
-      imageB: new Buffer(imageB, 'base64')
+      imageA: Buffer.from(imageA, 'base64'),
+      imageB: Buffer.from(imageB, 'base64')
     });
     const result = diff.runSync();
     expect(result.differences).toBeGreaterThan(0);

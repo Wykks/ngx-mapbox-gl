@@ -67,7 +67,8 @@
             "styles": [
               "projects/showcase/src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "showCircularDependencies": false
           },
           "configurations": {
             "production": {
