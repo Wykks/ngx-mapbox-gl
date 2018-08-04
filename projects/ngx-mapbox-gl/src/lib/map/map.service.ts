@@ -328,8 +328,11 @@ export class MapService {
     });
   }
 
-  addPopupToMap(popup: MapboxGl.Popup, lngLat: MapboxGl.LngLatLike) {
+  addPopupToMap(popup: MapboxGl.Popup, lngLat: MapboxGl.LngLatLike, skipOpenEvent = false) {
     return this.zone.runOutsideAngular(() => {
+      if (skipOpenEvent && (<any>popup)._listeners) {
+        delete (<any>popup)._listeners['open'];
+      }
       popup.setLngLat(lngLat);
       popup.addTo(this.mapInstance);
     });
@@ -341,7 +344,10 @@ export class MapService {
     });
   }
 
-  removePopupFromMap(popup: MapboxGl.Popup) {
+  removePopupFromMap(popup: MapboxGl.Popup, skipCloseEvent = false) {
+    if (skipCloseEvent && (<any>popup)._listeners) {
+      delete (<any>popup)._listeners['close'];
+    }
     this.popupsToRemove.push(popup);
   }
 

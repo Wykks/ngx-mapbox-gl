@@ -51,9 +51,9 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.lngLat && !changes.lngLat.isFirstChange()) {
-      this.MapService.removePopupFromMap(this.popupInstance!);
+      this.MapService.removePopupFromMap(this.popupInstance!, true);
       const popupInstanceTmp = this.createPopup();
-      this.MapService.addPopupToMap(popupInstanceTmp, changes.lngLat.currentValue);
+      this.MapService.addPopupToMap(popupInstanceTmp, changes.lngLat.currentValue, this.popupInstance!.isOpen());
       this.popupInstance = popupInstanceTmp;
     }
     if (changes.marker && !changes.marker.isFirstChange()) {
