@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material';
-import { LngLatLike } from 'mapbox-gl';
 import { Cluster, Supercluster } from 'supercluster';
 
 @Component({
@@ -15,16 +14,15 @@ import { Cluster, Supercluster } from 'supercluster';
         </mat-list-item>
       </mat-list>
       <mat-paginator
-        [length]="count"
+        [length]="selectedCluster.properties.point_count"
         [pageSize]="5"
         (page)="changePage($event)"
       ></mat-paginator>
     `
 })
 export class ClusterPopupComponent implements OnChanges {
-  @Input() clusterId: GeoJSON.Feature<GeoJSON.Point>;
+  @Input() selectedCluster: GeoJSON.Feature<GeoJSON.Point>;
   @Input() supercluster: Supercluster;
-  @Input() count: number;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -32,7 +30,7 @@ export class ClusterPopupComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     this.changePage();
-    if (changes.count && !changes.count.isFirstChange()) {
+    if (changes.selectedCluster && !changes.selectedCluster.isFirstChange()) {
       this.paginator.firstPage();
     }
   }
@@ -43,7 +41,7 @@ export class ClusterPopupComponent implements OnChanges {
       offset = pageEvent.pageIndex * 5;
     }
     // Typing issue in supercluster
-    this.leaves = (<any>this.supercluster.getLeaves)(this.clusterId, 5, offset);
+    this.leaves = (<any>this.supercluster.getLeaves)(this.selectedCluster.properties!.cluster_id, 5, offset);
   }
 }
 
@@ -81,12 +79,11 @@ export class ClusterPopupComponent implements OnChanges {
     </mgl-marker-cluster>
     <mgl-popup
       *ngIf="selectedCluster"
-      [lngLat]="selectedCluster.lngLat"
+      [feature]="selectedCluster"
     >
       <demo-cluster-popup
         [supercluster]="supercluster"
-        [clusterId]="selectedCluster.id"
-        [count]="selectedCluster.count"
+        [selectedCluster]="selectedCluster"
       ></demo-cluster-popup>
     </mgl-popup>
   </mgl-map>
@@ -96,11 +93,7 @@ export class ClusterPopupComponent implements OnChanges {
 export class NgxMarkerClusterComponent implements OnInit {
   earthquakes: object;
   supercluster: Supercluster;
-  selectedCluster: {
-    lngLat: LngLatLike;
-    count: number;
-    id: number;
-  };
+  selectedCluster: GeoJSON.Feature<GeoJSON.Point>;
 
   async ngOnInit() {
     this.earthquakes = await import('./earthquakes.geo.json');
@@ -108,11 +101,7 @@ export class NgxMarkerClusterComponent implements OnInit {
 
   selectCluster(event: MouseEvent, feature: Cluster) {
     event.stopPropagation(); // This is needed, otherwise the popup will close immediately
-    this.selectedCluster = {
-      // Change the ref, to trigger mgl-popup onChanges (when the user click on the same cluster)
-      lngLat: [ ...feature.geometry!.coordinates ],
-      count: feature.properties.point_count!,
-      id: feature.properties.cluster_id!
-    };
+    // Change the ref, to trigger mgl-popup onChanges (when the user click on the same cluster)
+    this.selectedCluster = { ...feature };
   }
 }
