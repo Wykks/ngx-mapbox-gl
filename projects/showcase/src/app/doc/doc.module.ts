@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgxMdModule } from 'ngx-md';
 import { SharedModule } from '../shared.module';
 import { DocComponent } from './doc.component';
+import 'prismjs/prism';
 import 'prismjs/components/prism-typescript';
 
 const DOC_ROUTES: Routes = [
