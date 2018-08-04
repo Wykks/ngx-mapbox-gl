@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { RasterSource } from 'mapbox-gl';
+import { fromEvent, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
 
 @Component({
@@ -22,6 +24,7 @@ export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, Rast
   type: 'raster' = 'raster'; // Just to make ts happy
 
   private sourceAdded = false;
+  private sub = new Subscription();
 
   constructor(
     private MapService: MapService
@@ -29,17 +32,13 @@ export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, Rast
 
   ngOnInit() {
     this.MapService.mapLoaded$.subscribe(() => {
-      const source = {
-        type: this.type,
-        url: this.url,
-        tiles: this.tiles,
-        bounds: this.bounds,
-        minzoom: this.minzoom,
-        maxzoom: this.maxzoom,
-        tileSize: this.tileSize
-      };
-      this.MapService.addSource(this.id, source);
-      this.sourceAdded = true;
+      this.init();
+      const sub = fromEvent(this.MapService.mapInstance, 'styledata').pipe(
+        filter(() => !this.MapService.mapInstance.getSource(this.id))
+      ).subscribe(() => {
+        this.init();
+      });
+      this.sub.add(sub);
     });
   }
 
@@ -61,8 +60,23 @@ export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, Rast
   }
 
   ngOnDestroy() {
+    this.sub.unsubscribe();
     if (this.sourceAdded) {
       this.MapService.removeSource(this.id);
     }
+  }
+
+  private init() {
+    const source = {
+      type: this.type,
+      url: this.url,
+      tiles: this.tiles,
+      bounds: this.bounds,
+      minzoom: this.minzoom,
+      maxzoom: this.maxzoom,
+      tileSize: this.tileSize
+    };
+    this.MapService.addSource(this.id, source);
+    this.sourceAdded = true;
   }
 }

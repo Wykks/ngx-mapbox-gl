@@ -217,7 +217,7 @@ export class MapService {
     });
   }
 
-  addLayer(layer: SetupLayer, before?: string) {
+  addLayer(layer: SetupLayer, bindEvents: boolean, before?: string) {
     this.zone.runOutsideAngular(() => {
       Object.keys(layer.layerOptions)
         .forEach((key: string) => {
@@ -227,33 +227,35 @@ export class MapService {
           }
         });
       this.mapInstance.addLayer(layer.layerOptions, before);
-      if (layer.layerEvents.click.observers.length) {
-        this.mapInstance.on('click', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
-          this.zone.run(() => {
-            layer.layerEvents.click.emit(evt);
+      if (bindEvents) {
+        if (layer.layerEvents.click.observers.length) {
+          this.mapInstance.on('click', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
+            this.zone.run(() => {
+              layer.layerEvents.click.emit(evt);
+            });
           });
-        });
-      }
-      if (layer.layerEvents.mouseEnter.observers.length) {
-        this.mapInstance.on('mouseenter', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
-          this.zone.run(() => {
-            layer.layerEvents.mouseEnter.emit(evt);
+        }
+        if (layer.layerEvents.mouseEnter.observers.length) {
+          this.mapInstance.on('mouseenter', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
+            this.zone.run(() => {
+              layer.layerEvents.mouseEnter.emit(evt);
+            });
           });
-        });
-      }
-      if (layer.layerEvents.mouseLeave.observers.length) {
-        this.mapInstance.on('mouseleave', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
-          this.zone.run(() => {
-            layer.layerEvents.mouseLeave.emit(evt);
+        }
+        if (layer.layerEvents.mouseLeave.observers.length) {
+          this.mapInstance.on('mouseleave', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
+            this.zone.run(() => {
+              layer.layerEvents.mouseLeave.emit(evt);
+            });
           });
-        });
-      }
-      if (layer.layerEvents.mouseMove.observers.length) {
-        this.mapInstance.on('mousemove', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
-          this.zone.run(() => {
-            layer.layerEvents.mouseMove.emit(evt);
+        }
+        if (layer.layerEvents.mouseMove.observers.length) {
+          this.mapInstance.on('mousemove', layer.layerOptions.id, (evt: MapboxGl.MapMouseEvent) => {
+            this.zone.run(() => {
+              layer.layerEvents.mouseMove.emit(evt);
+            });
           });
-        });
+        }
       }
     });
   }

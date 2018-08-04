@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { CanvasSourceOptions } from 'mapbox-gl';
+import { fromEvent, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
 
 @Component({
@@ -17,6 +19,7 @@ export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, Canv
   @Input() animate?: boolean;
 
   private sourceAdded = false;
+  private sub = new Subscription();
 
   constructor(
     private MapService: MapService
@@ -24,14 +27,13 @@ export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, Canv
 
   ngOnInit() {
     this.MapService.mapLoaded$.subscribe(() => {
-      const source = {
-        type: 'canvas',
-        coordinates: this.coordinates,
-        canvas: this.canvas,
-        animate: this.animate,
-      };
-      this.MapService.addSource(this.id, source);
-      this.sourceAdded = true;
+      this.init();
+      const sub = fromEvent(this.MapService.mapInstance, 'styledata').pipe(
+        filter(() => !this.MapService.mapInstance.getSource(this.id))
+      ).subscribe(() => {
+        this.init();
+      });
+      this.sub.add(sub);
     });
   }
 
@@ -50,8 +52,20 @@ export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, Canv
   }
 
   ngOnDestroy() {
+    this.sub.unsubscribe();
     if (this.sourceAdded) {
       this.MapService.removeSource(this.id);
     }
+  }
+
+  private init() {
+    const source = {
+      type: 'canvas',
+      coordinates: this.coordinates,
+      canvas: this.canvas,
+      animate: this.animate,
+    };
+    this.MapService.addSource(this.id, source);
+    this.sourceAdded = true;
   }
 }

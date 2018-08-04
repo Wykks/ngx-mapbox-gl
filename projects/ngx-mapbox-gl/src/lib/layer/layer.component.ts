@@ -32,6 +32,8 @@ import {
   VectorSource,
   VideoSource
 } from 'mapbox-gl';
+import { fromEvent, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
 
 @Component({
@@ -60,6 +62,7 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   @Output() mouseMove = new EventEmitter<MapMouseEvent>();
 
   private layerAdded = false;
+  private sub: Subscription;
 
   constructor(
     private MapService: MapService
@@ -67,27 +70,12 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
 
   ngOnInit() {
     this.MapService.mapLoaded$.subscribe(() => {
-      this.MapService.addLayer({
-        layerOptions: {
-          id: this.id,
-          type: this.type,
-          source: this.source,
-          metadata: this.metadata,
-          'source-layer': this.sourceLayer,
-          minzoom: this.minzoom,
-          maxzoom: this.maxzoom,
-          filter: this.filter,
-          layout: this.layout,
-          paint: this.paint
-        },
-        layerEvents: {
-          click: this.click,
-          mouseEnter: this.mouseEnter,
-          mouseLeave: this.mouseLeave,
-          mouseMove: this.mouseMove
-        }
-      }, this.before);
-      this.layerAdded = true;
+      this.init(true);
+      this.sub = fromEvent(this.MapService.mapInstance, 'styledata').pipe(
+        filter(() => !this.MapService.mapInstance.getLayer(this.id))
+      ).subscribe(() => {
+        this.init(false);
+      });
     });
   }
 
@@ -119,5 +107,33 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
     if (this.layerAdded) {
       this.MapService.removeLayer(this.id);
     }
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+  }
+
+  private init(bindEvents: boolean) {
+    const layer = {
+      layerOptions: {
+        id: this.id,
+        type: this.type,
+        source: this.source,
+        metadata: this.metadata,
+        'source-layer': this.sourceLayer,
+        minzoom: this.minzoom,
+        maxzoom: this.maxzoom,
+        filter: this.filter,
+        layout: this.layout,
+        paint: this.paint
+      },
+      layerEvents: {
+        click: this.click,
+        mouseEnter: this.mouseEnter,
+        mouseLeave: this.mouseLeave,
+        mouseMove: this.mouseMove
+      }
+    };
+    this.MapService.addLayer(layer, bindEvents, this.before);
+    this.layerAdded = true;
   }
 }

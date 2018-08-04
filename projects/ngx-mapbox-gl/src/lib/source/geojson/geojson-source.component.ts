@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { GeoJSONGeometry, GeoJSONSource, GeoJSONSourceOptions } from 'mapbox-gl';
-import { Subject, Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { fromEvent, Subject, Subscription } from 'rxjs';
+import { debounceTime, filter } from 'rxjs/operators';
 import { MapService } from '../../map/map.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
 
   updateFeatureData = new Subject();
 
-  private sub: Subscription;
+  private sub = new Subscription();
   private sourceAdded = false;
   private featureIdCounter = 0;
 
@@ -41,24 +41,13 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
       };
     }
     this.MapService.mapLoaded$.subscribe(() => {
-      this.MapService.addSource(this.id, {
-        type: 'geojson',
-        data: this.data,
-        maxzoom: this.maxzoom,
-        minzoom: this.minzoom,
-        buffer: this.buffer,
-        tolerance: this.tolerance,
-        cluster: this.cluster,
-        clusterRadius: this.clusterRadius,
-        clusterMaxZoom: this.clusterMaxZoom,
-      });
-      this.sub = this.updateFeatureData.pipe(
-        debounceTime(0)
+      this.init();
+      const sub = fromEvent(this.MapService.mapInstance, 'styledata').pipe(
+        filter(() => !this.MapService.mapInstance.getSource(this.id))
       ).subscribe(() => {
-        const source = this.MapService.getSource<GeoJSONSource>(this.id);
-        source.setData(this.data!);
+        this.init();
       });
-      this.sourceAdded = true;
+      this.sub.add(sub);
     });
   }
 
@@ -85,8 +74,8 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
   }
 
   ngOnDestroy() {
+    this.sub.unsubscribe();
     if (this.sourceAdded) {
-      this.sub.unsubscribe();
       this.MapService.removeSource(this.id);
     }
   }
@@ -108,5 +97,25 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
 
   getNewFeatureId() {
     return ++this.featureIdCounter;
+  }
+
+  private init() {
+    this.MapService.addSource(this.id, {
+      type: 'geojson',
+      data: this.data,
+      maxzoom: this.maxzoom,
+      minzoom: this.minzoom,
+      buffer: this.buffer,
+      tolerance: this.tolerance,
+      cluster: this.cluster,
+      clusterRadius: this.clusterRadius,
+      clusterMaxZoom: this.clusterMaxZoom,
+    });
+    const sub = this.updateFeatureData.pipe(debounceTime(0)).subscribe(() => {
+      const source = this.MapService.getSource<GeoJSONSource>(this.id);
+      source.setData(this.data!);
+    });
+    this.sub.add(sub);
+    this.sourceAdded = true;
   }
 }

@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { ImageSourceOptions } from 'mapbox-gl';
+import { fromEvent, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
 
 @Component({
@@ -16,6 +18,7 @@ export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, Image
   @Input() coordinates: number[][];
 
   private sourceAdded = false;
+  private sub = new Subscription();
 
   constructor(
     private MapService: MapService
@@ -23,12 +26,13 @@ export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, Image
 
   ngOnInit() {
     this.MapService.mapLoaded$.subscribe(() => {
-      this.MapService.addSource(this.id, {
-        type: 'image',
-        url: this.url,
-        coordinates: this.coordinates
+      this.init();
+      const sub = fromEvent(this.MapService.mapInstance, 'styledata').pipe(
+        filter(() => !this.MapService.mapInstance.getSource(this.id))
+      ).subscribe(() => {
+        this.init();
       });
-      this.sourceAdded = true;
+      this.sub.add(sub);
     });
   }
 
@@ -46,8 +50,18 @@ export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, Image
   }
 
   ngOnDestroy() {
+    this.sub.unsubscribe();
     if (this.sourceAdded) {
       this.MapService.removeSource(this.id);
     }
+  }
+
+  private init() {
+    this.MapService.addSource(this.id, {
+      type: 'image',
+      url: this.url,
+      coordinates: this.coordinates
+    });
+    this.sourceAdded = true;
   }
 }
