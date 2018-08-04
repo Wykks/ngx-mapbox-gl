@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v2.0.0-beta.0...v2.0.0) (2018-08-04)
+
+
+### Bug Fixes
+
+* re-add sources and layers after style change ([4c49629](https://github.com/Wykks/ngx-mapbox-gl/commit/4c49629)), closes [#43](https://github.com/Wykks/ngx-mapbox-gl/issues/43)
+* **popup:** do not send open/close event when moving an opened popup ([2b6f712](https://github.com/Wykks/ngx-mapbox-gl/commit/2b6f712)), closes [#48](https://github.com/Wykks/ngx-mapbox-gl/issues/48)
+
+
+### Features
+
+* update mapbox-gl to 0.47.0 ([69739bf](https://github.com/Wykks/ngx-mapbox-gl/commit/69739bf))
+* **popup:** add feature input ([df15d48](https://github.com/Wykks/ngx-mapbox-gl/commit/df15d48)), closes [#38](https://github.com/Wykks/ngx-mapbox-gl/issues/38)
+
+
+### BREAKING CHANGES
+
+* Update mapbox-gl to 0.47.0
+* Deprecate mglDraggable on Marker (now supported by mapbox-gl directly)
+
+
+
 <a name="2.0.0-beta.0"></a>
 # [2.0.0-beta.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.2.0...v2.0.0-beta.0) (2018-06-16)
 
