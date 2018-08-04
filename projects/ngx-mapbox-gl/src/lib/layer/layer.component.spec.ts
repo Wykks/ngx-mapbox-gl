@@ -11,6 +11,7 @@ describe('LayerComponent', () => {
     removeLayer = jasmine.createSpy('removeLayer');
     setAllLayerPaintProperty = jasmine.createSpy('setAllPaintProperty');
     mapLoaded$ = of(undefined);
+    mapInstance = new class { on() { } off() { } };
   }
 
   let msSpy: MapServiceSpy;

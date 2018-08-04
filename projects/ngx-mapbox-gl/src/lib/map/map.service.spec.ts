@@ -114,6 +114,7 @@ describe('MapService', () => {
 
   it('should fire load event', (done: DoneFn) => {
     mapEvents.load.pipe(first()).subscribe(() => {
+      expect(true).toBe(true);
       done();
     });
   });

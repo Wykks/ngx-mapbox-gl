@@ -33,6 +33,9 @@ module.exports = function (config) {
         flags: ['--no-sandbox']
       }
     },
-    singleRun: false
+    singleRun: false,
+    files: [
+      '../../node_modules/mapbox-gl/dist/mapbox-gl.css'
+    ]
   });
 };
