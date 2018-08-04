@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material';
-import { Cluster, Supercluster } from 'supercluster';
+import { Cluster } from 'supercluster';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -22,7 +22,7 @@ import { Cluster, Supercluster } from 'supercluster';
 })
 export class ClusterPopupComponent implements OnChanges {
   @Input() selectedCluster: GeoJSON.Feature<GeoJSON.Point>;
-  @Input() supercluster: Supercluster;
+  @Input() supercluster: any; // Supercluster;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -92,7 +92,7 @@ export class ClusterPopupComponent implements OnChanges {
 })
 export class NgxMarkerClusterComponent implements OnInit {
   earthquakes: object;
-  supercluster: Supercluster;
+  supercluster: any; // Supercluster;
   selectedCluster: GeoJSON.Feature<GeoJSON.Point>;
 
   async ngOnInit() {
