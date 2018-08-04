@@ -14,7 +14,7 @@ import { Cluster, Supercluster } from 'supercluster';
         </mat-list-item>
       </mat-list>
       <mat-paginator
-        [length]="selectedCluster.properties.point_count"
+        [length]="selectedCluster.properties?.point_count"
         [pageSize]="5"
         (page)="changePage($event)"
       ></mat-paginator>
