@@ -38,6 +38,22 @@ export interface SetupPopup {
   };
 }
 
+export interface SetupMarker {
+  markersOptions: {
+    offset?: MapboxGl.PointLike;
+    anchor?: MapboxGl.Anchor;
+    draggable?: boolean;
+    element: HTMLElement;
+    feature?: GeoJSON.Feature<GeoJSON.Point>;
+    lngLat?: MapboxGl.LngLatLike;
+  };
+  markersEvents: {
+    dragStart: EventEmitter<MapboxGl.Marker>;
+    drag: EventEmitter<MapboxGl.Marker>;
+    dragEnd: EventEmitter<MapboxGl.Marker>;
+  };
+}
+
 export type AllSource = MapboxGl.VectorSource |
   MapboxGl.RasterSource |
   MapboxGl.GeoJSONSource |
@@ -246,9 +262,38 @@ export class MapService {
     this.layerIdsToRemove.push(layerId);
   }
 
-  addMarker(marker: MapboxGl.Marker) {
+  addMarker(marker: SetupMarker) {
+    const options: MapboxGl.MarkerOptions = {
+      offset: marker.markersOptions.offset,
+      anchor: marker.markersOptions.anchor,
+      draggable: !!marker.markersOptions.draggable
+    };
+    if (marker.markersOptions.element.childNodes.length > 0) {
+      options.element = marker.markersOptions.element;
+    }
+    const markerInstance = new MapboxGl.Marker(options);
+    if (marker.markersEvents.dragStart.observers.length) {
+      markerInstance.on('dragstart', (event: { target: MapboxGl.Marker }) =>
+        this.zone.run(() => marker.markersEvents.dragStart.emit(event.target))
+      );
+    }
+    if (marker.markersEvents.drag.observers.length) {
+      markerInstance.on('drag', (event: { target: MapboxGl.Marker }) =>
+        this.zone.run(() => marker.markersEvents.drag.emit(event.target))
+      );
+    }
+    if (marker.markersEvents.dragEnd.observers.length) {
+      markerInstance.on('dragend', (event: { target: MapboxGl.Marker }) =>
+        this.zone.run(() => marker.markersEvents.dragEnd.emit(event.target))
+      );
+    }
+    markerInstance.setLngLat(marker.markersOptions.feature ?
+      marker.markersOptions.feature.geometry!.coordinates :
+      marker.markersOptions.lngLat!
+    );
     return this.zone.runOutsideAngular(() => {
-      marker.addTo(this.mapInstance);
+      markerInstance.addTo(this.mapInstance);
+      return markerInstance;
     });
   }
 

@@ -22,13 +22,13 @@
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
-    "mapbox-gl": "0.45.0",
+    "mapbox-gl": "0.47.0",
     "rxjs": "^6.0.0"
   },
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^2.3.0",
     "@turf/bbox": "^6.0.1",
     "@turf/helpers": "^6.1.4",
-    "supercluster": "^4.0.1"
+    "supercluster": "^4.1.1"
   }
 }

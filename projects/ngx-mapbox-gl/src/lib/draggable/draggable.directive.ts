@@ -42,6 +42,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
     let leave$;
     let updateCoords;
     if (this.MarkerComponent) {
+      console.warn('mglDraggable on Marker is deprecated, use draggable input instead');
       let markerElement = (<Element>this.MarkerComponent.content.nativeElement);
       if (markerElement.children.length === 1) {
         markerElement = markerElement.children[0];

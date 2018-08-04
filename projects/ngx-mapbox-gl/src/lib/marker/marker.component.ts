@@ -1,17 +1,19 @@
 import {
-    Component,
-    ElementRef,
-    Input,
-    OnChanges,
-    OnDestroy,
-    SimpleChanges,
-    ViewChild,
-    AfterViewInit,
-    OnInit,
-    ChangeDetectionStrategy,
-    ViewEncapsulation
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+  ViewEncapsulation,
+  EventEmitter
 } from '@angular/core';
-import { LngLatLike, Marker, PointLike } from 'mapbox-gl';
+import { LngLatLike, Marker, PointLike, Anchor } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 
 @Component({
@@ -28,11 +30,16 @@ import { MapService } from '../map/map.service';
 export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnInit {
   /* Init input */
   @Input() offset?: PointLike;
-  @Input() anchor?: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  @Input() anchor?: Anchor;
 
   /* Dynamic input */
   @Input() feature?: GeoJSON.Feature<GeoJSON.Point>;
   @Input() lngLat?: LngLatLike;
+  @Input() draggable?: boolean;
+
+  @Output() dragStart = new EventEmitter<Marker>();
+  @Output() drag = new EventEmitter<Marker>();
+  @Output() dragEnd = new EventEmitter<Marker>();
 
   @ViewChild('content') content: ElementRef;
 
@@ -55,13 +62,28 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
     if (changes.feature && !changes.feature.isFirstChange()) {
       this.markerInstance!.setLngLat(this.feature!.geometry!.coordinates);
     }
+    if (changes.draggable && !changes.draggable.isFirstChange()) {
+      this.markerInstance!.setDraggable(!!this.draggable);
+    }
   }
 
   ngAfterViewInit() {
-    this.markerInstance = new Marker(<any>{ offset: this.offset, element: this.content.nativeElement, anchor: this.anchor });
-    this.markerInstance.setLngLat(this.feature ? this.feature.geometry!.coordinates : this.lngLat!);
     this.MapService.mapCreated$.subscribe(() => {
-      this.MapService.addMarker(this.markerInstance!);
+      this.markerInstance = this.MapService.addMarker({
+        markersOptions: {
+          offset: this.offset,
+          anchor: this.anchor,
+          draggable: !!this.draggable,
+          element: this.content.nativeElement,
+          feature: this.feature,
+          lngLat: this.lngLat
+        },
+        markersEvents: {
+          dragStart: this.dragStart,
+          drag: this.drag,
+          dragEnd: this.dragEnd
+        }
+      });
     });
   }
 
