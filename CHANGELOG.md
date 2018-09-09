@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v2.0.0...v2.1.0) (2018-09-09)
+
+
+### Bug Fixes
+
+* **clustering:** get correct viewport box ([a864d3f](https://github.com/Wykks/ngx-mapbox-gl/commit/a864d3f)), closes [#54](https://github.com/Wykks/ngx-mapbox-gl/issues/54)
+
+
+### Features
+
+* update support to mapbox-gl 0.48 ([063f67c](https://github.com/Wykks/ngx-mapbox-gl/commit/063f67c))
+* **mglNavigation:** add showCompass & showZoom inputs ([b1428b0](https://github.com/Wykks/ngx-mapbox-gl/commit/b1428b0)), closes [#55](https://github.com/Wykks/ngx-mapbox-gl/issues/55)
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v2.0.0-beta.0...v2.0.0) (2018-08-04)
 
