@@ -56,6 +56,8 @@ export class ControlComponent implements OnDestroy, AfterContentInit {
   }
 
   ngOnDestroy() {
-    this.MapService.removeControl(this.control);
+    if (this.control) {
+      this.MapService.removeControl(this.control);
+    }
   }
 }
