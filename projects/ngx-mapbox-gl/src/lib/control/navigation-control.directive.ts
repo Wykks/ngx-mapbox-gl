@@ -21,7 +21,7 @@ export class NavigationControlDirective implements OnInit {
       if (this.ControlComponent.control) {
         throw new Error('Another control is already set for this control');
       }
-      let options: { showCompass?: boolean, showZoom?: boolean } = {};
+      const options: { showCompass?: boolean, showZoom?: boolean } = {};
       if (this.showCompass !== undefined) {
         options.showCompass = this.showCompass;
       }
