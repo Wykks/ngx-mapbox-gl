@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { GeoJSONGeometry, GeoJSONSource, GeoJSONSourceOptions } from 'mapbox-gl';
+import { GeoJSONSource, GeoJSONSourceOptions } from 'mapbox-gl';
 import { fromEvent, Subject, Subscription } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
 import { MapService } from '../../map/map.service';
@@ -14,7 +14,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() data?: GeoJSON.Feature<GeoJSONGeometry> | GeoJSON.FeatureCollection<GeoJSONGeometry> | string;
+  @Input() data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string;
   @Input() minzoom?: number;
   @Input() maxzoom?: number;
   @Input() buffer?: number;
