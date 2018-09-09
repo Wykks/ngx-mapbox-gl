@@ -1,8 +1,0 @@
-:host {
-  display: flex;
-  flex: 1;
-}
-mgl-map {
-  height: 100%;
-  width: 100%;
-}
