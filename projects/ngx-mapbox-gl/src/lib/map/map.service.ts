@@ -473,8 +473,8 @@ export class MapService {
 
   getCurrentViewportBbox(): BBox {
     const canvas = this.mapInstance.getCanvas();
-    const w = canvas.width;
-    const h = canvas.height;
+    const w = parseInt(canvas.style.width!, 10);
+    const h = parseInt(canvas.style.height!, 10);
     const upLeft = this.mapInstance.unproject([0, 0]).toArray();
     const upRight = this.mapInstance.unproject([w, 0]).toArray();
     const downRight = this.mapInstance.unproject([w, h]).toArray();
