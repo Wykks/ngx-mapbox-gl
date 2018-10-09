@@ -52,7 +52,7 @@ export class ZoomtoLinestringComponent {
         'geometry': {
           'type': 'LineString',
           'properties': {},
-          'coordinates': [
+          'coordinates': <[number, number][]>[
             [-77.0366048812866, 38.89873175227713],
             [-77.03364372253417, 38.89876515143842],
             [-77.03364372253417, 38.89549195896866],

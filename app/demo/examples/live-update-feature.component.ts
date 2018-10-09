@@ -49,13 +49,13 @@ export class LiveUpdateFeatureComponent implements OnInit, OnDestroy {
     const coordinates = data.features[0].geometry!.coordinates;
     data.features[0].geometry!.coordinates = [coordinates[0]];
     this.data = data;
-    this.center = coordinates[0];
+    this.center = <[number, number]>coordinates[0];
     this.zoom = [14];
     this.pitch = 30;
     let i = 0;
     this.timer = window.setInterval(() => {
       if (i < coordinates.length) {
-        this.center = coordinates[i];
+        this.center = <[number, number]>coordinates[i];
         data.features[0].geometry!.coordinates.push(coordinates[i]);
         this.data = { ...this.data };
         i++;
