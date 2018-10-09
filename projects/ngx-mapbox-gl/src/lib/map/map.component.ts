@@ -1,16 +1,16 @@
 import {
   AnimationOptions,
   EventData,
+  FitBoundsOptions,
   LngLatBoundsLike,
   LngLatLike,
   Map,
   MapBoxZoomEvent,
   MapMouseEvent,
   MapTouchEvent,
-  PaddingOptions,
   PointLike,
   Style
-  } from 'mapbox-gl';
+} from 'mapbox-gl';
 import { MapService, MovingOptions } from './map.service';
 import { MapEvent } from './map.types';
 import {
@@ -96,13 +96,8 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
   @Input() movingMethod: 'jumpTo' | 'easeTo' | 'flyTo' = 'flyTo';
   @Input() movingOptions?: MovingOptions;
   @Input() fitBounds?: LngLatBoundsLike;
-  @Input() fitBoundsOptions?: {
-    linear?: boolean,
-    easing?: Function,
-    padding?: number | PaddingOptions,
-    offset?: PointLike,
-    maxZoom?: number
-  };
+  @Input() fitBoundsOptions?: FitBoundsOptions;
+  @Input() fitScreenCoordinates?: [PointLike, PointLike];
   @Input() centerWithPanTo?: boolean;
   @Input() panToOptions?: AnimationOptions;
   @Input() cursorStyle?: string;
@@ -253,6 +248,13 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
     if (changes.fitBounds && !changes.fitBounds.isFirstChange()) {
       this.MapService.fitBounds(changes.fitBounds.currentValue, this.fitBoundsOptions);
     }
+    if (changes.fitScreenCoordinates && !changes.fitBounds.isFirstChange()) {
+      this.MapService.fitScreenCoordinates(
+        changes.fitScreenCoordinates.currentValue,
+        this.bearing ? this.bearing[0] : 0,
+        this.movingOptions
+      );
+    }
     if (
       this.centerWithPanTo &&
       changes.center && !changes.center.isFirstChange() &&
@@ -262,7 +264,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
     } else if (
       changes.center && !changes.center.isFirstChange() ||
       changes.zoom && !changes.zoom.isFirstChange() ||
-      changes.bearing && !changes.bearing.isFirstChange() ||
+      (changes.bearing && !changes.bearing.isFirstChange() && !changes.fitScreenCoordinates) ||
       changes.pitch && !changes.pitch.isFirstChange()
     ) {
       this.MapService.move(

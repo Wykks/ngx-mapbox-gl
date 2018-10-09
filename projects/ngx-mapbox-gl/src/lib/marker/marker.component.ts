@@ -60,7 +60,7 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
       this.markerInstance!.setLngLat(this.lngLat!);
     }
     if (changes.feature && !changes.feature.isFirstChange()) {
-      this.markerInstance!.setLngLat(this.feature!.geometry!.coordinates);
+      this.markerInstance!.setLngLat(<[number, number]>this.feature!.geometry!.coordinates);
     }
     if (changes.draggable && !changes.draggable.isFirstChange()) {
       this.markerInstance!.setDraggable(!!this.draggable);
@@ -96,7 +96,7 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
     this.markerInstance!.togglePopup();
   }
 
-  updateCoordinates(coordinates: number[]) {
+  updateCoordinates(coordinates: [number, number]) {
     this.markerInstance!.setLngLat(coordinates);
   }
 }

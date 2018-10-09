@@ -55,7 +55,7 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
       changes.lngLat && !changes.lngLat.isFirstChange() ||
       changes.feature && !changes.feature.isFirstChange()
     ) {
-      const newlngLat = changes.lngLat ? this.lngLat! : this.feature!.geometry!.coordinates!;
+      const newlngLat = changes.lngLat ? this.lngLat! : <[number, number]>this.feature!.geometry!.coordinates!;
       this.MapService.removePopupFromMap(this.popupInstance!, true);
       const popupInstanceTmp = this.createPopup();
       this.MapService.addPopupToMap(popupInstanceTmp, newlngLat, this.popupInstance!.isOpen());
@@ -106,7 +106,7 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
   private addPopup(popup: Popup) {
     this.MapService.mapCreated$.subscribe(() => {
       if (this.lngLat || this.feature) {
-        this.MapService.addPopupToMap(popup, this.lngLat ? this.lngLat : this.feature!.geometry!.coordinates!);
+        this.MapService.addPopupToMap(popup, this.lngLat ? this.lngLat : <[number, number]>this.feature!.geometry!.coordinates!);
       } else if (this.marker && this.marker.markerInstance) {
         this.MapService.addPopupToMarker(this.marker.markerInstance, popup);
       } else {

@@ -118,8 +118,8 @@ export class MarkerClusterComponent implements OnChanges, OnDestroy, AfterConten
   ngAfterContentInit() {
     this.MapService.mapCreated$.subscribe(() => {
       const mapMove$ = merge(
-        fromEvent(this.MapService.mapInstance, 'zoomChange'),
-        fromEvent(this.MapService.mapInstance, 'move')
+        fromEvent(<any>this.MapService.mapInstance, 'zoomChange'),
+        fromEvent(<any>this.MapService.mapInstance, 'move')
       );
       const sub = mapMove$.pipe(
         startWith<any>(undefined)

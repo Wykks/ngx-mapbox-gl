@@ -73,7 +73,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
     let moving = false;
     let inside = false;
     this.MapService.mapCreated$.subscribe(() => {
-      const mouseUp$ = fromEvent<MapMouseEvent>(this.MapService.mapInstance, 'mouseup');
+      const mouseUp$ = fromEvent<MapMouseEvent>(<any>this.MapService.mapInstance, 'mouseup');
       const dragStart$ = enter$.pipe(
         takeUntil(this.destroyed$),
         filter(() => !moving),
@@ -84,12 +84,12 @@ export class DraggableDirective implements OnInit, OnDestroy {
           this.MapService.updateDragPan(false);
         }),
         switchMap(() =>
-          fromEvent<MapMouseEvent>(this.MapService.mapInstance, 'mousedown')
+          fromEvent<MapMouseEvent>(<any>this.MapService.mapInstance, 'mousedown')
             .pipe(takeUntil(leave$))
         )
       );
       const dragging$ = dragStart$.pipe(
-        switchMap(() => fromEvent<MapMouseEvent>(this.MapService.mapInstance, 'mousemove')
+        switchMap(() => fromEvent<MapMouseEvent>(<any>this.MapService.mapInstance, 'mousemove')
           .pipe(takeUntil(mouseUp$))
         )
       );

@@ -167,14 +167,12 @@ export class MapService {
   }
 
   updateStyle(style: MapboxGl.Style) {
-    // TODO Probably not so simple, write demo/tests
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.setStyle(style);
     });
   }
 
   updateMaxBounds(maxBounds: MapboxGl.LngLatBoundsLike) {
-    // TODO Probably not so simple, write demo/tests
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.setMaxBounds(maxBounds);
     });
@@ -186,7 +184,7 @@ export class MapService {
   }
 
   queryRenderedFeatures(
-    pointOrBox?: MapboxGl.PointLike | MapboxGl.PointLike[],
+    pointOrBox?: MapboxGl.PointLike | [MapboxGl.PointLike, MapboxGl.PointLike],
     parameters?: { layers?: string[], filter?: any[] }
   ): GeoJSON.Feature<GeoJSON.GeometryObject>[] {
     return this.mapInstance.queryRenderedFeatures(pointOrBox, parameters);
@@ -289,10 +287,10 @@ export class MapService {
         this.zone.run(() => marker.markersEvents.dragEnd.emit(event.target))
       );
     }
-    markerInstance.setLngLat(marker.markersOptions.feature ?
-      marker.markersOptions.feature.geometry!.coordinates :
-      marker.markersOptions.lngLat!
-    );
+    const lngLat: MapboxGl.LngLatLike = marker.markersOptions.feature ?
+      <[number, number]>marker.markersOptions.feature.geometry!.coordinates :
+      marker.markersOptions.lngLat!;
+    markerInstance.setLngLat(lngLat);
     return this.zone.runOutsideAngular(() => {
       markerInstance.addTo(this.mapInstance);
       return markerInstance;
@@ -465,9 +463,19 @@ export class MapService {
     });
   }
 
-  fitBounds(bounds: MapboxGl.LngLatBoundsLike, options?: any) {
+  fitBounds(bounds: MapboxGl.LngLatBoundsLike, options?: MapboxGl.FitBoundsOptions) {
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.fitBounds(bounds, options);
+    });
+  }
+
+  fitScreenCoordinates(
+    points: [MapboxGl.PointLike, MapboxGl.PointLike],
+    bearing: number,
+    options?: MapboxGl.AnimationOptions & MapboxGl.CameraOptions
+  ) {
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.fitScreenCoordinates(points[0], points[1], bearing, options);
     });
   }
 
@@ -515,10 +523,6 @@ export class MapService {
 
   private removeLayers() {
     for (const layerId of this.layerIdsToRemove) {
-      this.mapInstance.off('click', layerId);
-      this.mapInstance.off('mouseenter', layerId);
-      this.mapInstance.off('mouseleave', layerId);
-      this.mapInstance.off('mousemove', layerId);
       this.mapInstance.removeLayer(layerId);
     }
     this.layerIdsToRemove = [];

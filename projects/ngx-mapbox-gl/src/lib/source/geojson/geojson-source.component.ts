@@ -42,7 +42,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
     }
     this.MapService.mapLoaded$.subscribe(() => {
       this.init();
-      const sub = fromEvent(this.MapService.mapInstance, 'styledata').pipe(
+      const sub = fromEvent(<any>this.MapService.mapInstance, 'styledata').pipe(
         filter(() => !this.MapService.mapInstance.getSource(this.id))
       ).subscribe(() => {
         this.init();
