@@ -10,11 +10,13 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "release": "standard-version"
+    "release": "standard-version -a",
+    "update-version": "./update_version.sh"
   },
   "standard-version": {
     "scripts": {
-      "postbump": "yarn build"
+      "postbump": "yarn update-version && yarn build",
+      "precommit": "git add projects/ngx-mapbox-gl/package.json"
     }
   },
   "private": true,
