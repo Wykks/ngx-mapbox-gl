@@ -140,16 +140,18 @@ margin: 0;
       template: 'angular-cli',
       dependencies: {
         tslib: '*',
-        'mapbox-gl': '0.45.0',
-        'ngx-mapbox-gl': '2.0.0-beta.0',
+        'mapbox-gl': '*',
+        'ngx-mapbox-gl': '*',
         '@angular/cdk': '*',
         '@angular/material': '*',
         '@angular/animations': '*',
         '@angular/forms': '*',
         'url': '*',
         'querystring': '*',
+        'events': '*',
         '@types/mapbox-gl': '*',
-        '@types/supercluster': '*'
+        '@types/supercluster': '*',
+        '@types/geojson': '*'
       }
     };
     await this.zone.runOutsideAngular(async () => {
