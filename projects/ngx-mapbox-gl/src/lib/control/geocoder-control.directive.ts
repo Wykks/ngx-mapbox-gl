@@ -71,6 +71,8 @@ export class GeocoderControlDirective implements OnInit, OnChanges, GeocoderEven
 
   geocoder: any;
 
+  private lastResultId?: string | number;
+
   constructor(
     private MapService: MapService,
     private zone: NgZone,
@@ -141,7 +143,13 @@ export class GeocoderControlDirective implements OnInit, OnChanges, GeocoderEven
       this.geocoder.on('results', (evt: Results) => this.zone.run(() => events.results.emit(evt)));
     }
     if (events.result.observers.length) {
-      this.geocoder.on('result', (evt: { result: Result }) => this.zone.run(() => events.result.emit(evt)));
+      this.geocoder.on('result', (evt: { result: Result }) => {
+        // Workaroud issue https://github.com/mapbox/mapbox-gl-geocoder/issues/99
+        if (this.lastResultId !== evt.result.id) {
+          this.lastResultId = evt.result.id;
+          this.zone.run(() => events.result.emit(evt));
+        }
+      });
     }
     if (events.error.observers.length) {
       this.geocoder.on('error', (evt: any) => this.zone.run(() => events.error.emit(evt)));
