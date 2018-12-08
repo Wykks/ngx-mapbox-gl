@@ -9,6 +9,8 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
+import { fromEvent, Subscription } from 'rxjs';
+import { filter, startWith, switchMap } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
 import { MapImageData, MapImageOptions } from '../map/map.types';
 
@@ -28,7 +30,9 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   @Output() error = new EventEmitter<{ status: number }>();
   @Output() loaded = new EventEmitter<void>();
 
-  private imageAdded = false;
+  private isAdded = false;
+  private isAdding = false;
+  private sub: Subscription;
 
   constructor(
     private MapService: MapService,
@@ -36,32 +40,12 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   ) { }
 
   ngOnInit() {
-    this.MapService.mapLoaded$.subscribe(async () => {
-      if (this.data) {
-        this.MapService.addImage(
-          this.id,
-          this.data,
-          this.options
-        );
-        this.imageAdded = true;
-      } else if (this.url) {
-        try {
-          await this.MapService.loadAndAddImage(
-            this.id,
-            this.url,
-            this.options
-          );
-          this.imageAdded = true;
-          this.zone.run(() => {
-            this.loaded.emit();
-          });
-        } catch (error) {
-          this.zone.run(() => {
-            this.error.emit(error);
-          });
-        }
-      }
-    });
+    this.sub = this.MapService.mapLoaded$.pipe(
+      switchMap(() => fromEvent(<any>this.MapService.mapInstance, 'styledata').pipe(
+        startWith(undefined),
+        filter(() => !this.isAdding && !this.MapService.mapInstance.hasImage(this.id))
+      )),
+    ).subscribe(() => this.init());
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -76,8 +60,41 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy() {
-    if (this.imageAdded) {
+    if (this.isAdded) {
       this.MapService.removeImage(this.id);
+    }
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+  }
+
+  private async init() {
+    this.isAdding = true;
+    if (this.data) {
+      this.MapService.addImage(
+        this.id,
+        this.data,
+        this.options
+      );
+      this.isAdded = true;
+      this.isAdding = false;
+    } else if (this.url) {
+      try {
+        await this.MapService.loadAndAddImage(
+          this.id,
+          this.url,
+          this.options
+        );
+        this.isAdded = true;
+        this.isAdding = false;
+        this.zone.run(() => {
+          this.loaded.emit();
+        });
+      } catch (error) {
+        this.zone.run(() => {
+          this.error.emit(error);
+        });
+      }
     }
   }
 }
