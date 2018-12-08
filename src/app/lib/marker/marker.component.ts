@@ -58,7 +58,7 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
   }
 
   ngAfterViewInit() {
-    let options = {offset: this.offset, anchor: this.anchor, element: undefined};
+    const options = {offset: this.offset, anchor: this.anchor, element: undefined};
     if (this.content.nativeElement.childNodes.length > 0) {
       options.element = this.content.nativeElement;
     }
