@@ -7,7 +7,7 @@ Angular wrapper for [mapbox-gl-js](https://www.mapbox.com/mapbox-gl-js/api/). Ex
 
 v1.X : Angular 5 & 6 (rxjs 5)
 
-v2.X : Angular 6+ (rxjs 6)
+v2.X : Angular 6 & 7 (rxjs 6)
 
 Include the following components:
 - [mgl-map](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-map-mapbox-gl-api)
