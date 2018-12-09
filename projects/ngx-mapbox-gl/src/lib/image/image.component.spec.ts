@@ -9,6 +9,11 @@ describe('ImageComponent', () => {
     addImage = jasmine.createSpy('addImage');
     removeImage = jasmine.createSpy('removeImage');
     mapLoaded$ = of(undefined);
+    mapInstance = new class {
+      on() { }
+      off() { }
+      hasImage() { }
+    };
   }
 
   let msSpy: MapServiceSpy;
