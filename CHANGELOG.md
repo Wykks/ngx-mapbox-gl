@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.3.0"></a>
+# [2.3.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v2.2.0...v2.3.0) (2018-12-09)
+
+
+### Bug Fixes
+
+* **geocoder:** workaround mapbox-gl-geocoder result issue firing twice ([857ab77](https://github.com/Wykks/ngx-mapbox-gl/commit/857ab77)), closes [#59](https://github.com/Wykks/ngx-mapbox-gl/issues/59)
+* **mglImage:** re-add image when style change ([99a5bb7](https://github.com/Wykks/ngx-mapbox-gl/commit/99a5bb7)), closes [#76](https://github.com/Wykks/ngx-mapbox-gl/issues/76)
+
+
+### Features
+
+* Export control component, for custom control directives ([#79](https://github.com/Wykks/ngx-mapbox-gl/issues/79)) ([458c3f7](https://github.com/Wykks/ngx-mapbox-gl/commit/458c3f7)), closes [#78](https://github.com/Wykks/ngx-mapbox-gl/issues/78)
+* update support to mapbox-gl 0.51 ([2dddec8](https://github.com/Wykks/ngx-mapbox-gl/commit/2dddec8))
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v2.1.1...v2.2.0) (2018-10-09)
 
