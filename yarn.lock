@@ -356,9 +356,10 @@
   version "4.14.94"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.94.tgz#c4166f7d8291691a0d34fa41afb15d0fe755187d"
 
-"@types/mapbox-gl@^0.44.4":
-  version "0.44.4"
-  resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-0.44.4.tgz#3bccd8460038cc857cbe610c92f6a54e4d16b873"
+"@types/mapbox-gl@0.45.0":
+  version "0.45.0"
+  resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-0.45.0.tgz#6ab6c6a7abd3422b006725be07630e77e141f70e"
+  integrity sha512-IFfjMrHsN6znvYxz/H122FldpI1LqJhPjP399B+2cjaiCBhzl98dEIIHtDXSZ1KvB7Ghmlqcmd9JkpMOjMebfg==
   dependencies:
     "@types/geojson" "*"
 

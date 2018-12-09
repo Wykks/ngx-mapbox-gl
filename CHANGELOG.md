@@ -12,11 +12,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
-<a name="1.2.1"></a>
-## [1.2.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.2.0...v1.2.1) (2018-12-07)
-
-
-
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v1.1.0...v1.2.0) (2018-05-21)
 
