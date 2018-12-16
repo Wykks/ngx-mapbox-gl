@@ -33,7 +33,7 @@ import {
   VideoSource
 } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
-import { filter, mapTo, switchMap, startWith } from 'rxjs/operators';
+import { switchMap, map, filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
 
 @Component({
@@ -71,11 +71,20 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   ngOnInit() {
     this.sub = this.MapService.mapLoaded$.pipe(
       switchMap(() => fromEvent(<any>this.MapService.mapInstance, 'styledata').pipe(
-        startWith(true),
         filter(() => !this.MapService.mapInstance.getLayer(this.id)),
-        mapTo(false)
-      )),
+        map(() => !this.MapService.mapInstance.getLayer(this.id) ? true : false)
+      ))
     ).subscribe((bindEvents: boolean) => this.init(bindEvents));
+    // this.sub = this.MapService.mapLoaded$.pipe(
+    //   switchMap(() => fromEvent(<any>this.MapService.mapInstance, 'styledata').pipe(
+    //     startWith(true),
+    //     filter(() => !this.MapService.mapInstance.getLayer(this.id)),
+    //     mapTo(false),
+    //   ))
+    // ).subscribe((bindEvents: boolean) => {
+    //   console.log('bindEvents', bindEvents);
+    //   this.init(bindEvents);
+    // });
   }
 
   ngOnChanges(changes: SimpleChanges) {
