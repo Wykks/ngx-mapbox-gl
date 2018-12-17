@@ -245,14 +245,14 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
     if (changes.maxBounds && !changes.maxBounds.isFirstChange()) {
       this.MapService.updateMaxBounds(changes.maxBounds.currentValue);
     }
-    if (changes.fitBounds) {
-      if (this.center || this.zoom || this.pitch) {
+    if (changes.fitBounds && changes.fitBounds.currentValue) {
+      if ((this.center || this.zoom || this.pitch) && changes.fitBounds.isFirstChange()) {
         console.warn('[ngx-mapbox-gl] center / zoom / pitch inputs are being overridden by fitBounds input');
       }
       this.MapService.fitBounds(changes.fitBounds.currentValue, this.fitBoundsOptions);
     }
-    if (changes.fitScreenCoordinates) {
-      if (this.center || this.zoom || this.pitch || this.fitBounds) {
+    if (changes.fitScreenCoordinates && changes.fitScreenCoordinates.currentValue) {
+      if ((this.center || this.zoom || this.pitch || this.fitBounds) && changes.fitScreenCoordinates.isFirstChange()) {
         console.warn('[ngx-mapbox-gl] center / zoom / pitch / fitBounds inputs are being overridden by fitScreenCoordinates input');
       }
       this.MapService.fitScreenCoordinates(
