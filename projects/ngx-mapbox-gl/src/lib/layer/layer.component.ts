@@ -71,9 +71,9 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   ngOnInit() {
     this.sub = this.MapService.mapLoaded$.pipe(
       switchMap(() => fromEvent(<any>this.MapService.mapInstance, 'styledata').pipe(
-        startWith(true),
+        mapTo(false),
         filter(() => !this.MapService.mapInstance.getLayer(this.id)),
-        mapTo(false)
+        startWith(true)
       )),
     ).subscribe((bindEvents: boolean) => this.init(bindEvents));
   }
