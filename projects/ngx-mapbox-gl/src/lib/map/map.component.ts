@@ -245,7 +245,10 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
     if (changes.maxBounds && !changes.maxBounds.isFirstChange()) {
       this.MapService.updateMaxBounds(changes.maxBounds.currentValue);
     }
-    if (changes.fitBounds && !changes.fitBounds.isFirstChange()) {
+    if (changes.fitBounds) {
+      if (this.center || this.zoom || this.pitch) {
+        console.warn('[ngx-mapbox-gl] center / zoom / pitch inputs are being overridden by fitBounds input');
+      }
       this.MapService.fitBounds(changes.fitBounds.currentValue, this.fitBoundsOptions);
     }
     if (changes.fitScreenCoordinates && !changes.fitBounds.isFirstChange()) {
