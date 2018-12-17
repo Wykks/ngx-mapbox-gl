@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.3.2"></a>
+## [2.3.2](https://github.com/Wykks/ngx-mapbox-gl/compare/v2.3.1...v2.3.2) (2018-12-17)
+
+
+### Bug Fixes
+
+* **layer:** fix layer event not being binded ([b7fbb89](https://github.com/Wykks/ngx-mapbox-gl/commit/b7fbb89)), closes [#84](https://github.com/Wykks/ngx-mapbox-gl/issues/84)
+* **map:** fitBounds: handle fitBounds at init ([d10ff55](https://github.com/Wykks/ngx-mapbox-gl/commit/d10ff55)), closes [#74](https://github.com/Wykks/ngx-mapbox-gl/issues/74)
+* **map:** fitScreenCoordinates: handle fitScreenCoordinates at init ([1126410](https://github.com/Wykks/ngx-mapbox-gl/commit/1126410))
+
+
+
 <a name="2.3.1"></a>
 ## [2.3.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v2.3.0...v2.3.1) (2018-12-10)
 
