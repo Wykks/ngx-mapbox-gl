@@ -510,6 +510,12 @@ export class MapService {
         }
       });
     this.mapInstance = new MapboxGl.Map(options);
+
+    const isIEorEdge = window && /msie\s|trident\/|edge\//i.test(window.navigator.userAgent);
+    if (isIEorEdge) {
+      this.mapInstance.setStyle(options.style!);
+    }
+
     const subChanges = this.zone.onMicrotaskEmpty
       .subscribe(() => this.applyChanges());
     if (this.MglResizeEventEmitter) {
