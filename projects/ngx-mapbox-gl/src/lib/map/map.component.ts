@@ -251,7 +251,10 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
       }
       this.MapService.fitBounds(changes.fitBounds.currentValue, this.fitBoundsOptions);
     }
-    if (changes.fitScreenCoordinates && !changes.fitBounds.isFirstChange()) {
+    if (changes.fitScreenCoordinates) {
+      if (this.center || this.zoom || this.pitch || this.fitBounds) {
+        console.warn('[ngx-mapbox-gl] center / zoom / pitch / fitBounds inputs are being overridden by fitScreenCoordinates input');
+      }
       this.MapService.fitScreenCoordinates(
         changes.fitScreenCoordinates.currentValue,
         this.bearing ? this.bearing[0] : 0,
