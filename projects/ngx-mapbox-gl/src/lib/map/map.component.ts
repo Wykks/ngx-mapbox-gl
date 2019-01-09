@@ -31,7 +31,7 @@ declare global {
   namespace mapboxgl {
     export interface MapboxOptions {
       failIfMajorPerformanceCaveat?: boolean;
-      transformRequest?: Function;
+      transformRequest?: TransformRequestFunction;
       localIdeographFontFamily?: string;
       pitchWithRotate?: boolean;
     }
