@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v2.3.2...v3.0.0) (2019-01-27)
+
+
+### Bug Fixes
+
+* **layer:** use new interface MapLayerMouseEvent ([1a5f369](https://github.com/Wykks/ngx-mapbox-gl/commit/1a5f369)), closes [#89](https://github.com/Wykks/ngx-mapbox-gl/issues/89)
+* **map:** add an additional setStyle() call (IE and Edge only) to prevent map loading issues on IE11 (see https://github.com/mapbox/mapbox-gl-js/issues/4821#issuecomment-358998674) ([#87](https://github.com/Wykks/ngx-mapbox-gl/issues/87)) ([4aa72dc](https://github.com/Wykks/ngx-mapbox-gl/commit/4aa72dc)), closes [/github.com/mapbox/mapbox-gl-js/issues/4821#issuecomment-358998674](https://github.com//github.com/mapbox/mapbox-gl-js/issues/4821/issues/issuecomment-358998674)
+* **markerCluster:** update change after data change ([a71a79c](https://github.com/Wykks/ngx-mapbox-gl/commit/a71a79c)), closes [#71](https://github.com/Wykks/ngx-mapbox-gl/issues/71)
+
+
+### build
+
+* update angular & fix issues with newer ts ([9fc58ca](https://github.com/Wykks/ngx-mapbox-gl/commit/9fc58ca)), closes [#90](https://github.com/Wykks/ngx-mapbox-gl/issues/90)
+
+
+### Features
+
+* update mapbox-gl to 0.52.0 ([39a0f30](https://github.com/Wykks/ngx-mapbox-gl/commit/39a0f30))
+
+
+### BREAKING CHANGES
+
+* Now support angular >= 7.2
+
+
+
 <a name="2.3.2"></a>
 ## [2.3.2](https://github.com/Wykks/ngx-mapbox-gl/compare/v2.3.1...v2.3.2) (2018-12-17)
 
