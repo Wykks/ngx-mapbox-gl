@@ -112,6 +112,7 @@ export class MarkerClusterComponent implements OnChanges, OnDestroy, AfterConten
   ngOnChanges(changes: SimpleChanges) {
     if (changes.data && !changes.data.isFirstChange()) {
       this.supercluster.load(this.data.features);
+      this.updateCluster();
     }
   }
 
