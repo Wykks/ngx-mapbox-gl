@@ -30,7 +30,7 @@ import { GeoJsonProperties } from 'geojson';
       *ngIf="selectedLngLat"
       [lngLat]="selectedLngLat"
     >
-      <span [innerHTML]="selectedElement.name"></span>
+      <span [innerHTML]="selectedElement?.name"></span>
     </mgl-popup>
   </mgl-map>
   `,

@@ -28,7 +28,7 @@ import { MapboxGeoJSONFeature, MapLayerMouseEvent } from 'mapbox-gl';
     ></mgl-layer>
     <mgl-popup
       *ngIf="selectedPoint"
-      [lngLat]="selectedPoint.geometry?.coordinates"
+      [feature]="selectedPoint"
     >
       <span [innerHTML]="selectedPoint.properties?.description"></span>
     </mgl-popup>
