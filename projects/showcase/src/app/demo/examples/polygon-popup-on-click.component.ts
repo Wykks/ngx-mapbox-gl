@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { MapMouseEvent, LngLat } from 'mapbox-gl';
+import { LngLat, MapLayerMouseEvent } from 'mapbox-gl';
+import { GeoJsonProperties } from 'geojson';
 
 @Component({
   selector: 'showcase-demo',
@@ -36,12 +37,12 @@ import { MapMouseEvent, LngLat } from 'mapbox-gl';
   styleUrls: ['./examples.css']
 })
 export class PolygonPopupOnClickComponent {
-  selectedElement: object;
+  selectedElement: GeoJsonProperties;
   selectedLngLat: LngLat;
   cursorStyle: string;
 
-  onClick(evt: MapMouseEvent) {
+  onClick(evt: MapLayerMouseEvent) {
     this.selectedLngLat = evt.lngLat;
-    this.selectedElement = (<any>evt).features[0].properties;
+    this.selectedElement = evt.features![0].properties;
   }
 }

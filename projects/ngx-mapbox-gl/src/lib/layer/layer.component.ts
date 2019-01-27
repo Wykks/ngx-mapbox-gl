@@ -23,14 +23,14 @@ import {
   Layer,
   LineLayout,
   LinePaint,
-  MapMouseEvent,
   RasterLayout,
   RasterPaint,
   RasterSource,
   SymbolLayout,
   SymbolPaint,
   VectorSource,
-  VideoSource
+  VideoSource,
+  MapLayerMouseEvent
 } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter, mapTo, switchMap, startWith } from 'rxjs/operators';
@@ -56,10 +56,10 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   @Input() minzoom?: number;
   @Input() maxzoom?: number;
 
-  @Output() click = new EventEmitter<MapMouseEvent>();
-  @Output() mouseEnter = new EventEmitter<MapMouseEvent>();
-  @Output() mouseLeave = new EventEmitter<MapMouseEvent>();
-  @Output() mouseMove = new EventEmitter<MapMouseEvent>();
+  @Output() click = new EventEmitter<MapLayerMouseEvent>();
+  @Output() mouseEnter = new EventEmitter<MapLayerMouseEvent>();
+  @Output() mouseLeave = new EventEmitter<MapLayerMouseEvent>();
+  @Output() mouseMove = new EventEmitter<MapLayerMouseEvent>();
 
   private layerAdded = false;
   private sub: Subscription;
