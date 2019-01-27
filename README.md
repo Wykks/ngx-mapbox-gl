@@ -9,6 +9,8 @@ v1.X : Angular 5 & 6 (rxjs 5)
 
 v2.X : Angular 6 & 7 (rxjs 6)
 
+v3.X : Angular 7.2
+
 Include the following components:
 - [mgl-map](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-map-mapbox-gl-api)
 - [mgl-layer](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-layer-mapbox-gl-style-spec)
