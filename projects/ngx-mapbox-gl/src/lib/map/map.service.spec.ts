@@ -92,7 +92,8 @@ describe('MapService', () => {
       sourceData: new EventEmitter<EventData>(),
       dataLoading: new EventEmitter<EventData>(),
       styleDataLoading: new EventEmitter<EventData>(),
-      sourceDataLoading: new EventEmitter<EventData>()
+      sourceDataLoading: new EventEmitter<EventData>(),
+      idle: new EventEmitter<void>()
     };
   });
 

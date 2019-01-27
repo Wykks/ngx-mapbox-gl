@@ -50,6 +50,7 @@ export interface MapEvent {
   dataLoading: EventEmitter<EventData>;
   styleDataLoading: EventEmitter<EventData>;
   sourceDataLoading: EventEmitter<EventData>;
+  idle: EventEmitter<void>;
 }
 
 export interface GeocoderEvent {

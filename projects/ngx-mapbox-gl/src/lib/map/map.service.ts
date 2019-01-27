@@ -708,6 +708,9 @@ export class MapService {
     if (events.sourceDataLoading.observers.length) {
       this.mapInstance.on('sourcedataloading', (evt: MapboxGl.EventData) => this.zone.run(() => events.sourceDataLoading.emit(evt)));
     }
+    if (events.idle.observers.length) {
+      this.mapInstance.on('idle', () => this.zone.run(() => events.idle.emit()));
+    }
   }
 
   // TODO move this elsewhere

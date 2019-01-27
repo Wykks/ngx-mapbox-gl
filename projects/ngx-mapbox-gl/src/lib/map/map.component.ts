@@ -129,6 +129,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
   @Output() webGlContextLost = new EventEmitter<void>();
   @Output() webGlContextRestored = new EventEmitter<void>();
   @Output() load = new EventEmitter<any>();
+  @Output() idle = new EventEmitter<void>();
   @Output() render = new EventEmitter<void>();
   @Output() error = new EventEmitter<any>(); // TODO Check type
   @Output() data = new EventEmitter<EventData>();
