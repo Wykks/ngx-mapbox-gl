@@ -13,7 +13,7 @@ describe('Set style', () => {
     return logs.verify();
   });
 
-  it('should change the style', async () => {
+  xit('should change the style', async () => {
     await browser.get('/demo/set-style');
     const elm = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(elm), 2000);
