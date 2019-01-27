@@ -2,6 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "importHelpers": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -28,6 +29,11 @@
     "strict": true,
     "skipLibCheck": true,
     "noUnusedLocals": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin"
+      }
+    ]
   }
 }

@@ -27,17 +27,6 @@ import {
   ViewChild,
 } from '@angular/core';
 
-declare global {
-  namespace mapboxgl {
-    export interface MapboxOptions {
-      failIfMajorPerformanceCaveat?: boolean;
-      transformRequest?: Function;
-      localIdeographFontFamily?: string;
-      pitchWithRotate?: boolean;
-    }
-  }
-}
-
 @Component({
   selector: 'mgl-map',
   template: '<div #container></div>',
