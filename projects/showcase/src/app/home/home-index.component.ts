@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { animationFrameScheduler } from 'rxjs';
+import { observeOn } from 'rxjs/operators';
 
 @Component({
   templateUrl: './home-index.component.html',
@@ -15,7 +16,9 @@ export class HomeIndexComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit() {
-    this.sub = interval(100, animationFrameScheduler).subscribe(() => {
+    this.sub = interval(100).pipe(
+      observeOn(animationFrameScheduler)
+    ).subscribe(() => {
       if (this.center[0] >= 180) {
         this.center = [-this.center[0], 0];
       } else {
