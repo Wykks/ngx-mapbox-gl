@@ -43,6 +43,7 @@ import { ToggleLayersComponent } from './examples/toggle-layers.component';
 import { ZoomtoLinestringComponent } from './examples/zoomto-linestring.component';
 import { StackblitzEditGuard } from './stackblitz-edit/stackblitz-edit-guard.service';
 import { StackblitzEditComponent } from './stackblitz-edit/stackblitz-edit.component';
+import { PolygonPopupOnClickComponent } from './examples/polygon-popup-on-click.component';
 
 export enum Category {
   STYLES = 'Styles',
@@ -93,6 +94,7 @@ export const DEMO_ROUTES: Routes = [
       { path: 'zoomto-linestring', component: ZoomtoLinestringComponent, data: { label: 'Fit to the bounds of a LineString', cat: Category.USER_INTERACTION } },
       { path: 'ngx-marker-cluster', component: NgxMarkerClusterComponent, data: { label: '[NGX] Create a clusters of html markers', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'mapbox-gl-geocoder', component: MapboxGlGeocoderComponent, data: { label: 'Add a geocoder', cat: Category.CONTROLS_AND_OVERLAYS } },
+      { path: 'polygon-popup-on-click', component: PolygonPopupOnClickComponent, data: { label: 'Show polygon information on click', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: '**', redirectTo: 'display-map' }
     ]
   }
@@ -146,7 +148,8 @@ export const DEMO_ROUTES: Routes = [
     ZoomtoLinestringComponent,
     NgxMarkerClusterComponent,
     ClusterPopupComponent,
-    Display3dBuildingsComponent
+    Display3dBuildingsComponent,
+    PolygonPopupOnClickComponent
   ]
 })
 export class DemoModule { }
