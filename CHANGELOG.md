@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.3.3"></a>
+## [2.3.3](https://github.com/Wykks/ngx-mapbox-gl/compare/v2.3.2...v2.3.3) (2019-01-27)
+
+
+### Bug Fixes
+
+* **map:** add an additional setStyle() call (IE and Edge only) to prevent map loading issues on IE11 (see https://github.com/mapbox/mapbox-gl-js/issues/4821#issuecomment-358998674) ([#87](https://github.com/Wykks/ngx-mapbox-gl/issues/87)) ([4aa72dc](https://github.com/Wykks/ngx-mapbox-gl/commit/4aa72dc)), closes [/github.com/mapbox/mapbox-gl-js/issues/4821#issuecomment-358998674](https://github.com//github.com/mapbox/mapbox-gl-js/issues/4821/issues/issuecomment-358998674)
+* **markerCluster:** update change after data change ([814ab15](https://github.com/Wykks/ngx-mapbox-gl/commit/814ab15)), closes [#71](https://github.com/Wykks/ngx-mapbox-gl/issues/71)
+
+
+
 <a name="2.3.2"></a>
 ## [2.3.2](https://github.com/Wykks/ngx-mapbox-gl/compare/v2.3.1...v2.3.2) (2018-12-17)
 
