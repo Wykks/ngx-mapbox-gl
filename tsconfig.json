@@ -20,10 +20,7 @@
     ],
     "paths": {
       "ngx-mapbox-gl": [
-        "dist/ngx-mapbox-gl"
-      ],
-      "ngx-mapbox-gl/*": [
-        "dist/ngx-mapbox-gl/*"
+        "projects/ngx-mapbox-gl/src/public_api"
       ]
     },
     "strict": true,
