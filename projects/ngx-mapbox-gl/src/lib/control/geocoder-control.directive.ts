@@ -11,12 +11,13 @@ import {
   Optional,
   Output,
   SimpleChanges
-  } from '@angular/core';
+} from '@angular/core';
 import { MapService } from '../map/map.service';
 import { GeocoderEvent } from '../map/map.types';
 import { ControlComponent } from './control.component';
 
-const MapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
+//@ts-ignore
+import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 export const MAPBOX_GEOCODER_API_KEY = new InjectionToken('MapboxApiKey');
 
