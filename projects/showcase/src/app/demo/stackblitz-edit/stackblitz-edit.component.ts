@@ -50,7 +50,7 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
   loading: boolean;
 
   private sub: Subscription;
-  private base$: Observable<string>;
+  private projectbase$: Observable<string[]>;
 
   private afterViewInit = new AsyncSubject<void>();
   private vm: VM;
@@ -62,9 +62,14 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
     private DemoFileLoaderService: DemoFileLoaderService,
     private ChangeDetectorRef: ChangeDetectorRef
   ) {
-    this.base$ = this.http.get('assets/stackblitz-base.txt', {
-      responseType: 'text'
-    }).pipe(shareReplay(1));
+    this.projectbase$ = forkJoin(
+      this.http.get('assets/stackblitz/main.notts', {
+        responseType: 'text'
+      }),
+      this.http.get('assets/stackblitz/angular.json', {
+        responseType: 'text'
+      })
+    ).pipe(shareReplay(1));
 
     this.sub = combineLatest(
       this.store.pipe(select(fromShowcase.getCurrentRouterState)),
@@ -77,12 +82,12 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
       }),
       switchMap(([state]) =>
         forkJoin(
-          this.base$,
+          this.projectbase$,
           this.DemoFileLoaderService.getDemoFiles(state.params.demoUrl)
         )
       ),
-      switchMap(([base, demoFiles]) =>
-        from(this.openExample(base, demoFiles))
+      switchMap(([projectbase, demoFiles]) =>
+        from(this.openExample(projectbase, demoFiles))
       ),
       tap(() => {
         this.loading = false;
@@ -104,7 +109,7 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
     this.afterViewInit.complete();
   }
 
-  private async openExample(base: string, demoFiles: Dictionary<string>) {
+  private async openExample(projectbase: string[], demoFiles: Dictionary<string>) {
     await this.afterViewInit.toPromise();
     if (this.vm) {
       await this.vm.applyFsDiff({
@@ -115,23 +120,21 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
     }
     const project = {
       files: {
-        'main.ts': base,
-        'index.html': '<showcase-demo></showcase-demo>',
-        '.angular-cli.json': `
-{
-"apps": [{
-  "styles": ["styles.css"]
-}]
-}`,
-        'styles.css': `
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-@import "~mapbox-gl/dist/mapbox-gl.css";
+        'src/main.ts': projectbase[0],
+        'angular.json': projectbase[1],
+        'src/index.html': '<showcase-demo></showcase-demo>',
+        'src/styles.css': `
 html, body {
-display: flex;
-flex: 1;
-min-height: 100vh;
-margin: 0;
+  display: flex;
+  flex: 1;
+  min-height: 100vh;
+  margin: 0;
 }
+`,
+'src/polyfills.ts': `
+import 'core-js/es6/reflect';
+import 'core-js/es7/reflect';
+import 'zone.js/dist/zone';
 `,
         ...demoFiles
       },
@@ -139,8 +142,8 @@ margin: 0;
       description: '',
       template: 'angular-cli',
       dependencies: {
-        tslib: '*',
-        'mapbox-gl': '*',
+        'tslib': '*',
+        'mapbox-gl': '0.52.0', // There an issue with 0.53.0
         'ngx-mapbox-gl': '*',
         '@angular/cdk': '*',
         '@angular/material': '*',

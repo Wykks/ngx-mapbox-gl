@@ -465,10 +465,10 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
   integrity sha512-ONhaKPIufzzrlNbqtWFFd+jlnemX6lJAgq9ZeiZtS7I1PIf/la7CW4m83rTXRnVnsMbW2k56pGYu7AUFJD9Pow==
 
-"@stackblitz/sdk@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@stackblitz/sdk/-/sdk-1.2.0.tgz#6cac22d7de9f9f92f048f5bb83a7dd8276df2204"
-  integrity sha512-akrcKu7i1xw/VgdaZsREWoNTAm9F3d3hi0Yi44n2Zjq1RAal990W8WaX0NVc9qUkZr/++Lps/w+o2HQwExPMzw==
+"@stackblitz/sdk@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@stackblitz/sdk/-/sdk-1.3.0.tgz#519ab810df811a5b9fe60c3e69112d6fa713ec1d"
+  integrity sha512-dTqbGKHLowJokC+mbjHMH/9mEd0AJCxOXmsfuKGEWOjnVTnxHjJKXL+bL/vxBSjMwBaUFPUNGmHojPPd2OxADQ==
 
 "@turf/bbox@^6.0.1":
   version "6.0.1"

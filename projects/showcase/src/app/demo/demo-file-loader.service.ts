@@ -38,7 +38,7 @@ export class DemoFileLoaderService {
     let match;
     const files = [];
     const result = {
-      'demo.ts': fileContent
+      'src/demo.ts': fileContent
     };
     while (match = r.exec(fileContent)) {
       files.push(this.loadFile(match[1]));
@@ -65,7 +65,7 @@ export class DemoFileLoaderService {
       responseType: 'text'
     }).pipe(
       map((fileContent) => ({
-        [fileName]: fileContent
+        [`src/${fileName}`]: fileContent
       })),
       shareReplay(1)
     );
