@@ -36,6 +36,7 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
   @Input() feature?: GeoJSON.Feature<GeoJSON.Point>;
   @Input() lngLat?: LngLatLike;
   @Input() draggable?: boolean;
+  @Input() popupShown?: boolean;
 
   @Output() dragStart = new EventEmitter<Marker>();
   @Output() drag = new EventEmitter<Marker>();
@@ -64,6 +65,9 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
     }
     if (changes.draggable && !changes.draggable.isFirstChange()) {
       this.markerInstance!.setDraggable(!!this.draggable);
+    }
+    if (changes.popupShown && !changes.popupShown.isFirstChange()) {
+      changes.popupShown.currentValue ? this.markerInstance!.getPopup().addTo(this.MapService.mapInstance) : this.markerInstance!.getPopup().remove();
     }
   }
 
