@@ -67,7 +67,9 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
       this.markerInstance!.setDraggable(!!this.draggable);
     }
     if (changes.popupShown && !changes.popupShown.isFirstChange()) {
-      changes.popupShown.currentValue ? this.markerInstance!.getPopup().addTo(this.MapService.mapInstance) : this.markerInstance!.getPopup().remove();
+      changes.popupShown.currentValue
+        ? this.markerInstance!.getPopup().addTo(this.MapService.mapInstance)
+        : this.markerInstance!.getPopup().remove();
     }
   }
 
