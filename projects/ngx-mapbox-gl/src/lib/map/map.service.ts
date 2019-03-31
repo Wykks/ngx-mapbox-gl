@@ -688,7 +688,7 @@ export class MapService {
       this.mapInstance.on('render', () => this.zone.run(() => events.render.emit()));
     }
     if (events.error.observers.length) {
-      this.mapInstance.on('error', () => this.zone.run(() => events.error.emit()));
+      this.mapInstance.on('error', (evt: MapboxGl.ErrorEvent) => this.zone.run(() => events.error.emit(evt)));
     }
     if (events.data.observers.length) {
       this.mapInstance.on('data', (evt: MapboxGl.EventData) => this.zone.run(() => events.data.emit(evt)));

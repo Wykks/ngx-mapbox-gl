@@ -1,6 +1,6 @@
 // Can't use MapEvent interface from @types/mapbox because some event name are changed (eg zoomChange)
 import { EventEmitter } from '@angular/core';
-import { MapMouseEvent, MapTouchEvent, EventData, MapBoxZoomEvent, Map } from 'mapbox-gl';
+import { MapMouseEvent, MapTouchEvent, EventData, MapBoxZoomEvent, Map, ErrorEvent } from 'mapbox-gl';
 import { Results, Result } from '../control/geocoder-control.directive';
 
 export interface MapEvent {
@@ -43,7 +43,7 @@ export interface MapEvent {
   webGlContextRestored: EventEmitter<void>;
   load: EventEmitter<Map>;
   render: EventEmitter<void>;
-  error: EventEmitter<any>; // TODO Check type
+  error: EventEmitter<ErrorEvent>; // TODO Check type
   data: EventEmitter<EventData>;
   styleData: EventEmitter<EventData>;
   sourceData: EventEmitter<EventData>;
