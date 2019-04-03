@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import { fromEvent, merge, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-import supercluster, { Cluster, Options as SuperclusterOptions, Supercluster } from 'supercluster';
+import Supercluster, { ClusterFeature, Options } from 'supercluster';
 import { MapService } from '../map/map.service';
 
 @Directive({ selector: 'ng-template[mglPoint]' })
@@ -63,20 +63,19 @@ export class MarkerClusterComponent implements OnChanges, OnDestroy, AfterConten
   @Input() nodeSize?: number;
   @Input() log?: boolean;
   @Input() reduce?: (accumulated: any, props: any) => void;
-  @Input() initial?: () => any;
   @Input() map?: (props: any) => any;
 
   /* Dynamic input */
   @Input() data: GeoJSON.FeatureCollection<GeoJSON.Point>;
 
-  @Output() load = new EventEmitter<Supercluster>();
+  @Output() load = new EventEmitter<Supercluster<GeoJSON.GeoJsonProperties, GeoJSON.GeoJsonProperties>>();
 
   @ContentChild(PointDirective, { read: TemplateRef }) pointTpl: TemplateRef<any>;
   @ContentChild(ClusterPointDirective, { read: TemplateRef }) clusterPointTpl: TemplateRef<any>;
 
   clusterPoints: GeoJSON.Feature<GeoJSON.Point>[];
 
-  private supercluster: Supercluster;
+  private supercluster: Supercluster<GeoJSON.GeoJsonProperties, GeoJSON.GeoJsonProperties>;
   private sub = new Subscription();
 
   constructor(
@@ -86,7 +85,7 @@ export class MarkerClusterComponent implements OnChanges, OnDestroy, AfterConten
   ) { }
 
   ngOnInit() {
-    const options: SuperclusterOptions = {
+    const options: Options<GeoJSON.GeoJsonProperties, GeoJSON.GeoJsonProperties> = {
       radius: this.radius,
       maxZoom: this.maxZoom,
       minZoom: this.minZoom,
@@ -94,17 +93,16 @@ export class MarkerClusterComponent implements OnChanges, OnDestroy, AfterConten
       nodeSize: this.nodeSize,
       log: this.log,
       reduce: this.reduce,
-      initial: this.initial,
       map: this.map
     };
     Object.keys(options)
       .forEach((key: string) => {
-        const tkey = <keyof SuperclusterOptions>key;
+        const tkey = <keyof Options<GeoJSON.GeoJsonProperties, GeoJSON.GeoJsonProperties>>key;
         if (options[tkey] === undefined) {
           delete options[tkey];
         }
       });
-    this.supercluster = supercluster(options);
+    this.supercluster = new Supercluster<GeoJSON.GeoJsonProperties, GeoJSON.GeoJsonProperties>(options);
     this.supercluster.load(this.data.features);
     this.load.emit(this.supercluster);
   }
@@ -137,15 +135,15 @@ export class MarkerClusterComponent implements OnChanges, OnDestroy, AfterConten
     this.sub.unsubscribe();
   }
 
-  getLeavesFn = (feature: Cluster) => {
+  getLeavesFn = (feature: ClusterFeature<GeoJSON.GeoJsonProperties>) => {
     return (limit?: number, offset?: number) => (<any>this.supercluster.getLeaves)(feature.properties.cluster_id!, limit, offset);
   }
 
-  getChildrenFn = (feature: Cluster) => {
+  getChildrenFn = (feature: ClusterFeature<GeoJSON.GeoJsonProperties>) => {
     return () => (<any>this.supercluster.getChildren)(feature.properties.cluster_id!);
   }
 
-  getClusterExpansionZoomFn = (feature: Cluster) => {
+  getClusterExpansionZoomFn = (feature: ClusterFeature<GeoJSON.GeoJsonProperties>) => {
     return () => (<any>this.supercluster.getClusterExpansionZoom)(feature.properties.cluster_id!);
   }
 

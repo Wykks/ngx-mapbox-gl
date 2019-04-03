@@ -4,7 +4,6 @@ import { polygon } from '@turf/helpers';
 import * as MapboxGl from 'mapbox-gl';
 import { AsyncSubject, Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { BBox } from 'supercluster';
 import { MapEvent, MapImageData, MapImageOptions } from './map.types';
 
 export const MAPBOX_API_KEY = new InjectionToken('MapboxApiKey');
@@ -479,7 +478,7 @@ export class MapService {
     });
   }
 
-  getCurrentViewportBbox(): BBox {
+  getCurrentViewportBbox(): GeoJSON.BBox {
     const canvas = this.mapInstance.getCanvas();
     const w = parseInt(canvas.style.width!, 10);
     const h = parseInt(canvas.style.height!, 10);
