@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.1.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.0.1...v3.1.0) (2019-04-07)
+
+
+### Bug Fixes
+
+* **map:** exposing error event data to directive output. ([#127](https://github.com/Wykks/ngx-mapbox-gl/issues/127)) ([a611858](https://github.com/Wykks/ngx-mapbox-gl/commit/a611858))
+
+
+### Features
+
+* **map:** add bounds input (new as mapbox-gl 0.53.0) ([157b28f](https://github.com/Wykks/ngx-mapbox-gl/commit/157b28f))
+* update to mapbox-gl 0.53.1 and fix compilation errors ([#128](https://github.com/Wykks/ngx-mapbox-gl/issues/128)) ([ed6634c](https://github.com/Wykks/ngx-mapbox-gl/commit/ed6634c))
+* **marker:** Add popupShown Input binding to marker.component ([#113](https://github.com/Wykks/ngx-mapbox-gl/issues/113)) ([1b0fed8](https://github.com/Wykks/ngx-mapbox-gl/commit/1b0fed8))
+
+
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.0.0...v3.0.1) (2019-01-27)
 
