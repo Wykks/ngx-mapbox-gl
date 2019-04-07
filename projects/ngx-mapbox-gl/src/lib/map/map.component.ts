@@ -63,6 +63,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
   @Input() renderWorldCopies?: boolean;
   @Input() trackResize?: boolean;
   @Input() transformRequest?: Function;
+  @Input() bounds?: LngLatBoundsLike; // Use fitBounds for dynamic input
 
   /* Dynamic inputs */
   @Input() minZoom?: number;
@@ -80,12 +81,12 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
   @Input() zoom?: [number];
   @Input() bearing?: [number];
   @Input() pitch?: [number];
+  @Input() fitBoundsOptions?: FitBoundsOptions; // First value goes to options.fitBoundsOptions. Subsequents changes are passed to fitBounds
 
   /* Added by ngx-mapbox-gl */
   @Input() movingMethod: 'jumpTo' | 'easeTo' | 'flyTo' = 'flyTo';
   @Input() movingOptions?: MovingOptions;
-  @Input() fitBounds?: LngLatBoundsLike;
-  @Input() fitBoundsOptions?: FitBoundsOptions;
+  @Input() fitBounds?: LngLatBoundsLike; // => First value is a alias to bounds input (since mapbox 0.53.0). Subsequents changes are passed to fitBounds
   @Input() fitScreenCoordinates?: [PointLike, PointLike];
   @Input() centerWithPanTo?: boolean;
   @Input() panToOptions?: AnimationOptions;
@@ -184,7 +185,9 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
         renderWorldCopies: this.renderWorldCopies,
         maxTileCacheSize: this.maxTileCacheSize,
         localIdeographFontFamily: this.localIdeographFontFamily,
-        transformRequest: this.transformRequest
+        transformRequest: this.transformRequest,
+        bounds: this.bounds ? this.bounds : this.fitBounds,
+        fitBoundsOptions: this.fitBoundsOptions
       },
       mapEvents: this
     });
@@ -235,10 +238,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
     if (changes.maxBounds && !changes.maxBounds.isFirstChange()) {
       this.MapService.updateMaxBounds(changes.maxBounds.currentValue);
     }
-    if (changes.fitBounds && changes.fitBounds.currentValue) {
-      if ((this.center || this.zoom || this.pitch) && changes.fitBounds.isFirstChange()) {
-        console.warn('[ngx-mapbox-gl] center / zoom / pitch inputs are being overridden by fitBounds input');
-      }
+    if (changes.fitBounds && changes.fitBounds.currentValue && !changes.fitBounds.isFirstChange()) {
       this.MapService.fitBounds(changes.fitBounds.currentValue, this.fitBoundsOptions);
     }
     if (changes.fitScreenCoordinates && changes.fitScreenCoordinates.currentValue) {
