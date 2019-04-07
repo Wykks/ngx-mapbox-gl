@@ -35,7 +35,7 @@ Include the following components:
 ## How to start
 
 ```
-npm install ngx-mapbox-gl mapbox-gl@0.52.0 --save
+npm install ngx-mapbox-gl mapbox-gl@0.53.1 --save
 ```
 If using typescript add mapbox-gl types 
 ```
