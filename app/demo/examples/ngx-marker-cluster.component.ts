@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material';
-import { Cluster } from 'supercluster';
+import { ClusterFeature } from 'supercluster';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -99,7 +99,7 @@ export class NgxMarkerClusterComponent implements OnInit {
     this.earthquakes = await import('./earthquakes.geo.json');
   }
 
-  selectCluster(event: MouseEvent, feature: Cluster) {
+  selectCluster(event: MouseEvent, feature: ClusterFeature<GeoJSON.GeoJsonProperties>) {
     event.stopPropagation(); // This is needed, otherwise the popup will close immediately
     // Change the ref, to trigger mgl-popup onChanges (when the user click on the same cluster)
     this.selectedCluster = { ...feature };
