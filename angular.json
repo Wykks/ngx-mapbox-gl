@@ -68,7 +68,8 @@
               "projects/showcase/src/styles.css"
             ],
             "scripts": [],
-            "showCircularDependencies": false
+            "showCircularDependencies": false,
+            "es5BrowserSupport": true
           },
           "configurations": {
             "production": {
