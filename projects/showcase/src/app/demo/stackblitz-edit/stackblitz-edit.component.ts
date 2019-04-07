@@ -162,7 +162,7 @@ import 'zone.js/dist/zone';
         hideExplorer: true,
         hideNavigation: true,
         forceEmbedLayout: true,
-        openFile: 'demo.ts'
+        openFile: 'src/demo.ts'
       });
     });
   }
