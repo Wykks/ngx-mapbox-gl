@@ -107,8 +107,10 @@ export class MapService {
   }
 
   destroyMap() {
-    this.subscription.unsubscribe();
-    this.mapInstance.remove();
+    if(this.mapInstance) {
+      this.subscription.unsubscribe();
+      this.mapInstance.remove();
+    }
   }
 
   updateMinZoom(minZoom: number) {
