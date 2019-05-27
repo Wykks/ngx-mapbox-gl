@@ -44,20 +44,24 @@ npm install @types/mapbox-gl@0.51.4 --save-dev
 
 Load the css of mapbox-gl (and mapbox-gl-geocoder if mglGeocoder is used)
 
-For example, with angular-cli add this in .angular-cli.json
+For example, with angular-cli add this in angular.json
 ```json
 "styles": [
         ...
-        "../node_modules/mapbox-gl/dist/mapbox-gl.css",
-        "../node_modules/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css"
+        "./node_modules/mapbox-gl/dist/mapbox-gl.css",
+        "./node_modules/@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css"
       ],
 ```
-Or in global css 
+Or in global css (called styles.css for example in angular-cli)
 ```css
 @import "~mapbox-gl/dist/mapbox-gl.css";
 @import "~@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css";
 ```
 
+Add this in your polyfill.ts file (https://github.com/Wykks/ngx-mapbox-gl/issues/136#issuecomment-496224634):
+```
+(window as any).global = window;
+```
 
 Then, in your app's main module (or in any other module), import the NgxMapboxGLModule
 ```typescript
