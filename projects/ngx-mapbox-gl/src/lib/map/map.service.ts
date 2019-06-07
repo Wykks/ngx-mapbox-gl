@@ -107,7 +107,7 @@ export class MapService {
   }
 
   destroyMap() {
-    if(this.mapInstance) {
+    if (this.mapInstance) {
       this.subscription.unsubscribe();
       this.mapInstance.remove();
     }
