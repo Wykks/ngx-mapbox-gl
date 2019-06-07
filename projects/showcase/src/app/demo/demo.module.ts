@@ -13,10 +13,12 @@ import { AddImageGeneratedComponent } from './examples/add-image-generated.compo
 import { AddImageComponent } from './examples/add-image.component';
 import { AttributionPositionComponent } from './examples/attribution-position.component';
 import { CenterOnSymbolComponent } from './examples/center-on-symbol.component';
+import { ClusterHtmlComponent, ClusterPointComponent } from './examples/cluster-html.component';
 import { ClusterComponent } from './examples/cluster.component';
 import { CustomMarkerIconsComponent } from './examples/custom-marker-icons.component';
 import { CustomStyleIdComponent } from './examples/custom-style-id.component';
 import { DisplayMapComponent } from './examples/display-map.component';
+import { DragAMarkerComponent } from './examples/drag-a-marker.component';
 import { FullscreenComponent } from './examples/fullscreen.component';
 import { GeoJSONLineComponent } from './examples/geojson-line.component';
 import { HeatMapComponent } from './examples/heatmap.component';
@@ -27,13 +29,13 @@ import { LiveUpdateFeatureComponent } from './examples/live-update-feature.compo
 import { LocateUserComponent } from './examples/locate-user.component';
 import { MapboxGlGeocoderComponent } from './examples/mapbox-gl-geocoder.component';
 import { NavigationComponent } from './examples/navigation.component';
+import { ClusterPopupComponent, NgxClusterHtmlComponent } from './examples/ngx-cluster-html.component';
 import { NgxCustomControlComponent } from './examples/ngx-custom-control.component';
 import { NgxCustomMarkerIconsComponent } from './examples/ngx-custom-marker-icons.component';
-import { DragAMarkerComponent } from './examples/drag-a-marker.component';
 import { NgxDragAPointComponent } from './examples/ngx-drag-a-point.component';
 import { NgxGeoJSONLineComponent } from './examples/ngx-geojson-line.component';
-import { ClusterPopupComponent, NgxMarkerClusterComponent } from './examples/ngx-marker-cluster.component';
 import { NgxScaleControlComponent } from './examples/ngx-scale-control.component';
+import { PolygonPopupOnClickComponent } from './examples/polygon-popup-on-click.component';
 import { PopupOnClickComponent } from './examples/popup-on-click.component';
 import { PopupComponent } from './examples/popup.component';
 import { SatelliteMapComponent } from './examples/satellite-map.component';
@@ -43,7 +45,6 @@ import { ToggleLayersComponent } from './examples/toggle-layers.component';
 import { ZoomtoLinestringComponent } from './examples/zoomto-linestring.component';
 import { StackblitzEditGuard } from './stackblitz-edit/stackblitz-edit-guard.service';
 import { StackblitzEditComponent } from './stackblitz-edit/stackblitz-edit.component';
-import { PolygonPopupOnClickComponent } from './examples/polygon-popup-on-click.component';
 
 export enum Category {
   STYLES = 'Styles',
@@ -92,7 +93,8 @@ export const DEMO_ROUTES: Routes = [
       { path: 'hover-styles', component: HoverStylesComponent, data: { label: 'Create a hover effect', cat: Category.USER_INTERACTION } },
       { path: 'popup-on-click', component: PopupOnClickComponent, data: { label: 'Display a popup on click', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'zoomto-linestring', component: ZoomtoLinestringComponent, data: { label: 'Fit to the bounds of a LineString', cat: Category.USER_INTERACTION } },
-      { path: 'ngx-marker-cluster', component: NgxMarkerClusterComponent, data: { label: '[NGX] Create a clusters of html markers', cat: Category.CONTROLS_AND_OVERLAYS } },
+      { path: 'cluster-html', component: ClusterHtmlComponent, data: { label: 'Display HTML clusters with custom properties', cat: Category.LAYERS } },
+      { path: 'ngx-cluster-html', component: NgxClusterHtmlComponent, data: { label: '[NGX] Display HTML clusters with custom properties', cat: Category.LAYERS } },
       { path: 'mapbox-gl-geocoder', component: MapboxGlGeocoderComponent, data: { label: 'Add a geocoder', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'polygon-popup-on-click', component: PolygonPopupOnClickComponent, data: { label: 'Show polygon information on click', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: '**', redirectTo: 'display-map' }
@@ -146,10 +148,12 @@ export const DEMO_ROUTES: Routes = [
     HoverStylesComponent,
     PopupOnClickComponent,
     ZoomtoLinestringComponent,
-    NgxMarkerClusterComponent,
-    ClusterPopupComponent,
+    ClusterHtmlComponent,
+    ClusterPointComponent,
     Display3dBuildingsComponent,
-    PolygonPopupOnClickComponent
+    PolygonPopupOnClickComponent,
+    NgxClusterHtmlComponent,
+    ClusterPopupComponent
   ]
 })
 export class DemoModule { }
