@@ -21,7 +21,7 @@ export class FeatureComponent implements OnInit, OnDestroy, GeoJSON.Feature<GeoJ
 
   ngOnInit() {
     if (!this.id) {
-      this.id = this.GeoJSONSourceComponent.getNewFeatureId();
+      this.id = this.GeoJSONSourceComponent._getNewFeatureId();
     }
     this.feature = {
       type: this.type,
@@ -29,11 +29,11 @@ export class FeatureComponent implements OnInit, OnDestroy, GeoJSON.Feature<GeoJ
       properties: this.properties ? this.properties : {}
     };
     this.feature.id = this.id;
-    this.GeoJSONSourceComponent.addFeature(this.feature);
+    this.GeoJSONSourceComponent._addFeature(this.feature);
   }
 
   ngOnDestroy() {
-    this.GeoJSONSourceComponent.removeFeature(this.feature);
+    this.GeoJSONSourceComponent._removeFeature(this.feature);
   }
 
   updateCoordinates(coordinates: number[]) {

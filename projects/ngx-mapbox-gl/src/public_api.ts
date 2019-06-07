@@ -11,5 +11,8 @@ export * from './lib/control/control.component';
 export * from './lib/map/map.service';
 export * from './lib/map/map.component';
 
+// Expose GeoJSONSourceComponent to access cluster functions
+export * from './lib/source/geojson/geojson-source.component';
+
 export * from './lib/map/map.types';
 export * from './lib/marker-cluster/marker-cluster.types';
