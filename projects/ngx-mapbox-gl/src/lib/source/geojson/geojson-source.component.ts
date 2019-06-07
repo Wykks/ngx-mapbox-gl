@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, NgZone } from '@angular/core';
 import { GeoJSONSource, GeoJSONSourceOptions } from 'mapbox-gl';
 import { fromEvent, Subject, Subscription } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
@@ -22,6 +22,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
   @Input() cluster?: boolean;
   @Input() clusterRadius?: number;
   @Input() clusterMaxZoom?: number;
+  @Input() clusterProperties?: any;
 
   updateFeatureData = new Subject();
 
@@ -30,7 +31,8 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
   private featureIdCounter = 0;
 
   constructor(
-    private MapService: MapService
+    private MapService: MapService,
+    private zone: NgZone
   ) { }
 
   ngOnInit() {
@@ -62,7 +64,8 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
       changes.tolerance && !changes.tolerance.isFirstChange() ||
       changes.cluster && !changes.cluster.isFirstChange() ||
       changes.clusterRadius && !changes.clusterRadius.isFirstChange() ||
-      changes.clusterMaxZoom && !changes.clusterMaxZoom.isFirstChange()
+      changes.clusterMaxZoom && !changes.clusterMaxZoom.isFirstChange() ||
+      changes.clusterProperties && !changes.clusterProperties.isFirstChange()
     ) {
       this.ngOnDestroy();
       this.ngOnInit();
@@ -80,13 +83,72 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
     }
   }
 
-  addFeature(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
+  /**
+   * For clustered sources, fetches the zoom at which the given cluster expands.
+   * @param clusterId The value of the cluster's cluster_id property.
+   */
+  async getClusterExpansionZoom(clusterId: number) {
+    const source = this.MapService.getSource<GeoJSONSource>(this.id);
+    return this.zone.run(async () => {
+      return new Promise<number>((resolve, reject) => {
+        source.getClusterExpansionZoom(clusterId, (error, zoom) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(zoom);
+          }
+        });
+      });
+    });
+  }
+
+  /**
+   * For clustered sources, fetches the children of the given cluster on the next zoom level (as an array of GeoJSON features).
+   * @param clusterId The value of the cluster's cluster_id property.
+   */
+  async getClusterChildren(clusterId: number) {
+    const source = this.MapService.getSource<GeoJSONSource>(this.id);
+    return this.zone.run(async () => {
+      return new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>((resolve, reject) => {
+        source.getClusterChildren(clusterId, (error, features) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(features);
+          }
+        });
+      });
+    });
+  }
+
+  /**
+   * For clustered sources, fetches the original points that belong to the cluster (as an array of GeoJSON features).
+   * @param clusterId The value of the cluster's cluster_id property.
+   * @param limit The maximum number of features to return.
+   * @param offset The number of features to skip (e.g. for pagination).
+   */
+  async getClusterLeaves(clusterId: number, limit: number, offset: number) {
+    const source = this.MapService.getSource<GeoJSONSource>(this.id);
+    return this.zone.run(async () => {
+      return new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>((resolve, reject) => {
+        source.getClusterLeaves(clusterId, limit, offset, (error, features) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(features);
+          }
+        });
+      });
+    });
+  }
+
+  _addFeature(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
     const collection = <GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>this.data;
     collection.features.push(feature);
     this.updateFeatureData.next();
   }
 
-  removeFeature(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
+  _removeFeature(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
     const collection = <GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>this.data;
     const index = collection.features.indexOf(feature);
     if (index > -1) {
@@ -95,12 +157,12 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
     this.updateFeatureData.next();
   }
 
-  getNewFeatureId() {
+  _getNewFeatureId() {
     return ++this.featureIdCounter;
   }
 
   private init() {
-    this.MapService.addSource(this.id, {
+    this.MapService.addSource(this.id, <any>{ // clusterProperties missing in typings
       type: 'geojson',
       data: this.data,
       maxzoom: this.maxzoom,
@@ -110,6 +172,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
       cluster: this.cluster,
       clusterRadius: this.clusterRadius,
       clusterMaxZoom: this.clusterMaxZoom,
+      clusterProperties: this.clusterProperties
     });
     const sub = this.updateFeatureData.pipe(debounceTime(0)).subscribe(() => {
       const source = this.MapService.getSource<GeoJSONSource>(this.id);
