@@ -86,7 +86,8 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
   /* Added by ngx-mapbox-gl */
   @Input() movingMethod: 'jumpTo' | 'easeTo' | 'flyTo' = 'flyTo';
   @Input() movingOptions?: MovingOptions;
-  @Input() fitBounds?: LngLatBoundsLike; // => First value is a alias to bounds input (since mapbox 0.53.0). Subsequents changes are passed to fitBounds
+  // => First value is a alias to bounds input (since mapbox 0.53.0). Subsequents changes are passed to fitBounds
+  @Input() fitBounds?: LngLatBoundsLike;
   @Input() fitScreenCoordinates?: [PointLike, PointLike];
   @Input() centerWithPanTo?: boolean;
   @Input() panToOptions?: AnimationOptions;

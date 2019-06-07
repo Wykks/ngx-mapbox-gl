@@ -4,7 +4,6 @@ import {
   ChangeDetectorRef,
   Component,
   ContentChild,
-  Directive,
   EventEmitter,
   Input,
   NgZone,
@@ -19,12 +18,7 @@ import { fromEvent, merge, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import Supercluster, { ClusterFeature, Options } from 'supercluster';
 import { MapService } from '../map/map.service';
-
-@Directive({ selector: 'ng-template[mglPoint]' })
-export class PointDirective { }
-
-@Directive({ selector: 'ng-template[mglClusterPoint]' })
-export class ClusterPointDirective { }
+import { ClusterPointDirective, PointDirective } from '../markers-for-clusters/markers-for-clusters.component';
 
 @Component({
   selector: 'mgl-marker-cluster',
@@ -85,6 +79,7 @@ export class MarkerClusterComponent implements OnChanges, OnDestroy, AfterConten
   ) { }
 
   ngOnInit() {
+    console.warn('[ngx-mapbox-gl] mgl-marker-cluster is deprecated, use mgl-markers-for-clusters instead');
     const options: Options<GeoJSON.GeoJsonProperties, GeoJSON.GeoJsonProperties> = {
       radius: this.radius,
       maxZoom: this.maxZoom,

@@ -12,8 +12,9 @@ import { ImageComponent } from './image/image.component';
 import { LayerComponent } from './layer/layer.component';
 import { MapComponent } from './map/map.component';
 import { MAPBOX_API_KEY } from './map/map.service';
-import { ClusterPointDirective, MarkerClusterComponent, PointDirective } from './marker-cluster/marker-cluster.component';
+import { MarkerClusterComponent } from './marker-cluster/marker-cluster.component';
 import { MarkerComponent } from './marker/marker.component';
+import { ClusterPointDirective, PointDirective, MarkersForClustersComponent } from './markers-for-clusters/markers-for-clusters.component';
 import { PopupComponent } from './popup/popup.component';
 import { CanvasSourceComponent } from './source/canvas-source.component';
 import { FeatureComponent } from './source/geojson/feature.component';
@@ -50,7 +51,8 @@ import { VideoSourceComponent } from './source/video-source.component';
     ScaleControlDirective,
     PointDirective,
     ClusterPointDirective,
-    MarkerClusterComponent
+    MarkerClusterComponent,
+    MarkersForClustersComponent
   ],
   exports: [
     MapComponent,
@@ -75,7 +77,8 @@ import { VideoSourceComponent } from './source/video-source.component';
     ScaleControlDirective,
     PointDirective,
     ClusterPointDirective,
-    MarkerClusterComponent
+    MarkerClusterComponent,
+    MarkersForClustersComponent
   ]
 })
 export class NgxMapboxGLModule {
