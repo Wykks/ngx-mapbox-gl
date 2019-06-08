@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.2.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.1.0...v3.2.0) (2019-06-08)
+
+
+### Features
+
+* expose MAPBOX_GEOCODER_API_KEY (close [#152](https://github.com/Wykks/ngx-mapbox-gl/issues/152)) ([67be0b4](https://github.com/Wykks/ngx-mapbox-gl/commit/67be0b4))
+* **markers-for-cluster:** new component markers-for-cluster ([a5b97f6](https://github.com/Wykks/ngx-mapbox-gl/commit/a5b97f6))
+
+
+
 # [3.1.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.0.1...v3.1.0) (2019-04-07)
 
 
