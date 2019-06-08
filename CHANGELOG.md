@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * expose MAPBOX_GEOCODER_API_KEY (close [#152](https://github.com/Wykks/ngx-mapbox-gl/issues/152)) ([67be0b4](https://github.com/Wykks/ngx-mapbox-gl/commit/67be0b4))
 * **markers-for-cluster:** new component markers-for-cluster ([a5b97f6](https://github.com/Wykks/ngx-mapbox-gl/commit/a5b97f6))
+* **geojson-source**: expose getClusterExpansionZoom getClusterChildren getClusterLeaves functions  ([40bf0852](https://github.com/Wykks/ngx-mapbox-gl/commit/40bf0852))
 
 Deprecate mgl-marker-cluster
 
