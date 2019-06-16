@@ -35,9 +35,11 @@ describe('Generic runtime error check', () => {
     'ngx-drag-a-point',
     'hover-styles',
     'popup-on-click',
-    'ngx-marker-cluster',
+    'cluster-html',
+    'ngx-cluster-html',
     '3d-buildings',
-    'polygon-popup-on-click'
+    'polygon-popup-on-click',
+    'add-image-missing-generated'
   ].forEach((route: string) => {
     it(`should display a map without errors for /${route}`, async () => {
       await browser.get(`/demo/${route}`);

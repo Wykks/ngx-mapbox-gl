@@ -10,6 +10,7 @@ import { DemoEffects } from './demo.effects';
 import * as fromDemo from './demo.reducer';
 import { Display3dBuildingsComponent } from './examples/3d-buildings.component';
 import { AddImageGeneratedComponent } from './examples/add-image-generated.component';
+import { AddImageMissingGeneratedComponent } from './examples/add-image-missing-generated.component';
 import { AddImageComponent } from './examples/add-image.component';
 import { AttributionPositionComponent } from './examples/attribution-position.component';
 import { CenterOnSymbolComponent } from './examples/center-on-symbol.component';
@@ -97,6 +98,7 @@ export const DEMO_ROUTES: Routes = [
       { path: 'ngx-cluster-html', component: NgxClusterHtmlComponent, data: { label: '[NGX] Display HTML clusters with custom properties', cat: Category.LAYERS } },
       { path: 'mapbox-gl-geocoder', component: MapboxGlGeocoderComponent, data: { label: 'Add a geocoder', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'polygon-popup-on-click', component: PolygonPopupOnClickComponent, data: { label: 'Show polygon information on click', cat: Category.CONTROLS_AND_OVERLAYS } },
+      { path: 'add-image-missing-generated', component: AddImageMissingGeneratedComponent, data: { label: 'Generate and add a missing icon to the map', cat: Category.STYLES } },
       { path: '**', redirectTo: 'display-map' }
     ]
   }
@@ -153,7 +155,8 @@ export const DEMO_ROUTES: Routes = [
     Display3dBuildingsComponent,
     PolygonPopupOnClickComponent,
     NgxClusterHtmlComponent,
-    ClusterPopupComponent
+    ClusterPopupComponent,
+    AddImageMissingGeneratedComponent
   ]
 })
 export class DemoModule { }

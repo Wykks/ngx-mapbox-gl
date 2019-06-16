@@ -141,6 +141,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
   @Output() dataLoading = new EventEmitter<EventData>();
   @Output() styleDataLoading = new EventEmitter<EventData>();
   @Output() sourceDataLoading = new EventEmitter<EventData>();
+  @Output() styleImageMissing = new EventEmitter<{id: string}>();
 
   get mapInstance(): Map {
     return this.MapService.mapInstance;

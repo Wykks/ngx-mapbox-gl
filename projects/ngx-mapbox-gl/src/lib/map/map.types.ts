@@ -50,6 +50,7 @@ export interface MapEvent {
   dataLoading: EventEmitter<EventData>;
   styleDataLoading: EventEmitter<EventData>;
   sourceDataLoading: EventEmitter<EventData>;
+  styleImageMissing: EventEmitter<{id: string}>;
   idle: EventEmitter<void>;
 }
 
