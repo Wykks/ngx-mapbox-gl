@@ -66,7 +66,9 @@ export class AddImageMissingGeneratedComponent {
   generateImage({ id }: { id: string }) {
     // check if this missing icon is one this function can generate
     const prefix = 'square-rgb-';
-    if (id.indexOf(prefix) !== 0) return;
+    if (id.indexOf(prefix) !== 0) {
+      return;
+    }
 
     // extract the color from the id
     const rgb = id
