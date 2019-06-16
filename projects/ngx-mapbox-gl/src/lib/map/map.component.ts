@@ -64,6 +64,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
   @Input() trackResize?: boolean;
   @Input() transformRequest?: Function;
   @Input() bounds?: LngLatBoundsLike; // Use fitBounds for dynamic input
+  @Input() antialias?: boolean;
 
   /* Dynamic inputs */
   @Input() minZoom?: number;
@@ -188,7 +189,8 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
         localIdeographFontFamily: this.localIdeographFontFamily,
         transformRequest: this.transformRequest,
         bounds: this.bounds ? this.bounds : this.fitBounds,
-        fitBoundsOptions: this.fitBoundsOptions
+        fitBoundsOptions: this.fitBoundsOptions,
+        antialias: this.antialias
       },
       mapEvents: this
     });
