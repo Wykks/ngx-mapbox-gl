@@ -16,15 +16,17 @@ const geoJSONStyle: Style = {
     }
   },
   version: 8,
-  layers: <any>[{
-    'id': 'countries',
-    'type': 'fill',
-    'source': 'world',
-    'layout': {},
-    'paint': {
-      'fill-color': '#6F788A'
+  layers: <any>[
+    {
+      id: 'countries',
+      type: 'fill',
+      source: 'world',
+      layout: {},
+      paint: {
+        'fill-color': '#6F788A'
+      }
     }
-  }]
+  ]
 };
 
 describe('MapService', () => {
@@ -93,6 +95,7 @@ describe('MapService', () => {
       dataLoading: new EventEmitter<EventData>(),
       styleDataLoading: new EventEmitter<EventData>(),
       sourceDataLoading: new EventEmitter<EventData>(),
+      styleImageMissing: new EventEmitter<{ id: string }>(),
       idle: new EventEmitter<void>()
     };
   });
@@ -120,13 +123,14 @@ describe('MapService', () => {
     });
   });
 
-  it('should update minZoom', (done: DoneFn) => inject([MapService], (service: MapService) => {
-    mapEvents.load.pipe(first()).subscribe(() => {
-      service.updateMinZoom(6);
-      expect(service.mapInstance.getMinZoom()).toEqual(6);
-      done();
-    });
-  })());
+  it('should update minZoom', (done: DoneFn) =>
+    inject([MapService], (service: MapService) => {
+      mapEvents.load.pipe(first()).subscribe(() => {
+        service.updateMinZoom(6);
+        expect(service.mapInstance.getMinZoom()).toEqual(6);
+        done();
+      });
+    })());
 
   // xit('should update zoom', (done: DoneFn) => inject([MapService], (service: MapService) => {
   //   mapEvents.mapEvents.load.first().subscribe(() => {
