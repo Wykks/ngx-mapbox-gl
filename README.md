@@ -35,11 +35,11 @@ Include the following components:
 ## How to start
 
 ```
-npm install ngx-mapbox-gl mapbox-gl@0.53.1 --save
+npm install ngx-mapbox-gl mapbox-gl@0.54.0 --save
 ```
 If using typescript add mapbox-gl types 
 ```
-npm install @types/mapbox-gl@0.51.4 --save-dev
+npm install @types/mapbox-gl@0.51.7 --save-dev
 ```
 
 Load the css of mapbox-gl (and mapbox-gl-geocoder if mglGeocoder is used)
