@@ -9,6 +9,7 @@ import { ControlComponent } from './control.component';
 export class AttributionControlDirective implements OnInit {
   /* Init inputs */
   @Input() compact?: boolean;
+  @Input() customAttribution?: string | string[];
 
   constructor(
     private MapService: MapService,
@@ -20,9 +21,12 @@ export class AttributionControlDirective implements OnInit {
       if (this.ControlComponent.control) {
         throw new Error('Another control is already set for this control');
       }
-      const options: { compact?: boolean } = {};
+      const options: { compact?: boolean, customAttribution?: string | string[] } = {};
       if (this.compact !== undefined) {
         options.compact = this.compact;
+      }
+      if (this.customAttribution !== undefined) {
+        options.customAttribution = this.customAttribution;
       }
       this.ControlComponent.control = new AttributionControl(options);
       this.MapService.addControl(this.ControlComponent.control, this.ControlComponent.position);
