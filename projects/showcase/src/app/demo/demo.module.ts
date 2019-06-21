@@ -1,3 +1,4 @@
+import { CustomAttributionComponent } from './examples/custom-attribution.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
@@ -99,6 +100,7 @@ export const DEMO_ROUTES: Routes = [
       { path: 'mapbox-gl-geocoder', component: MapboxGlGeocoderComponent, data: { label: 'Add a geocoder', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'polygon-popup-on-click', component: PolygonPopupOnClickComponent, data: { label: 'Show polygon information on click', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'add-image-missing-generated', component: AddImageMissingGeneratedComponent, data: { label: 'Generate and add a missing icon to the map', cat: Category.STYLES } },
+      { path: 'custom-attribution', component: CustomAttributionComponent, data: { label: 'Add custom attributions', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: '**', redirectTo: 'display-map' }
     ]
   }
@@ -156,7 +158,8 @@ export const DEMO_ROUTES: Routes = [
     PolygonPopupOnClickComponent,
     NgxClusterHtmlComponent,
     ClusterPopupComponent,
-    AddImageMissingGeneratedComponent
+    AddImageMissingGeneratedComponent,
+    CustomAttributionComponent
   ]
 })
 export class DemoModule { }
