@@ -56,7 +56,7 @@ export interface SetupMarker {
 export type AllSource = MapboxGl.VectorSource |
   MapboxGl.RasterSource |
   MapboxGl.GeoJSONSource |
-  MapboxGl.ImageSourceOptions |
+  MapboxGl.ImageSource |
   MapboxGl.VideoSourceOptions |
   MapboxGl.GeoJSONSourceRaw |
   MapboxGl.CanvasSourceOptions;

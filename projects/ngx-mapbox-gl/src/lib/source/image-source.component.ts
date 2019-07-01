@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { ImageSourceOptions } from 'mapbox-gl';
-import { fromEvent, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { ImageSourceOptions, ImageSource } from 'mapbox-gl';
+import { Subscription } from 'rxjs';
 import { MapService } from '../map/map.service';
 
 @Component({
@@ -17,42 +16,38 @@ export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, Image
   @Input() url: string;
   @Input() coordinates: number[][];
 
-  private sourceAdded = false;
-  private sub = new Subscription();
+  private sub: Subscription;
+  private sourceId?: string;
 
   constructor(
     private MapService: MapService
   ) { }
 
   ngOnInit() {
-    this.MapService.mapLoaded$.subscribe(() => {
-      this.init();
-      const sub = fromEvent(<any>this.MapService.mapInstance, 'styledata').pipe(
-        filter(() => !this.MapService.mapInstance.getSource(this.id))
-      ).subscribe(() => {
-        this.init();
-      });
-      this.sub.add(sub);
-    });
+    this.sub = this.MapService.mapLoaded$
+      .subscribe(() => this.init());
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (!this.sourceAdded) {
+    if (this.sourceId === undefined) {
       return;
     }
-    if (
-      changes.url && !changes.url.isFirstChange() ||
-      changes.coordinates && !changes.coordinates.isFirstChange()
-    ) {
-      this.ngOnDestroy();
-      this.ngOnInit();
-    }
+
+    const source = this.MapService.getSource<ImageSource>(this.sourceId);
+    // TODO: we need this cast until mapbox typings are fixed (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/36589).
+    (source as any).updateImage({
+      url: changes.url === undefined ? undefined : this.url,
+      coordinates: changes.coordinates === undefined ? undefined : this.coordinates
+    });
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
-    if (this.sourceAdded) {
-      this.MapService.removeSource(this.id);
+    if (this.sub !== undefined) {
+      this.sub.unsubscribe();
+    }
+
+    if (this.sourceId !== undefined) {
+      this.MapService.removeSource(this.sourceId);
     }
   }
 
@@ -62,6 +57,6 @@ export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, Image
       url: this.url,
       coordinates: this.coordinates
     });
-    this.sourceAdded = true;
+    this.sourceId = this.id;
   }
 }
