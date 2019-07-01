@@ -27,6 +27,7 @@ import { HoverStylesComponent } from './examples/hover-styles.component';
 import { InteractiveFalseComponent } from './examples/interactive-false.component';
 import { LanguageSwitchComponent } from './examples/language-switch.component';
 import { LiveUpdateFeatureComponent } from './examples/live-update-feature.component';
+import { LiveUpdateImageSourceComponent } from './examples/live-update-image-srource.component';
 import { LocateUserComponent } from './examples/locate-user.component';
 import { MapboxGlGeocoderComponent } from './examples/mapbox-gl-geocoder.component';
 import { NavigationComponent } from './examples/navigation.component';
@@ -78,6 +79,7 @@ export const DEMO_ROUTES: Routes = [
       { path: 'custom-marker-icons', component: CustomMarkerIconsComponent, data: { label: 'Add custom icons with Markers', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'ngx-custom-marker-icons', component: NgxCustomMarkerIconsComponent, data: { label: '[NGX] Add custom icons with Markers', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'live-update-feature', component: LiveUpdateFeatureComponent, data: { label: 'Update a feature in realtime', cat: Category.SOURCES } },
+      { path: 'live-update-image-source', component: LiveUpdateImageSourceComponent, data: { label: 'Update an image source in realtime', cat: Category.SOURCES } },
       { path: 'popup', component: PopupComponent, data: { label: 'Display a popup', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'set-popup', component: SetPopupComponent, data: { label: 'Attach a popup to a marker instance', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'fullscreen', component: FullscreenComponent, data: { label: 'View a fullscreen map', cat: Category.CONTROLS_AND_OVERLAYS } },
@@ -133,6 +135,7 @@ export const DEMO_ROUTES: Routes = [
     CustomMarkerIconsComponent,
     NgxCustomMarkerIconsComponent,
     LiveUpdateFeatureComponent,
+    LiveUpdateImageSourceComponent,
     PopupComponent,
     SetPopupComponent,
     FullscreenComponent,
