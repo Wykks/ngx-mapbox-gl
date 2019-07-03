@@ -12,7 +12,6 @@ import { ImageComponent } from './image/image.component';
 import { LayerComponent } from './layer/layer.component';
 import { MapComponent } from './map/map.component';
 import { MAPBOX_API_KEY } from './map/map.service';
-import { MarkerClusterComponent } from './marker-cluster/marker-cluster.component';
 import { MarkerComponent } from './marker/marker.component';
 import { ClusterPointDirective, PointDirective, MarkersForClustersComponent } from './markers-for-clusters/markers-for-clusters.component';
 import { PopupComponent } from './popup/popup.component';
@@ -51,7 +50,6 @@ import { VideoSourceComponent } from './source/video-source.component';
     ScaleControlDirective,
     PointDirective,
     ClusterPointDirective,
-    MarkerClusterComponent,
     MarkersForClustersComponent
   ],
   exports: [
@@ -77,7 +75,6 @@ import { VideoSourceComponent } from './source/video-source.component';
     ScaleControlDirective,
     PointDirective,
     ClusterPointDirective,
-    MarkerClusterComponent,
     MarkersForClustersComponent
   ]
 })

@@ -1,6 +1,4 @@
 import { EventEmitter, Inject, Injectable, InjectionToken, NgZone, Optional } from '@angular/core';
-import bbox from '@turf/bbox';
-import { polygon } from '@turf/helpers';
 import * as MapboxGl from 'mapbox-gl';
 import { AsyncSubject, Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -478,17 +476,6 @@ export class MapService {
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.fitScreenCoordinates(points[0], points[1], bearing, options);
     });
-  }
-
-  getCurrentViewportBbox(): GeoJSON.BBox {
-    const canvas = this.mapInstance.getCanvas();
-    const w = parseInt(canvas.style.width!, 10);
-    const h = parseInt(canvas.style.height!, 10);
-    const upLeft = this.mapInstance.unproject([0, 0]).toArray();
-    const upRight = this.mapInstance.unproject([w, 0]).toArray();
-    const downRight = this.mapInstance.unproject([w, h]).toArray();
-    const downLeft = this.mapInstance.unproject([0, h]).toArray();
-    return <any>bbox(polygon([[upLeft, upRight, downRight, downLeft, upLeft]]));
   }
 
   applyChanges() {

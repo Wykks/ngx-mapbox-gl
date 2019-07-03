@@ -26,9 +26,6 @@
     "rxjs": "^6.5.0"
   },
   "dependencies": {
-    "@mapbox/mapbox-gl-geocoder": "^3.0.1",
-    "@turf/bbox": "^6.0.1",
-    "@turf/helpers": "^6.1.4",
-    "supercluster": "^6.0.1"
+    "@mapbox/mapbox-gl-geocoder": "^3.0.1"
   }
 }
