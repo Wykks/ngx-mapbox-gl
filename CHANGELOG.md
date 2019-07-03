@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 # [3.3.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.2.0...v3.3.0) (2019-07-03)
 
+### Bug Fixes
+
+* **image:** Handle coordinate update correctly (close [#139](https://github.com/Wykks/ngx-mapbox-gl/issues/139))
 
 ### Features
 
@@ -11,7 +14,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **map:** support antialias option (close [#148](https://github.com/Wykks/ngx-mapbox-gl/issues/148)) ([b03d8f8](https://github.com/Wykks/ngx-mapbox-gl/commit/b03d8f8))
 * **map:** support styleimagemissing event ([056b61f](https://github.com/Wykks/ngx-mapbox-gl/commit/056b61f))
 * update mapbox-gl to 0.54.0 ([fcc0a58](https://github.com/Wykks/ngx-mapbox-gl/commit/fcc0a58))
-
 
 
 # [3.2.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.1.0...v3.2.0) (2019-06-08)
