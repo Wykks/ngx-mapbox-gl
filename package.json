@@ -40,7 +40,7 @@
     "@turf/random": "^6.0.2",
     "hammerjs": "^2.0.8",
     "lodash-es": "^4.17.11",
-    "mapbox-gl": "0.54.0",
+    "mapbox-gl": "1.1.0",
     "ngx-md": "^7.1.3",
     "rxjs": "^6.4.0",
     "scroll-into-view-if-needed": "^2.2.20",
