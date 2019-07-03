@@ -36,7 +36,7 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
   @Output() close = new EventEmitter<void>();
   @Output() open = new EventEmitter<void>();
 
-  @ViewChild('content') content: ElementRef;
+  @ViewChild('content', { static: true }) content: ElementRef;
 
   popupInstance?: Popup;
 

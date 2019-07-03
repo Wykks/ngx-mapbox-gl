@@ -37,7 +37,7 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
   @Output() drag = new EventEmitter<Marker>();
   @Output() dragEnd = new EventEmitter<Marker>();
 
-  @ViewChild('content') content: ElementRef;
+  @ViewChild('content', { static: true }) content: ElementRef;
 
   markerInstance?: Marker;
 

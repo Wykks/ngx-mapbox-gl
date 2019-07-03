@@ -56,8 +56,8 @@ export class MarkersForClustersComponent implements OnDestroy, AfterContentInit 
   /* Init input */
   @Input() source: string;
 
-  @ContentChild(PointDirective, { read: TemplateRef }) pointTpl?: TemplateRef<any>;
-  @ContentChild(ClusterPointDirective, { read: TemplateRef }) clusterPointTpl: TemplateRef<any>;
+  @ContentChild(PointDirective, { read: TemplateRef, static: false }) pointTpl?: TemplateRef<any>;
+  @ContentChild(ClusterPointDirective, { read: TemplateRef, static: false }) clusterPointTpl: TemplateRef<any>;
 
   clusterPoints: MapboxGeoJSONFeature[]; // Incorrect typings
   layerId = `mgl-markers-for-clusters-${uniqId++}`;

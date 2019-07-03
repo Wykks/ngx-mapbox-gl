@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { ImageSourceOptions, ImageSource } from 'mapbox-gl';
+import { ImageSource, ImageSourceOptions, ImageSourceRaw } from 'mapbox-gl';
 import { Subscription } from 'rxjs';
 import { MapService } from '../map/map.service';
 
@@ -52,11 +52,12 @@ export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, Image
   }
 
   private init() {
-    this.MapService.addSource(this.id, {
+    const imageSource: ImageSourceRaw = {
       type: 'image',
       url: this.url,
       coordinates: this.coordinates
-    });
+    };
+    this.MapService.addSource(this.id, imageSource);
     this.sourceId = this.id;
   }
 }

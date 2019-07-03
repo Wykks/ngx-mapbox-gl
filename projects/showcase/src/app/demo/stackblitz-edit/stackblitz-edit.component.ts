@@ -45,7 +45,7 @@ import { DemoFileLoaderService } from '../demo-file-loader.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('container') stackblitzContainer: ElementRef;
+  @ViewChild('container', { static: true }) stackblitzContainer: ElementRef;
 
   loading: boolean;
 

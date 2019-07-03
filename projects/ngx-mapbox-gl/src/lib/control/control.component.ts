@@ -38,7 +38,7 @@ export class ControlComponent implements OnDestroy, AfterContentInit {
   /* Init inputs */
   @Input() position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
-  @ViewChild('content') content: ElementRef;
+  @ViewChild('content', { static: true }) content: ElementRef;
 
   control: Control | IControl;
 

@@ -147,7 +147,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
     return this.MapService.mapInstance;
   }
 
-  @ViewChild('container') mapContainer: ElementRef;
+  @ViewChild('container', { static: true }) mapContainer: ElementRef;
 
   constructor(
     private MapService: MapService

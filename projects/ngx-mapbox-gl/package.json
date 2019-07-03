@@ -20,10 +20,10 @@
   },
   "homepage": "https://github.com/Wykks/ngx-mapbox-gl#readme",
   "peerDependencies": {
-    "@angular/common": ">= 7.2.0 < 9.0.0",
-    "@angular/core": ">= 7.2.0 < 9.0.0",
+    "@angular/common": ">= 8.0.0 < 10.0.0",
+    "@angular/core": ">= 8.0.0 < 10.0.0",
     "mapbox-gl": "1.1.0",
-    "rxjs": "^6.0.0"
+    "rxjs": "^6.5.0"
   },
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^3.0.1",

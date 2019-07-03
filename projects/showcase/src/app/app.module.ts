@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MatIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material/icon';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Params, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
@@ -54,7 +54,7 @@ export const showcaseRoutes: Routes = [
   },
   {
     path: 'doc',
-    loadChildren: './doc/doc.module#DocModule'
+    loadChildren: () => import('./doc/doc.module').then(m => m.DocModule)
   },
   { path: '**', redirectTo: '' }
 ];
