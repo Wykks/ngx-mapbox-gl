@@ -19,11 +19,6 @@ import { MapService } from '../map/map.service';
 @Component({
   selector: 'mgl-marker',
   template: '<div #content><ng-content></ng-content></div>',
-  styles: [`
-    .mapboxgl-marker {
-      line-height: 0;
-    }
-  `],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
