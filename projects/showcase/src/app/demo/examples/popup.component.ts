@@ -11,11 +11,12 @@ import { Component } from '@angular/core';
     <mgl-popup
       [lngLat]="[-96, 37.8]"
       [closeOnClick]="false"
+      [className]="'custom-popup-class1 custom-popup-class2'"
     >
       <h1>Hello world !</h1>
     </mgl-popup>
   </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css', './popup.component.css']
 })
 export class PopupComponent { }
