@@ -71,6 +71,11 @@ export const showcaseRoutes: Routes = [
     DemoModule,
     StoreModule.forRoot({
       router: <any>routerReducer
+    }, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
     }),
     RouterModule.forRoot(showcaseRoutes),
     EffectsModule.forRoot([]),
