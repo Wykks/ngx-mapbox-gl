@@ -16,6 +16,12 @@ describe('Popup', () => {
     await browser.get('/demo/popup');
     const canvas = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(canvas), 2000);
+
+    const popup = element(by.className('mapboxgl-popup'));
+    await browser.wait(EC.presenceOf(popup), 1000);
+    expect(popup).toHaveClass('custom-popup-class1');
+    expect(popup).toHaveClass('custom-popup-class2');
+
     const popupContent = element(by.className('mapboxgl-popup-content'));
     await browser.wait(EC.presenceOf(popupContent), 1000);
     expect(popupContent.element(by.tagName('div')).getText()).toBe('Hello world !');

@@ -27,6 +27,7 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
   @Input() closeOnClick?: boolean;
   @Input() anchor?: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left';
   @Input() offset?: number | PointLike | { [anchor: string]: [number, number] };
+  @Input() className?: string;
 
   /* Dynamic input */
   @Input() feature?: GeoJSON.Feature<GeoJSON.Point>;
@@ -94,7 +95,8 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
         closeButton: this.closeButton,
         closeOnClick: this.closeOnClick,
         anchor: this.anchor,
-        offset: this.offset
+        offset: this.offset,
+        className: this.className
       },
       popupEvents: {
         open: this.open,
