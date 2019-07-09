@@ -34,8 +34,7 @@ export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, Image
     }
 
     const source = this.MapService.getSource<ImageSource>(this.sourceId);
-    // TODO: we need this cast until mapbox typings are fixed (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/36589).
-    (source as any).updateImage({
+    source.updateImage({
       url: changes.url === undefined ? undefined : this.url,
       coordinates: changes.coordinates === undefined ? undefined : this.coordinates
     });
