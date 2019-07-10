@@ -20,12 +20,7 @@ export class FullscreenControlDirective implements OnInit {
       if (this.ControlComponent.control) {
         throw new Error('Another control is already set for this control');
       }
-      const options: { container?: HTMLElement } = {};
-      if (this.container !== undefined) {
-        options.container = this.container;
-      }
-      // @ts-ignore
-      this.ControlComponent.control = new FullscreenControl(options); // @types/mapbox-gl update needed
+      this.ControlComponent.control = new FullscreenControl({ container: this.container });
       this.MapService.addControl(this.ControlComponent.control, this.ControlComponent.position);
     });
   }
