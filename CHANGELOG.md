@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.3.0...v3.3.1) (2019-07-19)
+
+
+### Bug Fixes
+
+* **controls:** Fix control order when using custom controls alongside built-in controls (fix [#75](https://github.com/Wykks/ngx-mapbox-gl/issues/75)) ([3a83ed7](https://github.com/Wykks/ngx-mapbox-gl/commit/3a83ed7))
+
+
+
 # [3.3.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.2.0...v3.3.0) (2019-07-03)
 
 ### Bug Fixes
