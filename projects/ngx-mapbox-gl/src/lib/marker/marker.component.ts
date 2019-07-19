@@ -18,7 +18,7 @@ import { MapService } from '../map/map.service';
 
 @Component({
   selector: 'mgl-marker',
-  template: '<div #content><ng-content></ng-content></div>',
+  template: '<div [class]="className" #content><ng-content></ng-content></div>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -32,6 +32,7 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
   @Input() lngLat?: LngLatLike;
   @Input() draggable?: boolean;
   @Input() popupShown?: boolean;
+  @Input() className: string;
 
   @Output() dragStart = new EventEmitter<Marker>();
   @Output() drag = new EventEmitter<Marker>();
