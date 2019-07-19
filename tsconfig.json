@@ -29,6 +29,7 @@
     "strict": true,
     "skipLibCheck": true,
     "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "strictPropertyInitialization": false,
     "plugins": [
       {
