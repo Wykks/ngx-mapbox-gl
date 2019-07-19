@@ -62,29 +62,29 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
     private DemoFileLoaderService: DemoFileLoaderService,
     private ChangeDetectorRef: ChangeDetectorRef
   ) {
-    this.projectbase$ = forkJoin(
+    this.projectbase$ = forkJoin([
       this.http.get('assets/stackblitz/main.notts', {
         responseType: 'text'
       }),
       this.http.get('assets/stackblitz/angular.json', {
         responseType: 'text'
       })
-    ).pipe(shareReplay(1));
+    ]).pipe(shareReplay(1));
 
-    this.sub = combineLatest(
+    this.sub = combineLatest([
       this.store.pipe(select(fromShowcase.getCurrentRouterState)),
       this.store.pipe(select(fromShowcase.isDemoEditing))
-    ).pipe(
+    ]).pipe(
       filter(([, isDemoEditing]) => isDemoEditing),
       tap(() => {
         this.loading = true;
         this.ChangeDetectorRef.markForCheck();
       }),
       switchMap(([state]) =>
-        forkJoin(
+        forkJoin([
           this.projectbase$,
           this.DemoFileLoaderService.getDemoFiles(state.params.demoUrl)
-        )
+        ])
       ),
       switchMap(([projectbase, demoFiles]) =>
         from(this.openExample(projectbase, demoFiles))
