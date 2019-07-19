@@ -1,4 +1,4 @@
-import { Directive, Host, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentInit, Directive, Host, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ScaleControl } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import { ControlComponent } from './control.component';
@@ -6,7 +6,7 @@ import { ControlComponent } from './control.component';
 @Directive({
   selector: '[mglScale]'
 })
-export class ScaleControlDirective implements OnInit, OnChanges {
+export class ScaleControlDirective implements AfterContentInit, OnChanges {
   /* Init inputs */
   @Input() maxWidth?: number;
 
@@ -24,7 +24,7 @@ export class ScaleControlDirective implements OnInit, OnChanges {
     }
   }
 
-  ngOnInit() {
+  ngAfterContentInit() {
     this.MapService.mapCreated$.subscribe(() => {
       if (this.ControlComponent.control) {
         throw new Error('Another control is already set for this control');
