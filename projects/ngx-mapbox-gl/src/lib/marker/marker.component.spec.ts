@@ -10,6 +10,7 @@ import { MarkerComponent } from './marker.component';
     <mgl-marker
       [offset]="offset"
       [lngLat]="lngLat"
+      [className]="className"
     >
       ...
     </mgl-marker>
@@ -18,6 +19,7 @@ import { MarkerComponent } from './marker.component';
 class MarkerTestComponent implements OnDestroy {
   offset: PointLike;
   lngLat: [number, number];
+  className: string;
 
   ngOnDestroy() { }
 }
@@ -63,6 +65,14 @@ describe('MarkerComponent', () => {
     it('should remove marker on destroy', () => {
       fixture.destroy();
       expect(msSpy.removeMarker).toHaveBeenCalled();
+    });
+
+    it('should apply classes', () => {
+      component.className = 'my-class1 my-class2';
+      fixture.detectChanges();
+      const classes = (fixture.nativeElement as HTMLElement).querySelector('mgl-marker > div')!.classList;
+      expect(classes).toContain('my-class1');
+      expect(classes).toContain('my-class2');
     });
   });
 });
