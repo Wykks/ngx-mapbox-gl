@@ -1,4 +1,4 @@
-import { Directive, Host, Input, OnInit } from '@angular/core';
+import { AfterContentInit, Directive, Host, Input } from '@angular/core';
 import { AttributionControl } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import { ControlComponent } from './control.component';
@@ -6,7 +6,7 @@ import { ControlComponent } from './control.component';
 @Directive({
   selector: '[mglAttribution]'
 })
-export class AttributionControlDirective implements OnInit {
+export class AttributionControlDirective implements AfterContentInit {
   /* Init inputs */
   @Input() compact?: boolean;
   @Input() customAttribution?: string | string[];
@@ -16,7 +16,7 @@ export class AttributionControlDirective implements OnInit {
     @Host() private ControlComponent: ControlComponent
   ) { }
 
-  ngOnInit() {
+  ngAfterContentInit() {
     this.MapService.mapCreated$.subscribe(() => {
       if (this.ControlComponent.control) {
         throw new Error('Another control is already set for this control');

@@ -1,4 +1,4 @@
-import { Directive, OnInit, Host, Input } from '@angular/core';
+import { AfterContentInit, Directive, Host, Input } from '@angular/core';
 import { FullscreenControl } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import { ControlComponent } from './control.component';
@@ -6,7 +6,7 @@ import { ControlComponent } from './control.component';
 @Directive({
   selector: '[mglFullscreen]'
 })
-export class FullscreenControlDirective implements OnInit {
+export class FullscreenControlDirective implements AfterContentInit {
   /* Init inputs */
   @Input() container?: HTMLElement;
 
@@ -15,7 +15,7 @@ export class FullscreenControlDirective implements OnInit {
     @Host() private ControlComponent: ControlComponent
   ) { }
 
-  ngOnInit() {
+  ngAfterContentInit() {
     this.MapService.mapCreated$.subscribe(() => {
       if (this.ControlComponent.control) {
         throw new Error('Another control is already set for this control');

@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   Directive,
   EventEmitter,
   Host,
@@ -7,7 +8,6 @@ import {
   Input,
   NgZone,
   OnChanges,
-  OnInit,
   Optional,
   Output,
   SimpleChanges
@@ -45,7 +45,7 @@ export interface Result extends GeoJSON.Feature<GeoJSON.Point> {
 @Directive({
   selector: '[mglGeocoder]'
 })
-export class GeocoderControlDirective implements OnInit, OnChanges, GeocoderEvent {
+export class GeocoderControlDirective implements AfterContentInit, OnChanges, GeocoderEvent {
   /* Init inputs */
   @Input() country?: string;
   @Input() placeholder?: string;
@@ -81,7 +81,7 @@ export class GeocoderControlDirective implements OnInit, OnChanges, GeocoderEven
     @Optional() @Inject(MAPBOX_GEOCODER_API_KEY) private readonly MAPBOX_GEOCODER_API_KEY: string
   ) { }
 
-  ngOnInit() {
+  ngAfterContentInit() {
     this.MapService.mapCreated$.subscribe(() => {
       if (this.ControlComponent.control) {
         throw new Error('Another control is already set for this control');

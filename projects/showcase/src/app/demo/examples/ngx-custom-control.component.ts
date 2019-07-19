@@ -16,6 +16,13 @@ import { Component } from '@angular/core';
         Hello
       </button>
     </mgl-control>
+
+    <mgl-control mglAttribution position="top-right"></mgl-control>
+    <mgl-control mglFullscreen position="top-right"></mgl-control>
+    <mgl-control mglGeocoder position="top-right"></mgl-control>
+    <mgl-control mglGeolocate position="top-right"></mgl-control>
+    <mgl-control mglNavigation position="top-right"></mgl-control>
+    <mgl-control mglScale position="top-right"></mgl-control>
   </mgl-map>
   `,
   styleUrls: ['./examples.css']
