@@ -47,7 +47,7 @@ export interface Result extends GeoJSON.Feature<GeoJSON.Point> {
 })
 export class GeocoderControlDirective implements AfterContentInit, OnChanges, GeocoderEvent {
   /* Init inputs */
-  @Input() country?: string;
+  @Input() countries?: string;
   @Input() placeholder?: string;
   @Input() zoom?: number;
   @Input() bbox?: [number, number, number, number];
@@ -88,7 +88,7 @@ export class GeocoderControlDirective implements AfterContentInit, OnChanges, Ge
       }
       const options = {
         proximity: this.proximity,
-        country: this.country,
+        countries: this.countries,
         placeholder: this.placeholder,
         zoom: this.zoom,
         bbox: this.bbox,
