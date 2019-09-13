@@ -51,6 +51,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./examples.css', './toggle-layers.component.css']
 })
 export class ToggleLayersComponent implements OnInit {
+ // constructor(private cd: ChangeDetectorRef){}
   layouts = {
     contours: {
       'visibility': 'visible',
@@ -65,10 +66,9 @@ export class ToggleLayersComponent implements OnInit {
   ngOnInit() {
   }
 
-  toggleLayer(evt: { value: 'contours' | 'museums' }) {
-    this.layouts[evt.value] = {
-      ...this.layouts[evt.value],
-      visibility: this.layouts[evt.value].visibility === 'visible' ? 'none' : 'visible'
-    };
+  toggleLayer(evt: { value: 'contours' | 'museums' }) { //to trigger a detectable change in 
+    this.layouts[evt.value].visibility = this.layouts[evt.value].visibility === 'visible' ? 'none' : 'visible';
+   // this.cd.detectChanges();
+    this.layouts = { contours: { ...this.layouts['contours'] }, museums: { ...this.layouts['museums'] } };
   }
 }

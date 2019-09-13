@@ -16,7 +16,7 @@ export class VideoSourceComponent implements OnInit, OnDestroy, OnChanges, Video
   /* Dynamic inputs */
   @Input() urls: string[];
   @Input() coordinates: number[][];
-
+  type: 'video' = 'video'; // Just to make ts happy
   private sourceAdded = false;
   private sub = new Subscription();
 
@@ -57,11 +57,12 @@ export class VideoSourceComponent implements OnInit, OnDestroy, OnChanges, Video
   }
 
   private init() {
-    this.MapService.addSource(this.id, {
-      type: 'video',
+    const source = { 
+      type: this.type,
       urls: this.urls,
       coordinates: this.coordinates
-    });
+    }
+    this.MapService.addSource(this.id,source);
     this.sourceAdded = true;
   }
 }
