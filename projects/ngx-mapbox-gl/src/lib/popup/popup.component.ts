@@ -80,7 +80,7 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
 
   ngOnDestroy() {
     if (this.popupInstance) {
-      if (this.lngLat) {
+      if (this.lngLat || this.feature) {
         this.MapService.removePopupFromMap(this.popupInstance);
       } else if (this.marker && this.marker.markerInstance) {
         this.MapService.removePopupFromMarker(this.marker.markerInstance);
