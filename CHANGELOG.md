@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.4.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.3.0...v3.4.1) (2019-10-10)
+
+
+### Bug Fixes
+
+* **showcase:** Fix e2e tests ([887c251](https://github.com/Wykks/ngx-mapbox-gl/commit/887c251))
+
+
 ## [3.4.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.3.0...v3.4.0) (2019-10-10)
 
 
