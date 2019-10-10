@@ -2,6 +2,48 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.4.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.3.0...v3.4.1) (2019-10-10)
+
+
+### Bug Fixes
+
+* **controls:** Fix control order when using custom controls alongside built-in controls (fix [#75](https://github.com/Wykks/ngx-mapbox-gl/issues/75)) ([10612f0](https://github.com/Wykks/ngx-mapbox-gl/commit/10612f0))
+* **geocoder:** change property name for country option to countries ([781adc4](https://github.com/Wykks/ngx-mapbox-gl/commit/781adc4))
+
+
+### Build System
+
+* update yarn.lock ([5f83a0b](https://github.com/Wykks/ngx-mapbox-gl/commit/5f83a0b))
+
+
+### Features
+
+* update to angular 8 & other deps ([57f6d6e](https://github.com/Wykks/ngx-mapbox-gl/commit/57f6d6e))
+* update to mapbox-gl 1.1.0 ([1043b4f](https://github.com/Wykks/ngx-mapbox-gl/commit/1043b4f))
+* **marker:** Add ability to specify className (close [#172](https://github.com/Wykks/ngx-mapbox-gl/issues/172)) ([f7602c2](https://github.com/Wykks/ngx-mapbox-gl/commit/f7602c2))
+* **popup:** Add support for className ([#111](https://github.com/Wykks/ngx-mapbox-gl/issues/111)) ([#161](https://github.com/Wykks/ngx-mapbox-gl/issues/161)) ([3b30c90](https://github.com/Wykks/ngx-mapbox-gl/commit/3b30c90))
+
+
+### refactor
+
+* **marker:** remove old css hack (now fixed in mapbox-gl) (close [#114](https://github.com/Wykks/ngx-mapbox-gl/issues/114)) ([9864932](https://github.com/Wykks/ngx-mapbox-gl/commit/9864932))
+
+
+### Tests
+
+* fix ([0f3a189](https://github.com/Wykks/ngx-mapbox-gl/commit/0f3a189))
+
+
+### BREAKING CHANGES
+
+* Update to angular 8. Drop support of Angular 7
+Also drop support of rxjs < 6.5.0
+* Since mapbox-gl 1.0, there's a new pricing model.
+If you use mapbox services, please check https://github.com/mapbox/mapbox-gl-js/releases/tag/v1.0.0 for more info
+* **marker:** You may be affected by this change, if you use html markers with custom css.
+
+
+
 ## [3.4.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.3.0...v3.4.0) (2019-10-10)
 
 
