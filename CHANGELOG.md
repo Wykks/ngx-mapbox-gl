@@ -2,15 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [3.4.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.3.0...v3.4.1) (2019-10-10)
-
-
-### Bug Fixes
-
-* **showcase:** Fix e2e tests ([887c251](https://github.com/Wykks/ngx-mapbox-gl/commit/887c251))
-
-
-## [3.4.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.3.0...v3.4.0) (2019-10-10)
+# [4.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.3.0...v4.0.0) (2019-10-11)
 
 
 ### Bug Fixes
@@ -28,7 +20,7 @@ All notable changes to this project will be documented in this file. See [standa
 * **popup:** Add support for maxWidth ([#180](https://github.com/Wykks/ngx-mapbox-gl/issues/180)) ([04d910b](https://github.com/Wykks/ngx-mapbox-gl/commit/04d910b))
 
 
-### refactor
+### Refactor
 
 * **marker:** remove old css hack (now fixed in mapbox-gl) (close [#114](https://github.com/Wykks/ngx-mapbox-gl/issues/114)) ([9864932](https://github.com/Wykks/ngx-mapbox-gl/commit/9864932))
 
@@ -40,7 +32,6 @@ Also drop support of rxjs < 6.5.0
 * Since mapbox-gl 1.0, there's a new pricing model.
 If you use mapbox services, please check https://github.com/mapbox/mapbox-gl-js/releases/tag/v1.0.0 for more info
 * **marker:** You may be affected by this change, if you use html markers with custom css.
-
 
 
 # [3.3.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.2.0...v3.3.0) (2019-07-03)
