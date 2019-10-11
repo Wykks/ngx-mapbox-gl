@@ -7,7 +7,7 @@ yarn
 
 ## Run ngx-mapbox-gl showcase
 ```
-yarn serve
+yarn start
 ```
 
 Then, you can make your changes to the lib and experiment with the showcase app directly.
