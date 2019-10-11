@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnChanges, ViewChild, SimpleChanges } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { GeoJSONSourceComponent } from 'ngx-mapbox-gl';
 
 /**
@@ -96,7 +96,7 @@ export class ClusterPopupComponent implements OnChanges {
   @Input() selectedCluster: { geometry: GeoJSON.Point, properties: any };
   @Input() clusterComponent: GeoJSONSourceComponent;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   leaves: GeoJSON.Feature<GeoJSON.Geometry>[];
 
