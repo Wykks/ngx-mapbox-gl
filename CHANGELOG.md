@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.0.0...v4.0.1) (2019-10-13)
+
+
+### Bug Fixes
+
+* **popup:** actually remove the popup from the map when a "feature" is used as an anchor ([89f4aa4](https://github.com/Wykks/ngx-mapbox-gl/commit/89f4aa4))
+
+
+
 # [4.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v3.3.0...v4.0.0) (2019-10-11)
 
 
