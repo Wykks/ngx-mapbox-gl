@@ -66,7 +66,7 @@ export class ToggleLayersComponent implements OnInit {
   }
 
   toggleLayer(evt: { value: 'contours' | 'museums' }) {
-    // HACK: work around TypeScript compiler warning by casting to 'any'
+    // HACK: work around TypeScript compiler warning by casting to 'any' (https://github.com/microsoft/TypeScript/issues/34558)
     this.layouts[evt.value] = <any>{
       ...this.layouts[evt.value],
       visibility: this.layouts[evt.value].visibility === 'visible' ? 'none' : 'visible'
