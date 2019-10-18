@@ -51,14 +51,6 @@ export interface SetupMarker {
   };
 }
 
-export type AllSource = MapboxGl.VectorSource |
-  MapboxGl.RasterSource |
-  MapboxGl.GeoJSONSource |
-  MapboxGl.ImageSource |
-  MapboxGl.VideoSourceOptions |
-  MapboxGl.GeoJSONSourceRaw |
-  MapboxGl.CanvasSourceOptions;
-
 export type MovingOptions = MapboxGl.FlyToOptions |
   (MapboxGl.AnimationOptions & MapboxGl.CameraOptions) |
   MapboxGl.CameraOptions;
@@ -391,12 +383,12 @@ export class MapService {
     this.imageIdsToRemove.push(imageId);
   }
 
-  addSource(sourceId: string, source: AllSource) {
+  addSource(sourceId: string, source: MapboxGl.AnySourceData) {
     return this.zone.runOutsideAngular(() => {
       Object.keys(source)
         .forEach((key) =>
           (<any>source)[key] === undefined && delete (<any>source)[key]);
-      this.mapInstance.addSource(sourceId, <any>source); // Typings issue
+      this.mapInstance.addSource(sourceId, source);
     });
   }
 

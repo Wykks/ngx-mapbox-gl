@@ -59,13 +59,12 @@ export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, Canv
   }
 
   private init() {
-    const source = {
+    this.MapService.addSource(this.id, {
       type: 'canvas',
       coordinates: this.coordinates,
       canvas: this.canvas,
       animate: this.animate,
-    };
-    this.MapService.addSource(this.id, source);
+    });
     this.sourceAdded = true;
   }
 }
