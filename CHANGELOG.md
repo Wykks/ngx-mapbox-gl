@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.0.1...v4.1.0) (2019-10-23)
+
+
+### Features
+
+* add `clickTolerance` as an Input for MapComponent  [#135](https://github.com/Wykks/ngx-mapbox-gl/issues/135) ([#190](https://github.com/Wykks/ngx-mapbox-gl/issues/190)) ([055f90e](https://github.com/Wykks/ngx-mapbox-gl/commit/055f90e976b12816e71a5bf038df34f9f3af588d))
+* allow using mapbox-gl >= 1.1.0 ([80cdfab](https://github.com/Wykks/ngx-mapbox-gl/commit/80cdfabd9bec122d548498a7ac6569b7139dfb00))
+
+
+### Bug Fixes
+
+* make sure showcase works with TypeScript 3.5.3 ([cbaa95c](https://github.com/Wykks/ngx-mapbox-gl/commit/cbaa95caf4740c3958a9aa1361bbad8f246e53ab))
+
 ### [4.0.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.0.0...v4.0.1) (2019-10-13)
 
 
