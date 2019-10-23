@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AnyLayout } from 'mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -22,7 +23,7 @@ import { Component, OnInit } from '@angular/core';
       id="museums"
       type="circle"
       source="museums"
-      [layout]="layouts.museums"
+      [layout]="layouts['museums']"
       [paint]="{
         'circle-radius': 8,
         'circle-color': 'rgba(55,148,179,1)'
@@ -34,7 +35,7 @@ import { Component, OnInit } from '@angular/core';
       id="contours"
       type="line"
       source="contours"
-      [layout]="layouts.contours"
+      [layout]="layouts['contours']"
       [paint]="{
         'line-color': '#877b59',
         'line-width': 1
@@ -51,21 +52,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./examples.css', './toggle-layers.component.css']
 })
 export class ToggleLayersComponent implements OnInit {
-  layouts = {
+  layouts: { [key: string]: AnyLayout } = {
     contours: {
-      'visibility': 'visible',
+      visibility: 'visible',
       'line-join': 'round',
       'line-cap': 'round'
     },
     museums: {
-      'visibility': 'visible'
+      visibility: 'visible'
     }
   };
 
   ngOnInit() {
   }
 
-  toggleLayer(evt: { value: 'contours' | 'museums' }) {
+  toggleLayer(evt: { value: string }) {
     this.layouts[evt.value] = {
       ...this.layouts[evt.value],
       visibility: this.layouts[evt.value].visibility === 'visible' ? 'none' : 'visible'
