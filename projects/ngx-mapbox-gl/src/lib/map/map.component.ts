@@ -55,6 +55,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
   @Input() bearingSnap?: number;
   @Input() interactive?: boolean;
   @Input() pitchWithRotate?: boolean;
+  @Input() clickTolerance?: number;
   @Input() attributionControl?: boolean;
   @Input() logoPosition?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
   @Input() maxTileCacheSize?: number;
@@ -166,6 +167,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
         interactive: this.interactive,
         bearingSnap: this.bearingSnap,
         pitchWithRotate: this.pitchWithRotate,
+        clickTolerance: this.clickTolerance,
         classes: this.classes,
         attributionControl: this.attributionControl,
         logoPosition: this.logoPosition,
