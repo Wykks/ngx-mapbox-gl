@@ -1,4 +1,4 @@
-import { AfterContentInit, Directive, Host, Input } from '@angular/core';
+import { AfterContentInit, Directive, EventEmitter, Host, Input, Output } from '@angular/core';
 import { GeolocateControl, FitBoundsOptions } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import { ControlComponent } from './control.component';
@@ -12,6 +12,8 @@ export class GeolocateControlDirective implements AfterContentInit {
   @Input() fitBoundsOptions?: FitBoundsOptions;
   @Input() trackUserLocation?: boolean;
   @Input() showUserLocation?: boolean;
+  
+  @Output() geolocate: EventEmitter<Position> = new EventEmitter<Position>();
 
   constructor(
     private MapService: MapService,
@@ -38,6 +40,7 @@ export class GeolocateControlDirective implements AfterContentInit {
           }
         });
       this.ControlComponent.control = new GeolocateControl(options);
+      this.ControlComponent.control.on('geolocate', (data: Position) => this.geolocate.emit(data));
       this.MapService.addControl(this.ControlComponent.control, this.ControlComponent.position);
     });
   }
