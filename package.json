@@ -54,7 +54,7 @@
     "@types/jasmine": "^3.3.13",
     "@types/jasminewd2": "^2.0.6",
     "@types/lodash-es": "^4.17.3",
-    "@types/mapbox-gl": "^0.54.2",
+    "@types/mapbox-gl": "^1.5.2",
     "@types/node": "^12.0.11",
     "codelyzer": "^5.1.0",
     "jasmine-core": "^3.4.0",
