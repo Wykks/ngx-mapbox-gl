@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.1.0...v4.2.0) (2019-11-19)
+
+
+### Features
+
+* **mglGeolocate:** add 'geolocate' event output to component ([#193](https://github.com/Wykks/ngx-mapbox-gl/issues/193)) ([adb9382](https://github.com/Wykks/ngx-mapbox-gl/commit/adb93821483e2708b971bf7da972024afdcebd07))
+
 ## [4.1.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.0.1...v4.1.0) (2019-10-23)
 
 
