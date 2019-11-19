@@ -12,7 +12,7 @@ export class GeolocateControlDirective implements AfterContentInit {
   @Input() fitBoundsOptions?: FitBoundsOptions;
   @Input() trackUserLocation?: boolean;
   @Input() showUserLocation?: boolean;
-  
+
   @Output() geolocate: EventEmitter<Position> = new EventEmitter<Position>();
 
   constructor(
