@@ -56,6 +56,7 @@
     "@types/lodash-es": "^4.17.3",
     "@types/mapbox-gl": "^1.5.2",
     "@types/node": "^12.0.11",
+    "angular-cli-ghpages": "^0.6.0",
     "codelyzer": "^5.1.0",
     "jasmine-core": "^3.4.0",
     "jasmine-spec-reporter": "^4.2.1",
