@@ -6,7 +6,7 @@
     "start": "ng serve showcase",
     "build": "ng build --prod ngx-mapbox-gl",
     "build:watch": "ng build --watch ngx-mapbox-gl",
-    "build:showcase": "ng build --prod showcase --base-href '/ngx-mapbox-gl/'",
+    "build:showcase": "ng build --prod showcase --base-href /ngx-mapbox-gl/",
     "publish:showcase": "ngh -d dist/showcase/",
     "test": "ng test",
     "lint": "ng lint",
