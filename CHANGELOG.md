@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.2.0...v4.3.0) (2019-12-06)
+
+
+### Features
+
+* add support for map controls localization (requires mapbox-gl >= 1.6.0) ([c669619](https://github.com/Wykks/ngx-mapbox-gl/commit/c6696197c93883855fc4d12e40acc88adaa5d546))
+
 ## [4.2.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.1.0...v4.2.0) (2019-11-19)
 
 
