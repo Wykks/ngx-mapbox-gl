@@ -44,7 +44,7 @@ npm publish dist/ngx-mapbox-gl
 And finally, update the showcase app on github page (using https://github.com/angular-schule/angular-cli-ghpages)
 
 ```
-yarn build:showcase && ngh -d dist/showcase/
+yarn build:showcase && yarn publish:showcase
 ```
 
 (This could be updated to the more recent `ng deploy`)
