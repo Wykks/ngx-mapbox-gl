@@ -66,6 +66,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
   @Input() transformRequest?: Function;
   @Input() bounds?: LngLatBoundsLike; // Use fitBounds for dynamic input
   @Input() antialias?: boolean;
+  @Input() locale: { [key:string]: string };
 
   /* Dynamic inputs */
   @Input() minZoom?: number;
@@ -193,7 +194,8 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
         transformRequest: this.transformRequest,
         bounds: this.bounds ? this.bounds : this.fitBounds,
         fitBoundsOptions: this.fitBoundsOptions,
-        antialias: this.antialias
+        antialias: this.antialias,
+        locale: this.locale
       },
       mapEvents: this
     });

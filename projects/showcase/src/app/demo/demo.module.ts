@@ -17,6 +17,7 @@ import { AttributionPositionComponent } from './examples/attribution-position.co
 import { CenterOnSymbolComponent } from './examples/center-on-symbol.component';
 import { ClusterHtmlComponent, ClusterPointComponent } from './examples/cluster-html.component';
 import { ClusterComponent } from './examples/cluster.component';
+import { CustomLocaleComponent } from './examples/custom-locale.component';
 import { CustomMarkerIconsComponent } from './examples/custom-marker-icons.component';
 import { CustomStyleIdComponent } from './examples/custom-style-id.component';
 import { DisplayMapComponent } from './examples/display-map.component';
@@ -103,6 +104,7 @@ export const DEMO_ROUTES: Routes = [
       { path: 'polygon-popup-on-click', component: PolygonPopupOnClickComponent, data: { label: 'Show polygon information on click', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: 'add-image-missing-generated', component: AddImageMissingGeneratedComponent, data: { label: 'Generate and add a missing icon to the map', cat: Category.STYLES } },
       { path: 'custom-attribution', component: CustomAttributionComponent, data: { label: 'Add custom attributions', cat: Category.CONTROLS_AND_OVERLAYS } },
+      { path: 'custom-locale', component: CustomLocaleComponent, data: { label: 'Add custom localization for controls', cat: Category.CONTROLS_AND_OVERLAYS } },
       { path: '**', redirectTo: 'display-map' }
     ]
   }
@@ -162,7 +164,8 @@ export const DEMO_ROUTES: Routes = [
     NgxClusterHtmlComponent,
     ClusterPopupComponent,
     AddImageMissingGeneratedComponent,
-    CustomAttributionComponent
+    CustomAttributionComponent,
+    CustomLocaleComponent
   ]
 })
 export class DemoModule { }
