@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { MapboxGeoJSONFeature, MapSourceDataEvent } from 'mapbox-gl';
 import { fromEvent, merge, Subscription } from 'rxjs';
-import { filter, startWith, switchMap, take } from 'rxjs/operators';
+import { filter, startWith, switchMap, switchMapTo } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
 
 @Directive({ selector: 'ng-template[mglPoint]' })
@@ -58,14 +58,12 @@ export class MarkersForClustersComponent implements OnDestroy, AfterContentInit 
   constructor(private MapService: MapService, private ChangeDetectorRef: ChangeDetectorRef, private zone: NgZone) {}
 
   ngAfterContentInit() {
+    const clusterDataUpdate$ = fromEvent<MapSourceDataEvent>(<any>this.MapService.mapInstance, 'data').pipe(
+      filter((e) => e.sourceId === this.source && e.isSourceLoaded && e.sourceDataType !== 'metadata')
+    );
     const sub = this.MapService.mapCreated$
       .pipe(
-        switchMap(() =>
-          fromEvent<MapSourceDataEvent>(<any>this.MapService.mapInstance, 'data').pipe(
-            filter((e) => e.sourceId === this.source && e.isSourceLoaded && e.sourceDataType !== 'metadata'),
-            take(1)
-          )
-        ),
+        switchMapTo(clusterDataUpdate$),
         switchMap(() =>
           merge(
             fromEvent(<any>this.MapService.mapInstance, 'move'),
