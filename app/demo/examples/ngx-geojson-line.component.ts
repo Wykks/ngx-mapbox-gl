@@ -3,34 +3,25 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'showcase-demo',
   template: `
-  <mgl-map
-    [style]="'mapbox://styles/mapbox/streets-v9'"
-    [zoom]="[15]"
-    [center]="[-122.486052, 37.830348]"
-  >
-    <mgl-geojson-source
-      id="oneline"
-    >
-      <mgl-feature
-        [geometry]="geometry"
+    <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[15]" [center]="[-122.486052, 37.830348]">
+      <mgl-geojson-source id="oneline">
+        <mgl-feature [geometry]="geometry"> </mgl-feature>
+      </mgl-geojson-source>
+      <mgl-layer
+        id="route"
+        type="line"
+        source="oneline"
+        [layout]="{
+          'line-join': 'round',
+          'line-cap': 'round'
+        }"
+        [paint]="{
+          'line-color': '#888',
+          'line-width': 8
+        }"
       >
-      </mgl-feature>
-    </mgl-geojson-source>
-    <mgl-layer
-      id="route"
-      type="line"
-      source="oneline"
-      [layout]="{
-        'line-join': 'round',
-        'line-cap': 'round'
-      }"
-      [paint]="{
-        'line-color': '#888',
-        'line-width': 8
-      }"
-    >
-    </mgl-layer>
-  </mgl-map>
+      </mgl-layer>
+    </mgl-map>
   `,
   styleUrls: ['./examples.css']
 })
