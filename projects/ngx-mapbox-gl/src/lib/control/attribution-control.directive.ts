@@ -11,17 +11,14 @@ export class AttributionControlDirective implements AfterContentInit {
   @Input() compact?: boolean;
   @Input() customAttribution?: string | string[];
 
-  constructor(
-    private MapService: MapService,
-    @Host() private ControlComponent: ControlComponent
-  ) { }
+  constructor(private MapService: MapService, @Host() private ControlComponent: ControlComponent) {}
 
   ngAfterContentInit() {
     this.MapService.mapCreated$.subscribe(() => {
       if (this.ControlComponent.control) {
         throw new Error('Another control is already set for this control');
       }
-      const options: { compact?: boolean, customAttribution?: string | string[] } = {};
+      const options: { compact?: boolean; customAttribution?: string | string[] } = {};
       if (this.compact !== undefined) {
         options.compact = this.compact;
       }

@@ -9,24 +9,15 @@ const getDemoState = createFeatureSelector<fromDemo.State>('demo');
 //    https://github.com/ngrx/platform/issues/2116
 //  This workaround is taken from here:
 //    https://stackoverflow.com/questions/58214913/how-to-silence-the-feature-name-router-does-not-exist-in-the-state-ngrx-r
-const getRouterState = createSelector((state: State) => state.router, value => value);
-
-export const isDemoSidenavOpen = createSelector(
-  getDemoState,
-  (state) => state.sidenavOpen
+const getRouterState = createSelector(
+  (state: State) => state.router,
+  (value) => value
 );
 
-export const isDemoEditing = createSelector(
-  getRouterState,
-  (state) => !!state.state.url.match(/^\/demo\/\edit/)
-);
+export const isDemoSidenavOpen = createSelector(getDemoState, (state) => state.sidenavOpen);
 
-export const isInDemo = createSelector(
-  getRouterState,
-  (state) => state && state.state.url.startsWith('/demo/')
-);
+export const isDemoEditing = createSelector(getRouterState, (state) => !!state.state.url.match(/^\/demo\/\edit/));
 
-export const getCurrentRouterState = createSelector(
-  getRouterState,
-  (state) => state.state
-);
+export const isInDemo = createSelector(getRouterState, (state) => state && state.state.url.startsWith('/demo/'));
+
+export const getCurrentRouterState = createSelector(getRouterState, (state) => state.state);

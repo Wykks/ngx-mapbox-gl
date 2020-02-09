@@ -34,25 +34,26 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   private isAdding = false;
   private sub: Subscription;
 
-  constructor(
-    private MapService: MapService,
-    private zone: NgZone
-  ) { }
+  constructor(private MapService: MapService, private zone: NgZone) {}
 
   ngOnInit() {
-    this.sub = this.MapService.mapLoaded$.pipe(
-      switchMap(() => fromEvent(<any>this.MapService.mapInstance, 'styledata').pipe(
-        startWith(undefined),
-        filter(() => !this.isAdding && !this.MapService.mapInstance.hasImage(this.id))
-      )),
-    ).subscribe(() => this.init());
+    this.sub = this.MapService.mapLoaded$
+      .pipe(
+        switchMap(() =>
+          fromEvent(<any>this.MapService.mapInstance, 'styledata').pipe(
+            startWith(undefined),
+            filter(() => !this.isAdding && !this.MapService.mapInstance.hasImage(this.id))
+          )
+        )
+      )
+      .subscribe(() => this.init());
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (
-      changes.data && !changes.data.isFirstChange() ||
-      changes.options && !changes.options.isFirstChange() ||
-      changes.url && !changes.url.isFirstChange()
+      (changes.data && !changes.data.isFirstChange()) ||
+      (changes.options && !changes.options.isFirstChange()) ||
+      (changes.url && !changes.url.isFirstChange())
     ) {
       this.ngOnDestroy();
       this.ngOnInit();
@@ -71,20 +72,12 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   private async init() {
     this.isAdding = true;
     if (this.data) {
-      this.MapService.addImage(
-        this.id,
-        this.data,
-        this.options
-      );
+      this.MapService.addImage(this.id, this.data, this.options);
       this.isAdded = true;
       this.isAdding = false;
     } else if (this.url) {
       try {
-        await this.MapService.loadAndAddImage(
-          this.id,
-          this.url,
-          this.options
-        );
+        await this.MapService.loadAndAddImage(this.id, this.url, this.options);
         this.isAdded = true;
         this.isAdding = false;
         this.zone.run(() => {

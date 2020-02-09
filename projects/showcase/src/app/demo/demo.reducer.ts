@@ -10,7 +10,6 @@ export const initialState: State = {
 
 export function reducer(state = initialState, action: DemoActions): State {
   switch (action.type) {
-
     case DemoActionTypes.TOGGLE_SIDENAV:
       return { ...state, sidenavOpen: !state.sidenavOpen };
     default:

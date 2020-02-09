@@ -17,7 +17,7 @@ export class FeatureComponent implements OnInit, OnDestroy, GeoJSON.Feature<GeoJ
 
   constructor(
     @Inject(forwardRef(() => GeoJSONSourceComponent)) private GeoJSONSourceComponent: GeoJSONSourceComponent
-  ) { }
+  ) {}
 
   ngOnInit() {
     if (!this.id) {

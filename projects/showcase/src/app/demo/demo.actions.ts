@@ -13,6 +13,4 @@ export class ToggleSidenavEnd implements Action {
   readonly type = DemoActionTypes.TOGGLE_SIDENAV_END;
 }
 
-export type DemoActions =
-  ToggleSidenav |
-  ToggleSidenavEnd;
+export type DemoActions = ToggleSidenav | ToggleSidenavEnd;

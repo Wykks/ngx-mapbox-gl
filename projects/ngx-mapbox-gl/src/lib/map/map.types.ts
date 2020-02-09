@@ -50,7 +50,7 @@ export interface MapEvent {
   dataLoading: EventEmitter<EventData>;
   styleDataLoading: EventEmitter<EventData>;
   sourceDataLoading: EventEmitter<EventData>;
-  styleImageMissing: EventEmitter<{id: string}>;
+  styleImageMissing: EventEmitter<{ id: string }>;
   idle: EventEmitter<void>;
 }
 
@@ -62,7 +62,10 @@ export interface GeocoderEvent {
   error: EventEmitter<any>;
 }
 
-export type MapImageData = HTMLImageElement | ImageData | { width: number, height: number, data: Uint8Array | Uint8ClampedArray };
+export type MapImageData =
+  | HTMLImageElement
+  | ImageData
+  | { width: number; height: number; data: Uint8Array | Uint8ClampedArray };
 
 export interface MapImageOptions {
   pixelRatio: number;

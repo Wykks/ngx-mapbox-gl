@@ -8,8 +8,5 @@
     "fullTemplateTypeCheck": true,
     "preserveWhitespaces": false
   },
-  "exclude": [
-    "src/test.ts",
-    "**/*.spec.ts"
-  ]
+  "exclude": ["src/test.ts", "**/*.spec.ts"]
 }

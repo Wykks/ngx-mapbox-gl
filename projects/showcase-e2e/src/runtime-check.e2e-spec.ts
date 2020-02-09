@@ -49,5 +49,3 @@ describe('Generic runtime error check', () => {
     });
   });
 });
-
-

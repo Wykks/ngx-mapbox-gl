@@ -13,10 +13,7 @@ export class ScaleControlDirective implements AfterContentInit, OnChanges {
   /* Dynamic inputs */
   @Input() unit?: 'imperial' | 'metric' | 'nautical';
 
-  constructor(
-    private MapService: MapService,
-    @Host() private ControlComponent: ControlComponent
-  ) { }
+  constructor(private MapService: MapService, @Host() private ControlComponent: ControlComponent) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.unit && !changes.unit.isFirstChange()) {
@@ -29,7 +26,7 @@ export class ScaleControlDirective implements AfterContentInit, OnChanges {
       if (this.ControlComponent.control) {
         throw new Error('Another control is already set for this control');
       }
-      const options: { maxWidth?: number, unit?: string } = {};
+      const options: { maxWidth?: number; unit?: string } = {};
       if (this.maxWidth !== undefined) {
         options.maxWidth = this.maxWidth;
       }

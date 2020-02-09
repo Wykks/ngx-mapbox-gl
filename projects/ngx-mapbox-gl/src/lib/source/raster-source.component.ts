@@ -26,18 +26,16 @@ export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, Rast
   private sourceAdded = false;
   private sub = new Subscription();
 
-  constructor(
-    private MapService: MapService
-  ) { }
+  constructor(private MapService: MapService) {}
 
   ngOnInit() {
     this.MapService.mapLoaded$.subscribe(() => {
       this.init();
-      const sub = fromEvent(<any>this.MapService.mapInstance, 'styledata').pipe(
-        filter(() => !this.MapService.mapInstance.getSource(this.id))
-      ).subscribe(() => {
-        this.init();
-      });
+      const sub = fromEvent(<any>this.MapService.mapInstance, 'styledata')
+        .pipe(filter(() => !this.MapService.mapInstance.getSource(this.id)))
+        .subscribe(() => {
+          this.init();
+        });
       this.sub.add(sub);
     });
   }
@@ -47,12 +45,12 @@ export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, Rast
       return;
     }
     if (
-      changes.url && !changes.url.isFirstChange() ||
-      changes.tiles && !changes.tiles.isFirstChange() ||
-      changes.bounds && !changes.bounds.isFirstChange() ||
-      changes.minzoom && !changes.minzoom.isFirstChange() ||
-      changes.maxzoom && !changes.maxzoom.isFirstChange() ||
-      changes.tileSize && !changes.tileSize.isFirstChange()
+      (changes.url && !changes.url.isFirstChange()) ||
+      (changes.tiles && !changes.tiles.isFirstChange()) ||
+      (changes.bounds && !changes.bounds.isFirstChange()) ||
+      (changes.minzoom && !changes.minzoom.isFirstChange()) ||
+      (changes.maxzoom && !changes.maxzoom.isFirstChange()) ||
+      (changes.tileSize && !changes.tileSize.isFirstChange())
     ) {
       this.ngOnDestroy();
       this.ngOnInit();

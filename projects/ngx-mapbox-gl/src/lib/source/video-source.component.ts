@@ -20,18 +20,16 @@ export class VideoSourceComponent implements OnInit, OnDestroy, OnChanges, Video
   private sourceAdded = false;
   private sub = new Subscription();
 
-  constructor(
-    private MapService: MapService
-  ) { }
+  constructor(private MapService: MapService) {}
 
   ngOnInit() {
     this.MapService.mapLoaded$.subscribe(() => {
       this.init();
-      const sub = fromEvent(<any>this.MapService.mapInstance, 'styledata').pipe(
-        filter(() => !this.MapService.mapInstance.getSource(this.id))
-      ).subscribe(() => {
-        this.init();
-      });
+      const sub = fromEvent(<any>this.MapService.mapInstance, 'styledata')
+        .pipe(filter(() => !this.MapService.mapInstance.getSource(this.id)))
+        .subscribe(() => {
+          this.init();
+        });
       this.sub.add(sub);
     });
   }
@@ -41,8 +39,8 @@ export class VideoSourceComponent implements OnInit, OnDestroy, OnChanges, Video
       return;
     }
     if (
-      changes.urls && !changes.urls.isFirstChange() ||
-      changes.coordinates && !changes.coordinates.isFirstChange()
+      (changes.urls && !changes.urls.isFirstChange()) ||
+      (changes.coordinates && !changes.coordinates.isFirstChange())
     ) {
       this.ngOnDestroy();
       this.ngOnInit();

@@ -8,12 +8,9 @@ const FILES_PATH = 'app/demo/examples/';
 
 @Injectable()
 export class DemoFileLoaderService {
-
   private fileCache = new Map<string, Observable<Dictionary<string>>>();
 
-  constructor(
-    private http: HttpClient
-  ) {
+  constructor(private http: HttpClient) {
     // Preload this file since it's used in every demos
     this.loadFile('example.css');
   }
@@ -23,12 +20,14 @@ export class DemoFileLoaderService {
     if (req$) {
       return req$;
     }
-    req$ = this.http.get(`${FILES_PATH}${exampleName}.component.ts`, {
-      responseType: 'text'
-    }).pipe(
-      switchMap((fileContent) => this.loadAdditionnalFilesIfNecessary(fileContent)),
-      shareReplay(1)
-    );
+    req$ = this.http
+      .get(`${FILES_PATH}${exampleName}.component.ts`, {
+        responseType: 'text'
+      })
+      .pipe(
+        switchMap((fileContent) => this.loadAdditionnalFilesIfNecessary(fileContent)),
+        shareReplay(1)
+      );
     this.fileCache.set(exampleName, req$);
     return req$;
   }
@@ -40,7 +39,7 @@ export class DemoFileLoaderService {
     const result = {
       'src/demo.ts': fileContent
     };
-    while (match = r.exec(fileContent)) {
+    while ((match = r.exec(fileContent))) {
       files.push(this.loadFile(match[1]));
     }
     if (files.length) {
@@ -61,14 +60,16 @@ export class DemoFileLoaderService {
     if (req$) {
       return req$;
     }
-    req$ = this.http.get(`${FILES_PATH}${fileName}`, {
-      responseType: 'text'
-    }).pipe(
-      map((fileContent) => ({
-        [`src/${fileName}`]: fileContent
-      })),
-      shareReplay(1)
-    );
+    req$ = this.http
+      .get(`${FILES_PATH}${fileName}`, {
+        responseType: 'text'
+      })
+      .pipe(
+        map((fileContent) => ({
+          [`src/${fileName}`]: fileContent
+        })),
+        shareReplay(1)
+      );
     this.fileCache.set(fileName, req$);
     return req$;
   }

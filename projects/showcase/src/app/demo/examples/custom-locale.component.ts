@@ -3,17 +3,17 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'showcase-demo',
   template: `
-  <mgl-map
-    [style]="'mapbox://styles/mapbox/light-v9'"
-    [center]="[36.235656, 50.003870]"
-    [zoom]="[11.15]"
-    [locale]="locale"
-  >
-    <mgl-control mglFullscreen position="top-left"></mgl-control>
-    <mgl-control mglGeolocate position="top-left"></mgl-control>
-    <mgl-control mglNavigation position="top-left"></mgl-control>
-    <mgl-control mglScale></mgl-control>
-  </mgl-map>
+    <mgl-map
+      [style]="'mapbox://styles/mapbox/light-v9'"
+      [center]="[36.235656, 50.00387]"
+      [zoom]="[11.15]"
+      [locale]="locale"
+    >
+      <mgl-control mglFullscreen position="top-left"></mgl-control>
+      <mgl-control mglGeolocate position="top-left"></mgl-control>
+      <mgl-control mglNavigation position="top-left"></mgl-control>
+      <mgl-control mglScale></mgl-control>
+    </mgl-map>
   `,
   styleUrls: ['./examples.css']
 })

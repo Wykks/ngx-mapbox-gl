@@ -24,24 +24,24 @@ import {
   OnDestroy,
   Output,
   SimpleChanges,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 
 @Component({
   selector: 'mgl-map',
   template: '<div #container></div>',
-  styles: [`
-  :host {
-    display: block;
-  }
-  div {
-    height: 100%;
-    width: 100%;
-  }
-  `],
-  providers: [
-    MapService
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      div {
+        height: 100%;
+        width: 100%;
+      }
+    `
   ],
+  providers: [MapService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEvent {
@@ -66,7 +66,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
   @Input() transformRequest?: Function;
   @Input() bounds?: LngLatBoundsLike; // Use fitBounds for dynamic input
   @Input() antialias?: boolean;
-  @Input() locale: { [key:string]: string };
+  @Input() locale: { [key: string]: string };
 
   /* Dynamic inputs */
   @Input() minZoom?: number;
@@ -143,7 +143,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
   @Output() dataLoading = new EventEmitter<EventData>();
   @Output() styleDataLoading = new EventEmitter<EventData>();
   @Output() sourceDataLoading = new EventEmitter<EventData>();
-  @Output() styleImageMissing = new EventEmitter<{id: string}>();
+  @Output() styleImageMissing = new EventEmitter<{ id: string }>();
 
   get mapInstance(): Map {
     return this.MapService.mapInstance;
@@ -151,9 +151,7 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
 
   @ViewChild('container', { static: true }) mapContainer: ElementRef;
 
-  constructor(
-    private MapService: MapService
-  ) { }
+  constructor(private MapService: MapService) {}
 
   ngAfterViewInit() {
     this.MapService.setup({
@@ -251,7 +249,9 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
     }
     if (changes.fitScreenCoordinates && changes.fitScreenCoordinates.currentValue) {
       if ((this.center || this.zoom || this.pitch || this.fitBounds) && changes.fitScreenCoordinates.isFirstChange()) {
-        console.warn('[ngx-mapbox-gl] center / zoom / pitch / fitBounds inputs are being overridden by fitScreenCoordinates input');
+        console.warn(
+          '[ngx-mapbox-gl] center / zoom / pitch / fitBounds inputs are being overridden by fitScreenCoordinates input'
+        );
       }
       this.MapService.fitScreenCoordinates(
         changes.fitScreenCoordinates.currentValue,
@@ -261,15 +261,18 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
     }
     if (
       this.centerWithPanTo &&
-      changes.center && !changes.center.isFirstChange() &&
-      !changes.zoom && !changes.bearing && !changes.pitch
+      changes.center &&
+      !changes.center.isFirstChange() &&
+      !changes.zoom &&
+      !changes.bearing &&
+      !changes.pitch
     ) {
       this.MapService.panTo(this.center!, this.panToOptions);
     } else if (
-      changes.center && !changes.center.isFirstChange() ||
-      changes.zoom && !changes.zoom.isFirstChange() ||
+      (changes.center && !changes.center.isFirstChange()) ||
+      (changes.zoom && !changes.zoom.isFirstChange()) ||
       (changes.bearing && !changes.bearing.isFirstChange() && !changes.fitScreenCoordinates) ||
-      changes.pitch && !changes.pitch.isFirstChange()
+      (changes.pitch && !changes.pitch.isFirstChange())
     ) {
       this.MapService.move(
         this.movingMethod,

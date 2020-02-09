@@ -7,14 +7,11 @@ import {
   ElementRef,
   Input,
   OnDestroy,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 
 export class CustomControl implements IControl {
-  constructor(
-    private container: HTMLElement
-  ) {
-  }
+  constructor(private container: HTMLElement) {}
 
   onAdd() {
     return this.container;
@@ -42,9 +39,7 @@ export class ControlComponent implements OnDestroy, AfterContentInit {
 
   control: Control | IControl;
 
-  constructor(
-    private MapService: MapService
-  ) { }
+  constructor(private MapService: MapService) {}
 
   ngAfterContentInit() {
     if (this.content.nativeElement.childNodes.length) {

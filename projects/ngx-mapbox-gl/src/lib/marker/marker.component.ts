@@ -42,9 +42,7 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
 
   markerInstance?: Marker;
 
-  constructor(
-    private MapService: MapService
-  ) { }
+  constructor(private MapService: MapService) {}
 
   ngOnInit() {
     if (this.feature && this.lngLat) {

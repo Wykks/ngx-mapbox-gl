@@ -8,7 +8,7 @@
   justify-content: center;
   align-items: center;
   color: white;
-  border: 2px solid #56C498;
+  border: 2px solid #56c498;
   cursor: pointer;
 }
 
@@ -20,5 +20,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid #C9C9C9
+  border: 2px solid #c9c9c9;
 }

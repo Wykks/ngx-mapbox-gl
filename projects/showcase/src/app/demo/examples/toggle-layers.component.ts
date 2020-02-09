@@ -4,50 +4,42 @@ import { AnyLayout } from 'mapbox-gl';
 @Component({
   selector: 'showcase-demo',
   template: `
-  <mgl-map
-    style="mapbox://styles/mapbox/streets-v9"
-    [zoom]="[15]"
-    [center]="[-71.97722138410576, -13.517379300798098]"
-  >
-    <mgl-vector-source
-      id="museums"
-      url="mapbox://mapbox.2opop9hr"
+    <mgl-map
+      style="mapbox://styles/mapbox/streets-v9"
+      [zoom]="[15]"
+      [center]="[-71.97722138410576, -13.517379300798098]"
     >
-    </mgl-vector-source>
-    <mgl-vector-source
-      id="contours"
-      url="mapbox://mapbox.mapbox-terrain-v2"
-    >
-    </mgl-vector-source>
-    <mgl-layer
-      id="museums"
-      type="circle"
-      source="museums"
-      [layout]="layouts['museums']"
-      [paint]="{
-        'circle-radius': 8,
-        'circle-color': 'rgba(55,148,179,1)'
-      }"
-      sourceLayer="museum-cusco"
-    >
-    </mgl-layer>
-    <mgl-layer
-      id="contours"
-      type="line"
-      source="contours"
-      [layout]="layouts['contours']"
-      [paint]="{
-        'line-color': '#877b59',
-        'line-width': 1
-      }"
-      sourceLayer="contour"
-    >
-    </mgl-layer>
-  </mgl-map>
-  <div class="menu">
-    <mat-button-toggle [checked]="true" value="contours" (change)="toggleLayer($event)">contours</mat-button-toggle>
-    <mat-button-toggle [checked]="true" value="museums" (change)="toggleLayer($event)">museums</mat-button-toggle>
-  </div>
+      <mgl-vector-source id="museums" url="mapbox://mapbox.2opop9hr"> </mgl-vector-source>
+      <mgl-vector-source id="contours" url="mapbox://mapbox.mapbox-terrain-v2"> </mgl-vector-source>
+      <mgl-layer
+        id="museums"
+        type="circle"
+        source="museums"
+        [layout]="layouts['museums']"
+        [paint]="{
+          'circle-radius': 8,
+          'circle-color': 'rgba(55,148,179,1)'
+        }"
+        sourceLayer="museum-cusco"
+      >
+      </mgl-layer>
+      <mgl-layer
+        id="contours"
+        type="line"
+        source="contours"
+        [layout]="layouts['contours']"
+        [paint]="{
+          'line-color': '#877b59',
+          'line-width': 1
+        }"
+        sourceLayer="contour"
+      >
+      </mgl-layer>
+    </mgl-map>
+    <div class="menu">
+      <mat-button-toggle [checked]="true" value="contours" (change)="toggleLayer($event)">contours</mat-button-toggle>
+      <mat-button-toggle [checked]="true" value="museums" (change)="toggleLayer($event)">museums</mat-button-toggle>
+    </div>
   `,
   styleUrls: ['./examples.css', './toggle-layers.component.css']
 })
@@ -63,8 +55,7 @@ export class ToggleLayersComponent implements OnInit {
     }
   };
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   toggleLayer(evt: { value: string }) {
     this.layouts[evt.value] = {

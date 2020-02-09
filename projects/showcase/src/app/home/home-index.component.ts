@@ -7,24 +7,23 @@ import { observeOn } from 'rxjs/operators';
   templateUrl: './home-index.component.html',
   styleUrls: ['./home-index.component.scss']
 })
-
 export class HomeIndexComponent implements OnInit, OnDestroy {
   center = [0, 0];
 
   private sub: Subscription;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.sub = interval(100).pipe(
-      observeOn(animationFrameScheduler)
-    ).subscribe(() => {
-      if (this.center[0] >= 180) {
-        this.center = [-this.center[0], 0];
-      } else {
-        this.center = [this.center[0] + 1, 0];
-      }
-    });
+    this.sub = interval(100)
+      .pipe(observeOn(animationFrameScheduler))
+      .subscribe(() => {
+        if (this.center[0] >= 180) {
+          this.center = [-this.center[0], 0];
+        } else {
+          this.center = [this.center[0] + 1, 0];
+        }
+      });
   }
 
   ngOnDestroy() {

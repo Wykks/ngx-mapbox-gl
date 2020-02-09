@@ -12,57 +12,42 @@ import { GeoJSONSourceComponent } from 'ngx-mapbox-gl';
 @Component({
   selector: 'showcase-demo',
   template: `
-  <mgl-map
-    style="mapbox://styles/mapbox/dark-v9"
-    [zoom]="[3]"
-    [center]="[-103.59179687498357, 40.66995747013945]"
-  >
-    <ng-container *ngIf="earthquakes">
-      <mgl-geojson-source
-        #clusterComponent
-        id="earthquakes"
-        [data]="earthquakes"
-        [cluster]="true"
-        [clusterRadius]="50"
-        [clusterMaxZoom]="14"
-      ></mgl-geojson-source>
-      <mgl-markers-for-clusters
-        source="earthquakes"
-      >
-        <ng-template mglPoint let-feature>
-          <div
-            class="marker"
-            [title]="feature.properties['Secondary ID']"
-          >
-            {{ feature.properties['Primary ID'] }}
-          </div>
-        </ng-template>
-        <ng-template mglClusterPoint let-feature>
-          <div
-            class="marker-cluster"
-            (click)="selectCluster($event, feature)"
-          >
-            {{ feature.properties?.point_count }}
-          </div>
-        </ng-template>
-      </mgl-markers-for-clusters>
-      <mgl-popup
-        *ngIf="selectedCluster"
-        [feature]="selectedCluster"
-      >
-        <showcase-cluster-popup
-          [clusterComponent]="clusterComponent"
-          [selectedCluster]="selectedCluster"
-        ></showcase-cluster-popup>
-      </mgl-popup>
-    </ng-container>
-  </mgl-map>
+    <mgl-map style="mapbox://styles/mapbox/dark-v9" [zoom]="[3]" [center]="[-103.59179687498357, 40.66995747013945]">
+      <ng-container *ngIf="earthquakes">
+        <mgl-geojson-source
+          #clusterComponent
+          id="earthquakes"
+          [data]="earthquakes"
+          [cluster]="true"
+          [clusterRadius]="50"
+          [clusterMaxZoom]="14"
+        ></mgl-geojson-source>
+        <mgl-markers-for-clusters source="earthquakes">
+          <ng-template mglPoint let-feature>
+            <div class="marker" [title]="feature.properties['Secondary ID']">
+              {{ feature.properties['Primary ID'] }}
+            </div>
+          </ng-template>
+          <ng-template mglClusterPoint let-feature>
+            <div class="marker-cluster" (click)="selectCluster($event, feature)">
+              {{ feature.properties?.point_count }}
+            </div>
+          </ng-template>
+        </mgl-markers-for-clusters>
+        <mgl-popup *ngIf="selectedCluster" [feature]="selectedCluster">
+          <showcase-cluster-popup
+            [clusterComponent]="clusterComponent"
+            [selectedCluster]="selectedCluster"
+          ></showcase-cluster-popup>
+        </mgl-popup>
+      </ng-container>
+    </mgl-map>
   `,
   styleUrls: ['./examples.css', './ngx-cluster-html.component.css']
 })
 export class NgxClusterHtmlComponent implements OnInit {
   earthquakes: object;
-  selectedCluster: { geometry: GeoJSON.Point, properties: any };
+  selectedCluster: { geometry: GeoJSON.Point; properties: any };
 
   async ngOnInit() {
     this.earthquakes = await import('./earthquakes.geo.json');
@@ -79,9 +64,7 @@ export class NgxClusterHtmlComponent implements OnInit {
   selector: 'showcase-cluster-popup',
   template: `
     <mat-list>
-      <mat-list-item
-        *ngFor="let leaf of leaves"
-      >
+      <mat-list-item *ngFor="let leaf of leaves">
         {{ leaf.properties['Primary ID'] }}
       </mat-list-item>
     </mat-list>
@@ -93,7 +76,7 @@ export class NgxClusterHtmlComponent implements OnInit {
   `
 })
 export class ClusterPopupComponent implements OnChanges {
-  @Input() selectedCluster: { geometry: GeoJSON.Point, properties: any };
+  @Input() selectedCluster: { geometry: GeoJSON.Point; properties: any };
   @Input() clusterComponent: GeoJSONSourceComponent;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

@@ -15,12 +15,7 @@ const DOC_ROUTES: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    NgxMdModule.forRoot(),
-    RouterModule.forChild(DOC_ROUTES)
-  ],
+  imports: [CommonModule, SharedModule, NgxMdModule.forRoot(), RouterModule.forChild(DOC_ROUTES)],
   declarations: [DocComponent]
 })
-export class DocModule { }
+export class DocModule {}

@@ -22,9 +22,7 @@ describe('MapComponent', () => {
     })
       .overrideComponent(MapComponent, {
         set: {
-          providers: [
-            { provide: MapService, useClass: MapServiceSpy }
-          ]
+          providers: [{ provide: MapService, useClass: MapServiceSpy }]
         }
       })
       .compileComponents();

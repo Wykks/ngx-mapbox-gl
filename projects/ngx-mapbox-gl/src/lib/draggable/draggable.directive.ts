@@ -1,14 +1,4 @@
-import {
-  Directive,
-  EventEmitter,
-  Host,
-  Input,
-  NgZone,
-  OnDestroy,
-  OnInit,
-  Optional,
-  Output
-} from '@angular/core';
+import { Directive, EventEmitter, Host, Input, NgZone, OnDestroy, OnInit, Optional, Output } from '@angular/core';
 import { MapMouseEvent } from 'mapbox-gl';
 import { fromEvent, Observable, ReplaySubject } from 'rxjs';
 import { filter, switchMap, take, takeUntil, tap } from 'rxjs/operators';
@@ -35,7 +25,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
     private NgZone: NgZone,
     @Optional() @Host() private FeatureComponent?: FeatureComponent,
     @Optional() @Host() private MarkerComponent?: MarkerComponent
-  ) { }
+  ) {}
 
   ngOnInit() {
     let enter$;
@@ -43,7 +33,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
     let updateCoords;
     if (this.MarkerComponent) {
       console.warn('[ngx-mapbox-gl] mglDraggable on Marker is deprecated, use draggable input instead');
-      let markerElement = (<Element>this.MarkerComponent.content.nativeElement);
+      let markerElement = <Element>this.MarkerComponent.content.nativeElement;
       if (markerElement.children.length === 1) {
         markerElement = markerElement.children[0];
       }
@@ -83,19 +73,14 @@ export class DraggableDirective implements OnInit, OnDestroy {
           this.MapService.changeCanvasCursor('move');
           this.MapService.updateDragPan(false);
         }),
-        switchMap(() =>
-          fromEvent<MapMouseEvent>(<any>this.MapService.mapInstance, 'mousedown')
-            .pipe(takeUntil(leave$))
-        )
+        switchMap(() => fromEvent<MapMouseEvent>(<any>this.MapService.mapInstance, 'mousedown').pipe(takeUntil(leave$)))
       );
       const dragging$ = dragStart$.pipe(
-        switchMap(() => fromEvent<MapMouseEvent>(<any>this.MapService.mapInstance, 'mousemove')
-          .pipe(takeUntil(mouseUp$))
+        switchMap(() =>
+          fromEvent<MapMouseEvent>(<any>this.MapService.mapInstance, 'mousemove').pipe(takeUntil(mouseUp$))
         )
       );
-      const dragEnd$ = dragStart$.pipe(
-        switchMap(() => mouseUp$.pipe(take(1)))
-      );
+      const dragEnd$ = dragStart$.pipe(switchMap(() => mouseUp$.pipe(take(1))));
       dragStart$.subscribe((evt) => {
         moving = true;
         if (this.dragStart.observers.length) {
@@ -113,35 +98,31 @@ export class DraggableDirective implements OnInit, OnDestroy {
         if (this.dragEnd.observers.length) {
           this.NgZone.run(() => this.dragEnd.emit(evt));
         }
-        if (!inside) { // It's possible to dragEnd outside the target (small input lag)
+        if (!inside) {
+          // It's possible to dragEnd outside the target (small input lag)
           this.MapService.changeCanvasCursor('');
           this.MapService.updateDragPan(true);
         }
       });
-      leave$.pipe(
-        takeUntil(this.destroyed$),
-        tap(() => inside = false),
-        filter(() => !moving)
-      ).subscribe(() => {
-        this.MapService.changeCanvasCursor('');
-        this.MapService.updateDragPan(true);
-      });
+      leave$
+        .pipe(
+          takeUntil(this.destroyed$),
+          tap(() => (inside = false)),
+          filter(() => !moving)
+        )
+        .subscribe(() => {
+          this.MapService.changeCanvasCursor('');
+          this.MapService.updateDragPan(true);
+        });
     });
   }
 
   private filterFeature(evt: MapMouseEvent) {
     if (this.FeatureComponent && this.layer) {
-      const feature: GeoJSON.Feature<any> = this.MapService.queryRenderedFeatures(
-        evt.point,
-        {
-          layers: [this.layer.id],
-          filter: [
-            'all',
-            ['==', '$type', 'Point'],
-            ['==', '$id', this.FeatureComponent.id]
-          ]
-        }
-      )[0];
+      const feature: GeoJSON.Feature<any> = this.MapService.queryRenderedFeatures(evt.point, {
+        layers: [this.layer.id],
+        filter: ['all', ['==', '$type', 'Point'], ['==', '$id', this.FeatureComponent.id]]
+      })[0];
       if (!feature) {
         return false;
       }
@@ -149,5 +130,3 @@ export class DraggableDirective implements OnInit, OnDestroy {
     return true;
   }
 }
-
-
