@@ -1,13 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-  SimpleChanges
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import {
   BackgroundLayout,
   BackgroundPaint,
@@ -50,8 +41,22 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
 
   /* Dynamic inputs */
   @Input() filter?: any[];
-  @Input() layout?: BackgroundLayout | FillLayout | FillExtrusionLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout;
-  @Input() paint?: BackgroundPaint | FillPaint | FillExtrusionPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint;
+  @Input() layout?:
+    | BackgroundLayout
+    | FillLayout
+    | FillExtrusionLayout
+    | LineLayout
+    | SymbolLayout
+    | RasterLayout
+    | CircleLayout;
+  @Input() paint?:
+    | BackgroundPaint
+    | FillPaint
+    | FillExtrusionPaint
+    | LinePaint
+    | SymbolPaint
+    | RasterPaint
+    | CirclePaint;
   @Input() before?: string;
   @Input() minzoom?: number;
   @Input() maxzoom?: number;
@@ -64,18 +69,20 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   private layerAdded = false;
   private sub: Subscription;
 
-  constructor(
-    private MapService: MapService
-  ) { }
+  constructor(private MapService: MapService) {}
 
   ngOnInit() {
-    this.sub = this.MapService.mapLoaded$.pipe(
-      switchMap(() => fromEvent(<any>this.MapService.mapInstance, 'styledata').pipe(
-        mapTo(false),
-        filter(() => !this.MapService.mapInstance.getLayer(this.id)),
-        startWith(true)
-      )),
-    ).subscribe((bindEvents: boolean) => this.init(bindEvents));
+    this.sub = this.MapService.mapLoaded$
+      .pipe(
+        switchMap(() =>
+          fromEvent(<any>this.MapService.mapInstance, 'styledata').pipe(
+            mapTo(false),
+            filter(() => !this.MapService.mapInstance.getLayer(this.id)),
+            startWith(true)
+          )
+        )
+      )
+      .subscribe((bindEvents: boolean) => this.init(bindEvents));
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -95,8 +102,8 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
       this.MapService.setLayerBefore(this.id, changes.before.currentValue!);
     }
     if (
-      changes.minzoom && !changes.minzoom.isFirstChange() ||
-      changes.maxzoom && !changes.maxzoom.isFirstChange()
+      (changes.minzoom && !changes.minzoom.isFirstChange()) ||
+      (changes.maxzoom && !changes.maxzoom.isFirstChange())
     ) {
       this.MapService.setLayerZoomRange(this.id, this.minzoom, this.maxzoom);
     }

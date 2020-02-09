@@ -19,25 +19,21 @@ export class IndexComponent {
 
   private currentRouterState$ = this.store.pipe(select(fromApp.getCurrentRouterState));
 
-  constructor(
-    private store: Store<State>,
-    private router: Router
-  ) { }
+  constructor(private store: Store<State>, private router: Router) {}
 
   toggleSidenav() {
     this.store.dispatch(new demo.ToggleSidenav());
   }
 
   toggleEdit() {
-    this.isDemoEditing$.pipe(
-      first(),
-      withLatestFrom(this.currentRouterState$)
-    ).subscribe(([isDemoEditing, currentRouterState]) => {
-      if (isDemoEditing) {
-        this.router.navigate(['demo', currentRouterState.params.demoUrl]);
-      } else {
-        this.router.navigate(['demo', 'edit', currentRouterState.url.split('/').pop()]);
-      }
-    });
+    this.isDemoEditing$
+      .pipe(first(), withLatestFrom(this.currentRouterState$))
+      .subscribe(([isDemoEditing, currentRouterState]) => {
+        if (isDemoEditing) {
+          this.router.navigate(['demo', currentRouterState.params.demoUrl]);
+        } else {
+          this.router.navigate(['demo', 'edit', currentRouterState.url.split('/').pop()]);
+        }
+      });
   }
 }

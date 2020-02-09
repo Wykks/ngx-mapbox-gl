@@ -9,11 +9,11 @@ describe('ImageComponent', () => {
     addImage = jasmine.createSpy('addImage');
     removeImage = jasmine.createSpy('removeImage');
     mapLoaded$ = of(undefined);
-    mapInstance = new class {
-      on() { }
-      off() { }
-      hasImage() { }
-    };
+    mapInstance = new (class {
+      on() {}
+      off() {}
+      hasImage() {}
+    })();
   }
 
   let msSpy: MapServiceSpy;
@@ -26,9 +26,7 @@ describe('ImageComponent', () => {
     })
       .overrideComponent(ImageComponent, {
         set: {
-          providers: [
-            { provide: MapService, useClass: MapServiceSpy }
-          ]
+          providers: [{ provide: MapService, useClass: MapServiceSpy }]
         }
       })
       .compileComponents();

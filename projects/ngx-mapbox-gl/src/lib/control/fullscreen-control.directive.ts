@@ -10,10 +10,7 @@ export class FullscreenControlDirective implements AfterContentInit {
   /* Init inputs */
   @Input() container?: HTMLElement;
 
-  constructor(
-    private MapService: MapService,
-    @Host() private ControlComponent: ControlComponent
-  ) { }
+  constructor(private MapService: MapService, @Host() private ControlComponent: ControlComponent) {}
 
   ngAfterContentInit() {
     this.MapService.mapCreated$.subscribe(() => {

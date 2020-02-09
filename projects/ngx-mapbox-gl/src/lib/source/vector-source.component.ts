@@ -24,18 +24,16 @@ export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, Vect
   private sourceAdded = false;
   private sub = new Subscription();
 
-  constructor(
-    private MapService: MapService
-  ) { }
+  constructor(private MapService: MapService) {}
 
   ngOnInit() {
     this.MapService.mapLoaded$.subscribe(() => {
       this.init();
-      const sub = fromEvent(<any>this.MapService.mapInstance, 'styledata').pipe(
-        filter(() => !this.MapService.mapInstance.getSource(this.id))
-      ).subscribe(() => {
-        this.init();
-      });
+      const sub = fromEvent(<any>this.MapService.mapInstance, 'styledata')
+        .pipe(filter(() => !this.MapService.mapInstance.getSource(this.id)))
+        .subscribe(() => {
+          this.init();
+        });
       this.sub.add(sub);
     });
   }
@@ -45,10 +43,10 @@ export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, Vect
       return;
     }
     if (
-      changes.url && !changes.url.isFirstChange() ||
-      changes.tiles && !changes.tiles.isFirstChange() ||
-      changes.minzoom && !changes.minzoom.isFirstChange() ||
-      changes.maxzoom && !changes.maxzoom.isFirstChange()
+      (changes.url && !changes.url.isFirstChange()) ||
+      (changes.tiles && !changes.tiles.isFirstChange()) ||
+      (changes.minzoom && !changes.minzoom.isFirstChange()) ||
+      (changes.maxzoom && !changes.maxzoom.isFirstChange())
     ) {
       this.ngOnDestroy();
       this.ngOnInit();
@@ -68,7 +66,7 @@ export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, Vect
       url: this.url,
       tiles: this.tiles,
       minzoom: this.minzoom,
-      maxzoom: this.maxzoom,
+      maxzoom: this.maxzoom
     });
     this.sourceAdded = true;
   }

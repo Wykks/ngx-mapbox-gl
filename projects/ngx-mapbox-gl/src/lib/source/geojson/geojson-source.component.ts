@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, NgZone } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  NgZone
+} from '@angular/core';
 import { GeoJSONSource, GeoJSONSourceOptions } from 'mapbox-gl';
 import { fromEvent, Subject, Subscription } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
@@ -30,10 +39,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
   private sourceAdded = false;
   private featureIdCounter = 0;
 
-  constructor(
-    private MapService: MapService,
-    private zone: NgZone
-  ) { }
+  constructor(private MapService: MapService, private zone: NgZone) {}
 
   ngOnInit() {
     if (!this.data) {
@@ -44,11 +50,11 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
     }
     this.MapService.mapLoaded$.subscribe(() => {
       this.init();
-      const sub = fromEvent(<any>this.MapService.mapInstance, 'styledata').pipe(
-        filter(() => !this.MapService.mapInstance.getSource(this.id))
-      ).subscribe(() => {
-        this.init();
-      });
+      const sub = fromEvent(<any>this.MapService.mapInstance, 'styledata')
+        .pipe(filter(() => !this.MapService.mapInstance.getSource(this.id)))
+        .subscribe(() => {
+          this.init();
+        });
       this.sub.add(sub);
     });
   }
@@ -58,14 +64,14 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
       return;
     }
     if (
-      changes.maxzoom && !changes.maxzoom.isFirstChange() ||
-      changes.minzoom && !changes.minzoom.isFirstChange() ||
-      changes.buffer && !changes.buffer.isFirstChange() ||
-      changes.tolerance && !changes.tolerance.isFirstChange() ||
-      changes.cluster && !changes.cluster.isFirstChange() ||
-      changes.clusterRadius && !changes.clusterRadius.isFirstChange() ||
-      changes.clusterMaxZoom && !changes.clusterMaxZoom.isFirstChange() ||
-      changes.clusterProperties && !changes.clusterProperties.isFirstChange()
+      (changes.maxzoom && !changes.maxzoom.isFirstChange()) ||
+      (changes.minzoom && !changes.minzoom.isFirstChange()) ||
+      (changes.buffer && !changes.buffer.isFirstChange()) ||
+      (changes.tolerance && !changes.tolerance.isFirstChange()) ||
+      (changes.cluster && !changes.cluster.isFirstChange()) ||
+      (changes.clusterRadius && !changes.clusterRadius.isFirstChange()) ||
+      (changes.clusterMaxZoom && !changes.clusterMaxZoom.isFirstChange()) ||
+      (changes.clusterProperties && !changes.clusterProperties.isFirstChange())
     ) {
       this.ngOnDestroy();
       this.ngOnInit();
@@ -162,7 +168,8 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
   }
 
   private init() {
-    this.MapService.addSource(this.id, <any>{ // clusterProperties missing in typings
+    this.MapService.addSource(this.id, <any>{
+      // clusterProperties missing in typings
       type: 'geojson',
       data: this.data,
       maxzoom: this.maxzoom,

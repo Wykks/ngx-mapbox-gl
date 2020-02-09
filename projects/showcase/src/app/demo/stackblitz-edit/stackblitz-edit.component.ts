@@ -22,26 +22,31 @@ import { DemoFileLoaderService } from '../demo-file-loader.service';
 @Component({
   template: `
     <div #container></div>
-    <div *ngIf="loading" class="loader"><mat-spinner></mat-spinner><div>
+    <div *ngIf="loading" class="loader">
+      <mat-spinner></mat-spinner>
+      <div></div>
+    </div>
   `,
-  styles: [`
-    :host {
-      display: flex;
-      flex: 1;
-      position: relative;
-    }
-    :host ::ng-deep iframe {
-      height: 100%;
-      width: 100%;
-      border: 0;
-    }
-    .loader {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%,-50%);
-    }
-  `],
+  styles: [
+    `
+      :host {
+        display: flex;
+        flex: 1;
+        position: relative;
+      }
+      :host ::ng-deep iframe {
+        height: 100%;
+        width: 100%;
+        border: 0;
+      }
+      .loader {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    `
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
@@ -74,31 +79,28 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
     this.sub = combineLatest([
       this.store.pipe(select(fromShowcase.getCurrentRouterState)),
       this.store.pipe(select(fromShowcase.isDemoEditing))
-    ]).pipe(
-      filter(([, isDemoEditing]) => isDemoEditing),
-      tap(() => {
-        this.loading = true;
-        this.ChangeDetectorRef.markForCheck();
-      }),
-      switchMap(([state]) =>
-        forkJoin([
-          this.projectbase$,
-          this.DemoFileLoaderService.getDemoFiles(state.params.demoUrl)
-        ])
-      ),
-      switchMap(([projectbase, demoFiles]) =>
-        from(this.openExample(projectbase, demoFiles))
-      ),
-      tap(() => {
-        this.loading = false;
-        this.ChangeDetectorRef.markForCheck();
-      }),
-    ).subscribe({
-      error: () => {
-        this.loading = false;
-        this.ChangeDetectorRef.markForCheck();
-      }
-    });
+    ])
+      .pipe(
+        filter(([, isDemoEditing]) => isDemoEditing),
+        tap(() => {
+          this.loading = true;
+          this.ChangeDetectorRef.markForCheck();
+        }),
+        switchMap(([state]) =>
+          forkJoin([this.projectbase$, this.DemoFileLoaderService.getDemoFiles(state.params.demoUrl)])
+        ),
+        switchMap(([projectbase, demoFiles]) => from(this.openExample(projectbase, demoFiles))),
+        tap(() => {
+          this.loading = false;
+          this.ChangeDetectorRef.markForCheck();
+        })
+      )
+      .subscribe({
+        error: () => {
+          this.loading = false;
+          this.ChangeDetectorRef.markForCheck();
+        }
+      });
   }
 
   ngOnDestroy() {
@@ -131,7 +133,7 @@ html, body {
   margin: 0;
 }
 `,
-'src/polyfills.ts': `
+        'src/polyfills.ts': `
 import 'core-js/es6/reflect';
 import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
@@ -142,16 +144,16 @@ import 'zone.js/dist/zone';
       description: '',
       template: 'angular-cli',
       dependencies: {
-        'tslib': '*',
+        tslib: '*',
         'mapbox-gl': '0.52.0', // There an issue with 0.53.0
         'ngx-mapbox-gl': '*',
         '@angular/cdk': '*',
         '@angular/material': '*',
         '@angular/animations': '*',
         '@angular/forms': '*',
-        'url': '*',
-        'querystring': '*',
-        'events': '*',
+        url: '*',
+        querystring: '*',
+        events: '*',
         '@types/mapbox-gl': '*',
         '@types/supercluster': '*',
         '@types/geojson': '*'

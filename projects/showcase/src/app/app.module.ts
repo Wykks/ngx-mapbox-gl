@@ -4,7 +4,12 @@ import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Params, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
-import { routerReducer, RouterReducerState, RouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import {
+  routerReducer,
+  RouterReducerState,
+  RouterStateSerializer,
+  StoreRouterConnectingModule
+} from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import 'hammerjs';
@@ -33,7 +38,10 @@ export class SimpleSerializer implements RouterStateSerializer<RouterStateUrl> {
     while (route.firstChild) {
       route = route.firstChild;
     }
-    const { url, root: { queryParams } } = routerState;
+    const {
+      url,
+      root: { queryParams }
+    } = routerState;
     const { params } = route;
     return { url, params, queryParams };
   }
@@ -46,37 +54,39 @@ export const showcaseRoutes: Routes = [
   },
   {
     path: '',
-    children: [{
-      path: '',
-      component: HomeIndexComponent
-    }],
+    children: [
+      {
+        path: '',
+        component: HomeIndexComponent
+      }
+    ],
     pathMatch: 'full'
   },
   {
     path: 'doc',
-    loadChildren: () => import('./doc/doc.module').then(m => m.DocModule)
+    loadChildren: () => import('./doc/doc.module').then((m) => m.DocModule)
   },
   { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
-  declarations: [
-    IndexComponent,
-    HomeIndexComponent
-  ],
+  declarations: [IndexComponent, HomeIndexComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     SharedModule,
     DemoModule,
-    StoreModule.forRoot({
-      router: <any>routerReducer
-    }, {
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true
+    StoreModule.forRoot(
+      {
+        router: <any>routerReducer
+      },
+      {
+        runtimeChecks: {
+          strictStateImmutability: true,
+          strictActionImmutability: true
+        }
       }
-    }),
+    ),
     RouterModule.forRoot(showcaseRoutes),
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
@@ -87,18 +97,16 @@ export const showcaseRoutes: Routes = [
       accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA'
     })
   ],
-  providers: [
-    { provide: RouterStateSerializer, useClass: SimpleSerializer }
-  ],
+  providers: [{ provide: RouterStateSerializer, useClass: SimpleSerializer }],
   bootstrap: [IndexComponent]
 })
 export class AppModule {
-  constructor(
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer
-  ) {
+  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon('ngx-mapbox-gl', sanitizer.bypassSecurityTrustResourceUrl('assets/ngx-mapbox-gl.svg'));
-    iconRegistry.addSvgIcon('ngx-mapbox-gl-red', sanitizer.bypassSecurityTrustResourceUrl('assets/ngx-mapbox-gl-red.svg'));
+    iconRegistry.addSvgIcon(
+      'ngx-mapbox-gl-red',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/ngx-mapbox-gl-red.svg')
+    );
     iconRegistry.addSvgIcon('github', sanitizer.bypassSecurityTrustResourceUrl('assets/github.svg'));
   }
 }

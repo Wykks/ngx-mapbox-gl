@@ -4,9 +4,7 @@ import { DEMO_ROUTES } from '../demo.module';
 
 @Injectable()
 export class StackblitzEditGuard implements CanActivate {
-  constructor(
-    private router: Router
-  ) { }
+  constructor(private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot) {
     if (DEMO_ROUTES[0].children!.some((r) => r.path === route.params.demoUrl)) {

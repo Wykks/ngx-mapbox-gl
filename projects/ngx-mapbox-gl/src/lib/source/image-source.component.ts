@@ -19,13 +19,10 @@ export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, Image
   private sub: Subscription;
   private sourceId?: string;
 
-  constructor(
-    private MapService: MapService
-  ) { }
+  constructor(private MapService: MapService) {}
 
   ngOnInit() {
-    this.sub = this.MapService.mapLoaded$
-      .subscribe(() => this.init());
+    this.sub = this.MapService.mapLoaded$.subscribe(() => this.init());
   }
 
   ngOnChanges(changes: SimpleChanges) {

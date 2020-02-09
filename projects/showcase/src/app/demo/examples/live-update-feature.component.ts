@@ -4,33 +4,28 @@ import { LngLatLike } from 'mapbox-gl';
 @Component({
   selector: 'showcase-demo',
   template: `
-  <mgl-map
-    [style]="'mapbox://styles/mapbox/satellite-v9'"
-    [zoom]="zoom"
-    [center]="center"
-    [centerWithPanTo]="true"
-    [pitch]="pitch"
-    movingMethod="jumpTo"
-  >
-    <mgl-geojson-source
-      *ngIf="data"
-      id="trace"
-      [data]="data"
+    <mgl-map
+      [style]="'mapbox://styles/mapbox/satellite-v9'"
+      [zoom]="zoom"
+      [center]="center"
+      [centerWithPanTo]="true"
+      [pitch]="pitch"
+      movingMethod="jumpTo"
     >
-    </mgl-geojson-source>
-    <mgl-layer
-      *ngIf="data"
-      id="trace"
-      type="line"
-      source="trace"
-      [paint]="{
-        'line-color': 'yellow',
-        'line-opacity': 0.75,
-        'line-width': 5
-      }"
-    >
-    </mgl-layer>
-  </mgl-map>
+      <mgl-geojson-source *ngIf="data" id="trace" [data]="data"> </mgl-geojson-source>
+      <mgl-layer
+        *ngIf="data"
+        id="trace"
+        type="line"
+        source="trace"
+        [paint]="{
+          'line-color': 'yellow',
+          'line-opacity': 0.75,
+          'line-width': 5
+        }"
+      >
+      </mgl-layer>
+    </mgl-map>
   `,
   styleUrls: ['./examples.css']
 })
@@ -42,7 +37,7 @@ export class LiveUpdateFeatureComponent implements OnInit, OnDestroy {
 
   private timer: number;
 
-  constructor() { }
+  constructor() {}
 
   async ngOnInit() {
     const data: GeoJSON.FeatureCollection<GeoJSON.LineString> = <any>await import('./hike.geo.json');

@@ -12,13 +12,27 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "release": "standard-version -a",
-    "update-version": "./update_version.sh"
+    "update-version": "./update_version.sh",
+    "prettier": "prettier --config ./.prettierrc --write \"projects/**/*{.ts,.js,.json,.css,.scss}\""
   },
   "standard-version": {
     "scripts": {
       "postbump": "yarn update-version && yarn build",
       "precommit": "git add projects/ngx-mapbox-gl/package.json"
     }
+  },
+  "lint-staged": {
+    "*.ts": "tslint --project ./tsconfig.json --config ./tslint.json --fix",
+    "*.{js,ts,md,html,css,json}": "prettier --config ./.prettierrc --write"
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "commitizen": {
+    "path": "cz-conventional-changelog"
   },
   "private": true,
   "dependencies": {
@@ -59,6 +73,9 @@
     "@types/node": "^12.0.11",
     "angular-cli-ghpages": "^0.6.0",
     "codelyzer": "^5.1.0",
+    "commitizen": "4.0.3",
+    "cz-conventional-changelog": "3.1.0",
+    "husky": "4.2.1",
     "jasmine-core": "^3.4.0",
     "jasmine-spec-reporter": "^4.2.1",
     "karma": "^4.1.0",
@@ -67,8 +84,10 @@
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
     "karma-mocha-reporter": "^2.2.5",
+    "lint-staged": "10.0.7",
     "ng-packagr": "^5.3.0",
     "pixel-diff": "^1.0.1",
+    "prettier": "1.19.1",
     "protractor": "^5.4.2",
     "protractor-browser-logs": "^1.0.446",
     "standard-version": "^7.0.0",
@@ -78,5 +97,10 @@
     "tslint": "^5.18.0",
     "typescript": "~3.5.3",
     "typescript-tslint-plugin": "^0.5.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

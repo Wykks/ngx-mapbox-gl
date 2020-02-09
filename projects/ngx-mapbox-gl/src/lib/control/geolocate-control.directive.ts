@@ -15,10 +15,7 @@ export class GeolocateControlDirective implements AfterContentInit {
 
   @Output() geolocate: EventEmitter<Position> = new EventEmitter<Position>();
 
-  constructor(
-    private MapService: MapService,
-    @Host() private ControlComponent: ControlComponent
-  ) { }
+  constructor(private MapService: MapService, @Host() private ControlComponent: ControlComponent) {}
 
   ngAfterContentInit() {
     this.MapService.mapCreated$.subscribe(() => {
@@ -32,13 +29,12 @@ export class GeolocateControlDirective implements AfterContentInit {
         showUserLocation: this.showUserLocation
       };
 
-      Object.keys(options)
-        .forEach((key: string) => {
-          const tkey = <keyof typeof options>key;
-          if (options[tkey] === undefined) {
-            delete options[tkey];
-          }
-        });
+      Object.keys(options).forEach((key: string) => {
+        const tkey = <keyof typeof options>key;
+        if (options[tkey] === undefined) {
+          delete options[tkey];
+        }
+      });
       this.ControlComponent.control = new GeolocateControl(options);
       this.ControlComponent.control.on('geolocate', (data: Position) => this.geolocate.emit(data));
       this.MapService.addControl(this.ControlComponent.control, this.ControlComponent.position);

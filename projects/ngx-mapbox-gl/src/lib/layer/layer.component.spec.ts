@@ -11,11 +11,11 @@ describe('LayerComponent', () => {
     removeLayer = jasmine.createSpy('removeLayer');
     setAllLayerPaintProperty = jasmine.createSpy('setAllPaintProperty');
     mapLoaded$ = of(undefined);
-    mapInstance = new class {
-      on() { }
-      off() { }
-      getLayer() { }
-    };
+    mapInstance = new (class {
+      on() {}
+      off() {}
+      getLayer() {}
+    })();
   }
 
   let msSpy: MapServiceSpy;
@@ -28,9 +28,7 @@ describe('LayerComponent', () => {
     })
       .overrideComponent(LayerComponent, {
         set: {
-          providers: [
-            { provide: MapService, useClass: MapServiceSpy }
-          ]
+          providers: [{ provide: MapService, useClass: MapServiceSpy }]
         }
       })
       .compileComponents();

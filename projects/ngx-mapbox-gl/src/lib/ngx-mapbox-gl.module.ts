@@ -13,7 +13,11 @@ import { LayerComponent } from './layer/layer.component';
 import { MapComponent } from './map/map.component';
 import { MAPBOX_API_KEY } from './map/map.service';
 import { MarkerComponent } from './marker/marker.component';
-import { ClusterPointDirective, PointDirective, MarkersForClustersComponent } from './markers-for-clusters/markers-for-clusters.component';
+import {
+  ClusterPointDirective,
+  PointDirective,
+  MarkersForClustersComponent
+} from './markers-for-clusters/markers-for-clusters.component';
 import { PopupComponent } from './popup/popup.component';
 import { CanvasSourceComponent } from './source/canvas-source.component';
 import { FeatureComponent } from './source/geojson/feature.component';
@@ -24,9 +28,7 @@ import { VectorSourceComponent } from './source/vector-source.component';
 import { VideoSourceComponent } from './source/video-source.component';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   declarations: [
     MapComponent,
     LayerComponent,
@@ -79,7 +81,7 @@ import { VideoSourceComponent } from './source/video-source.component';
   ]
 })
 export class NgxMapboxGLModule {
-  static withConfig(config: { accessToken: string, geocoderAccessToken?: string }): ModuleWithProviders {
+  static withConfig(config: { accessToken: string; geocoderAccessToken?: string }): ModuleWithProviders {
     return {
       ngModule: NgxMapboxGLModule,
       providers: [
@@ -91,7 +93,7 @@ export class NgxMapboxGLModule {
           provide: MAPBOX_GEOCODER_API_KEY,
           useValue: config.geocoderAccessToken || config.accessToken
         }
-      ],
+      ]
     };
   }
 }

@@ -7,11 +7,7 @@ import { MarkerComponent } from './marker.component';
 
 @Component({
   template: `
-    <mgl-marker
-      [offset]="offset"
-      [lngLat]="lngLat"
-      [className]="className"
-    >
+    <mgl-marker [offset]="offset" [lngLat]="lngLat" [className]="className">
       ...
     </mgl-marker>
   `
@@ -21,7 +17,7 @@ class MarkerTestComponent implements OnDestroy {
   lngLat: [number, number];
   className: string;
 
-  ngOnDestroy() { }
+  ngOnDestroy() {}
 }
 
 describe('MarkerComponent', () => {
@@ -41,9 +37,7 @@ describe('MarkerComponent', () => {
     })
       .overrideComponent(MarkerTestComponent, {
         set: {
-          providers: [
-            { provide: MapService, useClass: MapServiceSpy }
-          ]
+          providers: [{ provide: MapService, useClass: MapServiceSpy }]
         }
       })
       .compileComponents();

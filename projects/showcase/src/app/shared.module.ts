@@ -39,4 +39,4 @@ const Modules = [
   imports: Modules,
   exports: Modules
 })
-export class SharedModule { }
+export class SharedModule {}

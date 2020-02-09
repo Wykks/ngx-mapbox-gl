@@ -42,21 +42,16 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
 
   popupInstance?: Popup;
 
-  constructor(
-    private MapService: MapService
-  ) { }
+  constructor(private MapService: MapService) {}
 
   ngOnInit() {
-    if (this.lngLat && this.marker || this.feature && this.lngLat || this.feature && this.marker) {
+    if ((this.lngLat && this.marker) || (this.feature && this.lngLat) || (this.feature && this.marker)) {
       throw new Error('marker, lngLat, feature input are mutually exclusive');
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (
-      changes.lngLat && !changes.lngLat.isFirstChange() ||
-      changes.feature && !changes.feature.isFirstChange()
-    ) {
+    if ((changes.lngLat && !changes.lngLat.isFirstChange()) || (changes.feature && !changes.feature.isFirstChange())) {
       const newlngLat = changes.lngLat ? this.lngLat! : <[number, number]>this.feature!.geometry!.coordinates!;
       this.MapService.removePopupFromMap(this.popupInstance!, true);
       const popupInstanceTmp = this.createPopup();
@@ -91,26 +86,32 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
   }
 
   private createPopup() {
-    return this.MapService.createPopup({
-      popupOptions: {
-        closeButton: this.closeButton,
-        closeOnClick: this.closeOnClick,
-        anchor: this.anchor,
-        offset: this.offset,
-        className: this.className,
-        maxWidth: this.maxWidth
+    return this.MapService.createPopup(
+      {
+        popupOptions: {
+          closeButton: this.closeButton,
+          closeOnClick: this.closeOnClick,
+          anchor: this.anchor,
+          offset: this.offset,
+          className: this.className,
+          maxWidth: this.maxWidth
+        },
+        popupEvents: {
+          open: this.open,
+          close: this.close
+        }
       },
-      popupEvents: {
-        open: this.open,
-        close: this.close
-      }
-    }, this.content.nativeElement);
+      this.content.nativeElement
+    );
   }
 
   private addPopup(popup: Popup) {
     this.MapService.mapCreated$.subscribe(() => {
       if (this.lngLat || this.feature) {
-        this.MapService.addPopupToMap(popup, this.lngLat ? this.lngLat : <[number, number]>this.feature!.geometry!.coordinates!);
+        this.MapService.addPopupToMap(
+          popup,
+          this.lngLat ? this.lngLat : <[number, number]>this.feature!.geometry!.coordinates!
+        );
       } else if (this.marker && this.marker.markerInstance) {
         this.MapService.addPopupToMarker(this.marker.markerInstance, popup);
       } else {

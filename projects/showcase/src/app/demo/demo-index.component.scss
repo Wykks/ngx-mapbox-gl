@@ -1,6 +1,7 @@
 @import '~@angular/material/theming';
 
-:host, .content {
+:host,
+.content {
   display: flex;
   flex: 1;
   flex-direction: row;
@@ -32,4 +33,3 @@ mat-form-field.search {
 a.active {
   background-color: mat-color(mat-palette($mat-indigo)) !important;
 }
-

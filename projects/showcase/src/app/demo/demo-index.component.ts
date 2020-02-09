@@ -26,11 +26,10 @@ export class DemoIndexComponent implements OnInit, AfterViewInit {
 
   @ViewChildren('exampleLink', { read: ElementRef }) exampleLinks: QueryList<ElementRef>;
 
-  constructor(
-    private store: Store<State>,
-    private zone: NgZone
-  ) {
-    this.originalRoutes = <RoutesByCategory><any>groupBy(DEMO_ROUTES[0].children, (route) => route.data ? route.data.cat : null);
+  constructor(private store: Store<State>, private zone: NgZone) {
+    this.originalRoutes = <RoutesByCategory>(
+      (<any>groupBy(DEMO_ROUTES[0].children, (route) => (route.data ? route.data.cat : null)))
+    );
     this.categories = [
       Category.STYLES,
       Category.LAYERS,
@@ -74,5 +73,4 @@ export class DemoIndexComponent implements OnInit, AfterViewInit {
     this.searchTerm = '';
     this.routes = this.originalRoutes;
   }
-
 }

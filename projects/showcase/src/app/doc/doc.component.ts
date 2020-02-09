@@ -5,4 +5,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./doc.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DocComponent { }
+export class DocComponent {}

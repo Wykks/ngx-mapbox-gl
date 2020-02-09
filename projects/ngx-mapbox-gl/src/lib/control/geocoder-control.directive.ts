@@ -79,7 +79,7 @@ export class GeocoderControlDirective implements AfterContentInit, OnChanges, Ge
     private zone: NgZone,
     @Host() private ControlComponent: ControlComponent,
     @Optional() @Inject(MAPBOX_GEOCODER_API_KEY) private readonly MAPBOX_GEOCODER_API_KEY: string
-  ) { }
+  ) {}
 
   ngAfterContentInit() {
     this.MapService.mapCreated$.subscribe(() => {
@@ -133,10 +133,7 @@ export class GeocoderControlDirective implements AfterContentInit, OnChanges, Ge
 
   private addControl() {
     this.ControlComponent.control = this.geocoder;
-    this.MapService.addControl(
-      this.ControlComponent.control,
-      this.ControlComponent.position
-    );
+    this.MapService.addControl(this.ControlComponent.control, this.ControlComponent.position);
   }
 
   private hookEvents(events: GeocoderEvent) {
@@ -161,6 +158,5 @@ export class GeocoderControlDirective implements AfterContentInit, OnChanges, Ge
     if (events.clear.observers.length) {
       this.geocoder.on('clear', () => this.zone.run(() => events.clear.emit()));
     }
-
   }
 }

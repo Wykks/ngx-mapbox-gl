@@ -1,6 +1,5 @@
 import { EventEmitter, Injectable, NgZone } from '@angular/core';
 
-
 /**
  * Mock synchronous NgZone implementation that can be used
  * to flush out `onStable` subscriptions in tests.
