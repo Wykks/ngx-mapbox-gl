@@ -46,11 +46,17 @@ import { GeoJSONSourceComponent } from 'ngx-mapbox-gl';
   styleUrls: ['./examples.css', './ngx-cluster-html.component.css']
 })
 export class NgxClusterHtmlComponent implements OnInit {
-  earthquakes: object;
+  earthquakes: GeoJSON.FeatureCollection;
   selectedCluster: { geometry: GeoJSON.Point; properties: any };
 
   async ngOnInit() {
-    this.earthquakes = await import('./earthquakes.geo.json');
+    const earthquakes: GeoJSON.FeatureCollection = <any>await import('./earthquakes.geo.json');
+    setInterval(() => {
+      if (earthquakes.features.length) {
+        earthquakes.features.pop();
+      }
+      this.earthquakes = { ...earthquakes };
+    }, 500);
   }
 
   selectCluster(event: MouseEvent, feature: any) {
