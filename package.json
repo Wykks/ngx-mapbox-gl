@@ -13,7 +13,8 @@
     "e2e": "ng e2e",
     "release": "standard-version -a",
     "update-version": "./update_version.sh",
-    "prettier": "prettier --config ./.prettierrc --write \"projects/**/*{.ts,.js,.json,.css,.scss}\""
+    "prettier": "prettier --config ./.prettierrc --write \"projects/**/*{.ts,.js,.json,.css,.scss}\"",
+    "commit": "git-cz"
   },
   "standard-version": {
     "scripts": {
@@ -27,7 +28,6 @@
   },
   "husky": {
     "hooks": {
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
       "pre-commit": "lint-staged"
     }
   },
