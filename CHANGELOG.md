@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.4.2](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.4.1...v4.4.2) (2020-02-11)
+
+### Bug Fixes
+
+- **markers-for-clusters:** handle multiple cluster correctly ([3af48a4](https://github.com/Wykks/ngx-mapbox-gl/commit/3af48a44be0d4e474c09aedbc199c03236e1417a)), closes [#206](https://github.com/Wykks/ngx-mapbox-gl/issues/206)
+
 ### [4.4.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.4.0...v4.4.1) (2020-02-09)
 
 ### Bug Fixes
