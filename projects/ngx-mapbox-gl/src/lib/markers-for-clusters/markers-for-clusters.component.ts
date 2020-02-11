@@ -60,7 +60,12 @@ export class MarkersForClustersComponent implements OnDestroy, AfterContentInit 
   ngAfterContentInit() {
     const clusterDataUpdate = () =>
       fromEvent<MapSourceDataEvent>(<any>this.MapService.mapInstance, 'data').pipe(
-        filter((e) => e.sourceId === this.source && e.isSourceLoaded && e.sourceDataType !== 'metadata')
+        filter(
+          (e) =>
+            e.sourceId === this.source &&
+            e.sourceDataType !== 'metadata' &&
+            this.MapService.mapInstance.isSourceLoaded(this.source)
+        )
       );
     const sub = this.MapService.mapCreated$
       .pipe(
