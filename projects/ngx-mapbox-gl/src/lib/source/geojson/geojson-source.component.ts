@@ -28,6 +28,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
   @Input() maxzoom?: number;
   @Input() buffer?: number;
   @Input() tolerance?: number;
+  @Input() generateId?: boolean;
   @Input() cluster?: boolean;
   @Input() clusterRadius?: number;
   @Input() clusterMaxZoom?: number;
@@ -68,6 +69,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
       (changes.minzoom && !changes.minzoom.isFirstChange()) ||
       (changes.buffer && !changes.buffer.isFirstChange()) ||
       (changes.tolerance && !changes.tolerance.isFirstChange()) ||
+      (changes.generateId && !changes.generateId.isFirstChange()) ||
       (changes.cluster && !changes.cluster.isFirstChange()) ||
       (changes.clusterRadius && !changes.clusterRadius.isFirstChange()) ||
       (changes.clusterMaxZoom && !changes.clusterMaxZoom.isFirstChange()) ||
@@ -176,6 +178,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
       minzoom: this.minzoom,
       buffer: this.buffer,
       tolerance: this.tolerance,
+      generateId: this.generateId,
       cluster: this.cluster,
       clusterRadius: this.clusterRadius,
       clusterMaxZoom: this.clusterMaxZoom,
