@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.5.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.4.2...v4.5.0) (2020-03-02)
+
+### Features
+
+- **GeoJSONSource:** add generateId option [#215](https://github.com/Wykks/ngx-mapbox-gl/issues/215) ([16ec1b4](https://github.com/Wykks/ngx-mapbox-gl/commit/16ec1b4429787df89a45e47a12c3f3c998c97a8e))
+
 ### [4.4.2](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.4.1...v4.4.2) (2020-02-11)
 
 ### Bug Fixes
