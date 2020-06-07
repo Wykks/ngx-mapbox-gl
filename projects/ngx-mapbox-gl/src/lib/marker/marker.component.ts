@@ -13,7 +13,7 @@ import {
   ViewEncapsulation,
   EventEmitter
 } from '@angular/core';
-import { LngLatLike, Marker, PointLike, Anchor } from 'mapbox-gl';
+import { LngLatLike, Marker, PointLike, Anchor, Alignment } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 
 @Component({
@@ -26,6 +26,8 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
   /* Init input */
   @Input() offset?: PointLike;
   @Input() anchor?: Anchor;
+  @Input() pitchAlignment?: Alignment;
+  @Input() rotationAlignment?: Alignment;
 
   /* Dynamic input */
   @Input() feature?: GeoJSON.Feature<GeoJSON.Point>;
@@ -73,6 +75,8 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
         markersOptions: {
           offset: this.offset,
           anchor: this.anchor,
+          pitchAlignment: this.pitchAlignment,
+          rotationAlignment: this.rotationAlignment,
           draggable: !!this.draggable,
           element: this.content.nativeElement,
           feature: this.feature,
