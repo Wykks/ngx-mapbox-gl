@@ -49,6 +49,7 @@ import { ToggleLayersComponent } from './examples/toggle-layers.component';
 import { ZoomtoLinestringComponent } from './examples/zoomto-linestring.component';
 import { StackblitzEditGuard } from './stackblitz-edit/stackblitz-edit-guard.service';
 import { StackblitzEditComponent } from './stackblitz-edit/stackblitz-edit.component';
+import { MarkerAlignmentComponent } from './examples/marker-alignment.component';
 
 export enum Category {
   STYLES = 'Styles',
@@ -253,6 +254,11 @@ export const DEMO_ROUTES: Routes = [
         component: CustomLocaleComponent,
         data: { label: 'Add custom localization for controls', cat: Category.CONTROLS_AND_OVERLAYS }
       },
+      {
+        path: 'marker-alignment',
+        component: MarkerAlignmentComponent,
+        data: { label: 'Marker alignment options', cat: Category.CAMERA }
+      },
       { path: '**', redirectTo: 'display-map' }
     ]
   }
@@ -313,7 +319,8 @@ export const DEMO_ROUTES: Routes = [
     ClusterPopupComponent,
     AddImageMissingGeneratedComponent,
     CustomAttributionComponent,
-    CustomLocaleComponent
+    CustomLocaleComponent,
+    MarkerAlignmentComponent
   ]
 })
 export class DemoModule {}
