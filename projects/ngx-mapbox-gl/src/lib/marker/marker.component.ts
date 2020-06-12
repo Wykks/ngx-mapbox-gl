@@ -26,8 +26,6 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
   /* Init input */
   @Input() offset?: PointLike;
   @Input() anchor?: Anchor;
-  @Input() pitchAlignment?: Alignment;
-  @Input() rotationAlignment?: Alignment;
 
   /* Dynamic input */
   @Input() feature?: GeoJSON.Feature<GeoJSON.Point>;
@@ -35,6 +33,8 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
   @Input() draggable?: boolean;
   @Input() popupShown?: boolean;
   @Input() className: string;
+  @Input() pitchAlignment?: Alignment;
+  @Input() rotationAlignment?: Alignment;
 
   @Output() dragStart = new EventEmitter<Marker>();
   @Output() drag = new EventEmitter<Marker>();
@@ -66,6 +66,12 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
       changes.popupShown.currentValue
         ? this.markerInstance!.getPopup().addTo(this.MapService.mapInstance)
         : this.markerInstance!.getPopup().remove();
+    }
+    if (changes.pitchAlignment && !changes.pitchAlignment.isFirstChange()) {
+      this.markerInstance!.setPitchAlignment(changes.pitchAlignment.currentValue);
+    }
+    if (changes.rotationAlignment && !changes.rotationAlignment.isFirstChange()) {
+      this.markerInstance!.setRotationAlignment(changes.rotationAlignment.currentValue);
     }
   }
 
