@@ -24,7 +24,7 @@ export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, Canv
   constructor(private MapService: MapService) {}
 
   ngOnInit() {
-    this.MapService.mapLoaded$.subscribe(() => {
+    const sub1 = this.MapService.mapLoaded$.subscribe(() => {
       this.init();
       const sub = fromEvent(<any>this.MapService.mapInstance, 'styledata')
         .pipe(filter(() => !this.MapService.mapInstance.getSource(this.id)))
@@ -33,6 +33,7 @@ export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, Canv
         });
       this.sub.add(sub);
     });
+    this.sub.add(sub1);
   }
 
   ngOnChanges(changes: SimpleChanges) {

@@ -1,6 +1,6 @@
 {
   "name": "ngx-mapbox-gl-srcs",
-  "version": "4.6.0",
+  "version": "4.6.1-beta.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve showcase",
