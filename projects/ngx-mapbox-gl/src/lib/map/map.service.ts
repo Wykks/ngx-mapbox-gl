@@ -65,8 +65,6 @@ export class MapService {
 
   private mapCreated = new AsyncSubject<void>();
   private mapLoaded = new AsyncSubject<void>();
-  private layerIdsToRemove: string[] = [];
-  private sourceIdsToRemove: string[] = [];
   private markersToRemove: MapboxGl.Marker[] = [];
   private popupsToRemove: MapboxGl.Popup[] = [];
   private imageIdsToRemove: string[] = [];
@@ -250,7 +248,9 @@ export class MapService {
   }
 
   removeLayer(layerId: string) {
-    this.layerIdsToRemove.push(layerId);
+    if (this.mapInstance.getLayer(layerId) != null) {
+      this.mapInstance.removeLayer(layerId);
+    }
   }
 
   addMarker(marker: SetupMarker) {
@@ -398,7 +398,8 @@ export class MapService {
   }
 
   removeSource(sourceId: string) {
-    this.sourceIdsToRemove.push(sourceId);
+    this.findLayersBySourceId(sourceId).forEach((layer) => this.mapInstance.removeLayer(layer.id));
+    this.mapInstance.removeSource(sourceId);
   }
 
   setAllLayerPaintProperty(
@@ -475,8 +476,6 @@ export class MapService {
 
   applyChanges() {
     this.zone.runOutsideAngular(() => {
-      this.removeLayers();
-      this.removeSources();
       this.removeMarkers();
       this.removePopups();
       this.removeImages();
@@ -508,20 +507,6 @@ export class MapService {
     this.subscription.add(subChanges);
   }
 
-  private removeLayers() {
-    for (const layerId of this.layerIdsToRemove) {
-      this.mapInstance.removeLayer(layerId);
-    }
-    this.layerIdsToRemove = [];
-  }
-
-  private removeSources() {
-    for (const sourceId of this.sourceIdsToRemove) {
-      this.mapInstance.removeSource(sourceId);
-    }
-    this.sourceIdsToRemove = [];
-  }
-
   private removeMarkers() {
     for (const marker of this.markersToRemove) {
       marker.remove();
@@ -541,6 +526,15 @@ export class MapService {
       this.mapInstance.removeImage(imageId);
     }
     this.imageIdsToRemove = [];
+  }
+
+  private findLayersBySourceId(sourceId: string): MapboxGl.Layer[] {
+    const layers = this.mapInstance.getStyle().layers;
+    if (layers == null) {
+      return [];
+    }
+
+    return layers.filter((l) => l.source === sourceId);
   }
 
   private hookEvents(events: MapEvent) {
