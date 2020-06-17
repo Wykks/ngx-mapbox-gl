@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.6.0-alpha.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.5.0...v4.6.0-alpha.0) (2020-06-17)
+
+### Features
+
+- make sure layer(s) is removed when the referencing source is removed ([e270a63](https://github.com/Wykks/ngx-mapbox-gl/commit/e270a63d79d5ed11d2faf136d5a6b2fd95bcbbe6))
+
 ## [4.5.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.4.2...v4.5.0) (2020-03-02)
 
 ### Features
