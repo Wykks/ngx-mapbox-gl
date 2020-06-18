@@ -251,9 +251,11 @@ export class MapService {
   }
 
   removeLayer(layerId: string) {
-    if (this.mapInstance.getLayer(layerId) != null) {
-      this.mapInstance.removeLayer(layerId);
-    }
+    this.zone.runOutsideAngular(() => {
+      if (this.mapInstance.getLayer(layerId) != null) {
+        this.mapInstance.removeLayer(layerId);
+      }
+    });
   }
 
   addMarker(marker: SetupMarker) {
@@ -403,8 +405,10 @@ export class MapService {
   }
 
   removeSource(sourceId: string) {
-    this.findLayersBySourceId(sourceId).forEach((layer) => this.mapInstance.removeLayer(layer.id));
-    this.mapInstance.removeSource(sourceId);
+    this.zone.runOutsideAngular(() => {
+      this.findLayersBySourceId(sourceId).forEach((layer) => this.mapInstance.removeLayer(layer.id));
+      this.mapInstance.removeSource(sourceId);
+    });
   }
 
   setAllLayerPaintProperty(
