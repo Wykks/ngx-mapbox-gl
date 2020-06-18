@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.6.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.5.0...v4.6.0) (2020-06-18)
+
+### Features
+
+- **marker:** add pitch/rotation alignment options to the Marker component. ([#226](https://github.com/Wykks/ngx-mapbox-gl/issues/226)) ([1a61e62](https://github.com/Wykks/ngx-mapbox-gl/commit/1a61e62755b13afc839a5878ea4d74e6ad00774c))
+
 ## [4.5.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.4.2...v4.5.0) (2020-03-02)
 
 ### Features
