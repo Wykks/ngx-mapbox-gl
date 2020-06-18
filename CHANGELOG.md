@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.6.0-alpha.1.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.5.0...v4.6.0-alpha.1.0) (2020-06-18)
+
+### Features
+
+- make sure layer(s) is removed when the referencing source is removed ([c98c302](https://github.com/Wykks/ngx-mapbox-gl/commit/c98c302274245454db1098edf8e225611885e81f))
+- **Marker:** add pitch/rotation alignment options to the Marker component. ([#226](https://github.com/Wykks/ngx-mapbox-gl/issues/226)) ([1a61e62](https://github.com/Wykks/ngx-mapbox-gl/commit/1a61e62755b13afc839a5878ea4d74e6ad00774c))
+
+### Bug Fixes
+
+- make sure removeLayer & removeSource are run outside of the Angular zone ([ca2a65f](https://github.com/Wykks/ngx-mapbox-gl/commit/ca2a65f510ab6d846ea9dc0ae8de39828e51912e))
+
 ## [4.6.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.5.0...v4.6.0) (2020-06-18)
 
 ### Features
