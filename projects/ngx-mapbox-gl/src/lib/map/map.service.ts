@@ -3,6 +3,7 @@ import * as MapboxGl from 'mapbox-gl';
 import { AsyncSubject, Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { MapEvent, MapImageData, MapImageOptions } from './map.types';
+import { Alignment } from 'mapbox-gl';
 
 export const MAPBOX_API_KEY = new InjectionToken('MapboxApiKey');
 
@@ -37,6 +38,8 @@ export interface SetupPopup {
 
 export interface SetupMarker {
   markersOptions: {
+    pitchAlignment?: Alignment;
+    rotationAlignment?: Alignment;
     offset?: MapboxGl.PointLike;
     anchor?: MapboxGl.Anchor;
     draggable?: boolean;
@@ -257,7 +260,9 @@ export class MapService {
     const options: MapboxGl.MarkerOptions = {
       offset: marker.markersOptions.offset,
       anchor: marker.markersOptions.anchor,
-      draggable: !!marker.markersOptions.draggable
+      draggable: !!marker.markersOptions.draggable,
+      rotationAlignment: marker.markersOptions.rotationAlignment,
+      pitchAlignment: marker.markersOptions.pitchAlignment
     };
     if (marker.markersOptions.element.childNodes.length > 0) {
       options.element = marker.markersOptions.element;

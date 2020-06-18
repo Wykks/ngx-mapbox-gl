@@ -13,7 +13,7 @@ import {
   ViewEncapsulation,
   EventEmitter
 } from '@angular/core';
-import { LngLatLike, Marker, PointLike, Anchor } from 'mapbox-gl';
+import { LngLatLike, Marker, PointLike, Anchor, Alignment } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 
 @Component({
@@ -33,6 +33,8 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
   @Input() draggable?: boolean;
   @Input() popupShown?: boolean;
   @Input() className: string;
+  @Input() pitchAlignment?: Alignment;
+  @Input() rotationAlignment?: Alignment;
 
   @Output() dragStart = new EventEmitter<Marker>();
   @Output() drag = new EventEmitter<Marker>();
@@ -65,6 +67,12 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
         ? this.markerInstance!.getPopup().addTo(this.MapService.mapInstance)
         : this.markerInstance!.getPopup().remove();
     }
+    if (changes.pitchAlignment && !changes.pitchAlignment.isFirstChange()) {
+      this.markerInstance!.setPitchAlignment(changes.pitchAlignment.currentValue);
+    }
+    if (changes.rotationAlignment && !changes.rotationAlignment.isFirstChange()) {
+      this.markerInstance!.setRotationAlignment(changes.rotationAlignment.currentValue);
+    }
   }
 
   ngAfterViewInit() {
@@ -73,6 +81,8 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
         markersOptions: {
           offset: this.offset,
           anchor: this.anchor,
+          pitchAlignment: this.pitchAlignment,
+          rotationAlignment: this.rotationAlignment,
           draggable: !!this.draggable,
           element: this.content.nativeElement,
           feature: this.feature,
