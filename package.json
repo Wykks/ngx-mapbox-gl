@@ -91,7 +91,7 @@
     "prettier": "1.19.1",
     "protractor": "^5.4.2",
     "protractor-browser-logs": "^1.0.446",
-    "standard-version": "^7.0.0",
+    "standard-version": "^8.0.1",
     "ts-node": "^8.3.0",
     "tsickle": "^0.37.0",
     "tslint": "^5.18.0",
