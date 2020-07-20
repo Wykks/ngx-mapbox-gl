@@ -41,18 +41,18 @@ import { AnyLayout } from 'mapbox-gl';
       <mat-button-toggle [checked]="true" value="museums" (change)="toggleLayer($event)">museums</mat-button-toggle>
     </div>
   `,
-  styleUrls: ['./examples.css', './toggle-layers.component.css']
+  styleUrls: ['./examples.css', './toggle-layers.component.css'],
 })
 export class ToggleLayersComponent implements OnInit {
   layouts: { [key: string]: AnyLayout } = {
     contours: {
       visibility: 'visible',
       'line-join': 'round',
-      'line-cap': 'round'
+      'line-cap': 'round',
     },
     museums: {
-      visibility: 'visible'
-    }
+      visibility: 'visible',
+    },
   };
 
   ngOnInit() {}
@@ -60,7 +60,7 @@ export class ToggleLayersComponent implements OnInit {
   toggleLayer(evt: { value: string }) {
     this.layouts[evt.value] = {
       ...this.layouts[evt.value],
-      visibility: this.layouts[evt.value].visibility === 'visible' ? 'none' : 'visible'
+      visibility: this.layouts[evt.value].visibility === 'visible' ? 'none' : 'visible',
     };
   }
 }

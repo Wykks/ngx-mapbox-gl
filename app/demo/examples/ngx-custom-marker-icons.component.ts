@@ -27,7 +27,7 @@ import { Component } from '@angular/core';
       </mgl-marker>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css', './custom-marker-icons.component.css']
+  styleUrls: ['./examples.css', './custom-marker-icons.component.css'],
 })
 export class NgxCustomMarkerIconsComponent {
   alert(message: string) {

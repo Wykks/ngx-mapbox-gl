@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
       <mgl-control mglNavigation></mgl-control>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class NavigationComponent {}

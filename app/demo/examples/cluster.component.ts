@@ -68,7 +68,7 @@ import { Component, OnInit } from '@angular/core';
       </ng-container>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class ClusterComponent implements OnInit {
   earthquakes: object;

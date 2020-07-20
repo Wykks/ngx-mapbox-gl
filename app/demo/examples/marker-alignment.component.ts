@@ -23,7 +23,7 @@ import { Component, OnInit } from '@angular/core';
       </mgl-marker>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css', './marker-alignment.component.css']
+  styleUrls: ['./examples.css', './marker-alignment.component.css'],
 })
 export class MarkerAlignmentComponent implements OnInit {
   pitch = 50;

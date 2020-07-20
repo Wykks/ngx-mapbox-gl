@@ -28,7 +28,7 @@ import { MapMouseEvent, Map } from 'mapbox-gl';
       </mgl-layer>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class CenterOnSymbolComponent {
   map: Map;
@@ -39,16 +39,16 @@ export class CenterOnSymbolComponent {
   geometries = [
     {
       type: 'Point',
-      coordinates: [-91.395263671875, -0.9145729757782163]
+      coordinates: [-91.395263671875, -0.9145729757782163],
     },
     {
       type: 'Point',
-      coordinates: [-90.32958984375, -0.6344474832838974]
+      coordinates: [-90.32958984375, -0.6344474832838974],
     },
     {
       type: 'Point',
-      coordinates: [-91.34033203125, 0.01647949196029245]
-    }
+      coordinates: [-91.34033203125, 0.01647949196029245],
+    },
   ];
 
   centerMapTo(evt: MapMouseEvent) {

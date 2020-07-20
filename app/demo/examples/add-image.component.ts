@@ -34,7 +34,7 @@ import { Component } from '@angular/core';
       </mgl-layer>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class AddImageComponent {
   imageLoaded = false;

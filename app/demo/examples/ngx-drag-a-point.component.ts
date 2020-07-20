@@ -35,12 +35,12 @@ import { MapMouseEvent } from 'mapbox-gl';
       </mgl-control>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class NgxDragAPointComponent {
   layerPaint = {
     'circle-radius': 10,
-    'circle-color': '#3887be'
+    'circle-color': '#3887be',
   };
 
   coordinates = [0, 0];

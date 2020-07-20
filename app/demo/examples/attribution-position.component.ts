@@ -12,6 +12,6 @@ import { Component } from '@angular/core';
       <mgl-control mglAttribution position="top-left"></mgl-control>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class AttributionPositionComponent {}

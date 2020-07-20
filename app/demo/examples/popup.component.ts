@@ -9,6 +9,6 @@ import { Component } from '@angular/core';
       </mgl-popup>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css', './popup.component.css']
+  styleUrls: ['./examples.css', './popup.component.css'],
 })
 export class PopupComponent {}

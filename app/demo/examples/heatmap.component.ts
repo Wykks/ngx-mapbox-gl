@@ -37,7 +37,7 @@ import { Component, OnInit } from '@angular/core';
       </ng-container>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class HeatMapComponent implements OnInit {
   earthquakes: object;
@@ -48,19 +48,19 @@ export class HeatMapComponent implements OnInit {
     const layersData: [number, string][] = [
       [0, 'green'],
       [20, 'orange'],
-      [200, 'red']
+      [200, 'red'],
     ];
     this.clusterLayers = layersData.map((data, index) => ({
       id: `cluster-${index}`,
       paint: {
         'circle-color': data[1],
         'circle-radius': 70,
-        'circle-blur': 1
+        'circle-blur': 1,
       },
       filter:
         index === layersData.length - 1
           ? ['>=', 'point_count', data[0]]
-          : ['all', ['>=', 'point_count', data[0]], ['<', 'point_count', layersData[index + 1][0]]]
+          : ['all', ['>=', 'point_count', data[0]], ['<', 'point_count', layersData[index + 1][0]]],
     }));
   }
 }

@@ -34,7 +34,7 @@ import { LngLatBounds } from 'mapbox-gl';
     </mgl-map>
   `,
   styleUrls: ['./examples.css'],
-  preserveWhitespaces: false
+  preserveWhitespaces: false,
 })
 export class ZoomtoLinestringComponent {
   bounds: LngLatBounds;
@@ -60,12 +60,12 @@ export class ZoomtoLinestringComponent {
               [-77.00813055038452, 38.892051604275686],
               [-77.00832366943358, 38.89143365883688],
               [-77.00818419456482, 38.89082405874451],
-              [-77.00815200805664, 38.88989712255097]
-            ]
-          }
-        }
-      ]
-    }
+              [-77.00815200805664, 38.88989712255097],
+            ],
+          },
+        },
+      ],
+    },
   };
 
   zoomToBounds() {
