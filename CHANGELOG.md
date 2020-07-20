@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.8.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.7.1...v4.8.0) (2020-07-20)
+
+### Features
+
+- add Angular 10 support ([3976db7](https://github.com/Wykks/ngx-mapbox-gl/commit/3976db7f3eac724219f619d01ba6c8dca05481a1))
+
+### Bug Fixes
+
+- **showcase:** a typo in 'Add custom localization for controls' example ([cb7b3af](https://github.com/Wykks/ngx-mapbox-gl/commit/cb7b3af704c4143d6537208980d655674c5a8d4f))
+
 ## [4.7.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.7.0...v4.7.1) (2020-07-20)
 
 ### Features
