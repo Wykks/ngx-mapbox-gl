@@ -17,7 +17,8 @@
           },
           "configurations": {
             "production": {
-              "project": "projects/ngx-mapbox-gl/ng-package.prod.json"
+              "project": "projects/ngx-mapbox-gl/ng-package.prod.json",
+              "tsConfig": "projects/ngx-mapbox-gl/tsconfig.lib.prod.json"
             }
           }
         },
@@ -49,6 +50,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": ["@mapbox/mapbox-gl-geocoder", "@mapbox/mapbox-sdk", "suggestions"],
+            "aot": true,
             "outputPath": "dist/showcase",
             "index": "projects/showcase/src/index.html",
             "main": "projects/showcase/src/main.ts",
@@ -61,11 +64,16 @@
             ],
             "styles": ["projects/showcase/src/styles.css"],
             "scripts": [],
-            "showCircularDependencies": false,
-            "es5BrowserSupport": true
+            "showCircularDependencies": false
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "projects/showcase/src/environments/environment.ts",

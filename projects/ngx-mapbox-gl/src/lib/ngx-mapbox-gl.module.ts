@@ -81,7 +81,10 @@ import { VideoSourceComponent } from './source/video-source.component';
   ],
 })
 export class NgxMapboxGLModule {
-  static withConfig(config: { accessToken: string; geocoderAccessToken?: string }): ModuleWithProviders<NgxMapboxGLModule> {
+  static withConfig(config: {
+    accessToken: string;
+    geocoderAccessToken?: string;
+  }): ModuleWithProviders<NgxMapboxGLModule> {
     return {
       ngModule: NgxMapboxGLModule,
       providers: [

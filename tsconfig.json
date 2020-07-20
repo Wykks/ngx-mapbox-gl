@@ -1,33 +1,26 @@
+/*
+  This is a "Solution Style" tsconfig.json file, and is used by editors and TypeScript’s language server to improve development experience.
+  It is not intended to be used to perform a compilation.
+
+  To learn more about this file see: https://angular.io/config/solution-tsconfig.
+*/
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "baseUrl": "./",
-    "downlevelIteration": true,
-    "importHelpers": true,
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "module": "esnext",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es2015",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom"],
-    "paths": {
-      "ngx-mapbox-gl": ["projects/ngx-mapbox-gl/src/public_api"]
+  "files": [],
+  "references": [
+    {
+      "path": "./projects/ngx-mapbox-gl/tsconfig.lib.json"
     },
-    "strict": true,
-    "skipLibCheck": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "strictPropertyInitialization": false,
-    "plugins": [
-      {
-        "name": "typescript-tslint-plugin"
-      }
-    ]
-  }
+    {
+      "path": "./projects/ngx-mapbox-gl/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/showcase/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/showcase/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/showcase-e2e/tsconfig.e2e.json"
+    }
+  ]
 }

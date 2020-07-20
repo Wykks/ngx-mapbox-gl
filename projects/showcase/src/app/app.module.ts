@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,10 +9,10 @@ import {
   RouterReducerState,
   RouterStateSerializer,
   StoreRouterConnectingModule,
+  DefaultRouterStateSerializer,
 } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import 'hammerjs';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { environment } from '../environments/environment';
 import { DEMO_ROUTES, DemoModule } from './demo/demo.module';
@@ -32,6 +32,7 @@ export interface State {
   demo: fromDemo.State;
 }
 
+@Injectable()
 export class SimpleSerializer implements RouterStateSerializer<RouterStateUrl> {
   serialize(routerState: RouterStateSnapshot): RouterStateUrl {
     let route = routerState.root;
@@ -90,9 +91,7 @@ export const showcaseRoutes: Routes = [
     RouterModule.forRoot(showcaseRoutes),
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreRouterConnectingModule.forRoot({
-      stateKey: 'router',
-    }),
+    StoreRouterConnectingModule.forRoot({ serializer: DefaultRouterStateSerializer, stateKey: 'router' }),
     NgxMapboxGLModule.withConfig({
       accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA',
     }),

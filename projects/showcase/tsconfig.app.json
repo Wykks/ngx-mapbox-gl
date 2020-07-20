@@ -1,12 +1,14 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/app",
+    "resolveJsonModule": true,
     "types": []
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "preserveWhitespaces": false
   },
-  "exclude": ["src/test.ts", "**/*.spec.ts"]
+  "files": ["src/main.ts", "src/polyfills.ts"],
+  "include": ["projects/showcase/src/**/*.d.ts"]
 }

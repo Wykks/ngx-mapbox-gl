@@ -5,7 +5,7 @@ import { AnyLayout } from 'mapbox-gl';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      style="mapbox://styles/mapbox/streets-v9"
+      [style]="'mapbox://styles/mapbox/streets-v9'"
       [zoom]="[15]"
       [center]="[-71.97722138410576, -13.517379300798098]"
     >
