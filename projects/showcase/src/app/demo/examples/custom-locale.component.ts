@@ -19,7 +19,7 @@ import { Component } from '@angular/core';
 })
 export class CustomLocaleComponent {
   readonly locale = {
-    'FullscreenControl.Enter': 'Перейти в повоекранний режим',
+    'FullscreenControl.Enter': 'Перейти в повноекранний режим',
     'FullscreenControl.Exit': 'Вийти з повноекранного режиму',
     'GeolocateControl.FindMyLocation': 'Знайти моє місцеположення',
     'GeolocateControl.LocationNotAvailable': 'Місцеположення недоступне',
