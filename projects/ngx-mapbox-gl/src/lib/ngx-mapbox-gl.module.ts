@@ -16,7 +16,7 @@ import { MarkerComponent } from './marker/marker.component';
 import {
   ClusterPointDirective,
   PointDirective,
-  MarkersForClustersComponent
+  MarkersForClustersComponent,
 } from './markers-for-clusters/markers-for-clusters.component';
 import { PopupComponent } from './popup/popup.component';
 import { CanvasSourceComponent } from './source/canvas-source.component';
@@ -52,7 +52,7 @@ import { VideoSourceComponent } from './source/video-source.component';
     ScaleControlDirective,
     PointDirective,
     ClusterPointDirective,
-    MarkersForClustersComponent
+    MarkersForClustersComponent,
   ],
   exports: [
     MapComponent,
@@ -77,8 +77,8 @@ import { VideoSourceComponent } from './source/video-source.component';
     ScaleControlDirective,
     PointDirective,
     ClusterPointDirective,
-    MarkersForClustersComponent
-  ]
+    MarkersForClustersComponent,
+  ],
 })
 export class NgxMapboxGLModule {
   static withConfig(config: { accessToken: string; geocoderAccessToken?: string }): ModuleWithProviders {
@@ -87,13 +87,13 @@ export class NgxMapboxGLModule {
       providers: [
         {
           provide: MAPBOX_API_KEY,
-          useValue: config.accessToken
+          useValue: config.accessToken,
         },
         {
           provide: MAPBOX_GEOCODER_API_KEY,
-          useValue: config.geocoderAccessToken || config.accessToken
-        }
-      ]
+          useValue: config.geocoderAccessToken || config.accessToken,
+        },
+      ],
     };
   }
 }

@@ -4,7 +4,7 @@ import { MapService } from '../map/map.service';
 import { ControlComponent } from './control.component';
 
 @Directive({
-  selector: '[mglGeolocate]'
+  selector: '[mglGeolocate]',
 })
 export class GeolocateControlDirective implements AfterContentInit {
   /* Init inputs */
@@ -26,7 +26,7 @@ export class GeolocateControlDirective implements AfterContentInit {
         positionOptions: this.positionOptions,
         fitBoundsOptions: this.fitBoundsOptions,
         trackUserLocation: this.trackUserLocation,
-        showUserLocation: this.showUserLocation
+        showUserLocation: this.showUserLocation,
       };
 
       Object.keys(options).forEach((key: string) => {

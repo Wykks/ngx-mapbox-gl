@@ -6,7 +6,7 @@ import {
   OnDestroy,
   OnInit,
   SimpleChanges,
-  NgZone
+  NgZone,
 } from '@angular/core';
 import { GeoJSONSource, GeoJSONSourceOptions } from 'mapbox-gl';
 import { fromEvent, Subject, Subscription } from 'rxjs';
@@ -16,7 +16,7 @@ import { MapService } from '../../map/map.service';
 @Component({
   selector: 'mgl-geojson-source',
   template: '',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, GeoJSONSourceOptions {
   /* Init inputs */
@@ -46,7 +46,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
     if (!this.data) {
       this.data = {
         type: 'FeatureCollection',
-        features: []
+        features: [],
       };
     }
     const sub1 = this.MapService.mapLoaded$.subscribe(() => {
@@ -183,7 +183,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
       cluster: this.cluster,
       clusterRadius: this.clusterRadius,
       clusterMaxZoom: this.clusterMaxZoom,
-      clusterProperties: this.clusterProperties
+      clusterProperties: this.clusterProperties,
     });
     const sub = this.updateFeatureData.pipe(debounceTime(0)).subscribe(() => {
       const source = this.MapService.getSource<GeoJSONSource>(this.id);

@@ -32,11 +32,11 @@ const Modules = [
   MatSidenavModule,
   MatPaginatorModule,
   FormsModule,
-  NgxMapboxGLModule
+  NgxMapboxGLModule,
 ];
 
 @NgModule({
   imports: Modules,
-  exports: Modules
+  exports: Modules,
 })
 export class SharedModule {}

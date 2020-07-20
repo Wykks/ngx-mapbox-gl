@@ -22,7 +22,7 @@ import { Map } from 'mapbox-gl';
     </mgl-map>
   `,
   styleUrls: ['./examples.css'],
-  preserveWhitespaces: false
+  preserveWhitespaces: false,
 })
 export class LanguageSwitchComponent {
   map: Map;

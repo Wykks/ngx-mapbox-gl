@@ -1,11 +1,13 @@
 # Dev guide for ngx-mapbox-gl
 
 ## Install project dependencies (package.json)
+
 ```
 yarn
 ```
 
 ## Run ngx-mapbox-gl showcase
+
 ```
 yarn start
 ```

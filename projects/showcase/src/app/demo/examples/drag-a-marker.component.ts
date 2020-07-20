@@ -14,7 +14,7 @@ import { Marker } from 'mapbox-gl';
       </mgl-control>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class DragAMarkerComponent {
   coordinates: number[];

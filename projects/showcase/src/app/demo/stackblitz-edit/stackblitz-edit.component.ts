@@ -7,7 +7,7 @@ import {
   ElementRef,
   NgZone,
   OnDestroy,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import StackBlitzSDK from '@stackblitz/sdk';
@@ -45,9 +45,9 @@ import { DemoFileLoaderService } from '../demo-file-loader.service';
         top: 50%;
         transform: translate(-50%, -50%);
       }
-    `
+    `,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
   @ViewChild('container', { static: true }) stackblitzContainer: ElementRef;
@@ -69,16 +69,16 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
   ) {
     this.projectbase$ = forkJoin([
       this.http.get('assets/stackblitz/main.notts', {
-        responseType: 'text'
+        responseType: 'text',
       }),
       this.http.get('assets/stackblitz/angular.json', {
-        responseType: 'text'
-      })
+        responseType: 'text',
+      }),
     ]).pipe(shareReplay(1));
 
     this.sub = combineLatest([
       this.store.pipe(select(fromShowcase.getCurrentRouterState)),
-      this.store.pipe(select(fromShowcase.isDemoEditing))
+      this.store.pipe(select(fromShowcase.isDemoEditing)),
     ])
       .pipe(
         filter(([, isDemoEditing]) => isDemoEditing),
@@ -99,7 +99,7 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
         error: () => {
           this.loading = false;
           this.ChangeDetectorRef.markForCheck();
-        }
+        },
       });
   }
 
@@ -116,7 +116,7 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
     if (this.vm) {
       await this.vm.applyFsDiff({
         create: demoFiles,
-        destroy: []
+        destroy: [],
       });
       return;
     }
@@ -138,7 +138,7 @@ import 'core-js/es6/reflect';
 import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
 `,
-        ...demoFiles
+        ...demoFiles,
       },
       title: '',
       description: '',
@@ -156,15 +156,15 @@ import 'zone.js/dist/zone';
         events: '*',
         '@types/mapbox-gl': '*',
         '@types/supercluster': '*',
-        '@types/geojson': '*'
-      }
+        '@types/geojson': '*',
+      },
     };
     await this.zone.runOutsideAngular(async () => {
       this.vm = await StackBlitzSDK.embedProject(this.stackblitzContainer.nativeElement, project, {
         hideExplorer: true,
         hideNavigation: true,
         forceEmbedLayout: true,
-        openFile: 'src/demo.ts'
+        openFile: 'src/demo.ts',
       });
     });
   }

@@ -9,7 +9,7 @@ import * as demo from './demo/demo.actions';
 @Component({
   selector: 'showcase-root',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss']
+  styleUrls: ['./index.component.scss'],
 })
 export class IndexComponent {
   @HostBinding('class.mat-typography') class = true;

@@ -31,7 +31,7 @@ import { GeoJsonProperties } from 'geojson';
       </mgl-popup>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class PolygonPopupOnClickComponent {
   selectedElement: GeoJsonProperties;

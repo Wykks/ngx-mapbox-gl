@@ -6,7 +6,7 @@ import { MapService } from '../map/map.service';
 @Component({
   selector: 'mgl-image-source',
   template: '',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, ImageSourceOptions {
   /* Init inputs */
@@ -33,7 +33,7 @@ export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, Image
     const source = this.MapService.getSource<ImageSource>(this.sourceId);
     source.updateImage({
       url: changes.url === undefined ? undefined : this.url,
-      coordinates: changes.coordinates === undefined ? undefined : this.coordinates
+      coordinates: changes.coordinates === undefined ? undefined : this.coordinates,
     });
   }
 
@@ -51,7 +51,7 @@ export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, Image
     const imageSource: ImageSourceRaw = {
       type: 'image',
       url: this.url,
-      coordinates: this.coordinates
+      coordinates: this.coordinates,
     };
     this.MapService.addSource(this.id, imageSource);
     this.sourceId = this.id;

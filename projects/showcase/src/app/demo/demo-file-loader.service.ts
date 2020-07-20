@@ -22,7 +22,7 @@ export class DemoFileLoaderService {
     }
     req$ = this.http
       .get(`${FILES_PATH}${exampleName}.component.ts`, {
-        responseType: 'text'
+        responseType: 'text',
       })
       .pipe(
         switchMap((fileContent) => this.loadAdditionnalFilesIfNecessary(fileContent)),
@@ -37,7 +37,7 @@ export class DemoFileLoaderService {
     let match;
     const files = [];
     const result = {
-      'src/demo.ts': fileContent
+      'src/demo.ts': fileContent,
     };
     while ((match = r.exec(fileContent))) {
       files.push(this.loadFile(match[1]));
@@ -47,7 +47,7 @@ export class DemoFileLoaderService {
         map((files) => {
           return {
             ...Object.assign({}, ...files),
-            ...result
+            ...result,
           };
         })
       );
@@ -62,11 +62,11 @@ export class DemoFileLoaderService {
     }
     req$ = this.http
       .get(`${FILES_PATH}${fileName}`, {
-        responseType: 'text'
+        responseType: 'text',
       })
       .pipe(
         map((fileContent) => ({
-          [`src/${fileName}`]: fileContent
+          [`src/${fileName}`]: fileContent,
         })),
         shareReplay(1)
       );

@@ -27,7 +27,7 @@ describe('Language switch', () => {
     const screen2 = await browser.takeScreenshot();
     const result = new PixelDiff({
       imageA: Buffer.from(screen1, 'base64'),
-      imageB: Buffer.from(screen2, 'base64')
+      imageB: Buffer.from(screen2, 'base64'),
     }).runSync();
     expect(result.differences).toBeGreaterThan(0);
     await buttons.get(0).click();
@@ -35,7 +35,7 @@ describe('Language switch', () => {
     const screen1bis = await browser.takeScreenshot();
     const result2 = new PixelDiff({
       imageA: Buffer.from(screen1, 'base64'),
-      imageB: Buffer.from(screen1bis, 'base64')
+      imageB: Buffer.from(screen1bis, 'base64'),
     }).runSync();
     expect(result2.differences).toBe(0);
   });

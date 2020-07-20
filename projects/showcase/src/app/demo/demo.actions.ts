@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 
 export enum DemoActionTypes {
   TOGGLE_SIDENAV = '[Demo] Toggle sidenav',
-  TOGGLE_SIDENAV_END = '[Demo] Toggle sidenav end'
+  TOGGLE_SIDENAV_END = '[Demo] Toggle sidenav end',
 }
 
 export class ToggleSidenav implements Action {

@@ -12,6 +12,7 @@ v2.X : Angular 6 & 7 (rxjs 6)
 v3.X : Angular 7.2
 
 Include the following components:
+
 - [mgl-map](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-map-mapbox-gl-api)
 - [mgl-layer](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-layer-mapbox-gl-style-spec)
 - [mgl-geojson-source](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-geojson-source-mapbox-gl-style-spec)
@@ -37,7 +38,9 @@ Include the following components:
 ```
 npm install ngx-mapbox-gl mapbox-gl@0.54.0 --save
 ```
-If using typescript add mapbox-gl types 
+
+If using typescript add mapbox-gl types
+
 ```
 npm install @types/mapbox-gl@0.51.10 --save-dev
 ```
@@ -45,6 +48,7 @@ npm install @types/mapbox-gl@0.51.10 --save-dev
 Load the css of mapbox-gl (and mapbox-gl-geocoder if mglGeocoder is used)
 
 For example, with angular-cli add this in angular.json
+
 ```json
 "styles": [
         ...
@@ -52,18 +56,22 @@ For example, with angular-cli add this in angular.json
         "./node_modules/@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css"
       ],
 ```
+
 Or in global css (called styles.css for example in angular-cli)
+
 ```css
-@import "~mapbox-gl/dist/mapbox-gl.css";
-@import "~@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css";
+@import '~mapbox-gl/dist/mapbox-gl.css';
+@import '~@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css';
 ```
 
 Add this in your polyfill.ts file (https://github.com/Wykks/ngx-mapbox-gl/issues/136#issuecomment-496224634):
+
 ```
 (window as any).global = window;
 ```
 
 Then, in your app's main module (or in any other module), import the NgxMapboxGLModule
+
 ```typescript
 ...
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
@@ -87,24 +95,20 @@ Note: mapbox-gl can works without token, if you have your own source, example: h
 You can use https://github.com/klokantech/tileserver-gl to serve vector tiles
 
 Display a map
+
 ```typescript
 import { Component } from '@angular/core';
 
 @Component({
-  template: `
-  <mgl-map
-    [style]="'mapbox://styles/mapbox/streets-v9'"
-    [zoom]="[9]"
-    [center]="[-74.50, 40]"
-  >
-  </mgl-map>
-  `,
-  styles: [`
-    mgl-map {
-      height: 100%;
-      width: 100%;
-    }
-  `]
+  template: ` <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="[-74.5, 40]"> </mgl-map> `,
+  styles: [
+    `
+      mgl-map {
+        height: 100%;
+        width: 100%;
+      }
+    `,
+  ],
 })
-export class DisplayMapComponent { }
+export class DisplayMapComponent {}
 ```

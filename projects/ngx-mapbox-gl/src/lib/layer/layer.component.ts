@@ -21,7 +21,7 @@ import {
   SymbolPaint,
   VectorSource,
   VideoSource,
-  MapLayerMouseEvent
+  MapLayerMouseEvent,
 } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter, mapTo, switchMap, startWith } from 'rxjs/operators';
@@ -29,7 +29,7 @@ import { MapService } from '../map/map.service';
 
 @Component({
   selector: 'mgl-layer',
-  template: ''
+  template: '',
 })
 export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   /* Init inputs */
@@ -130,14 +130,14 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
         maxzoom: this.maxzoom,
         filter: this.filter,
         layout: this.layout,
-        paint: this.paint
+        paint: this.paint,
       },
       layerEvents: {
         click: this.click,
         mouseEnter: this.mouseEnter,
         mouseLeave: this.mouseLeave,
-        mouseMove: this.mouseMove
-      }
+        mouseMove: this.mouseMove,
+      },
     };
     this.MapService.addLayer(layer, bindEvents, this.before);
     this.layerAdded = true;

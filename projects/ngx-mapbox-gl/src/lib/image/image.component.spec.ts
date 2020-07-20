@@ -22,12 +22,12 @@ describe('ImageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ImageComponent]
+      declarations: [ImageComponent],
     })
       .overrideComponent(ImageComponent, {
         set: {
-          providers: [{ provide: MapService, useClass: MapServiceSpy }]
-        }
+          providers: [{ provide: MapService, useClass: MapServiceSpy }],
+        },
       })
       .compileComponents();
   }));
@@ -65,7 +65,7 @@ describe('ImageComponent', () => {
       component.data = { width: 500, height: 500, data: new Uint8Array([5, 5]) };
       fixture.detectChanges();
       component.ngOnChanges({
-        data: new SimpleChange(null, component.data, false)
+        data: new SimpleChange(null, component.data, false),
       });
       expect(msSpy.removeImage).toHaveBeenCalledWith(component.id);
       expect(msSpy.addImage).toHaveBeenCalled();

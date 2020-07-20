@@ -7,7 +7,7 @@ import { MapService } from '../map/map.service';
 @Component({
   selector: 'mgl-video-source',
   template: '',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideoSourceComponent implements OnInit, OnDestroy, OnChanges, VideoSourceOptions {
   /* Init inputs */
@@ -59,7 +59,7 @@ export class VideoSourceComponent implements OnInit, OnDestroy, OnChanges, Video
     this.MapService.addSource(this.id, {
       type: 'video',
       urls: this.urls,
-      coordinates: this.coordinates
+      coordinates: this.coordinates,
     });
     this.sourceAdded = true;
   }

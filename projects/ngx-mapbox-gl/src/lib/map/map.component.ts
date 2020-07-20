@@ -9,7 +9,7 @@ import {
   MapMouseEvent,
   MapTouchEvent,
   PointLike,
-  Style
+  Style,
 } from 'mapbox-gl';
 import { MapService, MovingOptions } from './map.service';
 import { MapEvent } from './map.types';
@@ -24,7 +24,7 @@ import {
   OnDestroy,
   Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 
 @Component({
@@ -39,10 +39,10 @@ import {
         height: 100%;
         width: 100%;
       }
-    `
+    `,
   ],
   providers: [MapService],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEvent {
   /* Init inputs */
@@ -193,9 +193,9 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
         bounds: this.bounds ? this.bounds : this.fitBounds,
         fitBoundsOptions: this.fitBoundsOptions,
         antialias: this.antialias,
-        locale: this.locale
+        locale: this.locale,
       },
-      mapEvents: this
+      mapEvents: this,
     });
     if (this.cursorStyle) {
       this.MapService.changeCanvasCursor(this.cursorStyle);

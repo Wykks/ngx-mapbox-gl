@@ -7,7 +7,7 @@ import { MapService } from '../map/map.service';
 @Component({
   selector: 'mgl-vector-source',
   template: '',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, VectorSource {
   /* Init inputs */
@@ -67,7 +67,7 @@ export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, Vect
       url: this.url,
       tiles: this.tiles,
       minzoom: this.minzoom,
-      maxzoom: this.maxzoom
+      maxzoom: this.maxzoom,
     });
     this.sourceAdded = true;
   }

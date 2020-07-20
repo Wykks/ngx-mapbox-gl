@@ -43,7 +43,7 @@ import { GeoJSONSourceComponent } from 'ngx-mapbox-gl';
       </ng-container>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css', './ngx-cluster-html.component.css']
+  styleUrls: ['./examples.css', './ngx-cluster-html.component.css'],
 })
 export class NgxClusterHtmlComponent implements OnInit {
   earthquakes: GeoJSON.FeatureCollection;
@@ -79,7 +79,7 @@ export class NgxClusterHtmlComponent implements OnInit {
       [pageSize]="5"
       (page)="changePage($event)"
     ></mat-paginator>
-  `
+  `,
 })
 export class ClusterPopupComponent implements OnChanges {
   @Input() selectedCluster: { geometry: GeoJSON.Point; properties: any };

@@ -23,7 +23,7 @@ import { Component } from '@angular/core';
       </mgl-layer>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class NgxGeoJSONLineComponent {
   geometry = {
@@ -49,7 +49,7 @@ export class NgxGeoJSONLineComponent {
       [-122.49125003814696, 37.832429207817725],
       [-122.49163627624512, 37.832564787218985],
       [-122.49223709106445, 37.83337825839438],
-      [-122.49378204345702, 37.83368330777276]
-    ]
+      [-122.49378204345702, 37.83368330777276],
+    ],
   };
 }

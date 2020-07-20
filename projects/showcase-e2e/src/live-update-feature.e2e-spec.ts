@@ -24,7 +24,7 @@ describe('Live update feature', () => {
     const imageB = await browser.takeScreenshot();
     const diff = new PixelDiff({
       imageA: Buffer.from(imageA, 'base64'),
-      imageB: Buffer.from(imageB, 'base64')
+      imageB: Buffer.from(imageB, 'base64'),
     });
     const result = diff.runSync();
     expect(result.differences).toBeGreaterThan(0);

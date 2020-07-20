@@ -10,7 +10,7 @@ import { MarkerComponent } from './marker.component';
     <mgl-marker [offset]="offset" [lngLat]="lngLat" [className]="className">
       ...
     </mgl-marker>
-  `
+  `,
 })
 class MarkerTestComponent implements OnDestroy {
   offset: PointLike;
@@ -33,12 +33,12 @@ describe('MarkerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MarkerTestComponent, MarkerComponent]
+      declarations: [MarkerTestComponent, MarkerComponent],
     })
       .overrideComponent(MarkerTestComponent, {
         set: {
-          providers: [{ provide: MapService, useClass: MapServiceSpy }]
-        }
+          providers: [{ provide: MapService, useClass: MapServiceSpy }],
+        },
       })
       .compileComponents();
   }));

@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
       <mgl-control mglGeocoder [searchInput]="'Paris'"></mgl-control>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class MapboxGlGeocoderComponent {
   constructor() {}

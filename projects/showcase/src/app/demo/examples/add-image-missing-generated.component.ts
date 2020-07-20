@@ -58,7 +58,7 @@ import { MapImageData } from 'ngx-mapbox-gl';
       </mgl-layer>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class AddImageMissingGeneratedComponent {
   imagesData: (MapImageData & { id: string })[] = [];
@@ -71,10 +71,7 @@ export class AddImageMissingGeneratedComponent {
     }
 
     // extract the color from the id
-    const rgb = id
-      .replace(prefix, '')
-      .split(',')
-      .map(Number);
+    const rgb = id.replace(prefix, '').split(',').map(Number);
 
     const width = 64; // The image will be 64 pixels square
     const bytesPerPixel = 4; // Each pixel is represented by 4 bytes: red, green, blue, and alpha.
@@ -93,7 +90,7 @@ export class AddImageMissingGeneratedComponent {
       id,
       width,
       height: width,
-      data
+      data,
     };
     this.imagesData = [...this.imagesData, imageData];
   }

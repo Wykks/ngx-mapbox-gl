@@ -32,13 +32,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "projects/ngx-mapbox-gl/tsconfig.lib.json",
-              "projects/ngx-mapbox-gl/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ],
+            "tsConfig": ["projects/ngx-mapbox-gl/tsconfig.lib.json", "projects/ngx-mapbox-gl/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"],
             "format": "stylish"
           }
         }
@@ -64,9 +59,7 @@
               "projects/showcase/src/assets",
               "projects/showcase/src/app/demo/examples"
             ],
-            "styles": [
-              "projects/showcase/src/styles.css"
-            ],
+            "styles": ["projects/showcase/src/styles.css"],
             "scripts": [],
             "showCircularDependencies": false,
             "es5BrowserSupport": true
@@ -116,26 +109,16 @@
             "polyfills": "projects/showcase/src/polyfills.ts",
             "tsConfig": "projects/showcase/tsconfig.spec.json",
             "karmaConfig": "projects/showcase/karma.conf.js",
-            "styles": [
-              "projects/showcase/src/styles.css"
-            ],
+            "styles": ["projects/showcase/src/styles.css"],
             "scripts": [],
-            "assets": [
-              "projects/showcase/src/favicon.ico",
-              "projects/showcase/src/assets"
-            ]
+            "assets": ["projects/showcase/src/favicon.ico", "projects/showcase/src/assets"]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "projects/showcase/tsconfig.app.json",
-              "projects/showcase/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ],
+            "tsConfig": ["projects/showcase/tsconfig.app.json", "projects/showcase/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"],
             "format": "stylish"
           }
         }
@@ -161,9 +144,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "projects/showcase-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ],
+            "exclude": ["**/node_modules/**"],
             "format": "stylish"
           }
         }

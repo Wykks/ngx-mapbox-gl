@@ -11,7 +11,7 @@ import { interval, Subscription } from 'rxjs';
       </mgl-layer>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class LiveUpdateImageSourceComponent implements OnInit, OnDestroy {
   private sub: Subscription;
@@ -49,7 +49,7 @@ export class LiveUpdateImageSourceComponent implements OnInit, OnDestroy {
       [long, lat],
       [long + this.size, lat],
       [long + this.size, lat - this.size],
-      [long, lat - this.size]
+      [long, lat - this.size],
     ];
   }
 }

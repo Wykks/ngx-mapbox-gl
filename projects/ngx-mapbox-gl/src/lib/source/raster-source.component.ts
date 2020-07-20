@@ -7,7 +7,7 @@ import { MapService } from '../map/map.service';
 @Component({
   selector: 'mgl-raster-source',
   template: '',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, RasterSource {
   /* Init inputs */
@@ -73,7 +73,7 @@ export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, Rast
       bounds: this.bounds,
       minzoom: this.minzoom,
       maxzoom: this.maxzoom,
-      tileSize: this.tileSize
+      tileSize: this.tileSize,
     };
     this.MapService.addSource(this.id, source);
     this.sourceAdded = true;

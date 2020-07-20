@@ -10,12 +10,12 @@ import 'prismjs/components/prism-typescript';
 const DOC_ROUTES: Routes = [
   {
     path: '',
-    component: DocComponent
-  }
+    component: DocComponent,
+  },
 ];
 
 @NgModule({
   imports: [CommonModule, SharedModule, NgxMdModule.forRoot(), RouterModule.forChild(DOC_ROUTES)],
-  declarations: [DocComponent]
+  declarations: [DocComponent],
 })
 export class DocModule {}

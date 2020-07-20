@@ -8,7 +8,7 @@ import { MarkerComponent } from '../marker/marker.component';
 import { FeatureComponent } from '../source/geojson/feature.component';
 
 @Directive({
-  selector: '[mglDraggable]'
+  selector: '[mglDraggable]',
 })
 export class DraggableDirective implements OnInit, OnDestroy {
   // tslint:disable-next-line:no-input-rename
@@ -121,7 +121,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
     if (this.FeatureComponent && this.layer) {
       const feature: GeoJSON.Feature<any> = this.MapService.queryRenderedFeatures(evt.point, {
         layers: [this.layer.id],
-        filter: ['all', ['==', '$type', 'Point'], ['==', '$id', this.FeatureComponent.id]]
+        filter: ['all', ['==', '$type', 'Point'], ['==', '$id', this.FeatureComponent.id]],
       })[0];
       if (!feature) {
         return false;

@@ -18,12 +18,12 @@ describe('MapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MapComponent]
+      declarations: [MapComponent],
     })
       .overrideComponent(MapComponent, {
         set: {
-          providers: [{ provide: MapService, useClass: MapServiceSpy }]
-        }
+          providers: [{ provide: MapService, useClass: MapServiceSpy }],
+        },
       })
       .compileComponents();
   }));
@@ -57,7 +57,7 @@ describe('MapComponent', () => {
       msSpy.mapCreated$.complete();
       component.minZoom = 6;
       component.ngOnChanges({
-        minZoom: new SimpleChange(null, component.minZoom, false)
+        minZoom: new SimpleChange(null, component.minZoom, false),
       });
       flushMicrotasks();
       expect(msSpy.updateMinZoom).toHaveBeenCalledWith(6);

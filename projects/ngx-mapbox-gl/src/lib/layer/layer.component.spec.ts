@@ -24,12 +24,12 @@ describe('LayerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LayerComponent]
+      declarations: [LayerComponent],
     })
       .overrideComponent(LayerComponent, {
         set: {
-          providers: [{ provide: MapService, useClass: MapServiceSpy }]
-        }
+          providers: [{ provide: MapService, useClass: MapServiceSpy }],
+        },
       })
       .compileComponents();
   }));
@@ -70,11 +70,11 @@ describe('LayerComponent', () => {
       component.id = 'layerId';
       component.paint = {
         'background-color': 'green',
-        'background-opacity': 0.5
+        'background-opacity': 0.5,
       };
       fixture.detectChanges();
       component.ngOnChanges({
-        paint: new SimpleChange(null, component.paint, false)
+        paint: new SimpleChange(null, component.paint, false),
       });
       expect(msSpy.setAllLayerPaintProperty).toHaveBeenCalledWith(component.id, component.paint);
     });

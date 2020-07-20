@@ -25,7 +25,7 @@ describe('Zoomto Linestring', () => {
     const screen2 = await browser.takeScreenshot();
     const result = new PixelDiff({
       imageA: Buffer.from(screen1, 'base64'),
-      imageB: Buffer.from(screen2, 'base64')
+      imageB: Buffer.from(screen2, 'base64'),
     }).runSync();
     expect(result.differences).toBeGreaterThan(0);
   });

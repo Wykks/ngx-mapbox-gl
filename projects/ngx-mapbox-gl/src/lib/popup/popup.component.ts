@@ -10,7 +10,7 @@ import {
   SimpleChanges,
   ViewChild,
   EventEmitter,
-  Output
+  Output,
 } from '@angular/core';
 import { PointLike, Popup, LngLatLike } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
@@ -19,7 +19,7 @@ import { MarkerComponent } from '../marker/marker.component';
 @Component({
   selector: 'mgl-popup',
   template: '<div #content><ng-content></ng-content></div>',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnInit {
   /* Init input */
@@ -94,12 +94,12 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
           anchor: this.anchor,
           offset: this.offset,
           className: this.className,
-          maxWidth: this.maxWidth
+          maxWidth: this.maxWidth,
         },
         popupEvents: {
           open: this.open,
-          close: this.close
-        }
+          close: this.close,
+        },
       },
       this.content.nativeElement
     );

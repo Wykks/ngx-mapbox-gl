@@ -203,7 +203,7 @@ export class MapService {
         zoom: zoom ? zoom : this.mapInstance.getZoom(),
         center: center ? center : this.mapInstance.getCenter(),
         bearing: bearing ? bearing : this.mapInstance.getBearing(),
-        pitch: pitch ? pitch : this.mapInstance.getPitch()
+        pitch: pitch ? pitch : this.mapInstance.getPitch(),
       });
     });
   }
@@ -264,7 +264,7 @@ export class MapService {
       anchor: marker.markersOptions.anchor,
       draggable: !!marker.markersOptions.draggable,
       rotationAlignment: marker.markersOptions.rotationAlignment,
-      pitchAlignment: marker.markersOptions.pitchAlignment
+      pitchAlignment: marker.markersOptions.pitchAlignment,
     };
     if (marker.markersOptions.element.childNodes.length > 0) {
       options.element = marker.markersOptions.element;

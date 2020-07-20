@@ -13,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
       <mat-radio-button value="satellite">satellite</mat-radio-button>
     </mat-radio-group>
   `,
-  styleUrls: ['./examples.css', './set-style.component.css']
+  styleUrls: ['./examples.css', './set-style.component.css'],
 })
 export class SetStyleComponent implements OnInit {
   layerId = 'basic';

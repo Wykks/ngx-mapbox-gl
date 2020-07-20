@@ -13,7 +13,7 @@ type RoutesByCategory = { [P in Category]: Routes };
 
 @Component({
   templateUrl: './demo-index.component.html',
-  styleUrls: ['./demo-index.component.scss']
+  styleUrls: ['./demo-index.component.scss'],
 })
 export class DemoIndexComponent implements OnInit, AfterViewInit {
   routes: RoutesByCategory;
@@ -36,7 +36,7 @@ export class DemoIndexComponent implements OnInit, AfterViewInit {
       Category.SOURCES,
       Category.USER_INTERACTION,
       Category.CAMERA,
-      Category.CONTROLS_AND_OVERLAYS
+      Category.CONTROLS_AND_OVERLAYS,
     ];
   }
 

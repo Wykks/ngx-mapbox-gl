@@ -1,11 +1,6 @@
 <mat-toolbar color="primary">
   <div>
-    <button
-      *ngIf="isInDemo$ | async"
-      class="menu-button"
-      mat-button
-      (click)="toggleSidenav()"
-    >
+    <button *ngIf="isInDemo$ | async" class="menu-button" mat-button (click)="toggleSidenav()">
       <mat-icon>menu</mat-icon>
     </button>
     <a mat-button routerLink="/">

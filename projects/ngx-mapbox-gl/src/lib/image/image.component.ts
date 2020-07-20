@@ -7,7 +7,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter, startWith, switchMap } from 'rxjs/operators';
@@ -16,7 +16,7 @@ import { MapImageData, MapImageOptions } from '../map/map.types';
 
 @Component({
   selector: 'mgl-image',
-  template: ''
+  template: '',
 })
 export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   /* Init inputs */

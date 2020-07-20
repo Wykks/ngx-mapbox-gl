@@ -7,7 +7,7 @@ import { MapService } from '../map/map.service';
 @Component({
   selector: 'mgl-canvas-source',
   template: '',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, CanvasSourceOptions {
   /* Init inputs */
@@ -62,7 +62,7 @@ export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, Canv
       type: 'canvas',
       coordinates: this.coordinates,
       canvas: this.canvas,
-      animate: this.animate
+      animate: this.animate,
     });
     this.sourceAdded = true;
   }

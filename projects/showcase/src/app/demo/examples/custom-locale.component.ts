@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
       <mgl-control mglScale></mgl-control>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class CustomLocaleComponent {
   readonly locale = {
@@ -31,6 +31,6 @@ export class CustomLocaleComponent {
     'ScaleControl.Meters': 'м',
     'ScaleControl.Kilometers': 'км',
     'ScaleControl.Miles': 'ми',
-    'ScaleControl.NauticalMiles': 'нм'
+    'ScaleControl.NauticalMiles': 'нм',
   };
 }

@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
     <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="[-74.5, 40]" [interactive]="false">
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class InteractiveFalseComponent {}

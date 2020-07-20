@@ -45,7 +45,7 @@ const COLORS = ['#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c'];
       ></mgl-layer>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class ClusterHtmlComponent {
   clusterProperties: any;
@@ -67,21 +67,21 @@ export class ClusterHtmlComponent {
       mag2: ['+', ['case', mag2, 1, 0]],
       mag3: ['+', ['case', mag3, 1, 0]],
       mag4: ['+', ['case', mag4, 1, 0]],
-      mag5: ['+', ['case', mag5, 1, 0]]
+      mag5: ['+', ['case', mag5, 1, 0]],
     };
     this.circlePaint = {
       'circle-color': ['case', mag1, COLORS[0], mag2, COLORS[1], mag3, COLORS[2], mag4, COLORS[3], COLORS[4]],
       'circle-opacity': 0.6,
-      'circle-radius': 12
+      'circle-radius': 12,
     };
     this.labelLayout = {
       // typings issue
       'text-field': <any>['number-format', ['get', 'mag'], { 'min-fraction-digits': 1, 'max-fraction-digits': 1 }],
       'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-      'text-size': 10
+      'text-size': 10,
     };
     this.labelPaint = {
-      'text-color': ['case', ['<', ['get', 'mag'], 3], 'black', 'white']
+      'text-color': ['case', ['<', ['get', 'mag'], 3], 'black', 'white'],
     };
   }
 }
@@ -96,7 +96,7 @@ export class ClusterHtmlComponent {
         {{ totalString }}
       </text>
     </svg>
-  `
+  `,
 })
 export class ClusterPointComponent implements OnInit {
   @Input() properties: any;
@@ -117,7 +117,7 @@ export class ClusterPointComponent implements OnInit {
       this.properties.mag2,
       this.properties.mag3,
       this.properties.mag4,
-      this.properties.mag5
+      this.properties.mag5,
     ];
     let total = 0;
     for (let i = 0; i < counts.length; i++) {
@@ -153,9 +153,10 @@ export class ClusterPointComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       d: `M ${this.r + this.r0 * x0} ${this.r + this.r0 * y0} L ${this.r + this.r * x0} ${this.r + this.r * y0} A ${
         this.r
-      } ${this.r} 0 ${largeArc} 1 ${this.r + this.r * x1} ${this.r + this.r * y1} L ${this.r + this.r0 * x1} ${this.r +
-        this.r0 * y1} A ${this.r0} ${this.r0} 0 ${largeArc} 0 ${this.r + this.r0 * x0} ${this.r + this.r0 * y0}`,
-      fill: color
+      } ${this.r} 0 ${largeArc} 1 ${this.r + this.r * x1} ${this.r + this.r * y1} L ${this.r + this.r0 * x1} ${
+        this.r + this.r0 * y1
+      } A ${this.r0} ${this.r0} 0 ${largeArc} 0 ${this.r + this.r0 * x0} ${this.r + this.r0 * y0}`,
+      fill: color,
     };
   }
 }

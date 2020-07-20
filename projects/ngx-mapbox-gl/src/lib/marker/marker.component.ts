@@ -11,7 +11,7 @@ import {
   SimpleChanges,
   ViewChild,
   ViewEncapsulation,
-  EventEmitter
+  EventEmitter,
 } from '@angular/core';
 import { LngLatLike, Marker, PointLike, Anchor, Alignment } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
@@ -20,7 +20,7 @@ import { MapService } from '../map/map.service';
   selector: 'mgl-marker',
   template: '<div [class]="className" #content><ng-content></ng-content></div>',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnInit {
   /* Init input */
@@ -86,13 +86,13 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
           draggable: !!this.draggable,
           element: this.content.nativeElement,
           feature: this.feature,
-          lngLat: this.lngLat
+          lngLat: this.lngLat,
         },
         markersEvents: {
           dragStart: this.dragStart,
           drag: this.drag,
-          dragEnd: this.dragEnd
-        }
+          dragEnd: this.dragEnd,
+        },
       });
     });
   }

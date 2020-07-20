@@ -29,7 +29,7 @@ import { Map, SymbolLayout } from 'mapbox-gl';
       ></mgl-layer>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class Display3dBuildingsComponent {
   labelLayerId: string;

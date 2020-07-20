@@ -9,9 +9,7 @@
       "webRoot": "${workspaceRoot}",
       "runtimeExecutable": "/usr/bin/google-chrome-stable",
       "port": 9222,
-      "runtimeArgs": [
-        "--remote-debugging-port=9222"
-      ],
+      "runtimeArgs": ["--remote-debugging-port=9222"],
       "userDataDir": "/tmp/chrome-debug"
     }
   ]

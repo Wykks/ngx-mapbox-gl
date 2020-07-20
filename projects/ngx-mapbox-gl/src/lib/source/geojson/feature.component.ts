@@ -4,7 +4,7 @@ import { GeoJSONSourceComponent } from './geojson-source.component';
 @Component({
   selector: 'mgl-feature',
   template: '',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeatureComponent implements OnInit, OnDestroy, GeoJSON.Feature<GeoJSON.GeometryObject> {
   /* Init inputs */
@@ -26,7 +26,7 @@ export class FeatureComponent implements OnInit, OnDestroy, GeoJSON.Feature<GeoJ
     this.feature = {
       type: this.type,
       geometry: this.geometry,
-      properties: this.properties ? this.properties : {}
+      properties: this.properties ? this.properties : {},
     };
     this.feature.id = this.id;
     this.GeoJSONSourceComponent._addFeature(this.feature);

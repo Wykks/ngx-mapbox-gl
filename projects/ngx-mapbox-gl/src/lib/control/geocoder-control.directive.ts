@@ -10,7 +10,7 @@ import {
   OnChanges,
   Optional,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
 import { MapService } from '../map/map.service';
 import { GeocoderEvent } from '../map/map.types';
@@ -43,7 +43,7 @@ export interface Result extends GeoJSON.Feature<GeoJSON.Point> {
 }
 
 @Directive({
-  selector: '[mglGeocoder]'
+  selector: '[mglGeocoder]',
 })
 export class GeocoderControlDirective implements AfterContentInit, OnChanges, GeocoderEvent {
   /* Init inputs */
@@ -99,7 +99,7 @@ export class GeocoderControlDirective implements AfterContentInit, OnChanges, Ge
         language: this.language,
         filter: this.filter,
         localGeocoder: this.localGeocoder,
-        accessToken: this.accessToken || this.MAPBOX_GEOCODER_API_KEY
+        accessToken: this.accessToken || this.MAPBOX_GEOCODER_API_KEY,
       };
 
       Object.keys(options).forEach((key: string) => {

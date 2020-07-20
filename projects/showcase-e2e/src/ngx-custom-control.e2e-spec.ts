@@ -29,9 +29,6 @@ describe('Custom control', () => {
     await browser.wait(EC.presenceOf(button), 4000);
     await button.click();
     await browser.wait(EC.alertIsPresent(), 2000);
-    await browser
-      .switchTo()
-      .alert()
-      .accept();
+    await browser.switchTo().alert().accept();
   });
 });

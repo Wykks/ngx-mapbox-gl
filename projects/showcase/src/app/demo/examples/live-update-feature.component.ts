@@ -27,7 +27,7 @@ import { LngLatLike } from 'mapbox-gl';
       </mgl-layer>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class LiveUpdateFeatureComponent implements OnInit, OnDestroy {
   data: GeoJSON.FeatureCollection<GeoJSON.LineString>;

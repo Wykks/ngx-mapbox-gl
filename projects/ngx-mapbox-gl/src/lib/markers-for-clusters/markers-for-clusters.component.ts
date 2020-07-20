@@ -8,7 +8,7 @@ import {
   Input,
   NgZone,
   OnDestroy,
-  TemplateRef
+  TemplateRef,
 } from '@angular/core';
 import { MapboxGeoJSONFeature, MapSourceDataEvent } from 'mapbox-gl';
 import { fromEvent, merge, Subscription } from 'rxjs';
@@ -41,7 +41,7 @@ let uniqId = 0;
     </ng-container>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false
+  preserveWhitespaces: false,
 })
 export class MarkersForClustersComponent implements OnDestroy, AfterContentInit {
   /* Init input */

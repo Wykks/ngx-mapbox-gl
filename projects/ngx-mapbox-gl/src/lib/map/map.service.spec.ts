@@ -12,8 +12,8 @@ const geoJSONStyle: Style = {
   sources: {
     world: {
       type: 'geojson',
-      data: countries
-    }
+      data: countries,
+    },
   },
   version: 8,
   layers: <any>[
@@ -23,10 +23,10 @@ const geoJSONStyle: Style = {
       source: 'world',
       layout: {},
       paint: {
-        'fill-color': '#6F788A'
-      }
-    }
-  ]
+        'fill-color': '#6F788A',
+      },
+    },
+  ],
 };
 
 describe('MapService', () => {
@@ -43,9 +43,9 @@ describe('MapService', () => {
           useFactory: () => {
             zone = new MockNgZone();
             return zone;
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
     container = document.createElement('div');
     mapEvents = {
@@ -96,7 +96,7 @@ describe('MapService', () => {
       styleDataLoading: new EventEmitter<EventData>(),
       sourceDataLoading: new EventEmitter<EventData>(),
       styleImageMissing: new EventEmitter<{ id: string }>(),
-      idle: new EventEmitter<void>()
+      idle: new EventEmitter<void>(),
     };
   });
 
@@ -105,9 +105,9 @@ describe('MapService', () => {
       mapOptions: {
         container,
         style: geoJSONStyle,
-        zoom: 0
+        zoom: 0,
       },
-      mapEvents
+      mapEvents,
     });
     zone.simulateZoneExit();
   }));

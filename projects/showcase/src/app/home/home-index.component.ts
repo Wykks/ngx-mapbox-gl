@@ -5,7 +5,7 @@ import { observeOn } from 'rxjs/operators';
 
 @Component({
   templateUrl: './home-index.component.html',
-  styleUrls: ['./home-index.component.scss']
+  styleUrls: ['./home-index.component.scss'],
 })
 export class HomeIndexComponent implements OnInit, OnDestroy {
   center = [0, 0];

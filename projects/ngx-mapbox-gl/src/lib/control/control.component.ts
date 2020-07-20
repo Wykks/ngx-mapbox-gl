@@ -7,7 +7,7 @@ import {
   ElementRef,
   Input,
   OnDestroy,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 
 export class CustomControl implements IControl {
@@ -29,7 +29,7 @@ export class CustomControl implements IControl {
 @Component({
   selector: 'mgl-control',
   template: '<div class="mapboxgl-ctrl" #content><ng-content></ng-content></div>',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ControlComponent implements OnDestroy, AfterContentInit {
   /* Init inputs */

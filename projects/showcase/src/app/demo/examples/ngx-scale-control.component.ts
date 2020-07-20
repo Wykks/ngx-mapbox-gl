@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
       <mgl-control mglScale unit="imperial" position="top-right"></mgl-control>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class NgxScaleControlComponent {}

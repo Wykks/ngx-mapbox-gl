@@ -25,7 +25,7 @@ describe('Set style', () => {
     const style2 = await browser.takeScreenshot();
     const result = new PixelDiff({
       imageA: Buffer.from(style1, 'base64'),
-      imageB: Buffer.from(style2, 'base64')
+      imageB: Buffer.from(style2, 'base64'),
     }).runSync();
     expect(result.differences).toBeGreaterThan(0);
     await radios.get(0).click();
@@ -33,7 +33,7 @@ describe('Set style', () => {
     const style1bis = await browser.takeScreenshot();
     const result2 = new PixelDiff({
       imageA: Buffer.from(style1, 'base64'),
-      imageB: Buffer.from(style1bis, 'base64')
+      imageB: Buffer.from(style1bis, 'base64'),
     }).runSync();
     expect(result2.differences).toBe(0);
   });

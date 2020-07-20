@@ -8,17 +8,17 @@
     </mat-form-field>
     <mat-nav-list>
       <ng-container *ngFor="let cat of categories">
-        <h3 matSubheader>{{cat}}</h3>
+        <h3 matSubheader>{{ cat }}</h3>
         <ng-container *ngFor="let route of $any(routes)[cat]">
           <a
             *ngIf="route"
             mat-list-item
-            [routerLink]="'/demo/'+((isEditing$ | async) ? '/edit/' : '')+route.path"
+            [routerLink]="'/demo/' + ((isEditing$ | async) ? '/edit/' : '') + route.path"
             routerLinkActive="active"
-            [routerLinkActiveOptions]="{ _routerLinkActiveWakeUpHack_: (isEditing$ | async) }"
+            [routerLinkActiveOptions]="{ _routerLinkActiveWakeUpHack_: isEditing$ | async }"
             #exampleLink
           >
-            {{route.data.label}}
+            {{ route.data.label }}
           </a>
         </ng-container>
         <mat-divider></mat-divider>

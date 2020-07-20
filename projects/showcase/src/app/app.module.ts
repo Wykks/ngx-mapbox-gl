@@ -8,7 +8,7 @@ import {
   routerReducer,
   RouterReducerState,
   RouterStateSerializer,
-  StoreRouterConnectingModule
+  StoreRouterConnectingModule,
 } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -40,7 +40,7 @@ export class SimpleSerializer implements RouterStateSerializer<RouterStateUrl> {
     }
     const {
       url,
-      root: { queryParams }
+      root: { queryParams },
     } = routerState;
     const { params } = route;
     return { url, params, queryParams };
@@ -50,23 +50,23 @@ export class SimpleSerializer implements RouterStateSerializer<RouterStateUrl> {
 export const showcaseRoutes: Routes = [
   {
     path: 'demo',
-    children: DEMO_ROUTES
+    children: DEMO_ROUTES,
   },
   {
     path: '',
     children: [
       {
         path: '',
-        component: HomeIndexComponent
-      }
+        component: HomeIndexComponent,
+      },
     ],
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'doc',
-    loadChildren: () => import('./doc/doc.module').then((m) => m.DocModule)
+    loadChildren: () => import('./doc/doc.module').then((m) => m.DocModule),
   },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
@@ -78,27 +78,27 @@ export const showcaseRoutes: Routes = [
     DemoModule,
     StoreModule.forRoot(
       {
-        router: <any>routerReducer
+        router: <any>routerReducer,
       },
       {
         runtimeChecks: {
           strictStateImmutability: true,
-          strictActionImmutability: true
-        }
+          strictActionImmutability: true,
+        },
       }
     ),
     RouterModule.forRoot(showcaseRoutes),
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule.forRoot({
-      stateKey: 'router'
+      stateKey: 'router',
     }),
     NgxMapboxGLModule.withConfig({
-      accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA'
-    })
+      accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA',
+    }),
   ],
   providers: [{ provide: RouterStateSerializer, useClass: SimpleSerializer }],
-  bootstrap: [IndexComponent]
+  bootstrap: [IndexComponent],
 })
 export class AppModule {
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {

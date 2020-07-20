@@ -19,6 +19,6 @@ import { Component } from '@angular/core';
       ></mgl-control>
     </mgl-map>
   `,
-  styleUrls: ['./examples.css']
+  styleUrls: ['./examples.css'],
 })
 export class CustomAttributionComponent {}
