@@ -38,13 +38,13 @@ Include the following components:
 ## How to start
 
 ```
-npm install ngx-mapbox-gl mapbox-gl@0.54.0 --save
+npm install ngx-mapbox-gl mapbox-gl
 ```
 
 If using typescript add mapbox-gl types
 
 ```
-npm install @types/mapbox-gl@0.51.10 --save-dev
+npm install @types/mapbox-gl --save-dev
 ```
 
 Load the css of mapbox-gl (and mapbox-gl-geocoder if mglGeocoder is used)
@@ -102,15 +102,17 @@ Display a map
 import { Component } from '@angular/core';
 
 @Component({
-  template: ` <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="[-74.5, 40]"> </mgl-map> `,
+  template: `
+    <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="[-74.5, 40]"> </mgl-map>
+  `,
   styles: [
     `
       mgl-map {
         height: 100%;
         width: 100%;
       }
-    `,
-  ],
+    `
+  ]
 })
 export class DisplayMapComponent {}
 ```
