@@ -2,17 +2,15 @@ import './polyfills';
 
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatCardModule,
-  MatListModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatSlideToggleModule,
-  MatToolbarModule,
-  MatPaginatorModule
-  } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
