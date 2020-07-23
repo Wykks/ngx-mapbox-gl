@@ -134,9 +134,8 @@ html, body {
 }
 `,
         'src/polyfills.ts': `
-import 'core-js/es6/reflect';
-import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
+(window as any).global = window;
 `,
         ...demoFiles,
       },
@@ -145,7 +144,7 @@ import 'zone.js/dist/zone';
       template: 'angular-cli',
       dependencies: {
         tslib: '*',
-        'mapbox-gl': '0.52.0', // There an issue with 0.53.0
+        'mapbox-gl': '*',
         'ngx-mapbox-gl': '*',
         '@angular/cdk': '*',
         '@angular/material': '*',
