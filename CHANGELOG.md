@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.8.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.8.0...v4.8.1) (2020-07-24)
+
+### Bug Fixes
+
+- attempting to delete a custom control to the map if it was not actually added there (happens if there was an exception during markers initialization) [#199](https://github.com/Wykks/ngx-mapbox-gl/issues/199) ([503730b](https://github.com/Wykks/ngx-mapbox-gl/commit/503730b6bcbdbf8d9772f167e595bb2541188101))
+
 ## [4.8.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.7.1...v4.8.0) (2020-07-20)
 
 ### Features
