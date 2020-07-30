@@ -116,3 +116,96 @@ import { Component } from '@angular/core';
 })
 export class DisplayMapComponent {}
 ```
+
+## Angular libraries `AOT` compilation
+
+If you want to build a library using this module, you will most likely face this error when building for production:
+
+```
+ERROR: Error during template compile of 'YourLibraryModule'
+  Function calls are not supported in decorators but 'NgxMapboxGLModule' was called.
+
+An unhandled exception occurred: Error during template compile of 'YourLibraryModule'
+  Function calls are not supported in decorators but 'NgxMapboxGLModule' was called.
+```
+
+This error is generated due to the AOT compilation that occours in *prod* mode.
+The part that will generate the error will be this one:
+
+```ts
+@NgModule({
+  imports: [
+    ...
+    NgxMapboxGLModule.withConfig({
+      accessToken: 'TOKEN',
+      geocoderAccessToken: 'TOKEN'
+    })
+  ]
+})
+```
+
+So the error is pretty clear: `Function calls are not supported in decorators but 'NgxMapboxGLModule' was called`.
+
+#### Solution
+To solve this problem we simply need to provide the *accessToken* via module configuration rather than how you would normally do:
+
+```ts
+import { 
+    MAPBOX_API_KEY, // ngx-mapbox-gl uses this injection token to provide the accessToken
+    NgxMapboxGLModule, 
+} from 'ngx-mapbox-gl';
+
+export interface IMyLibMapModuleConfig {
+    mapboxToken: string;
+}
+
+@NgModule({
+    declarations: [],
+    exports: [],
+    imports: [
+        CommonModule,
+        NgxMapboxGLModule,
+    ],
+})
+export class MyLibMapModule {
+    static forRoot(config: IMyLibMapModuleConfig): ModuleWithProviders<MyLibMapModule> {
+        return {
+            ngModule: MyLibMapModule,
+            providers: [
+                {
+                    provide: MAPBOX_API_KEY,
+                    useValue: config.mapboxToken,
+                },
+            ],
+        };
+    }
+}
+```
+
+We basically create a `forRoot` static function in the library module, that will accept a *configuration* object as parameter. This *configuration* will provide the actual token to the `ngx-mapbox-gl` module via providers by providing the value from the *configuration* to the `MAPBOX_API_KEY` injection token.
+
+Finally in the application that will use your `MyLibMapModule`, you will import the module in this way:
+```ts
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+
+import {MyLibMapModule} from 'my-lib';
+
+@NgModule({
+    declarations: [
+        AppComponent,
+    ],
+    imports: [
+        CommonModule,
+        AppRoutingModule,
+
+        MyLibMapModule.forRoot({
+            mapboxToken: environment.mapboxToken
+        }),
+    ]
+})
+export class AppModule { }
+```
