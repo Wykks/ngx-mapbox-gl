@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Wykks/ngx-mapbox-gl.svg?branch=master)](https://travis-ci.org/Wykks/ngx-mapbox-gl)
 [![npm version](https://img.shields.io/npm/v/ngx-mapbox-gl.svg?style=flat)](https://www.npmjs.com/package/ngx-mapbox-gl)
 
-Angular wrapper for [mapbox-gl-js](https://www.mapbox.com/mapbox-gl-js/api/). Expose a bunch of component meant to be simple to use for Angular.
+Angular wrapper for [mapbox-gl-js](https://www.mapbox.com/mapbox-gl-js/api/). Expose a bunch of components meant to be simple to use for Angular.
 
 v1.X : Angular 5 & 6 (rxjs 5)
 
@@ -26,7 +26,7 @@ Include the following components:
 - [mgl-image](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-image-mapbox-gl-api)
 - [mgl-control](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-control) with builtin control:
   - mglScale
-  - mglFullscren
+  - mglFullscreen
   - mglAttribution
   - mglGeolocate
   - mglNavigation
@@ -59,7 +59,7 @@ For example, with angular-cli add this in angular.json
       ],
 ```
 
-Or in global css (called styles.css for example in angular-cli)
+Or in global CSS (called styles.css for example in angular-cli)
 
 ```css
 @import '~mapbox-gl/dist/mapbox-gl.css';
@@ -92,7 +92,7 @@ export class AppModule {}
 
 How to get a mapbox token: https://www.mapbox.com/help/how-access-tokens-work/
 
-Note: mapbox-gl can works without token, if you have your own source, example: https://stackblitz.com/edit/ngx-mapbox-gl-without-token
+Note: mapbox-gl works without a token, if you have your own source, example: https://stackblitz.com/edit/ngx-mapbox-gl-without-token
 
 You can use https://github.com/klokantech/tileserver-gl to serve vector tiles
 
@@ -123,13 +123,13 @@ If you want to build a library using this module, you will most likely face this
 
 ```
 ERROR: Error during template compile of 'YourLibraryModule'
-  Function calls are not supported in decorators but 'NgxMapboxGLModule' was called.
+  Function calls are not supported in decorators, but 'NgxMapboxGLModule' was called.
 
 An unhandled exception occurred: Error during template compile of 'YourLibraryModule'
-  Function calls are not supported in decorators but 'NgxMapboxGLModule' was called.
+  Function calls are not supported in decorators, but 'NgxMapboxGLModule' was called.
 ```
 
-This error is generated due to the AOT compilation that occours in *prod* mode.
+This error is generated due to the AOT compilation that occurs in *prod* mode.
 The part that will generate the error will be this one:
 
 ```ts
@@ -147,7 +147,7 @@ The part that will generate the error will be this one:
 So the error is pretty clear: `Function calls are not supported in decorators but 'NgxMapboxGLModule' was called`.
 
 #### Solution
-To solve this problem we simply need to provide the *accessToken* via module configuration rather than how you would normally do:
+To solve this problem, we simply need to provide the *accessToken* via module configuration rather than how you would normally do:
 
 ```ts
 import { 
@@ -182,9 +182,9 @@ export class MyLibMapModule {
 }
 ```
 
-We basically create a `forRoot` static function in the library module, that will accept a *configuration* object as parameter. This *configuration* will provide the actual token to the `ngx-mapbox-gl` module via providers by providing the value from the *configuration* to the `MAPBOX_API_KEY` injection token.
+We basically create a `forRoot` static function in the library module, that will accept a *configuration* object as  a parameter. This *configuration* will provide the actual token to the `ngx-mapbox-gl` module via providers by providing the value from the *configuration* to the `MAPBOX_API_KEY` injection token.
 
-Finally in the application that will use your `MyLibMapModule`, you will import the module in this way:
+Finally, in the application that will use your `MyLibMapModule`, you will import the module in this way:
 ```ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
