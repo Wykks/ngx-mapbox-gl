@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Wykks/ngx-mapbox-gl.svg?branch=master)](https://travis-ci.org/Wykks/ngx-mapbox-gl)
 [![npm version](https://img.shields.io/npm/v/ngx-mapbox-gl.svg?style=flat)](https://www.npmjs.com/package/ngx-mapbox-gl)
 
-Angular wrapper for [mapbox-gl-js](https://www.mapbox.com/mapbox-gl-js/api/). Expose a bunch of components meant to be simple to use for Angular.
+Angular wrapper for [mapbox-gl-js](https://www.mapbox.com/mapbox-gl-js/api/). It exposes a bunch of components meant to be simple to use with Angular.
 
 v1.X : Angular 5 & 6 (rxjs 5)
 
@@ -39,17 +39,19 @@ Include the following components:
 
 ```
 npm install ngx-mapbox-gl mapbox-gl
+yarn add ngx-mapbox-gl mapbox-gl
 ```
 
 If using typescript add mapbox-gl types
 
 ```
 npm install @types/mapbox-gl --save-dev
+yarn add @types/mapbox-gl --dev
 ```
 
-Load the css of mapbox-gl (and mapbox-gl-geocoder if mglGeocoder is used)
+Load the CSS of `mapbox-gl` (and `mapbox-gl-geocoder` if `mglGeocoder` is used)
 
-For example, with angular-cli add this in angular.json
+For example, with _angular-cli_ add this in `angular.json`:
 
 ```json
 "styles": [
@@ -59,7 +61,7 @@ For example, with angular-cli add this in angular.json
       ],
 ```
 
-Or in global CSS (called styles.css for example in angular-cli)
+Or in the global CSS file (called `styles.css` for example in _angular-cli_):
 
 ```css
 @import '~mapbox-gl/dist/mapbox-gl.css';
@@ -72,9 +74,9 @@ Add this in your polyfill.ts file (https://github.com/Wykks/ngx-mapbox-gl/issues
 (window as any).global = window;
 ```
 
-Then, in your app's main module (or in any other module), import the NgxMapboxGLModule
+Then, in your app's main module (or in any other module), import the `NgxMapboxGLModule`:
 
-```typescript
+```ts
 ...
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 
@@ -90,29 +92,27 @@ import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 export class AppModule {}
 ```
 
-How to get a mapbox token: https://www.mapbox.com/help/how-access-tokens-work/
+How to get a Mapbox token: https://www.mapbox.com/help/how-access-tokens-work/
 
-Note: mapbox-gl works without a token, if you have your own source, example: https://stackblitz.com/edit/ngx-mapbox-gl-without-token
+Note: `mapbox-gl` can work without a token, if you have your own source, for example: https://stackblitz.com/edit/ngx-mapbox-gl-without-token
 
-You can use https://github.com/klokantech/tileserver-gl to serve vector tiles
+You can use https://github.com/klokantech/tileserver-gl to serve vector tiles.
 
-Display a map
+Display a map:
 
-```typescript
+```ts
 import { Component } from '@angular/core';
 
 @Component({
-  template: `
-    <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="[-74.5, 40]"> </mgl-map>
-  `,
+  template: ` <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="[-74.5, 40]"> </mgl-map> `,
   styles: [
     `
       mgl-map {
         height: 100%;
         width: 100%;
       }
-    `
-  ]
+    `,
+  ],
 })
 export class DisplayMapComponent {}
 ```
@@ -129,7 +129,7 @@ An unhandled exception occurred: Error during template compile of 'YourLibraryMo
   Function calls are not supported in decorators, but 'NgxMapboxGLModule' was called.
 ```
 
-This error is generated due to the AOT compilation that occurs in *prod* mode.
+This error is generated due to the AOT compilation that occurs in _prod_ mode.
 The part that will generate the error will be this one:
 
 ```ts
@@ -147,44 +147,43 @@ The part that will generate the error will be this one:
 So the error is pretty clear: `Function calls are not supported in decorators but 'NgxMapboxGLModule' was called`.
 
 #### Solution
-To solve this problem, we simply need to provide the *accessToken* via module configuration rather than how you would normally do:
+
+To solve this problem, we simply need to provide the _accessToken_ via module configuration rather than how you would normally do:
 
 ```ts
-import { 
-    MAPBOX_API_KEY, // ngx-mapbox-gl uses this injection token to provide the accessToken
-    NgxMapboxGLModule, 
+import {
+  MAPBOX_API_KEY, // ngx-mapbox-gl uses this injection token to provide the accessToken
+  NgxMapboxGLModule,
 } from 'ngx-mapbox-gl';
 
 export interface IMyLibMapModuleConfig {
-    mapboxToken: string;
+  mapboxToken: string;
 }
 
 @NgModule({
-    declarations: [],
-    exports: [],
-    imports: [
-        CommonModule,
-        NgxMapboxGLModule,
-    ],
+  declarations: [],
+  exports: [],
+  imports: [CommonModule, NgxMapboxGLModule],
 })
 export class MyLibMapModule {
-    static forRoot(config: IMyLibMapModuleConfig): ModuleWithProviders<MyLibMapModule> {
-        return {
-            ngModule: MyLibMapModule,
-            providers: [
-                {
-                    provide: MAPBOX_API_KEY,
-                    useValue: config.mapboxToken,
-                },
-            ],
-        };
-    }
+  static forRoot(config: IMyLibMapModuleConfig): ModuleWithProviders<MyLibMapModule> {
+    return {
+      ngModule: MyLibMapModule,
+      providers: [
+        {
+          provide: MAPBOX_API_KEY,
+          useValue: config.mapboxToken,
+        },
+      ],
+    };
+  }
 }
 ```
 
-We basically create a `forRoot` static function in the library module, that will accept a *configuration* object as  a parameter. This *configuration* will provide the actual token to the `ngx-mapbox-gl` module via providers by providing the value from the *configuration* to the `MAPBOX_API_KEY` injection token.
+We basically create a `forRoot` static function in the library module, that will accept a _configuration_ object as a parameter. This _configuration_ will provide the actual token to the `ngx-mapbox-gl` module via providers by providing the value from the _configuration_ to the `MAPBOX_API_KEY` injection token.
 
 Finally, in the application that will use your `MyLibMapModule`, you will import the module in this way:
+
 ```ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -192,20 +191,18 @@ import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import {MyLibMapModule} from 'my-lib';
+import { MyLibMapModule } from 'my-lib';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-    ],
-    imports: [
-        CommonModule,
-        AppRoutingModule,
+  declarations: [AppComponent],
+  imports: [
+    CommonModule,
+    AppRoutingModule,
 
-        MyLibMapModule.forRoot({
-            mapboxToken: environment.mapboxToken
-        }),
-    ]
+    MyLibMapModule.forRoot({
+      mapboxToken: environment.mapboxToken,
+    }),
+  ],
 })
-export class AppModule { }
+export class AppModule {}
 ```
