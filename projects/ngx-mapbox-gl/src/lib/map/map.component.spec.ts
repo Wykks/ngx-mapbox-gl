@@ -8,6 +8,8 @@ describe('MapComponent', () => {
   class MapServiceSpy {
     setup = jasmine.createSpy('setup');
     updateMinZoom = jasmine.createSpy('updateMinZoom');
+    updateMaxPitch = jasmine.createSpy('updateMaxPitch');
+    updateMinPitch = jasmine.createSpy('updateMinPitch');
     destroyMap = jasmine.createSpy('destroyMap');
     mapCreated$ = new ReplaySubject(1);
   }
@@ -61,6 +63,26 @@ describe('MapComponent', () => {
       });
       flushMicrotasks();
       expect(msSpy.updateMinZoom).toHaveBeenCalledWith(6);
+    }));
+
+    it('should update minpitch', fakeAsync(() => {
+      msSpy.mapCreated$.complete();
+      component.minPitch = 15;
+      component.ngOnChanges({
+        minPitch: new SimpleChange(null, component.minPitch, false),
+      });
+      flushMicrotasks();
+      expect(msSpy.updateMinPitch).toHaveBeenCalledWith(15);
+    }));
+
+    it('should update maxpitch', fakeAsync(() => {
+      msSpy.mapCreated$.complete();
+      component.maxPitch = 25;
+      component.ngOnChanges({
+        maxPitch: new SimpleChange(null, component.maxPitch, false),
+      });
+      flushMicrotasks();
+      expect(msSpy.updateMaxPitch).toHaveBeenCalledWith(25);
     }));
   });
 });

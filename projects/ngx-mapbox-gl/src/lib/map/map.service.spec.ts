@@ -132,6 +132,24 @@ describe('MapService', () => {
       });
     })());
 
+  it('should update minPitch', (done: DoneFn) =>
+    inject([MapService], (service: MapService) => {
+      mapEvents.load.pipe(first()).subscribe(() => {
+        service.updateMinPitch(15);
+        expect(service.mapInstance.getMinPitch()).toEqual(15);
+        done();
+      });
+    })());
+
+  it('should update maxPitch', (done: DoneFn) =>
+    inject([MapService], (service: MapService) => {
+      mapEvents.load.pipe(first()).subscribe(() => {
+        service.updateMaxPitch(25);
+        expect(service.mapInstance.getMaxPitch()).toEqual(25);
+        done();
+      });
+    })());
+
   // xit('should update zoom', (done: DoneFn) => inject([MapService], (service: MapService) => {
   //   mapEvents.mapEvents.load.first().subscribe(() => {
   //     service.prepareZoom(6);

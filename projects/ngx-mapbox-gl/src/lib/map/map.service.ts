@@ -117,6 +117,18 @@ export class MapService {
     });
   }
 
+  updateMinPitch(minPitch: number) {
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.setMinPitch(minPitch);
+    });
+  }
+
+  updateMaxPitch(maxPitch: number) {
+    return this.zone.runOutsideAngular(() => {
+      this.mapInstance.setMaxPitch(maxPitch);
+    });
+  }
+
   updateScrollZoom(status: boolean) {
     return this.zone.runOutsideAngular(() => {
       status ? this.mapInstance.scrollZoom.enable() : this.mapInstance.scrollZoom.disable();

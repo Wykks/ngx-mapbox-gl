@@ -71,6 +71,8 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
   /* Dynamic inputs */
   @Input() minZoom?: number;
   @Input() maxZoom?: number;
+  @Input() minPitch?: number;
+  @Input() maxPitch?: number;
   @Input() scrollZoom?: boolean;
   @Input() dragRotate?: boolean;
   @Input() touchZoomRotate?: boolean;
@@ -161,6 +163,8 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
         container: this.mapContainer.nativeElement,
         minZoom: this.minZoom,
         maxZoom: this.maxZoom,
+        minPitch: this.minPitch,
+        maxPitch: this.maxPitch,
         style: this.style,
         hash: this.hash,
         interactive: this.interactive,
@@ -216,6 +220,12 @@ export class MapComponent implements OnChanges, OnDestroy, AfterViewInit, MapEve
     }
     if (changes.maxZoom && !changes.maxZoom.isFirstChange()) {
       this.MapService.updateMaxZoom(changes.maxZoom.currentValue);
+    }
+    if (changes.minPitch && !changes.minPitch.isFirstChange()) {
+      this.MapService.updateMinPitch(changes.minPitch.currentValue);
+    }
+    if (changes.maxPitch && !changes.maxPitch.isFirstChange()) {
+      this.MapService.updateMaxPitch(changes.maxPitch.currentValue);
     }
     if (changes.scrollZoom && !changes.scrollZoom.isFirstChange()) {
       this.MapService.updateScrollZoom(changes.scrollZoom.currentValue);
