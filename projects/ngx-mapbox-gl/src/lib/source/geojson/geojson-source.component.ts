@@ -8,7 +8,7 @@ import {
   SimpleChanges,
   NgZone,
 } from '@angular/core';
-import { GeoJSONSource, GeoJSONSourceOptions } from 'mapbox-gl';
+import { GeoJSONSource, GeoJSONSourceOptions, PromoteIdSpecification } from 'mapbox-gl';
 import { fromEvent, Subject, Subscription } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
 import { MapService } from '../../map/map.service';
@@ -21,6 +21,7 @@ import { MapService } from '../../map/map.service';
 export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, GeoJSONSourceOptions {
   /* Init inputs */
   @Input() id: string;
+  @Input() promoteId: PromoteIdSpecification;
 
   /* Dynamic inputs */
   @Input() data?: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.FeatureCollection<GeoJSON.Geometry> | string;
@@ -184,6 +185,7 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
       clusterRadius: this.clusterRadius,
       clusterMaxZoom: this.clusterMaxZoom,
       clusterProperties: this.clusterProperties,
+      promoteId: this.promoteId,
     });
     const sub = this.updateFeatureData.pipe(debounceTime(0)).subscribe(() => {
       const source = this.MapService.getSource<GeoJSONSource>(this.id);

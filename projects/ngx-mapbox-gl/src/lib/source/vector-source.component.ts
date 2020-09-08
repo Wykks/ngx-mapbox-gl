@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { VectorSource } from 'mapbox-gl';
+import { VectorSource, PromoteIdSpecification } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
@@ -12,6 +12,7 @@ import { MapService } from '../map/map.service';
 export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, VectorSource {
   /* Init inputs */
   @Input() id: string;
+  @Input() promoteId: PromoteIdSpecification;
 
   /* Dynamic inputs */
   @Input() url?: string;
@@ -68,6 +69,7 @@ export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, Vect
       tiles: this.tiles,
       minzoom: this.minzoom,
       maxzoom: this.maxzoom,
+      promoteId: this.promoteId,
     });
     this.sourceAdded = true;
   }
