@@ -1,8 +1,8 @@
 # ngx-mapbox-gl
 
-[![Build Status](https://travis-ci.org/Wykks/ngx-mapbox-gl.svg?branch=master)](https://travis-ci.org/Wykks/ngx-mapbox-gl)
+[![Build Status](https://travis-ci.com/Wykks/ngx-mapbox-gl.svg?branch=master)](https://travis-ci.com/Wykks/ngx-mapbox-gl)
 [![npm version](https://img.shields.io/npm/v/ngx-mapbox-gl.svg?style=flat)](https://www.npmjs.com/package/ngx-mapbox-gl)
-
+https://api.travis-ci.com/Wykks/ngx-mapbox-gl.svg?branch=master&status=unknown
 Angular wrapper for [mapbox-gl-js](https://www.mapbox.com/mapbox-gl-js/api/). It exposes a bunch of components meant to be simple to use with Angular.
 
 v1.X : Angular 5 & 6 (rxjs 5)
