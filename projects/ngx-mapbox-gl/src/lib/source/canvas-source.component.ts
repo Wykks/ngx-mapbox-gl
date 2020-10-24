@@ -15,7 +15,7 @@ export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, Canv
 
   /* Dynamic inputs */
   @Input() coordinates: number[][];
-  @Input() canvas: string;
+  @Input() canvas: string | HTMLCanvasElement;
   @Input() animate?: boolean;
 
   private sourceAdded = false;
