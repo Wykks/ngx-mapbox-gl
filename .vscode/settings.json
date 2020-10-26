@@ -8,5 +8,7 @@
     ".ng_build": true
   },
   "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.enable": false
+  "eslint.enable": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
 }

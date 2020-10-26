@@ -13,8 +13,8 @@ export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, Image
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() url: string;
-  @Input() coordinates: number[][];
+  @Input() url: ImageSourceOptions['url'];
+  @Input() coordinates: ImageSourceOptions['coordinates'];
 
   private sub: Subscription;
   private sourceId?: string;
@@ -44,6 +44,7 @@ export class ImageSourceComponent implements OnInit, OnDestroy, OnChanges, Image
 
     if (this.sourceId !== undefined) {
       this.MapService.removeSource(this.sourceId);
+      this.sourceId = undefined;
     }
   }
 
