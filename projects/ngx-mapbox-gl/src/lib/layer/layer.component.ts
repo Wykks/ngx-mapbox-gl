@@ -11,7 +11,6 @@ import {
   GeoJSONSource,
   GeoJSONSourceRaw,
   ImageSource,
-  Layer,
   LineLayout,
   LinePaint,
   RasterLayout,
@@ -31,7 +30,7 @@ import { MapService } from '../map/map.service';
   selector: 'mgl-layer',
   template: '',
 })
-export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
+export class LayerComponent implements OnInit, OnDestroy, OnChanges {
   /* Init inputs */
   @Input() id: string;
   @Input() source?: string | VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource | GeoJSONSourceRaw;
