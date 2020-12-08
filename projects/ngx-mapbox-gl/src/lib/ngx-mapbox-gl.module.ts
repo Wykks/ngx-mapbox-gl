@@ -23,6 +23,7 @@ import { CanvasSourceComponent } from './source/canvas-source.component';
 import { FeatureComponent } from './source/geojson/feature.component';
 import { GeoJSONSourceComponent } from './source/geojson/geojson-source.component';
 import { ImageSourceComponent } from './source/image-source.component';
+import { RasterDemSourceComponent } from './source/raster-dem-source.component';
 import { RasterSourceComponent } from './source/raster-source.component';
 import { VectorSourceComponent } from './source/vector-source.component';
 import { VideoSourceComponent } from './source/video-source.component';
@@ -36,6 +37,7 @@ import { VideoSourceComponent } from './source/video-source.component';
     ImageComponent,
     VectorSourceComponent,
     GeoJSONSourceComponent,
+    RasterDemSourceComponent,
     RasterSourceComponent,
     ImageSourceComponent,
     VideoSourceComponent,
@@ -61,6 +63,7 @@ import { VideoSourceComponent } from './source/video-source.component';
     ImageComponent,
     VectorSourceComponent,
     GeoJSONSourceComponent,
+    RasterDemSourceComponent,
     RasterSourceComponent,
     ImageSourceComponent,
     VideoSourceComponent,

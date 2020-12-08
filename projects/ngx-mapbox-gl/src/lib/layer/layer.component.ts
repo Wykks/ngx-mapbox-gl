@@ -1,70 +1,43 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
-import {
-  BackgroundLayout,
-  BackgroundPaint,
-  CircleLayout,
-  CirclePaint,
-  FillExtrusionLayout,
-  FillExtrusionPaint,
-  FillLayout,
-  FillPaint,
-  GeoJSONSource,
-  GeoJSONSourceRaw,
-  ImageSource,
-  Layer,
-  LineLayout,
-  LinePaint,
-  RasterLayout,
-  RasterPaint,
-  RasterSource,
-  SymbolLayout,
-  SymbolPaint,
-  VectorSource,
-  VideoSource,
-  MapLayerMouseEvent,
-} from 'mapbox-gl';
+import { EventData, Layer, MapLayerMouseEvent, MapLayerTouchEvent } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter, mapTo, switchMap, startWith } from 'rxjs/operators';
-import { MapService } from '../map/map.service';
+import { MapService, SetupLayer } from '../map/map.service';
+import { LayerEvents } from '../map/map.types';
 
 @Component({
   selector: 'mgl-layer',
   template: '',
 })
-export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
+export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer, LayerEvents {
   /* Init inputs */
-  @Input() id: string;
-  @Input() source?: string | VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource | GeoJSONSourceRaw;
-  @Input() type: 'symbol' | 'fill' | 'line' | 'circle' | 'fill-extrusion' | 'raster' | 'background';
-  @Input() metadata?: any;
-  @Input() sourceLayer?: string;
+  @Input() id: Layer['id'];
+  @Input() source?: Layer['source'];
+  @Input() type: Layer['type'];
+  @Input() metadata?: Layer['metadata'];
+  @Input() sourceLayer?: Layer['source-layer'];
 
   /* Dynamic inputs */
-  @Input() filter?: any[];
-  @Input() layout?:
-    | BackgroundLayout
-    | FillLayout
-    | FillExtrusionLayout
-    | LineLayout
-    | SymbolLayout
-    | RasterLayout
-    | CircleLayout;
-  @Input() paint?:
-    | BackgroundPaint
-    | FillPaint
-    | FillExtrusionPaint
-    | LinePaint
-    | SymbolPaint
-    | RasterPaint
-    | CirclePaint;
+  @Input() filter?: Layer['filter'];
+  @Input() layout?: Layer['layout'];
+  @Input() paint?: Layer['paint'];
   @Input() before?: string;
-  @Input() minzoom?: number;
-  @Input() maxzoom?: number;
+  @Input() minzoom?: Layer['minzoom'];
+  @Input() maxzoom?: Layer['maxzoom'];
 
-  @Output() click = new EventEmitter<MapLayerMouseEvent>();
-  @Output() mouseEnter = new EventEmitter<MapLayerMouseEvent>();
-  @Output() mouseLeave = new EventEmitter<MapLayerMouseEvent>();
-  @Output() mouseMove = new EventEmitter<MapLayerMouseEvent>();
+  @Output() click = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() dblClick = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() mouseDown = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() mouseUp = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() mouseEnter = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() mouseLeave = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() mouseMove = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() mouseOver = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() mouseOut = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() contextMenu = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() touchStart = new EventEmitter<MapLayerTouchEvent & EventData>();
+  @Output() touchEnd = new EventEmitter<MapLayerTouchEvent & EventData>();
+  @Output() touchCancel = new EventEmitter<MapLayerTouchEvent & EventData>();
 
   private layerAdded = false;
   private sub: Subscription;
@@ -119,7 +92,7 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
   }
 
   private init(bindEvents: boolean) {
-    const layer = {
+    const layer: SetupLayer = {
       layerOptions: {
         id: this.id,
         type: this.type,
@@ -134,9 +107,18 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer {
       },
       layerEvents: {
         click: this.click,
+        dblClick: this.dblClick,
+        mouseDown: this.mouseDown,
+        mouseUp: this.mouseUp,
         mouseEnter: this.mouseEnter,
         mouseLeave: this.mouseLeave,
         mouseMove: this.mouseMove,
+        mouseOver: this.mouseOver,
+        mouseOut: this.mouseOut,
+        contextMenu: this.contextMenu,
+        touchStart: this.touchStart,
+        touchEnd: this.touchEnd,
+        touchCancel: this.touchCancel,
       },
     };
     this.MapService.addLayer(layer, bindEvents, this.before);

@@ -1,6 +1,20 @@
 import { EventEmitter, NgZone } from '@angular/core';
 import { inject, TestBed } from '@angular/core/testing';
-import { EventData, MapBoxZoomEvent, MapMouseEvent, MapTouchEvent, Style } from 'mapbox-gl';
+import {
+  ErrorEvent,
+  EventData,
+  Map,
+  MapboxEvent,
+  MapBoxZoomEvent,
+  MapContextEvent,
+  MapDataEvent,
+  MapMouseEvent,
+  MapSourceDataEvent,
+  MapStyleDataEvent,
+  MapTouchEvent,
+  MapWheelEvent,
+  Style,
+} from 'mapbox-gl';
 import { first } from 'rxjs/operators';
 import { MapService } from './map.service';
 import { MapEvent } from './map.types';
@@ -49,54 +63,52 @@ describe('MapService', () => {
     });
     container = document.createElement('div');
     mapEvents = {
-      resize: new EventEmitter<void>(),
-      remove: new EventEmitter<void>(),
-      mouseDown: new EventEmitter<MapMouseEvent>(),
-      mouseUp: new EventEmitter<MapMouseEvent>(),
-      mouseMove: new EventEmitter<MapMouseEvent>(),
-      click: new EventEmitter<MapMouseEvent>(),
-      dblClick: new EventEmitter<MapMouseEvent>(),
-      mouseEnter: new EventEmitter<MapMouseEvent>(),
-      mouseLeave: new EventEmitter<MapMouseEvent>(),
-      mouseOver: new EventEmitter<MapMouseEvent>(),
-      mouseOut: new EventEmitter<MapMouseEvent>(),
-      contextMenu: new EventEmitter<MapMouseEvent>(),
-      touchStart: new EventEmitter<MapTouchEvent>(),
-      touchEnd: new EventEmitter<MapTouchEvent>(),
-      touchMove: new EventEmitter<MapTouchEvent>(),
-      touchCancel: new EventEmitter<MapTouchEvent>(),
-      wheel: new EventEmitter<any>(),
-      moveStart: new EventEmitter<DragEvent>(), // TODO Check type
-      move: new EventEmitter<MapTouchEvent | MapMouseEvent>(),
-      moveEnd: new EventEmitter<DragEvent>(),
-      dragStart: new EventEmitter<DragEvent>(),
-      drag: new EventEmitter<MapTouchEvent | MapMouseEvent>(),
-      dragEnd: new EventEmitter<DragEvent>(),
-      zoomStart: new EventEmitter<MapTouchEvent | MapMouseEvent>(),
-      zoomEvt: new EventEmitter<MapTouchEvent | MapMouseEvent>(),
-      zoomEnd: new EventEmitter<MapTouchEvent | MapMouseEvent>(),
-      rotateStart: new EventEmitter<MapTouchEvent | MapMouseEvent>(),
-      rotate: new EventEmitter<MapTouchEvent | MapMouseEvent>(),
-      rotateEnd: new EventEmitter<MapTouchEvent | MapMouseEvent>(),
-      pitchStart: new EventEmitter<EventData>(),
-      pitchEvt: new EventEmitter<EventData>(),
-      pitchEnd: new EventEmitter<EventData>(),
-      boxZoomStart: new EventEmitter<MapBoxZoomEvent>(),
-      boxZoomEnd: new EventEmitter<MapBoxZoomEvent>(),
-      boxZoomCancel: new EventEmitter<MapBoxZoomEvent>(),
-      webGlContextLost: new EventEmitter<void>(),
-      webGlContextRestored: new EventEmitter<void>(),
-      load: new EventEmitter<any>(),
-      render: new EventEmitter<void>(),
-      error: new EventEmitter<any>(), // TODO Check type
-      data: new EventEmitter<EventData>(),
-      styleData: new EventEmitter<EventData>(),
-      sourceData: new EventEmitter<EventData>(),
-      dataLoading: new EventEmitter<EventData>(),
-      styleDataLoading: new EventEmitter<EventData>(),
-      sourceDataLoading: new EventEmitter<EventData>(),
-      styleImageMissing: new EventEmitter<{ id: string }>(),
-      idle: new EventEmitter<void>(),
+      resize: new EventEmitter<MapboxEvent & EventData>(),
+      remove: new EventEmitter<MapboxEvent & EventData>(),
+      mouseDown: new EventEmitter<MapMouseEvent & EventData>(),
+      mouseUp: new EventEmitter<MapMouseEvent & EventData>(),
+      mouseMove: new EventEmitter<MapMouseEvent & EventData>(),
+      click: new EventEmitter<MapMouseEvent & EventData>(),
+      dblClick: new EventEmitter<MapMouseEvent & EventData>(),
+      mouseOver: new EventEmitter<MapMouseEvent & EventData>(),
+      mouseOut: new EventEmitter<MapMouseEvent & EventData>(),
+      contextMenu: new EventEmitter<MapMouseEvent & EventData>(),
+      touchStart: new EventEmitter<MapTouchEvent & EventData>(),
+      touchEnd: new EventEmitter<MapTouchEvent & EventData>(),
+      touchMove: new EventEmitter<MapTouchEvent & EventData>(),
+      touchCancel: new EventEmitter<MapTouchEvent & EventData>(),
+      wheel: new EventEmitter<MapWheelEvent & EventData>(),
+      moveStart: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>(),
+      move: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>(),
+      moveEnd: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>(),
+      dragStart: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
+      drag: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
+      dragEnd: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
+      zoomStart: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>(),
+      zoomEvt: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>(),
+      zoomEnd: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>(),
+      rotateStart: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
+      rotate: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
+      rotateEnd: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
+      pitchStart: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
+      pitchEvt: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
+      pitchEnd: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
+      boxZoomStart: new EventEmitter<MapBoxZoomEvent & EventData>(),
+      boxZoomEnd: new EventEmitter<MapBoxZoomEvent & EventData>(),
+      boxZoomCancel: new EventEmitter<MapBoxZoomEvent & EventData>(),
+      webGlContextLost: new EventEmitter<MapContextEvent & EventData>(),
+      webGlContextRestored: new EventEmitter<MapContextEvent & EventData>(),
+      load: new EventEmitter<Map>(),
+      render: new EventEmitter<MapboxEvent & EventData>(),
+      error: new EventEmitter<ErrorEvent & EventData>(),
+      data: new EventEmitter<MapDataEvent & EventData>(),
+      styleData: new EventEmitter<MapStyleDataEvent & EventData>(),
+      sourceData: new EventEmitter<MapSourceDataEvent & EventData>(),
+      dataLoading: new EventEmitter<MapDataEvent & EventData>(),
+      styleDataLoading: new EventEmitter<MapStyleDataEvent & EventData>(),
+      sourceDataLoading: new EventEmitter<MapSourceDataEvent & EventData>(),
+      styleImageMissing: new EventEmitter<{ id: string } & EventData>(),
+      idle: new EventEmitter<MapboxEvent & EventData>(),
     };
   });
 
@@ -105,7 +117,7 @@ describe('MapService', () => {
       mapOptions: {
         container,
         style: geoJSONStyle,
-        zoom: 0,
+        zoom: [0],
       },
       mapEvents,
     });
@@ -128,6 +140,24 @@ describe('MapService', () => {
       mapEvents.load.pipe(first()).subscribe(() => {
         service.updateMinZoom(6);
         expect(service.mapInstance.getMinZoom()).toEqual(6);
+        done();
+      });
+    })());
+
+  it('should update minPitch', (done: DoneFn) =>
+    inject([MapService], (service: MapService) => {
+      mapEvents.load.pipe(first()).subscribe(() => {
+        service.updateMinPitch(15);
+        expect(service.mapInstance.getMinPitch()).toEqual(15);
+        done();
+      });
+    })());
+
+  it('should update maxPitch', (done: DoneFn) =>
+    inject([MapService], (service: MapService) => {
+      mapEvents.load.pipe(first()).subscribe(() => {
+        service.updateMaxPitch(25);
+        expect(service.mapInstance.getMaxPitch()).toEqual(25);
         done();
       });
     })());

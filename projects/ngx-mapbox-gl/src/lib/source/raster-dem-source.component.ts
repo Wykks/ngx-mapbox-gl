@@ -1,29 +1,29 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { RasterSource } from 'mapbox-gl';
+import { RasterDemSource } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
 
 @Component({
-  selector: 'mgl-raster-source',
+  selector: 'mgl-raster-dem-source',
   template: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, RasterSource {
+export class RasterDemSourceComponent implements OnInit, OnDestroy, OnChanges, RasterDemSource {
   /* Init inputs */
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() url?: RasterSource['url'];
-  @Input() tiles?: RasterSource['tiles'];
-  @Input() bounds?: RasterSource['bounds'];
-  @Input() minzoom?: RasterSource['minzoom'];
-  @Input() maxzoom?: RasterSource['maxzoom'];
-  @Input() tileSize?: RasterSource['tileSize'];
-  @Input() scheme?: RasterSource['scheme'];
-  @Input() attribution?: RasterSource['attribution'];
+  @Input() url?: RasterDemSource['url'];
+  @Input() tiles?: RasterDemSource['tiles'];
+  @Input() bounds?: RasterDemSource['bounds'];
+  @Input() minzoom?: RasterDemSource['minzoom'];
+  @Input() maxzoom?: RasterDemSource['maxzoom'];
+  @Input() tileSize?: RasterDemSource['tileSize'];
+  @Input() attribution?: RasterDemSource['attribution'];
+  @Input() encoding?: RasterDemSource['encoding'];
 
-  type: RasterSource['type'] = 'raster';
+  type: RasterDemSource['type'] = 'raster-dem';
 
   private sourceAdded = false;
   private sub = new Subscription();
@@ -54,8 +54,8 @@ export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, Rast
       (changes.minzoom && !changes.minzoom.isFirstChange()) ||
       (changes.maxzoom && !changes.maxzoom.isFirstChange()) ||
       (changes.tileSize && !changes.tileSize.isFirstChange()) ||
-      (changes.scheme && !changes.scheme.isFirstChange()) ||
-      (changes.attribution && !changes.attribution.isFirstChange())
+      (changes.attribution && !changes.attribution.isFirstChange()) ||
+      (changes.encoding && !changes.encoding.isFirstChange())
     ) {
       this.ngOnDestroy();
       this.ngOnInit();
@@ -71,7 +71,7 @@ export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, Rast
   }
 
   private init() {
-    const source: RasterSource = {
+    const source: RasterDemSource = {
       type: this.type,
       url: this.url,
       tiles: this.tiles,
@@ -79,8 +79,8 @@ export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, Rast
       minzoom: this.minzoom,
       maxzoom: this.maxzoom,
       tileSize: this.tileSize,
-      scheme: this.scheme,
       attribution: this.attribution,
+      encoding: this.encoding,
     };
     this.MapService.addSource(this.id, source);
     this.sourceAdded = true;
