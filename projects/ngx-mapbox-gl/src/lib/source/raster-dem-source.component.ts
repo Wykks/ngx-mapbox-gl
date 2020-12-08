@@ -23,7 +23,7 @@ export class RasterDemSourceComponent implements OnInit, OnDestroy, OnChanges, R
   @Input() attribution?: RasterDemSource['attribution'];
   @Input() encoding?: RasterDemSource['encoding'];
 
-  type: RasterDemSource['type'] = 'raster-dem'; // Just to make ts happy
+  type: RasterDemSource['type'] = 'raster-dem';
 
   private sourceAdded = false;
   private sub = new Subscription();

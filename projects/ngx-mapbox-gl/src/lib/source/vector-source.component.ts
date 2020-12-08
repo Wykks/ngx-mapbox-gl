@@ -23,7 +23,7 @@ export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, Vect
   @Input() attribution?: VectorSource['attribution'];
   @Input() promoteId?: VectorSource['promoteId'];
 
-  type: VectorSource['type'] = 'vector'; // Just to make ts happy
+  type: VectorSource['type'] = 'vector';
 
   private sourceAdded = false;
   private sub = new Subscription();

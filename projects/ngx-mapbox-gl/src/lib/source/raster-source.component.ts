@@ -23,7 +23,7 @@ export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges, Rast
   @Input() scheme?: RasterSource['scheme'];
   @Input() attribution?: RasterSource['attribution'];
 
-  type: RasterSource['type'] = 'raster'; // Just to make ts happy
+  type: RasterSource['type'] = 'raster';
 
   private sourceAdded = false;
   private sub = new Subscription();
