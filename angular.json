@@ -159,5 +159,8 @@
       }
     }
   },
-  "defaultProject": "ngx-mapbox-gl"
+  "defaultProject": "ngx-mapbox-gl",
+  "cli": {
+    "analytics": "2b945751-c795-4db1-b8ac-172907057b11"
+  }
 }

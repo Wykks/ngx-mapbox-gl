@@ -31,6 +31,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { deprecationWarning } from '../utils';
 
 @Component({
   selector: 'mgl-map',
@@ -112,27 +113,27 @@ export class MapComponent
   @Input() panToOptions?: AnimationOptions;
   @Input() cursorStyle?: string;
 
-  @Output() resize = new EventEmitter<MapboxEvent & EventData>();
-  @Output() remove = new EventEmitter<MapboxEvent & EventData>();
-  @Output() mouseDown = new EventEmitter<MapMouseEvent & EventData>();
-  @Output() mouseUp = new EventEmitter<MapMouseEvent & EventData>();
-  @Output() mouseMove = new EventEmitter<MapMouseEvent & EventData>();
-  @Output() click = new EventEmitter<MapMouseEvent & EventData>();
-  @Output() dblClick = new EventEmitter<MapMouseEvent & EventData>();
-  @Output() mouseOver = new EventEmitter<MapMouseEvent & EventData>();
-  @Output() mouseOut = new EventEmitter<MapMouseEvent & EventData>();
-  @Output() contextMenu = new EventEmitter<MapMouseEvent & EventData>();
-  @Output() touchStart = new EventEmitter<MapTouchEvent & EventData>();
-  @Output() touchEnd = new EventEmitter<MapTouchEvent & EventData>();
-  @Output() touchMove = new EventEmitter<MapTouchEvent & EventData>();
-  @Output() touchCancel = new EventEmitter<MapTouchEvent & EventData>();
-  @Output() wheel = new EventEmitter<MapWheelEvent & EventData>();
+  @Output() mapResize = new EventEmitter<MapboxEvent & EventData>();
+  @Output() mapRemove = new EventEmitter<MapboxEvent & EventData>();
+  @Output() mapMouseDown = new EventEmitter<MapMouseEvent & EventData>();
+  @Output() mapMouseUp = new EventEmitter<MapMouseEvent & EventData>();
+  @Output() mapMouseMove = new EventEmitter<MapMouseEvent & EventData>();
+  @Output() mapClick = new EventEmitter<MapMouseEvent & EventData>();
+  @Output() mapDblClick = new EventEmitter<MapMouseEvent & EventData>();
+  @Output() mapMouseOver = new EventEmitter<MapMouseEvent & EventData>();
+  @Output() mapMouseOut = new EventEmitter<MapMouseEvent & EventData>();
+  @Output() mapContextMenu = new EventEmitter<MapMouseEvent & EventData>();
+  @Output() mapTouchStart = new EventEmitter<MapTouchEvent & EventData>();
+  @Output() mapTouchEnd = new EventEmitter<MapTouchEvent & EventData>();
+  @Output() mapTouchMove = new EventEmitter<MapTouchEvent & EventData>();
+  @Output() mapTouchCancel = new EventEmitter<MapTouchEvent & EventData>();
+  @Output() mapWheel = new EventEmitter<MapWheelEvent & EventData>();
   @Output() moveStart = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>();
   @Output() move = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>();
   @Output() moveEnd = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>();
-  @Output() dragStart = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
-  @Output() drag = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
-  @Output() dragEnd = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
+  @Output() mapDragStart = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
+  @Output() mapDrag = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
+  @Output() mapDragEnd = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
   @Output() zoomStart = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>();
   @Output() zoomEvt = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>();
   @Output() zoomEnd = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>();
@@ -147,10 +148,10 @@ export class MapComponent
   @Output() boxZoomCancel = new EventEmitter<MapBoxZoomEvent & EventData>();
   @Output() webGlContextLost = new EventEmitter<MapContextEvent & EventData>();
   @Output() webGlContextRestored = new EventEmitter<MapContextEvent & EventData>();
-  @Output() load = new EventEmitter<Map>();
+  @Output() mapLoad = new EventEmitter<Map>();
   @Output() idle = new EventEmitter<MapboxEvent & EventData>();
   @Output() render = new EventEmitter<MapboxEvent & EventData>();
-  @Output() error = new EventEmitter<ErrorEvent & EventData>();
+  @Output() mapError = new EventEmitter<ErrorEvent & EventData>();
   @Output() data = new EventEmitter<MapDataEvent & EventData>();
   @Output() styleData = new EventEmitter<MapStyleDataEvent & EventData>();
   @Output() sourceData = new EventEmitter<MapSourceDataEvent & EventData>();
@@ -158,6 +159,87 @@ export class MapComponent
   @Output() styleDataLoading = new EventEmitter<MapStyleDataEvent & EventData>();
   @Output() sourceDataLoading = new EventEmitter<MapSourceDataEvent & EventData>();
   @Output() styleImageMissing = new EventEmitter<{ id: string } & EventData>();
+
+  /**
+   * @deprecated Use mapResize instead
+   */
+  @Output() resize = new EventEmitter<MapboxEvent & EventData>();
+  /**
+   * @deprecated Use mapRemove instead
+   */
+  @Output() remove = new EventEmitter<MapboxEvent & EventData>();
+  /**
+   * @deprecated Use mapMouseDown instead
+   */
+  @Output() mouseDown = new EventEmitter<MapMouseEvent & EventData>();
+  /**
+   * @deprecated Use mapMouseUp instead
+   */
+  @Output() mouseUp = new EventEmitter<MapMouseEvent & EventData>();
+  /**
+   * @deprecated Use mapMouseMove instead
+   */
+  @Output() mouseMove = new EventEmitter<MapMouseEvent & EventData>();
+  /**
+   * @deprecated Use mapClick instead
+   */
+  @Output() click = new EventEmitter<MapMouseEvent & EventData>();
+  /**
+   * @deprecated Use mapDblClick instead
+   */
+  @Output() dblClick = new EventEmitter<MapMouseEvent & EventData>();
+  /**
+   * @deprecated Use mapMouseOver instead
+   */
+  @Output() mouseOver = new EventEmitter<MapMouseEvent & EventData>();
+  /**
+   * @deprecated Use mapMouseOut instead
+   */
+  @Output() mouseOut = new EventEmitter<MapMouseEvent & EventData>();
+  /**
+   * @deprecated Use mapContextMenu instead
+   */
+  @Output() contextMenu = new EventEmitter<MapMouseEvent & EventData>();
+  /**
+   * @deprecated Use mapTouchStart instead
+   */
+  @Output() touchStart = new EventEmitter<MapTouchEvent & EventData>();
+  /**
+   * @deprecated Use mapTouchEnd instead
+   */
+  @Output() touchEnd = new EventEmitter<MapTouchEvent & EventData>();
+  /**
+   * @deprecated Use mapTouchMove instead
+   */
+  @Output() touchMove = new EventEmitter<MapTouchEvent & EventData>();
+  /**
+   * @deprecated Use mapTouchCancel instead
+   */
+  @Output() touchCancel = new EventEmitter<MapTouchEvent & EventData>();
+  /**
+   * @deprecated Use mapWheel instead
+   */
+  @Output() wheel = new EventEmitter<MapWheelEvent & EventData>();
+  /**
+   * @deprecated Use mapDragStart instead
+   */
+  @Output() dragStart = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
+  /**
+   * @deprecated Use mapDrag instead
+   */
+  @Output() drag = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
+  /**
+   * @deprecated Use mapDragEnd instead
+   */
+  @Output() dragEnd = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
+  /**
+   * @deprecated Use mapLoad instead
+   */
+  @Output() load = new EventEmitter<Map>();
+  /**
+   * @deprecated Use mapError instead
+   */
+  @Output() error = new EventEmitter<ErrorEvent & EventData>();
 
   get mapInstance(): Map {
     return this.MapService.mapInstance;
@@ -168,6 +250,7 @@ export class MapComponent
   constructor(private MapService: MapService) {}
 
   ngAfterViewInit() {
+    this.warnDeprecatedOutputs();
     this.MapService.setup({
       accessToken: this.accessToken,
       customMapboxApiUrl: this.customMapboxApiUrl,
@@ -313,6 +396,70 @@ export class MapComponent
         changes.bearing && this.bearing ? this.bearing[0] : undefined,
         changes.pitch && this.pitch ? this.pitch[0] : undefined
       );
+    }
+  }
+
+  private warnDeprecatedOutputs() {
+    const dw = deprecationWarning.bind(undefined, MapComponent.name);
+    if (this.resize.observers.length) {
+      dw('resize', 'mapResize');
+    }
+    if (this.remove.observers.length) {
+      dw('remove', 'mapRemove');
+    }
+    if (this.mouseDown.observers.length) {
+      dw('mouseDown', 'mapMouseDown');
+    }
+    if (this.mouseUp.observers.length) {
+      dw('mouseUp', 'mapMouseUp');
+    }
+    if (this.mouseMove.observers.length) {
+      dw('mouseMove', 'mapMouseMove');
+    }
+    if (this.click.observers.length) {
+      dw('click', 'mapClick');
+    }
+    if (this.dblClick.observers.length) {
+      dw('dblClick', 'mapDblClick');
+    }
+    if (this.mouseOver.observers.length) {
+      dw('mouseOver', 'mapMouseOver');
+    }
+    if (this.mouseOut.observers.length) {
+      dw('mouseOut', 'mapMouseOut');
+    }
+    if (this.contextMenu.observers.length) {
+      dw('contextMenu', 'mapContextMenu');
+    }
+    if (this.touchStart.observers.length) {
+      dw('touchStart', 'mapTouchStart');
+    }
+    if (this.touchEnd.observers.length) {
+      dw('touchEnd', 'mapTouchEnd');
+    }
+    if (this.touchMove.observers.length) {
+      dw('touchMove', 'mapTouchMove');
+    }
+    if (this.touchCancel.observers.length) {
+      dw('touchCancel', 'mapTouchCancel');
+    }
+    if (this.wheel.observers.length) {
+      dw('wheel', 'mapWheel');
+    }
+    if (this.dragStart.observers.length) {
+      dw('dragStart', 'mapDragStart');
+    }
+    if (this.drag.observers.length) {
+      dw('drag', 'mapDrag');
+    }
+    if (this.dragEnd.observers.length) {
+      dw('dragEnd', 'mapDragEnd');
+    }
+    if (this.load.observers.length) {
+      dw('load', 'mapLoad');
+    }
+    if (this.error.observers.length) {
+      dw('error', 'mapError');
     }
   }
 }

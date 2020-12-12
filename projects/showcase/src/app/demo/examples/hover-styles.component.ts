@@ -17,8 +17,8 @@ import { Component } from '@angular/core';
           'fill-color': '#627BC1',
           'fill-opacity': 0.5
         }"
-        (mouseMove)="activateHoverOn($event)"
-        (mouseLeave)="disableHover()"
+        (layerMouseMove)="activateHoverOn($event)"
+        (layerMouseLeave)="disableHover()"
       >
       </mgl-layer>
       <mgl-layer

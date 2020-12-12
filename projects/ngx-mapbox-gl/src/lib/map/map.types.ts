@@ -19,6 +19,53 @@ import {
 import { Results, Result } from '../control/geocoder-control.directive';
 
 export interface MapEvent {
+  mapResize: EventEmitter<MapboxEvent & EventData>;
+  mapRemove: EventEmitter<MapboxEvent & EventData>;
+  mapMouseDown: EventEmitter<MapMouseEvent & EventData>;
+  mapMouseUp: EventEmitter<MapMouseEvent & EventData>;
+  mapMouseMove: EventEmitter<MapMouseEvent & EventData>;
+  mapClick: EventEmitter<MapMouseEvent & EventData>;
+  mapDblClick: EventEmitter<MapMouseEvent & EventData>;
+  mapMouseOver: EventEmitter<MapMouseEvent & EventData>;
+  mapMouseOut: EventEmitter<MapMouseEvent & EventData>;
+  mapContextMenu: EventEmitter<MapMouseEvent & EventData>;
+  mapTouchStart: EventEmitter<MapTouchEvent & EventData>;
+  mapTouchEnd: EventEmitter<MapTouchEvent & EventData>;
+  mapTouchMove: EventEmitter<MapTouchEvent & EventData>;
+  mapTouchCancel: EventEmitter<MapTouchEvent & EventData>;
+  mapWheel: EventEmitter<MapWheelEvent & EventData>;
+  moveStart: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>;
+  move: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>;
+  moveEnd: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>;
+  mapDragStart: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
+  mapDrag: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
+  mapDragEnd: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
+  zoomStart: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>;
+  zoomEvt: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>;
+  zoomEnd: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>;
+  rotateStart: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
+  rotate: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
+  rotateEnd: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
+  pitchStart: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
+  pitchEvt: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
+  pitchEnd: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
+  boxZoomStart: EventEmitter<MapBoxZoomEvent & EventData>;
+  boxZoomEnd: EventEmitter<MapBoxZoomEvent & EventData>;
+  boxZoomCancel: EventEmitter<MapBoxZoomEvent & EventData>;
+  webGlContextLost: EventEmitter<MapContextEvent & EventData>;
+  webGlContextRestored: EventEmitter<MapContextEvent & EventData>;
+  mapLoad: EventEmitter<Map>; // Consider emitting MapboxEvent for consistency (breaking change).
+  render: EventEmitter<MapboxEvent & EventData>;
+  mapError: EventEmitter<ErrorEvent & EventData>;
+  data: EventEmitter<MapDataEvent & EventData>;
+  styleData: EventEmitter<MapStyleDataEvent & EventData>;
+  sourceData: EventEmitter<MapSourceDataEvent & EventData>;
+  dataLoading: EventEmitter<MapDataEvent & EventData>;
+  styleDataLoading: EventEmitter<MapStyleDataEvent & EventData>;
+  sourceDataLoading: EventEmitter<MapSourceDataEvent & EventData>;
+  styleImageMissing: EventEmitter<{ id: string } & EventData>;
+  idle: EventEmitter<MapboxEvent & EventData>;
+
   resize: EventEmitter<MapboxEvent & EventData>;
   remove: EventEmitter<MapboxEvent & EventData>;
   mouseDown: EventEmitter<MapMouseEvent & EventData>;
@@ -34,40 +81,27 @@ export interface MapEvent {
   touchMove: EventEmitter<MapTouchEvent & EventData>;
   touchCancel: EventEmitter<MapTouchEvent & EventData>;
   wheel: EventEmitter<MapWheelEvent & EventData>;
-  moveStart: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>;
-  move: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>;
-  moveEnd: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>;
   dragStart: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
   drag: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
   dragEnd: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
-  zoomStart: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>;
-  zoomEvt: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>;
-  zoomEnd: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>;
-  rotateStart: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
-  rotate: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
-  rotateEnd: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
-  pitchStart: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
-  pitchEvt: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
-  pitchEnd: EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>;
-  boxZoomStart: EventEmitter<MapBoxZoomEvent & EventData>;
-  boxZoomEnd: EventEmitter<MapBoxZoomEvent & EventData>;
-  boxZoomCancel: EventEmitter<MapBoxZoomEvent & EventData>;
-  webGlContextLost: EventEmitter<MapContextEvent & EventData>;
-  webGlContextRestored: EventEmitter<MapContextEvent & EventData>;
   load: EventEmitter<Map>; // Consider emitting MapboxEvent for consistency (breaking change).
-  render: EventEmitter<MapboxEvent & EventData>;
   error: EventEmitter<ErrorEvent & EventData>;
-  data: EventEmitter<MapDataEvent & EventData>;
-  styleData: EventEmitter<MapStyleDataEvent & EventData>;
-  sourceData: EventEmitter<MapSourceDataEvent & EventData>;
-  dataLoading: EventEmitter<MapDataEvent & EventData>;
-  styleDataLoading: EventEmitter<MapStyleDataEvent & EventData>;
-  sourceDataLoading: EventEmitter<MapSourceDataEvent & EventData>;
-  styleImageMissing: EventEmitter<{ id: string } & EventData>;
-  idle: EventEmitter<MapboxEvent & EventData>;
 }
 
 export interface LayerEvents {
+  layerClick: EventEmitter<MapLayerMouseEvent & EventData>;
+  layerDblClick: EventEmitter<MapLayerMouseEvent & EventData>;
+  layerMouseDown: EventEmitter<MapLayerMouseEvent & EventData>;
+  layerMouseUp: EventEmitter<MapLayerMouseEvent & EventData>;
+  layerMouseEnter: EventEmitter<MapLayerMouseEvent & EventData>;
+  layerMouseLeave: EventEmitter<MapLayerMouseEvent & EventData>;
+  layerMouseMove: EventEmitter<MapLayerMouseEvent & EventData>;
+  layerMouseOver: EventEmitter<MapLayerMouseEvent & EventData>;
+  layerMouseOut: EventEmitter<MapLayerMouseEvent & EventData>;
+  layerContextMenu: EventEmitter<MapLayerMouseEvent & EventData>;
+  layerTouchStart: EventEmitter<MapLayerTouchEvent & EventData>;
+  layerTouchEnd: EventEmitter<MapLayerTouchEvent & EventData>;
+  layerTouchCancel: EventEmitter<MapLayerTouchEvent & EventData>;
   click: EventEmitter<MapLayerMouseEvent & EventData>;
   dblClick: EventEmitter<MapLayerMouseEvent & EventData>;
   mouseDown: EventEmitter<MapLayerMouseEvent & EventData>;
@@ -89,6 +123,9 @@ export interface GeocoderEvent {
   results: EventEmitter<Results>;
   result: EventEmitter<{ result: Result }>;
   error: EventEmitter<any>;
+  geocoderResults: EventEmitter<Results>;
+  geocoderResult: EventEmitter<{ result: Result }>;
+  geocoderError: EventEmitter<any>;
 }
 
 export type MapImageData =

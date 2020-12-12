@@ -19,9 +19,9 @@ import { MapboxGeoJSONFeature, MapLayerMouseEvent } from 'mapbox-gl';
           'icon-image': '{icon}-15',
           'icon-allow-overlap': true
         }"
-        (click)="onClick($event)"
-        (mouseEnter)="cursorStyle = 'pointer'"
-        (mouseLeave)="cursorStyle = ''"
+        (layerClick)="onClick($event)"
+        (layerMouseEnter)="cursorStyle = 'pointer'"
+        (layerMouseLeave)="cursorStyle = ''"
       ></mgl-layer>
       <mgl-popup *ngIf="selectedPoint" [feature]="selectedPoint">
         <span [innerHTML]="selectedPoint.properties?.description"></span>

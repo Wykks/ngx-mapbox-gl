@@ -32,6 +32,8 @@ export interface SetupPopup {
   popupEvents: {
     open: EventEmitter<void>;
     close: EventEmitter<void>;
+    popupOpen: EventEmitter<void>;
+    popupClose: EventEmitter<void>;
   };
 }
 
@@ -47,6 +49,9 @@ export interface SetupMarker {
     lngLat?: MapboxGl.LngLatLike;
   };
   markersEvents: {
+    markerDragStart: EventEmitter<MapboxGl.Marker>;
+    markerDrag: EventEmitter<MapboxGl.Marker>;
+    markerDragEnd: EventEmitter<MapboxGl.Marker>;
     dragStart: EventEmitter<MapboxGl.Marker>;
     drag: EventEmitter<MapboxGl.Marker>;
     dragEnd: EventEmitter<MapboxGl.Marker>;
@@ -241,93 +246,106 @@ export class MapService {
       });
       this.mapInstance.addLayer(layer.layerOptions, before);
       if (bindEvents) {
-        if (layer.layerEvents.click.observers.length) {
+        if (layer.layerEvents.layerClick.observers.length || layer.layerEvents.click.observers.length) {
           this.mapInstance.on('click', layer.layerOptions.id, (evt) => {
             this.zone.run(() => {
+              layer.layerEvents.layerClick.emit(evt);
               layer.layerEvents.click.emit(evt);
             });
           });
         }
-        if (layer.layerEvents.dblClick.observers.length) {
+        if (layer.layerEvents.layerDblClick.observers.length || layer.layerEvents.dblClick.observers.length) {
           this.mapInstance.on('dblclick', layer.layerOptions.id, (evt) => {
             this.zone.run(() => {
+              layer.layerEvents.layerDblClick.emit(evt);
               layer.layerEvents.dblClick.emit(evt);
             });
           });
         }
-        if (layer.layerEvents.mouseDown.observers.length) {
+        if (layer.layerEvents.layerMouseDown.observers.length || layer.layerEvents.mouseDown.observers.length) {
           this.mapInstance.on('mousedown', layer.layerOptions.id, (evt) => {
             this.zone.run(() => {
+              layer.layerEvents.layerMouseDown.emit(evt);
               layer.layerEvents.mouseDown.emit(evt);
             });
           });
         }
-        if (layer.layerEvents.mouseUp.observers.length) {
+        if (layer.layerEvents.layerMouseUp.observers.length || layer.layerEvents.mouseUp.observers.length) {
           this.mapInstance.on('mouseup', layer.layerOptions.id, (evt) => {
             this.zone.run(() => {
+              layer.layerEvents.layerMouseUp.emit(evt);
               layer.layerEvents.mouseUp.emit(evt);
             });
           });
         }
-        if (layer.layerEvents.mouseEnter.observers.length) {
+        if (layer.layerEvents.layerMouseEnter.observers.length || layer.layerEvents.mouseEnter.observers.length) {
           this.mapInstance.on('mouseenter', layer.layerOptions.id, (evt) => {
             this.zone.run(() => {
+              layer.layerEvents.layerMouseEnter.emit(evt);
               layer.layerEvents.mouseEnter.emit(evt);
             });
           });
         }
-        if (layer.layerEvents.mouseLeave.observers.length) {
+        if (layer.layerEvents.layerMouseLeave.observers.length || layer.layerEvents.mouseLeave.observers.length) {
           this.mapInstance.on('mouseleave', layer.layerOptions.id, (evt) => {
             this.zone.run(() => {
+              layer.layerEvents.layerMouseLeave.emit(evt);
               layer.layerEvents.mouseLeave.emit(evt);
             });
           });
         }
-        if (layer.layerEvents.mouseMove.observers.length) {
+        if (layer.layerEvents.layerMouseMove.observers.length || layer.layerEvents.mouseMove.observers.length) {
           this.mapInstance.on('mousemove', layer.layerOptions.id, (evt) => {
             this.zone.run(() => {
+              layer.layerEvents.layerMouseMove.emit(evt);
               layer.layerEvents.mouseMove.emit(evt);
             });
           });
         }
-        if (layer.layerEvents.mouseOver.observers.length) {
+        if (layer.layerEvents.layerMouseOver.observers.length || layer.layerEvents.mouseOver.observers.length) {
           this.mapInstance.on('mouseover', layer.layerOptions.id, (evt) => {
             this.zone.run(() => {
+              layer.layerEvents.layerMouseOver.emit(evt);
               layer.layerEvents.mouseOver.emit(evt);
             });
           });
         }
-        if (layer.layerEvents.mouseOut.observers.length) {
+        if (layer.layerEvents.layerMouseOut.observers.length || layer.layerEvents.mouseOut.observers.length) {
           this.mapInstance.on('mouseout', layer.layerOptions.id, (evt) => {
             this.zone.run(() => {
+              layer.layerEvents.layerMouseOut.emit(evt);
               layer.layerEvents.mouseOut.emit(evt);
             });
           });
         }
-        if (layer.layerEvents.contextMenu.observers.length) {
+        if (layer.layerEvents.layerContextMenu.observers.length || layer.layerEvents.contextMenu.observers.length) {
           this.mapInstance.on('contextmenu', layer.layerOptions.id, (evt) => {
             this.zone.run(() => {
+              layer.layerEvents.layerContextMenu.emit(evt);
               layer.layerEvents.contextMenu.emit(evt);
             });
           });
         }
-        if (layer.layerEvents.touchStart.observers.length) {
+        if (layer.layerEvents.layerTouchStart.observers.length || layer.layerEvents.touchStart.observers.length) {
           this.mapInstance.on('touchstart', layer.layerOptions.id, (evt) => {
             this.zone.run(() => {
+              layer.layerEvents.layerTouchStart.emit(evt);
               layer.layerEvents.touchStart.emit(evt);
             });
           });
         }
-        if (layer.layerEvents.touchEnd.observers.length) {
+        if (layer.layerEvents.layerTouchEnd.observers.length || layer.layerEvents.touchEnd.observers.length) {
           this.mapInstance.on('touchend', layer.layerOptions.id, (evt) => {
             this.zone.run(() => {
+              layer.layerEvents.layerTouchEnd.emit(evt);
               layer.layerEvents.touchEnd.emit(evt);
             });
           });
         }
-        if (layer.layerEvents.touchCancel.observers.length) {
+        if (layer.layerEvents.layerTouchCancel.observers.length || layer.layerEvents.touchCancel.observers.length) {
           this.mapInstance.on('touchcancel', layer.layerOptions.id, (evt) => {
             this.zone.run(() => {
+              layer.layerEvents.layerTouchCancel.emit(evt);
               layer.layerEvents.touchCancel.emit(evt);
             });
           });
@@ -356,19 +374,28 @@ export class MapService {
       options.element = marker.markersOptions.element;
     }
     const markerInstance = new MapboxGl.Marker(options);
-    if (marker.markersEvents.dragStart.observers.length) {
+    if (marker.markersEvents.markerDragStart.observers.length || marker.markersEvents.dragStart.observers.length) {
       markerInstance.on('dragstart', (event: { target: MapboxGl.Marker }) =>
-        this.zone.run(() => marker.markersEvents.dragStart.emit(event.target))
+        this.zone.run(() => {
+          marker.markersEvents.markerDragStart.emit(event.target);
+          marker.markersEvents.dragStart.emit(event.target);
+        })
       );
     }
-    if (marker.markersEvents.drag.observers.length) {
+    if (marker.markersEvents.markerDrag.observers.length || marker.markersEvents.drag.observers.length) {
       markerInstance.on('drag', (event: { target: MapboxGl.Marker }) =>
-        this.zone.run(() => marker.markersEvents.drag.emit(event.target))
+        this.zone.run(() => {
+          marker.markersEvents.markerDrag.emit(event.target);
+          marker.markersEvents.drag.emit(event.target);
+        })
       );
     }
-    if (marker.markersEvents.dragEnd.observers.length) {
+    if (marker.markersEvents.markerDragEnd.observers.length || marker.markersEvents.dragEnd.observers.length) {
       markerInstance.on('dragend', (event: { target: MapboxGl.Marker }) =>
-        this.zone.run(() => marker.markersEvents.dragEnd.emit(event.target))
+        this.zone.run(() => {
+          marker.markersEvents.markerDragEnd.emit(event.target);
+          marker.markersEvents.dragEnd.emit(event.target);
+        })
       );
     }
     const lngLat: MapboxGl.LngLatLike = marker.markersOptions.feature
@@ -392,16 +419,18 @@ export class MapService {
       );
       const popupInstance = new MapboxGl.Popup(popup.popupOptions);
       popupInstance.setDOMContent(element);
-      if (popup.popupEvents.close.observers.length) {
+      if (popup.popupEvents.popupClose.observers.length || popup.popupEvents.close.observers.length) {
         popupInstance.on('close', () => {
           this.zone.run(() => {
+            popup.popupEvents.popupClose.emit();
             popup.popupEvents.close.emit();
           });
         });
       }
-      if (popup.popupEvents.open.observers.length) {
+      if (popup.popupEvents.popupOpen.observers.length || popup.popupEvents.open.observers.length) {
         popupInstance.on('open', () => {
           this.zone.run(() => {
+            popup.popupEvents.popupOpen.emit();
             popup.popupEvents.open.emit();
           });
         });
@@ -636,52 +665,130 @@ export class MapService {
     this.mapInstance.on('load', (evt) => {
       this.mapLoaded.next(undefined);
       this.mapLoaded.complete();
-      this.zone.run(() => events.load.emit(evt.target));
+      this.zone.run(() => {
+        events.mapLoad.emit(evt.target);
+        events.load.emit(evt.target);
+      });
     });
-    if (events.resize.observers.length) {
-      this.mapInstance.on('resize', (evt) => this.zone.run(() => events.resize.emit(evt)));
+    if (events.mapResize.observers.length || events.resize.observers.length) {
+      this.mapInstance.on('resize', (evt) =>
+        this.zone.run(() => {
+          events.mapResize.emit(evt);
+          events.resize.emit(evt);
+        })
+      );
     }
-    if (events.remove.observers.length) {
-      this.mapInstance.on('remove', (evt) => this.zone.run(() => events.remove.emit(evt)));
+    if (events.mapRemove.observers.length || events.remove.observers.length) {
+      this.mapInstance.on('remove', (evt) =>
+        this.zone.run(() => {
+          events.mapRemove.emit(evt);
+          events.remove.emit(evt);
+        })
+      );
     }
-    if (events.mouseDown.observers.length) {
-      this.mapInstance.on('mousedown', (evt) => this.zone.run(() => events.mouseDown.emit(evt)));
+    if (events.mapMouseDown.observers.length || events.mouseDown.observers.length) {
+      this.mapInstance.on('mousedown', (evt) =>
+        this.zone.run(() => {
+          events.mapMouseDown.emit(evt);
+          events.mouseDown.emit(evt);
+        })
+      );
     }
-    if (events.mouseUp.observers.length) {
-      this.mapInstance.on('mouseup', (evt) => this.zone.run(() => events.mouseUp.emit(evt)));
+    if (events.mapMouseUp.observers.length || events.mouseUp.observers.length) {
+      this.mapInstance.on('mouseup', (evt) =>
+        this.zone.run(() => {
+          events.mapMouseUp.emit(evt);
+          events.mouseUp.emit(evt);
+        })
+      );
     }
-    if (events.mouseMove.observers.length) {
-      this.mapInstance.on('mousemove', (evt) => this.zone.run(() => events.mouseMove.emit(evt)));
+    if (events.mapMouseMove.observers.length || events.mouseMove.observers.length) {
+      this.mapInstance.on('mousemove', (evt) =>
+        this.zone.run(() => {
+          events.mapMouseMove.emit(evt);
+          events.mouseMove.emit(evt);
+        })
+      );
     }
-    if (events.click.observers.length) {
-      this.mapInstance.on('click', (evt) => this.zone.run(() => events.click.emit(evt)));
+    if (events.mapClick.observers.length || events.click.observers.length) {
+      this.mapInstance.on('click', (evt) =>
+        this.zone.run(() => {
+          events.mapClick.emit(evt);
+          events.click.emit(evt);
+        })
+      );
     }
-    if (events.dblClick.observers.length) {
-      this.mapInstance.on('dblclick', (evt) => this.zone.run(() => events.dblClick.emit(evt)));
+    if (events.mapDblClick.observers.length || events.dblClick.observers.length) {
+      this.mapInstance.on('dblclick', (evt) =>
+        this.zone.run(() => {
+          events.mapDblClick.emit(evt);
+          events.dblClick.emit(evt);
+        })
+      );
     }
-    if (events.mouseOver.observers.length) {
-      this.mapInstance.on('mouseover', (evt) => this.zone.run(() => events.mouseOver.emit(evt)));
+    if (events.mapMouseOver.observers.length || events.mouseOver.observers.length) {
+      this.mapInstance.on('mouseover', (evt) =>
+        this.zone.run(() => {
+          events.mapMouseOver.emit(evt);
+          events.mouseOver.emit(evt);
+        })
+      );
     }
-    if (events.mouseOut.observers.length) {
-      this.mapInstance.on('mouseout', (evt) => this.zone.run(() => events.mouseOut.emit(evt)));
+    if (events.mapMouseOut.observers.length || events.mouseOut.observers.length) {
+      this.mapInstance.on('mouseout', (evt) =>
+        this.zone.run(() => {
+          events.mapMouseOut.emit(evt);
+          events.mouseOut.emit(evt);
+        })
+      );
     }
-    if (events.contextMenu.observers.length) {
-      this.mapInstance.on('contextmenu', (evt) => this.zone.run(() => events.contextMenu.emit(evt)));
+    if (events.mapContextMenu.observers.length || events.contextMenu.observers.length) {
+      this.mapInstance.on('contextmenu', (evt) =>
+        this.zone.run(() => {
+          events.mapContextMenu.emit(evt);
+          events.contextMenu.emit(evt);
+        })
+      );
     }
-    if (events.touchStart.observers.length) {
-      this.mapInstance.on('touchstart', (evt) => this.zone.run(() => events.touchStart.emit(evt)));
+    if (events.mapTouchStart.observers.length || events.touchStart.observers.length) {
+      this.mapInstance.on('touchstart', (evt) =>
+        this.zone.run(() => {
+          events.mapTouchStart.emit(evt);
+          events.touchStart.emit(evt);
+        })
+      );
     }
-    if (events.touchEnd.observers.length) {
-      this.mapInstance.on('touchend', (evt) => this.zone.run(() => events.touchEnd.emit(evt)));
+    if (events.mapTouchEnd.observers.length || events.touchEnd.observers.length) {
+      this.mapInstance.on('touchend', (evt) =>
+        this.zone.run(() => {
+          events.mapTouchEnd.emit(evt);
+          events.touchEnd.emit(evt);
+        })
+      );
     }
-    if (events.touchMove.observers.length) {
-      this.mapInstance.on('touchmove', (evt) => this.zone.run(() => events.touchMove.emit(evt)));
+    if (events.mapTouchMove.observers.length || events.touchMove.observers.length) {
+      this.mapInstance.on('touchmove', (evt) =>
+        this.zone.run(() => {
+          events.mapTouchMove.emit(evt);
+          events.touchMove.emit(evt);
+        })
+      );
     }
-    if (events.touchCancel.observers.length) {
-      this.mapInstance.on('touchcancel', (evt) => this.zone.run(() => events.touchCancel.emit(evt)));
+    if (events.mapTouchCancel.observers.length || events.touchCancel.observers.length) {
+      this.mapInstance.on('touchcancel', (evt) =>
+        this.zone.run(() => {
+          events.mapTouchCancel.emit(evt);
+          events.touchCancel.emit(evt);
+        })
+      );
     }
-    if (events.wheel.observers.length) {
-      this.mapInstance.on('wheel', (evt) => this.zone.run(() => events.wheel.emit(evt)));
+    if (events.mapWheel.observers.length || events.wheel.observers.length) {
+      this.mapInstance.on('wheel', (evt) =>
+        this.zone.run(() => {
+          events.mapWheel.emit(evt);
+          events.wheel.emit(evt);
+        })
+      );
     }
     if (events.moveStart.observers.length) {
       this.mapInstance.on('movestart', (evt) => this.zone.run(() => events.moveStart.emit(evt)));
@@ -692,14 +799,29 @@ export class MapService {
     if (events.moveEnd.observers.length) {
       this.mapInstance.on('moveend', (evt) => this.zone.run(() => events.moveEnd.emit(evt)));
     }
-    if (events.dragStart.observers.length) {
-      this.mapInstance.on('dragstart', (evt) => this.zone.run(() => events.dragStart.emit(evt)));
+    if (events.mapDragStart.observers.length || events.dragStart.observers.length) {
+      this.mapInstance.on('dragstart', (evt) =>
+        this.zone.run(() => {
+          events.mapDragStart.emit(evt);
+          events.dragStart.emit(evt);
+        })
+      );
     }
-    if (events.drag.observers.length) {
-      this.mapInstance.on('drag', (evt) => this.zone.run(() => events.drag.emit(evt)));
+    if (events.mapDrag.observers.length || events.drag.observers.length) {
+      this.mapInstance.on('drag', (evt) =>
+        this.zone.run(() => {
+          events.mapDrag.emit(evt);
+          events.drag.emit(evt);
+        })
+      );
     }
-    if (events.dragEnd.observers.length) {
-      this.mapInstance.on('dragend', (evt) => this.zone.run(() => events.dragEnd.emit(evt)));
+    if (events.mapDragEnd.observers.length || events.dragEnd.observers.length) {
+      this.mapInstance.on('dragend', (evt) =>
+        this.zone.run(() => {
+          events.mapDragEnd.emit(evt);
+          events.dragEnd.emit(evt);
+        })
+      );
     }
     if (events.zoomStart.observers.length) {
       this.mapInstance.on('zoomstart', (evt) => this.zone.run(() => events.zoomStart.emit(evt)));
@@ -746,8 +868,13 @@ export class MapService {
     if (events.render.observers.length) {
       this.mapInstance.on('render', (evt) => this.zone.run(() => events.render.emit(evt)));
     }
-    if (events.error.observers.length) {
-      this.mapInstance.on('error', (evt) => this.zone.run(() => events.error.emit(evt)));
+    if (events.mapError.observers.length || events.error.observers.length) {
+      this.mapInstance.on('error', (evt) =>
+        this.zone.run(() => {
+          events.mapError.emit(evt);
+          events.error.emit(evt);
+        })
+      );
     }
     if (events.data.observers.length) {
       this.mapInstance.on('data', (evt) => this.zone.run(() => events.data.emit(evt)));

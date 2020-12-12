@@ -15,6 +15,7 @@ import {
 } from '@angular/core';
 import { LngLatLike, Marker, PointLike, Anchor, Alignment } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
+import { deprecationWarning } from '../utils';
 
 @Component({
   selector: 'mgl-marker',
@@ -36,9 +37,21 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
   @Input() pitchAlignment?: Alignment;
   @Input() rotationAlignment?: Alignment;
 
+  @Output() markerDragStart = new EventEmitter<Marker>();
+  @Output() markerDragEnd = new EventEmitter<Marker>();
+  @Output() markerDrag = new EventEmitter<Marker>();
+  /**
+   * @deprecated Use markerDragStart instead
+   */
   @Output() dragStart = new EventEmitter<Marker>();
-  @Output() drag = new EventEmitter<Marker>();
+  /**
+   * @deprecated Use markerDragEnd instead
+   */
   @Output() dragEnd = new EventEmitter<Marker>();
+  /**
+   * @deprecated Use markerDrag instead
+   */
+  @Output() drag = new EventEmitter<Marker>();
 
   @ViewChild('content', { static: true }) content: ElementRef;
 
@@ -47,6 +60,7 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
   constructor(private MapService: MapService) {}
 
   ngOnInit() {
+    this.warnDeprecatedOutputs();
     if (this.feature && this.lngLat) {
       throw new Error('feature and lngLat input are mutually exclusive');
     }
@@ -89,6 +103,9 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
           lngLat: this.lngLat,
         },
         markersEvents: {
+          markerDragStart: this.markerDragStart,
+          markerDrag: this.markerDrag,
+          markerDragEnd: this.markerDragEnd,
           dragStart: this.dragStart,
           drag: this.drag,
           dragEnd: this.dragEnd,
@@ -108,5 +125,18 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
 
   updateCoordinates(coordinates: number[]) {
     this.markerInstance!.setLngLat(<[number, number]>coordinates);
+  }
+
+  private warnDeprecatedOutputs() {
+    const dw = deprecationWarning.bind(undefined, MarkerComponent.name);
+    if (this.dragStart.observers.length) {
+      dw('dragStart', 'markerDragStart');
+    }
+    if (this.dragEnd.observers.length) {
+      dw('dragEnd', 'markerDragEnd');
+    }
+    if (this.drag.observers.length) {
+      dw('drag', 'markerDrag');
+    }
   }
 }

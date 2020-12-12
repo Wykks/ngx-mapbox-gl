@@ -13,6 +13,7 @@ import { fromEvent, Subscription } from 'rxjs';
 import { filter, startWith, switchMap } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
 import { MapImageData, MapImageOptions } from '../map/map.types';
+import { deprecationWarning } from '../utils';
 
 @Component({
   selector: 'mgl-image',
@@ -27,7 +28,15 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   @Input() options?: MapImageOptions;
   @Input() url?: string;
 
+  @Output() imageError = new EventEmitter<{ status: number }>();
+  @Output() imageLoaded = new EventEmitter<void>();
+  /**
+   * @deprecated Use imageError instead
+   */
   @Output() error = new EventEmitter<{ status: number }>();
+  /**
+   * @deprecated Use imageLoaded instead
+   */
   @Output() loaded = new EventEmitter<void>();
 
   private isAdded = false;
@@ -37,6 +46,7 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   constructor(private MapService: MapService, private zone: NgZone) {}
 
   ngOnInit() {
+    this.warnDeprecatedOutputs();
     this.sub = this.MapService.mapLoaded$
       .pipe(
         switchMap(() =>
@@ -81,13 +91,25 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
         this.isAdded = true;
         this.isAdding = false;
         this.zone.run(() => {
+          this.imageLoaded.emit();
           this.loaded.emit();
         });
       } catch (error) {
         this.zone.run(() => {
+          this.imageError.emit(error);
           this.error.emit(error);
         });
       }
+    }
+  }
+
+  private warnDeprecatedOutputs() {
+    const dw = deprecationWarning.bind(undefined, ImageComponent.name);
+    if (this.error.observers.length) {
+      dw('error', 'imageError');
+    }
+    if (this.loaded.observers.length) {
+      dw('loaded', 'imageLoaded');
     }
   }
 }

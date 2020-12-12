@@ -22,9 +22,9 @@ import { GeoJsonProperties } from 'geojson';
           'fill-color': 'rgba(200, 100, 240, 0.4)',
           'fill-outline-color': 'rgba(200, 100, 240, 1)'
         }"
-        (mouseEnter)="cursorStyle = 'pointer'"
-        (mouseLeave)="cursorStyle = ''"
-        (click)="onClick($event)"
+        (layerMouseEnter)="cursorStyle = 'pointer'"
+        (layerMouseLeave)="cursorStyle = ''"
+        (layerClick)="onClick($event)"
       ></mgl-layer>
       <mgl-popup *ngIf="selectedLngLat" [lngLat]="selectedLngLat">
         <span [innerHTML]="selectedElement?.name"></span>

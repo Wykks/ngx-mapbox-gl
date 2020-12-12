@@ -15,6 +15,7 @@ import {
 import { PointLike, Popup, LngLatLike } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import { MarkerComponent } from '../marker/marker.component';
+import { deprecationWarning } from '../utils';
 
 @Component({
   selector: 'mgl-popup',
@@ -35,7 +36,15 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
   @Input() lngLat?: LngLatLike;
   @Input() marker?: MarkerComponent;
 
+  @Output() popupClose = new EventEmitter<void>();
+  @Output() popupOpen = new EventEmitter<void>();
+  /**
+   * @deprecated Use popupClose instead
+   */
   @Output() close = new EventEmitter<void>();
+  /**
+   * @deprecated Use popupOpen instead
+   */
   @Output() open = new EventEmitter<void>();
 
   @ViewChild('content', { static: true }) content: ElementRef;
@@ -45,6 +54,7 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
   constructor(private MapService: MapService) {}
 
   ngOnInit() {
+    this.warnDeprecatedOutputs();
     if ((this.lngLat && this.marker) || (this.feature && this.lngLat) || (this.feature && this.marker)) {
       throw new Error('marker, lngLat, feature input are mutually exclusive');
     }
@@ -99,6 +109,8 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
         popupEvents: {
           open: this.open,
           close: this.close,
+          popupOpen: this.popupOpen,
+          popupClose: this.popupClose,
         },
       },
       this.content.nativeElement
@@ -118,5 +130,15 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
         throw new Error('mgl-popup need either lngLat/marker/feature to be set');
       }
     });
+  }
+
+  private warnDeprecatedOutputs() {
+    const dw = deprecationWarning.bind(undefined, PopupComponent.name);
+    if (this.close.observers.length) {
+      dw('close', 'popupClose');
+    }
+    if (this.open.observers.length) {
+      dw('open', 'popupOpen');
+    }
   }
 }

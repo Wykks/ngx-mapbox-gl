@@ -12,12 +12,12 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { MapService } from '../map/map.service';
-import { GeocoderEvent } from '../map/map.types';
-import { ControlComponent } from './control.component';
-
 // @ts-ignore
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import { MapService } from '../map/map.service';
+import { GeocoderEvent } from '../map/map.types';
+import { deprecationWarning } from '../utils';
+import { ControlComponent } from './control.component';
 
 export const MAPBOX_GEOCODER_API_KEY = new InjectionToken('MapboxApiKey');
 
@@ -66,8 +66,23 @@ export class GeocoderControlDirective implements AfterContentInit, OnChanges, Ge
 
   @Output() clear = new EventEmitter<void>();
   @Output() loading = new EventEmitter<{ query: string }>();
+
+  @Output() geocoderResults = new EventEmitter<Results>();
+
+  @Output() geocoderResult = new EventEmitter<{ result: Result }>();
+
+  @Output() geocoderError = new EventEmitter<any>();
+  /**
+   * @deprecated Use geocoderResults instead
+   */
   @Output() results = new EventEmitter<Results>();
+  /**
+   * @deprecated Use geocoderResult instead
+   */
   @Output() result = new EventEmitter<{ result: Result }>();
+  /**
+   * @deprecated Use geocoderError instead
+   */
   @Output() error = new EventEmitter<any>();
 
   geocoder: any;
@@ -137,26 +152,53 @@ export class GeocoderControlDirective implements AfterContentInit, OnChanges, Ge
   }
 
   private hookEvents(events: GeocoderEvent) {
-    if (events.results.observers.length) {
-      this.geocoder.on('results', (evt: Results) => this.zone.run(() => events.results.emit(evt)));
+    this.warnDeprecatedOutputs(events);
+    if (events.results.observers.length || events.geocoderResults.observers.length) {
+      this.geocoder.on('results', (evt: Results) =>
+        this.zone.run(() => {
+          events.geocoderResults.emit(evt);
+          events.results.emit(evt);
+        })
+      );
     }
     if (events.result.observers.length) {
       this.geocoder.on('result', (evt: { result: Result }) => {
         // Workaroud issue https://github.com/mapbox/mapbox-gl-geocoder/issues/99
         if (this.lastResultId !== evt.result.id) {
           this.lastResultId = evt.result.id;
-          this.zone.run(() => events.result.emit(evt));
+          this.zone.run(() => {
+            events.geocoderResult.emit(evt);
+            events.result.emit(evt);
+          });
         }
       });
     }
-    if (events.error.observers.length) {
-      this.geocoder.on('error', (evt: any) => this.zone.run(() => events.error.emit(evt)));
+    if (events.error.observers.length || events.geocoderError.observers.length) {
+      this.geocoder.on('error', (evt: any) =>
+        this.zone.run(() => {
+          events.geocoderError.emit(evt);
+          events.error.emit(evt);
+        })
+      );
     }
     if (events.loading.observers.length) {
       this.geocoder.on('loading', (evt: { query: string }) => this.zone.run(() => events.loading.emit(evt)));
     }
     if (events.clear.observers.length) {
       this.geocoder.on('clear', () => this.zone.run(() => events.clear.emit()));
+    }
+  }
+
+  private warnDeprecatedOutputs(events: GeocoderEvent) {
+    const dw = deprecationWarning.bind(undefined, GeocoderControlDirective.name);
+    if (events.results.observers.length) {
+      dw('results', 'geocoderResults');
+    }
+    if (events.result.observers.length) {
+      dw('result', 'geocoderResult');
+    }
+    if (events.error.observers.length) {
+      dw('error', 'geocoderError');
     }
   }
 }
