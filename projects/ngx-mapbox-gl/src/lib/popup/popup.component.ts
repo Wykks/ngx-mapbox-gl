@@ -3,16 +3,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
+  Output,
   SimpleChanges,
   ViewChild,
-  EventEmitter,
-  Output,
 } from '@angular/core';
-import { PointLike, Popup, LngLatLike } from 'mapbox-gl';
+import { LngLatLike, PointLike, Popup, PopupOptions } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import { MarkerComponent } from '../marker/marker.component';
 import { deprecationWarning } from '../utils';
@@ -25,24 +25,17 @@ import { deprecationWarning } from '../utils';
 export class PopupComponent
   implements OnChanges, OnDestroy, AfterViewInit, OnInit {
   /* Init input */
-  @Input() closeButton?: boolean;
-  @Input() closeOnClick?: boolean;
-  @Input() anchor?:
-    | 'top'
-    | 'bottom'
-    | 'left'
-    | 'right'
-    | 'top-left'
-    | 'top-right'
-    | 'bottom-left';
-  @Input() offset?: number | PointLike | { [anchor: string]: [number, number] };
-  @Input() className?: string;
-  @Input() maxWidth?: string;
+  @Input() closeButton?: PopupOptions['closeButton'];
+  @Input() closeOnClick?: PopupOptions['closeOnClick'];
+  @Input() anchor?: PopupOptions['anchor'];
+  @Input() className?: PopupOptions['className'];
+  @Input() maxWidth?: PopupOptions['maxWidth'];
 
   /* Dynamic input */
   @Input() feature?: GeoJSON.Feature<GeoJSON.Point>;
   @Input() lngLat?: LngLatLike;
   @Input() marker?: MarkerComponent;
+  @Input() offset?: number | PointLike | { [anchor: string]: [number, number] };
 
   @Output() popupClose = new EventEmitter<void>();
   @Output() popupOpen = new EventEmitter<void>();
@@ -100,6 +93,13 @@ export class PopupComponent
           this.popupInstance
         );
       }
+    }
+    if (
+      changes.offset &&
+      !changes.offset.isFirstChange() &&
+      this.popupInstance
+    ) {
+      this.popupInstance.setOffset(this.offset);
     }
   }
 

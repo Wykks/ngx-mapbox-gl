@@ -1,5 +1,5 @@
-import { Layer } from 'mapbox-gl';
 import { Component, OnInit } from '@angular/core';
+import { Layer } from 'mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -20,7 +20,7 @@ import { Component, OnInit } from '@angular/core';
         <mgl-layer
           *ngFor="let layer of clusterLayers"
           [id]="layer.id"
-          type="circle"
+          [type]="layer.type"
           source="earthquakes"
           [filter]="layer.filter"
           [paint]="layer.paint"
@@ -55,6 +55,7 @@ export class HeatMapComponent implements OnInit {
       [200, 'red'],
     ];
     this.clusterLayers = layersData.map((data, index) => ({
+      type: 'circle',
       id: `cluster-${index}`,
       paint: {
         'circle-color': data[1],

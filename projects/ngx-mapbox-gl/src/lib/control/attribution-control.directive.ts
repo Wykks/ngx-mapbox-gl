@@ -13,7 +13,7 @@ export class AttributionControlDirective implements AfterContentInit {
 
   constructor(
     private MapService: MapService,
-    @Host() private ControlComponent: ControlComponent
+    @Host() private ControlComponent: ControlComponent<AttributionControl>
   ) {}
 
   ngAfterContentInit() {

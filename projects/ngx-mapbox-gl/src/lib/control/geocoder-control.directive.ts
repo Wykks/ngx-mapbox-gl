@@ -93,7 +93,7 @@ export class GeocoderControlDirective
   constructor(
     private MapService: MapService,
     private zone: NgZone,
-    @Host() private ControlComponent: ControlComponent,
+    @Host() private ControlComponent: ControlComponent<MapboxGeocoder>,
     @Optional()
     @Inject(MAPBOX_GEOCODER_API_KEY)
     private readonly MAPBOX_GEOCODER_API_KEY: string
@@ -170,7 +170,10 @@ export class GeocoderControlDirective
         })
       );
     }
-    if (events.result.observers.length) {
+    if (
+      events.geocoderResult.observers.length ||
+      events.result.observers.length
+    ) {
       this.geocoder.on('result', (evt: { result: Result }) => {
         // Workaroud issue https://github.com/mapbox/mapbox-gl-geocoder/issues/99
         if (this.lastResultId !== evt.result.id) {

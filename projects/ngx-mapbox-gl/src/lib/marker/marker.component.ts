@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
@@ -11,9 +12,8 @@ import {
   SimpleChanges,
   ViewChild,
   ViewEncapsulation,
-  EventEmitter,
 } from '@angular/core';
-import { LngLatLike, Marker, PointLike, Anchor, Alignment } from 'mapbox-gl';
+import { LngLatLike, Marker, MarkerOptions } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import { deprecationWarning } from '../utils';
 
@@ -26,17 +26,18 @@ import { deprecationWarning } from '../utils';
 export class MarkerComponent
   implements OnChanges, OnDestroy, AfterViewInit, OnInit {
   /* Init input */
-  @Input() offset?: PointLike;
-  @Input() anchor?: Anchor;
+  @Input() offset?: MarkerOptions['offset'];
+  @Input() anchor?: MarkerOptions['anchor'];
+  @Input() clickTolerance?: MarkerOptions['clickTolerance'];
 
   /* Dynamic input */
   @Input() feature?: GeoJSON.Feature<GeoJSON.Point>;
   @Input() lngLat?: LngLatLike;
-  @Input() draggable?: boolean;
+  @Input() draggable?: MarkerOptions['draggable'];
   @Input() popupShown?: boolean;
   @Input() className: string;
-  @Input() pitchAlignment?: Alignment;
-  @Input() rotationAlignment?: Alignment;
+  @Input() pitchAlignment?: MarkerOptions['pitchAlignment'];
+  @Input() rotationAlignment?: MarkerOptions['rotationAlignment'];
 
   @Output() markerDragStart = new EventEmitter<Marker>();
   @Output() markerDragEnd = new EventEmitter<Marker>();
@@ -111,6 +112,7 @@ export class MarkerComponent
           element: this.content.nativeElement,
           feature: this.feature,
           lngLat: this.lngLat,
+          clickTolerance: this.clickTolerance,
         },
         markersEvents: {
           markerDragStart: this.markerDragStart,

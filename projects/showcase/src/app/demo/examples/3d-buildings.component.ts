@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Map, SymbolLayout } from 'mapbox-gl';
+import { Map, SymbolLayer } from 'mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -56,7 +56,7 @@ export class Display3dBuildingsComponent {
     for (let i = 0; i < layers.length; i++) {
       if (
         layers[i].type === 'symbol' &&
-        (<SymbolLayout>layers[i].layout)['text-field']
+        (<SymbolLayer>layers[i]).layout!['text-field']
       ) {
         this.labelLayerId = layers[i].id;
         break;

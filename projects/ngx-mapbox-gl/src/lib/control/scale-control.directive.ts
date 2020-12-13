@@ -22,7 +22,7 @@ export class ScaleControlDirective implements AfterContentInit, OnChanges {
 
   constructor(
     private MapService: MapService,
-    @Host() private ControlComponent: ControlComponent
+    @Host() private ControlComponent: ControlComponent<ScaleControl>
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {

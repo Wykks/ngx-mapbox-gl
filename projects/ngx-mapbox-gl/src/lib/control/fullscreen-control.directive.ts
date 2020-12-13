@@ -12,7 +12,7 @@ export class FullscreenControlDirective implements AfterContentInit {
 
   constructor(
     private MapService: MapService,
-    @Host() private ControlComponent: ControlComponent
+    @Host() private ControlComponent: ControlComponent<FullscreenControl>
   ) {}
 
   ngAfterContentInit() {

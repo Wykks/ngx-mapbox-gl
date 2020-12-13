@@ -9,6 +9,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {
+  AnyLayer,
   EventData,
   Layer,
   MapLayerMouseEvent,
@@ -27,9 +28,9 @@ import { deprecationWarning } from '../utils';
 export class LayerComponent
   implements OnInit, OnDestroy, OnChanges, Layer, LayerEvents {
   /* Init inputs */
-  @Input() id: Layer['id'];
+  @Input() id: AnyLayer['id'];
   @Input() source?: Layer['source'];
-  @Input() type: Layer['type'];
+  @Input() type: AnyLayer['type'];
   @Input() metadata?: Layer['metadata'];
   @Input() sourceLayer?: Layer['source-layer'];
 
@@ -180,7 +181,7 @@ export class LayerComponent
     const layer: SetupLayer = {
       layerOptions: {
         id: this.id,
-        type: this.type,
+        type: <any>this.type,
         source: this.source,
         metadata: this.metadata,
         'source-layer': this.sourceLayer,

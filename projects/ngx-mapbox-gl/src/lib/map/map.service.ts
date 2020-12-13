@@ -7,7 +7,6 @@ import {
   Optional,
 } from '@angular/core';
 import * as MapboxGl from 'mapbox-gl';
-import { Alignment } from 'mapbox-gl';
 import { AsyncSubject, Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import {
@@ -31,7 +30,7 @@ export interface SetupMap {
 }
 
 export interface SetupLayer {
-  layerOptions: MapboxGl.Layer;
+  layerOptions: MapboxGl.AnyLayer;
   layerEvents: LayerEvents;
 }
 
@@ -47,14 +46,15 @@ export interface SetupPopup {
 
 export interface SetupMarker {
   markersOptions: {
-    pitchAlignment?: Alignment;
-    rotationAlignment?: Alignment;
-    offset?: MapboxGl.PointLike;
-    anchor?: MapboxGl.Anchor;
-    draggable?: boolean;
+    pitchAlignment?: MapboxGl.MarkerOptions['pitchAlignment'];
+    rotationAlignment?: MapboxGl.MarkerOptions['rotationAlignment'];
+    offset?: MapboxGl.MarkerOptions['offset'];
+    anchor?: MapboxGl.MarkerOptions['anchor'];
+    draggable?: MapboxGl.MarkerOptions['draggable'];
     element: HTMLElement;
     feature?: GeoJSON.Feature<GeoJSON.Point>;
     lngLat?: MapboxGl.LngLatLike;
+    clickTolerance?: MapboxGl.MarkerOptions['clickTolerance'];
   };
   markersEvents: {
     markerDragStart: EventEmitter<MapboxGl.Marker>;
@@ -266,7 +266,7 @@ export class MapService {
   addLayer(layer: SetupLayer, bindEvents: boolean, before?: string) {
     this.zone.runOutsideAngular(() => {
       Object.keys(layer.layerOptions).forEach((key: string) => {
-        const tkey = <keyof MapboxGl.Layer>key;
+        const tkey = <keyof MapboxGl.AnyLayer>key;
         if (layer.layerOptions[tkey] === undefined) {
           delete layer.layerOptions[tkey];
         }
@@ -435,6 +435,7 @@ export class MapService {
       draggable: !!marker.markersOptions.draggable,
       rotationAlignment: marker.markersOptions.rotationAlignment,
       pitchAlignment: marker.markersOptions.pitchAlignment,
+      clickTolerance: marker.markersOptions.clickTolerance,
     };
     if (marker.markersOptions.element.childNodes.length > 0) {
       options.element = marker.markersOptions.element;
@@ -764,7 +765,9 @@ export class MapService {
       return [];
     }
 
-    return layers.filter((l) => l.source === sourceId);
+    return layers.filter((l) =>
+      'source' in l ? l.source === sourceId : false
+    );
   }
 
   private hookEvents(events: MapEvent) {

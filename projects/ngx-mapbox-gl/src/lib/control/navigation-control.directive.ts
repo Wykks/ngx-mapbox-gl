@@ -13,7 +13,7 @@ export class NavigationControlDirective implements AfterContentInit {
 
   constructor(
     private MapService: MapService,
-    @Host() private ControlComponent: ControlComponent
+    @Host() private ControlComponent: ControlComponent<NavigationControl>
   ) {}
 
   ngAfterContentInit() {
