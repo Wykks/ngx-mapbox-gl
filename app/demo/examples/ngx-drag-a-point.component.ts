@@ -4,7 +4,11 @@ import { MapMouseEvent } from 'mapbox-gl';
 @Component({
   selector: 'showcase-demo',
   template: `
-    <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[2]" [center]="[0, 0]">
+    <mgl-map
+      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [zoom]="[2]"
+      [center]="[0, 0]"
+    >
       <mgl-geojson-source id="point">
         <mgl-feature
           [properties]=""
@@ -13,9 +17,9 @@ import { MapMouseEvent } from 'mapbox-gl';
             coordinates: [0, 0]
           }"
           [mglDraggable]="targetLayer"
-          (dragStart)="onDragStart($event)"
-          (dragEnd)="onDragEnd($event)"
-          (drag)="onDrag($event)"
+          (featureDragStart)="onDragStart($event)"
+          (featureDragEnd)="onDragEnd($event)"
+          (featureDrag)="onDrag($event)"
         ></mgl-feature>
       </mgl-geojson-source>
       <mgl-layer
@@ -24,8 +28,8 @@ import { MapMouseEvent } from 'mapbox-gl';
         type="circle"
         source="point"
         [paint]="layerPaint"
-        (mouseEnter)="changeColor('#3bb2d0')"
-        (mouseLeave)="changeColor('#3887be')"
+        (layerMouseEnter)="changeColor('#3bb2d0')"
+        (layerMouseLeave)="changeColor('#3887be')"
       ></mgl-layer>
       <mgl-control position="bottom-left">
         <mat-card>

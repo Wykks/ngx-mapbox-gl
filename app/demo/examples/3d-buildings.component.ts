@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Map, SymbolLayout } from 'mapbox-gl';
+import { Map, SymbolLayer } from 'mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -10,7 +10,7 @@ import { Map, SymbolLayout } from 'mapbox-gl';
       [center]="[-74.0066, 40.7135]"
       [pitch]="45"
       [bearing]="-17.6"
-      (load)="onLoad($event)"
+      (mapLoad)="onLoad($event)"
     >
       <mgl-layer
         id="3d-buildings"
@@ -21,8 +21,24 @@ import { Map, SymbolLayout } from 'mapbox-gl';
         [minzoom]="15"
         [paint]="{
           'fill-extrusion-color': '#aaa',
-          'fill-extrusion-height': ['interpolate', ['linear'], ['zoom'], 15, 0, 15.05, ['get', 'height']],
-          'fill-extrusion-base': ['interpolate', ['linear'], ['zoom'], 15, 0, 15.05, ['get', 'min_height']],
+          'fill-extrusion-height': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            15,
+            0,
+            15.05,
+            ['get', 'height']
+          ],
+          'fill-extrusion-base': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            15,
+            0,
+            15.05,
+            ['get', 'min_height']
+          ],
           'fill-extrusion-opacity': 0.6
         }"
         [before]="labelLayerId"
@@ -38,7 +54,10 @@ export class Display3dBuildingsComponent {
     const layers = mapInstance.getStyle().layers!;
 
     for (let i = 0; i < layers.length; i++) {
-      if (layers[i].type === 'symbol' && (<SymbolLayout>layers[i].layout)['text-field']) {
+      if (
+        layers[i].type === 'symbol' &&
+        (<SymbolLayer>layers[i]).layout!['text-field']
+      ) {
         this.labelLayerId = layers[i].id;
         break;
       }

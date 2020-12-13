@@ -9,10 +9,13 @@ import { MapMouseEvent, Map } from 'mapbox-gl';
       [zoom]="[8]"
       [center]="center"
       [cursorStyle]="cursorStyle"
-      (load)="map = $event"
+      (mapLoad)="map = $event"
     >
       <mgl-geojson-source id="symbols-source">
-        <mgl-feature *ngFor="let geometry of geometries" [geometry]="geometry"></mgl-feature>
+        <mgl-feature
+          *ngFor="let geometry of geometries"
+          [geometry]="geometry"
+        ></mgl-feature>
       </mgl-geojson-source>
       <mgl-layer
         id="symbols"
@@ -21,9 +24,9 @@ import { MapMouseEvent, Map } from 'mapbox-gl';
         [layout]="{
           'icon-image': 'rocket-15'
         }"
-        (click)="centerMapTo($event)"
-        (mouseEnter)="cursorStyle = 'pointer'"
-        (mouseLeave)="cursorStyle = ''"
+        (layerClick)="centerMapTo($event)"
+        (layerMouseEnter)="cursorStyle = 'pointer'"
+        (layerMouseLeave)="cursorStyle = ''"
       >
       </mgl-layer>
     </mgl-map>

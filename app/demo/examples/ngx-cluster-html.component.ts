@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, OnChanges, ViewChild, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnChanges,
+  ViewChild,
+  SimpleChanges,
+} from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { GeoJSONSourceComponent } from 'ngx-mapbox-gl';
 
@@ -33,7 +40,10 @@ import { GeoJSONSourceComponent } from 'ngx-mapbox-gl';
             </div>
           </ng-template>
           <ng-template mglClusterPoint let-feature>
-            <div class="marker-cluster" (click)="selectCluster($event, feature)">
+            <div
+              class="marker-cluster"
+              (click)="selectCluster($event, feature)"
+            >
               {{ feature.properties?.point_count }}
             </div>
           </ng-template>
@@ -54,7 +64,9 @@ export class NgxClusterHtmlComponent implements OnInit {
   selectedCluster: { geometry: GeoJSON.Point; properties: any };
 
   async ngOnInit() {
-    const earthquakes: GeoJSON.FeatureCollection = <any>await import('./earthquakes.geo.json');
+    const earthquakes: GeoJSON.FeatureCollection = <any>(
+      await import('./earthquakes.geo.json')
+    );
     setInterval(() => {
       if (earthquakes.features.length) {
         earthquakes.features.pop();
@@ -66,7 +78,10 @@ export class NgxClusterHtmlComponent implements OnInit {
   selectCluster(event: MouseEvent, feature: any) {
     event.stopPropagation(); // This is needed, otherwise the popup will close immediately
     // Change the ref, to trigger mgl-popup onChanges (when the user click on the same cluster)
-    this.selectedCluster = { geometry: feature.geometry, properties: feature.properties };
+    this.selectedCluster = {
+      geometry: feature.geometry,
+      properties: feature.properties,
+    };
   }
 }
 
@@ -105,6 +120,10 @@ export class ClusterPopupComponent implements OnChanges {
     if (pageEvent) {
       offset = pageEvent.pageIndex * 5;
     }
-    this.leaves = await this.clusterComponent.getClusterLeaves(this.selectedCluster.properties!.cluster_id, 5, offset);
+    this.leaves = await this.clusterComponent.getClusterLeaves(
+      this.selectedCluster.properties!.cluster_id,
+      5,
+      offset
+    );
   }
 }
