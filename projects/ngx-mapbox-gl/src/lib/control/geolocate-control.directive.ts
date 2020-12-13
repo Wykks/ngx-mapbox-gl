@@ -6,7 +6,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { GeolocateControl, FitBoundsOptions } from 'mapbox-gl';
+import { FitBoundsOptions, GeolocateControl } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import { ControlComponent } from './control.component';
 
@@ -20,7 +20,8 @@ export class GeolocateControlDirective implements AfterContentInit {
   @Input() trackUserLocation?: boolean;
   @Input() showUserLocation?: boolean;
 
-  @Output() geolocate: EventEmitter<Position> = new EventEmitter<Position>();
+  @Output()
+  geolocate: EventEmitter<GeolocationPosition> = new EventEmitter<GeolocationPosition>();
 
   constructor(
     private MapService: MapService,
@@ -46,8 +47,9 @@ export class GeolocateControlDirective implements AfterContentInit {
         }
       });
       this.ControlComponent.control = new GeolocateControl(options);
-      this.ControlComponent.control.on('geolocate', (data: Position) =>
-        this.geolocate.emit(data)
+      this.ControlComponent.control.on(
+        'geolocate',
+        (data: GeolocationPosition) => this.geolocate.emit(data)
       );
       this.MapService.addControl(
         this.ControlComponent.control,

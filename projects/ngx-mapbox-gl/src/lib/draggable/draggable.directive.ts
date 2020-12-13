@@ -10,7 +10,7 @@ import {
   Output,
 } from '@angular/core';
 import { MapMouseEvent } from 'mapbox-gl';
-import { fromEvent, Observable, ReplaySubject } from 'rxjs';
+import { fromEvent, Observable, Subscription } from 'rxjs';
 import { filter, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { LayerComponent } from '../layer/layer.component';
 import { MapService } from '../map/map.service';
@@ -40,7 +40,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
    */
   @Output() drag = new EventEmitter<MapMouseEvent>();
 
-  private destroyed$: ReplaySubject<void> = new ReplaySubject(1);
+  private sub = new Subscription();
 
   constructor(
     private MapService: MapService,
@@ -72,8 +72,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.destroyed$.next(undefined);
-    this.destroyed$.complete();
+    this.sub.unsubscribe();
   }
 
   private handleDraggable(
@@ -89,7 +88,6 @@ export class DraggableDirective implements OnInit, OnDestroy {
         'mouseup'
       );
       const dragStart$ = enter$.pipe(
-        takeUntil(this.destroyed$),
         filter(() => !moving),
         filter((evt) => this.filterFeature(evt)),
         tap(() => {
@@ -113,54 +111,61 @@ export class DraggableDirective implements OnInit, OnDestroy {
         )
       );
       const dragEnd$ = dragStart$.pipe(switchMap(() => mouseUp$.pipe(take(1))));
-      dragStart$.subscribe((evt) => {
-        moving = true;
-        if (
-          this.featureDragStart.observers.length ||
-          this.dragStart.observers.length
-        ) {
-          this.NgZone.run(() => {
-            this.featureDragStart.emit(evt);
-            this.dragStart.emit(evt);
-          });
-        }
-      });
-      dragging$.subscribe((evt) => {
-        updateCoords([evt.lngLat.lng, evt.lngLat.lat]);
-        if (this.featureDrag.observers.length || this.drag.observers.length) {
-          this.NgZone.run(() => {
-            this.featureDrag.emit(evt);
-            this.drag.emit(evt);
-          });
-        }
-      });
-      dragEnd$.subscribe((evt) => {
-        moving = false;
-        if (
-          this.featureDragEnd.observers.length ||
-          this.dragEnd.observers.length
-        ) {
-          this.NgZone.run(() => {
-            this.featureDragEnd.emit(evt);
-            this.dragEnd.emit(evt);
-          });
-        }
-        if (!inside) {
-          // It's possible to dragEnd outside the target (small input lag)
-          this.MapService.changeCanvasCursor('');
-          this.MapService.updateDragPan(true);
-        }
-      });
-      leave$
-        .pipe(
-          takeUntil(this.destroyed$),
-          tap(() => (inside = false)),
-          filter(() => !moving)
-        )
-        .subscribe(() => {
-          this.MapService.changeCanvasCursor('');
-          this.MapService.updateDragPan(true);
-        });
+      this.sub.add(
+        dragStart$.subscribe((evt) => {
+          moving = true;
+          if (
+            this.featureDragStart.observers.length ||
+            this.dragStart.observers.length
+          ) {
+            this.NgZone.run(() => {
+              this.featureDragStart.emit(evt);
+              this.dragStart.emit(evt);
+            });
+          }
+        })
+      );
+      this.sub.add(
+        dragging$.subscribe((evt) => {
+          updateCoords([evt.lngLat.lng, evt.lngLat.lat]);
+          if (this.featureDrag.observers.length || this.drag.observers.length) {
+            this.NgZone.run(() => {
+              this.featureDrag.emit(evt);
+              this.drag.emit(evt);
+            });
+          }
+        })
+      );
+      this.sub.add(
+        dragEnd$.subscribe((evt) => {
+          moving = false;
+          if (
+            this.featureDragEnd.observers.length ||
+            this.dragEnd.observers.length
+          ) {
+            this.NgZone.run(() => {
+              this.featureDragEnd.emit(evt);
+              this.dragEnd.emit(evt);
+            });
+          }
+          if (!inside) {
+            // It's possible to dragEnd outside the target (small input lag)
+            this.MapService.changeCanvasCursor('');
+            this.MapService.updateDragPan(true);
+          }
+        })
+      );
+      this.sub.add(
+        leave$
+          .pipe(
+            tap(() => (inside = false)),
+            filter(() => !moving)
+          )
+          .subscribe(() => {
+            this.MapService.changeCanvasCursor('');
+            this.MapService.updateDragPan(true);
+          })
+      );
     });
   }
 
