@@ -307,7 +307,7 @@ Dynamic:
    <mgl-image
      id="image"
      url="https://..."
-     (loaded)="imageLoaded = true"
+     (imageLoaded)="imageLoaded = true"
    >
    ...
    <mgl-image
