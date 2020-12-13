@@ -14,7 +14,6 @@ import { fromEvent, Observable, ReplaySubject } from 'rxjs';
 import { filter, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { LayerComponent } from '../layer/layer.component';
 import { MapService } from '../map/map.service';
-import { MarkerComponent } from '../marker/marker.component';
 import { FeatureComponent } from '../source/geojson/feature.component';
 import { deprecationWarning } from '../utils';
 
@@ -46,8 +45,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
   constructor(
     private MapService: MapService,
     private NgZone: NgZone,
-    @Optional() @Host() private FeatureComponent?: FeatureComponent,
-    @Optional() @Host() private MarkerComponent?: MarkerComponent
+    @Optional() @Host() private FeatureComponent?: FeatureComponent
   ) {}
 
   ngOnInit() {
@@ -55,22 +53,9 @@ export class DraggableDirective implements OnInit, OnDestroy {
     let enter$;
     let leave$;
     let updateCoords;
-    if (this.MarkerComponent) {
-      console.warn(
-        '[ngx-mapbox-gl] mglDraggable on Marker is deprecated, use draggable input instead'
-      );
-      let markerElement = <Element>this.MarkerComponent.content.nativeElement;
-      if (markerElement.children.length === 1) {
-        markerElement = markerElement.children[0];
-      }
-      enter$ = fromEvent(markerElement, 'mouseenter');
-      leave$ = fromEvent(markerElement, 'mouseleave');
-      updateCoords = this.MarkerComponent.updateCoordinates.bind(
-        this.MarkerComponent
-      );
-    } else if (this.FeatureComponent && this.layer) {
-      enter$ = this.layer.mouseEnter;
-      leave$ = this.layer.mouseLeave;
+    if (this.FeatureComponent && this.layer) {
+      enter$ = this.layer.layerMouseEnter;
+      leave$ = this.layer.layerMouseLeave;
       updateCoords = this.FeatureComponent.updateCoordinates.bind(
         this.FeatureComponent
       );
@@ -92,8 +77,8 @@ export class DraggableDirective implements OnInit, OnDestroy {
   }
 
   private handleDraggable(
-    enter$: Observable<any>,
-    leave$: Observable<any>,
+    enter$: Observable<MapMouseEvent>,
+    leave$: Observable<MapMouseEvent>,
     updateCoords: (coord: number[]) => void
   ) {
     let moving = false;
