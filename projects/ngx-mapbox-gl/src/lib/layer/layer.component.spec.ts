@@ -1,6 +1,6 @@
 import { SimpleChange } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { BackgroundPaint } from 'mapbox-gl';
+import { BackgroundLayer } from 'mapbox-gl';
 import { of } from 'rxjs';
 import { MapService, SetupLayer } from '../map/map.service';
 import { LayerComponent } from './layer.component';
@@ -44,10 +44,11 @@ describe('LayerComponent', () => {
   describe('Init/Destroy tests', () => {
     it('should init with custom inputs', (done: DoneFn) => {
       component.paint = { 'background-color': 'green' };
+      component.type = 'background';
       msSpy.addLayer.and.callFake((options: SetupLayer) => {
         expect(options.layerOptions.id).toEqual(component.id);
         expect(
-          (<BackgroundPaint>options.layerOptions.paint)['background-color']
+          (<BackgroundLayer>options.layerOptions).paint!['background-color']
         ).toEqual('green');
         done();
       });
