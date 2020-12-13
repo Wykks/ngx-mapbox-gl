@@ -1,6 +1,6 @@
 {
   "name": "ngx-mapbox-gl",
-  "version": "4.8.1",
+  "version": "5.0.0",
   "description": "A Angular binding of mapbox-gl-js",
   "license": "MIT",
   "repository": {
