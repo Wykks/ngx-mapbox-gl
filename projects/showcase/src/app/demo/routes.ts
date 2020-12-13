@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { PopupComponent } from 'projects/ngx-mapbox-gl/src/lib/popup/popup.component';
 import { DemoIndexComponent } from './demo-index.component';
 import { Display3dBuildingsComponent } from './examples/3d-buildings.component';
 import { AddImageGeneratedComponent } from './examples/add-image-generated.component';
@@ -35,6 +34,7 @@ import { NgxGeoJSONLineComponent } from './examples/ngx-geojson-line.component';
 import { NgxScaleControlComponent } from './examples/ngx-scale-control.component';
 import { PolygonPopupOnClickComponent } from './examples/polygon-popup-on-click.component';
 import { PopupOnClickComponent } from './examples/popup-on-click.component';
+import { PopupComponent } from './examples/popup.component';
 import { SatelliteMapComponent } from './examples/satellite-map.component';
 import { SetPopupComponent } from './examples/set-popup.component';
 import { SetStyleComponent } from './examples/set-style.component';
