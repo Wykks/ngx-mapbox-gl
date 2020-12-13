@@ -9,15 +9,13 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { ActivatedRoute } from '@angular/router';
 import StackBlitzSDK from '@stackblitz/sdk';
 import { VM } from '@stackblitz/sdk/typings/VM';
-import { Dictionary } from 'lodash';
-import { AsyncSubject, forkJoin, from, Observable, Subscription, combineLatest } from 'rxjs';
-import { filter, shareReplay, switchMap, tap } from 'rxjs/operators';
-import { State } from '../../app.module';
-import * as fromShowcase from '../../app.selectors';
-import { DemoFileLoaderService } from '../demo-file-loader.service';
+import { forkJoin, from, Subscription } from 'rxjs';
+import { finalize, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { createStackblitzProject } from './create-stackblitz-project';
+import { DemoFileLoaderService } from './demo-file-loader.service';
 
 @Component({
   template: `
@@ -50,69 +48,56 @@ import { DemoFileLoaderService } from '../demo-file-loader.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('container', { static: true }) stackblitzContainer: ElementRef;
+  @ViewChild('container') stackblitzContainer: ElementRef;
 
-  loading: boolean;
+  loading = true;
 
   private sub: Subscription;
-  private projectbase$: Observable<string[]>;
-
-  private afterViewInit = new AsyncSubject<void>();
   private vm: VM;
+  private projectbase$ = forkJoin([
+    this.http.get('assets/stackblitz/main.notts', {
+      responseType: 'text',
+    }),
+    this.http.get('assets/stackblitz/angular.json', {
+      responseType: 'text',
+    }),
+  ]).pipe(shareReplay(1));
 
   constructor(
-    private http: HttpClient,
     private zone: NgZone,
-    private store: Store<State>,
-    private DemoFileLoaderService: DemoFileLoaderService,
+    private activatedRoute: ActivatedRoute,
+    private demoFileLoaderService: DemoFileLoaderService,
+    private http: HttpClient,
     private ChangeDetectorRef: ChangeDetectorRef
-  ) {
-    this.projectbase$ = forkJoin([
-      this.http.get('assets/stackblitz/main.notts', {
-        responseType: 'text',
-      }),
-      this.http.get('assets/stackblitz/angular.json', {
-        responseType: 'text',
-      }),
-    ]).pipe(shareReplay(1));
+  ) {}
 
-    this.sub = combineLatest([
-      this.store.pipe(select(fromShowcase.getCurrentRouterState)),
-      this.store.pipe(select(fromShowcase.isDemoEditing)),
-    ])
+  ngOnDestroy() {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+  }
+
+  ngAfterViewInit() {
+    this.sub = this.activatedRoute.params
       .pipe(
-        filter(([, isDemoEditing]) => isDemoEditing),
         tap(() => {
           this.loading = true;
           this.ChangeDetectorRef.markForCheck();
         }),
-        switchMap(([state]) =>
-          forkJoin([this.projectbase$, this.DemoFileLoaderService.getDemoFiles(state.params.demoUrl)])
-        ),
-        switchMap(([projectbase, demoFiles]) => from(this.openExample(projectbase, demoFiles))),
-        tap(() => {
-          this.loading = false;
-          this.ChangeDetectorRef.markForCheck();
-        })
+        switchMap((params) => forkJoin([this.projectbase$, this.demoFileLoaderService.getDemoFiles(params.demoUrl)])),
+        switchMap(([projectbase, demoFiles]) =>
+          from(this.openExample(projectbase, demoFiles)).pipe(
+            finalize(() => {
+              this.loading = false;
+              this.ChangeDetectorRef.markForCheck();
+            })
+          )
+        )
       )
-      .subscribe({
-        error: () => {
-          this.loading = false;
-          this.ChangeDetectorRef.markForCheck();
-        },
-      });
+      .subscribe();
   }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
-
-  ngAfterViewInit() {
-    this.afterViewInit.complete();
-  }
-
-  private async openExample(projectbase: string[], demoFiles: Dictionary<string>) {
-    await this.afterViewInit.toPromise();
+  private async openExample(projectbase: string[], demoFiles: Record<string, string>) {
     if (this.vm) {
       await this.vm.applyFsDiff({
         create: demoFiles,
@@ -120,44 +105,7 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
       });
       return;
     }
-    const project = {
-      files: {
-        'src/main.ts': projectbase[0],
-        'angular.json': projectbase[1],
-        'src/index.html': '<showcase-demo></showcase-demo>',
-        'src/styles.css': `
-html, body {
-  display: flex;
-  flex: 1;
-  min-height: 100vh;
-  margin: 0;
-}
-`,
-        'src/polyfills.ts': `
-import 'zone.js/dist/zone';
-(window as any).global = window;
-`,
-        ...demoFiles,
-      },
-      title: '',
-      description: '',
-      template: 'angular-cli',
-      dependencies: {
-        tslib: '*',
-        'mapbox-gl': '*',
-        'ngx-mapbox-gl': '*',
-        '@angular/cdk': '*',
-        '@angular/material': '*',
-        '@angular/animations': '*',
-        '@angular/forms': '*',
-        url: '*',
-        querystring: '*',
-        events: '*',
-        '@types/mapbox-gl': '*',
-        '@types/supercluster': '*',
-        '@types/geojson': '*',
-      },
-    };
+    const project = createStackblitzProject(projectbase, demoFiles);
     await this.zone.runOutsideAngular(async () => {
       this.vm = await StackBlitzSDK.embedProject(this.stackblitzContainer.nativeElement, project, {
         hideExplorer: true,

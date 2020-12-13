@@ -1,4 +1,17 @@
 import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import {
   AnimationOptions,
   ErrorEvent,
   EventData,
@@ -16,22 +29,9 @@ import {
   MapWheelEvent,
   PointLike,
 } from 'mapbox-gl';
+import { deprecationWarning } from '../utils';
 import { MapService, MovingOptions } from './map.service';
 import { MapEvent } from './map.types';
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  Output,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
-import { deprecationWarning } from '../utils';
 
 @Component({
   selector: 'mgl-map',

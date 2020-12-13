@@ -1,15 +1,11 @@
 import { EventEmitter, Inject, Injectable, InjectionToken, NgZone, Optional } from '@angular/core';
 import * as MapboxGl from 'mapbox-gl';
+import { Alignment } from 'mapbox-gl';
 import { AsyncSubject, Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { LayerEvents, MapEvent, MapImageData, MapImageOptions } from './map.types';
-import { Alignment } from 'mapbox-gl';
 
 export const MAPBOX_API_KEY = new InjectionToken('MapboxApiKey');
-
-export abstract class MglResizeEventEmitter {
-  abstract resizeEvent: Observable<void>;
-}
 
 export interface SetupMap {
   accessToken?: string;
@@ -77,11 +73,7 @@ export class MapService {
   private imageIdsToRemove: string[] = [];
   private subscription = new Subscription();
 
-  constructor(
-    private zone: NgZone,
-    @Optional() @Inject(MAPBOX_API_KEY) private readonly MAPBOX_API_KEY: string,
-    @Optional() private readonly MglResizeEventEmitter: MglResizeEventEmitter
-  ) {
+  constructor(private zone: NgZone, @Optional() @Inject(MAPBOX_API_KEY) private readonly MAPBOX_API_KEY: string) {
     this.mapCreated$ = this.mapCreated.asObservable();
     this.mapLoaded$ = this.mapLoaded.asObservable();
   }
@@ -485,7 +477,7 @@ export class MapService {
 
   async loadAndAddImage(imageId: string, url: string, options?: MapImageOptions) {
     return this.zone.runOutsideAngular(() => {
-      return new Promise((resolve, reject) => {
+      return new Promise<void>((resolve, reject) => {
         this.mapInstance.loadImage(url, (error: { status: number } | null, image: ImageData) => {
           if (error) {
             reject(error);
@@ -621,14 +613,7 @@ export class MapService {
       this.mapInstance.setStyle(options.style!);
     }
 
-    const subChanges = this.zone.onMicrotaskEmpty.subscribe(() => this.applyChanges());
-    if (this.MglResizeEventEmitter) {
-      const subResize = this.MglResizeEventEmitter.resizeEvent.subscribe(() => {
-        this.mapInstance.resize();
-      });
-      this.subscription.add(subResize);
-    }
-    this.subscription.add(subChanges);
+    this.subscription.add(this.zone.onMicrotaskEmpty.subscribe(() => this.applyChanges()));
   }
 
   private removeMarkers() {

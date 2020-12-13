@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxMdModule } from 'ngx-md';
-import { SharedModule } from '../shared.module';
-import { DocComponent } from './doc.component';
-import 'prismjs/prism';
 import 'prismjs/components/prism-typescript';
+import 'prismjs/prism';
+import { LayoutModule } from '../shared/layout/layout.module';
+import { DocComponent } from './doc.component';
 
 const DOC_ROUTES: Routes = [
   {
@@ -15,7 +18,18 @@ const DOC_ROUTES: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, SharedModule, NgxMdModule.forRoot(), RouterModule.forChild(DOC_ROUTES)],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(DOC_ROUTES),
+    FormsModule,
+
+    NgxMdModule.forRoot(),
+
+    MatFormFieldModule,
+    MatSelectModule,
+
+    LayoutModule,
+  ],
   declarations: [DocComponent],
 })
 export class DocModule {}

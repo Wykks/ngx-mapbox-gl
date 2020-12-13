@@ -1,32 +1,42 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { interval, Subscription } from 'rxjs';
-import { animationFrameScheduler } from 'rxjs';
-import { observeOn } from 'rxjs/operators';
+import { Component } from '@angular/core';
+import { AnimationOptions } from 'mapbox-gl';
 
 @Component({
-  templateUrl: './home-index.component.html',
+  template: `
+    <mgl-map
+      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [zoom]="[2]"
+      [center]="center"
+      [centerWithPanTo]="true"
+      [panToOptions]="panToOptions"
+      [interactive]="false"
+      (mapLoad)="moveCenter()"
+      (moveEnd)="moveCenter()"
+    ></mgl-map>
+    <div class="main">
+      <mat-icon class="logo" svgIcon="ngx-mapbox-gl-red"></mat-icon>
+      <h1>Angular binding of mapbox-gl-js</h1>
+    </div>
+  `,
   styleUrls: ['./home-index.component.scss'],
 })
-export class HomeIndexComponent implements OnInit, OnDestroy {
+export class HomeIndexComponent {
   center = [0, 0];
+  panToOptions: AnimationOptions = { duration: 10000, easing: (t) => t };
 
-  private sub: Subscription;
-
-  constructor() {}
-
-  ngOnInit() {
-    this.sub = interval(100)
-      .pipe(observeOn(animationFrameScheduler))
-      .subscribe(() => {
-        if (this.center[0] >= 180) {
-          this.center = [-this.center[0], 0];
-        } else {
-          this.center = [this.center[0] + 1, 0];
-        }
-      });
-  }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
+  moveCenter() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+    const targetY = this.center[0];
+    if (targetY === 0) {
+      this.center = [90, 0];
+    } else if (targetY === 90) {
+      this.center = [180, 0];
+    } else if (targetY === 180) {
+      this.center = [-90, 0];
+    } else if (targetY === -90) {
+      this.center = [0, 0];
+    }
   }
 }
