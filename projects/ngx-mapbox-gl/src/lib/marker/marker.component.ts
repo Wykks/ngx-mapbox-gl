@@ -23,7 +23,8 @@ import { deprecationWarning } from '../utils';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnInit {
+export class MarkerComponent
+  implements OnChanges, OnDestroy, AfterViewInit, OnInit {
   /* Init input */
   @Input() offset?: PointLike;
   @Input() anchor?: Anchor;
@@ -71,7 +72,9 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
       this.markerInstance!.setLngLat(this.lngLat!);
     }
     if (changes.feature && !changes.feature.isFirstChange()) {
-      this.markerInstance!.setLngLat(<[number, number]>this.feature!.geometry!.coordinates);
+      this.markerInstance!.setLngLat(
+        <[number, number]>this.feature!.geometry!.coordinates
+      );
     }
     if (changes.draggable && !changes.draggable.isFirstChange()) {
       this.markerInstance!.setDraggable(!!this.draggable);
@@ -82,10 +85,17 @@ export class MarkerComponent implements OnChanges, OnDestroy, AfterViewInit, OnI
         : this.markerInstance!.getPopup().remove();
     }
     if (changes.pitchAlignment && !changes.pitchAlignment.isFirstChange()) {
-      this.markerInstance!.setPitchAlignment(changes.pitchAlignment.currentValue);
+      this.markerInstance!.setPitchAlignment(
+        changes.pitchAlignment.currentValue
+      );
     }
-    if (changes.rotationAlignment && !changes.rotationAlignment.isFirstChange()) {
-      this.markerInstance!.setRotationAlignment(changes.rotationAlignment.currentValue);
+    if (
+      changes.rotationAlignment &&
+      !changes.rotationAlignment.isFirstChange()
+    ) {
+      this.markerInstance!.setRotationAlignment(
+        changes.rotationAlignment.currentValue
+      );
     }
   }
 

@@ -10,7 +10,10 @@ import { MapResizeService } from './map-resize.service';
 export class MglMapResizeDirective implements OnInit, OnDestroy {
   private sub = new Subscription();
 
-  constructor(private mapResizeService: MapResizeService, private map: MapComponent) {}
+  constructor(
+    private mapResizeService: MapResizeService,
+    private map: MapComponent
+  ) {}
 
   ngOnInit() {
     this.sub.add(

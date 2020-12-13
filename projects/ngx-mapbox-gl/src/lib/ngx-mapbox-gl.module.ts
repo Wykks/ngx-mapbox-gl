@@ -3,7 +3,10 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { AttributionControlDirective } from './control/attribution-control.directive';
 import { ControlComponent } from './control/control.component';
 import { FullscreenControlDirective } from './control/fullscreen-control.directive';
-import { GeocoderControlDirective, MAPBOX_GEOCODER_API_KEY } from './control/geocoder-control.directive';
+import {
+  GeocoderControlDirective,
+  MAPBOX_GEOCODER_API_KEY,
+} from './control/geocoder-control.directive';
 import { GeolocateControlDirective } from './control/geolocate-control.directive';
 import { NavigationControlDirective } from './control/navigation-control.directive';
 import { ScaleControlDirective } from './control/scale-control.directive';

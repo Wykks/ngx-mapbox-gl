@@ -1,5 +1,11 @@
 import { SimpleChange } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flushMicrotasks, TestBed } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  fakeAsync,
+  flushMicrotasks,
+  TestBed,
+} from '@angular/core/testing';
 import { ReplaySubject } from 'rxjs';
 import { MapComponent } from './map.component';
 import { MapService, SetupMap } from './map.service';

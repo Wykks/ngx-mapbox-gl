@@ -11,7 +11,10 @@ export class NavigationControlDirective implements AfterContentInit {
   @Input() showCompass?: boolean;
   @Input() showZoom?: boolean;
 
-  constructor(private MapService: MapService, @Host() private ControlComponent: ControlComponent) {}
+  constructor(
+    private MapService: MapService,
+    @Host() private ControlComponent: ControlComponent
+  ) {}
 
   ngAfterContentInit() {
     this.MapService.mapCreated$.subscribe(() => {
@@ -26,7 +29,10 @@ export class NavigationControlDirective implements AfterContentInit {
         options.showZoom = this.showZoom;
       }
       this.ControlComponent.control = new NavigationControl(options);
-      this.MapService.addControl(this.ControlComponent.control, this.ControlComponent.position);
+      this.MapService.addControl(
+        this.ControlComponent.control,
+        this.ControlComponent.position
+      );
     });
   }
 }

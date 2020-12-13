@@ -45,7 +45,8 @@ export interface Result extends GeoJSON.Feature<GeoJSON.Point> {
 @Directive({
   selector: '[mglGeocoder]',
 })
-export class GeocoderControlDirective implements AfterContentInit, OnChanges, GeocoderEvent {
+export class GeocoderControlDirective
+  implements AfterContentInit, OnChanges, GeocoderEvent {
   /* Init inputs */
   @Input() countries?: string;
   @Input() placeholder?: string;
@@ -93,7 +94,9 @@ export class GeocoderControlDirective implements AfterContentInit, OnChanges, Ge
     private MapService: MapService,
     private zone: NgZone,
     @Host() private ControlComponent: ControlComponent,
-    @Optional() @Inject(MAPBOX_GEOCODER_API_KEY) private readonly MAPBOX_GEOCODER_API_KEY: string
+    @Optional()
+    @Inject(MAPBOX_GEOCODER_API_KEY)
+    private readonly MAPBOX_GEOCODER_API_KEY: string
   ) {}
 
   ngAfterContentInit() {
@@ -148,12 +151,18 @@ export class GeocoderControlDirective implements AfterContentInit, OnChanges, Ge
 
   private addControl() {
     this.ControlComponent.control = this.geocoder;
-    this.MapService.addControl(this.ControlComponent.control, this.ControlComponent.position);
+    this.MapService.addControl(
+      this.ControlComponent.control,
+      this.ControlComponent.position
+    );
   }
 
   private hookEvents(events: GeocoderEvent) {
     this.warnDeprecatedOutputs(events);
-    if (events.results.observers.length || events.geocoderResults.observers.length) {
+    if (
+      events.results.observers.length ||
+      events.geocoderResults.observers.length
+    ) {
       this.geocoder.on('results', (evt: Results) =>
         this.zone.run(() => {
           events.geocoderResults.emit(evt);
@@ -173,7 +182,10 @@ export class GeocoderControlDirective implements AfterContentInit, OnChanges, Ge
         }
       });
     }
-    if (events.error.observers.length || events.geocoderError.observers.length) {
+    if (
+      events.error.observers.length ||
+      events.geocoderError.observers.length
+    ) {
       this.geocoder.on('error', (evt: any) =>
         this.zone.run(() => {
           events.geocoderError.emit(evt);
@@ -182,7 +194,9 @@ export class GeocoderControlDirective implements AfterContentInit, OnChanges, Ge
       );
     }
     if (events.loading.observers.length) {
-      this.geocoder.on('loading', (evt: { query: string }) => this.zone.run(() => events.loading.emit(evt)));
+      this.geocoder.on('loading', (evt: { query: string }) =>
+        this.zone.run(() => events.loading.emit(evt))
+      );
     }
     if (events.clear.observers.length) {
       this.geocoder.on('clear', () => this.zone.run(() => events.clear.emit()));
@@ -190,7 +204,10 @@ export class GeocoderControlDirective implements AfterContentInit, OnChanges, Ge
   }
 
   private warnDeprecatedOutputs(events: GeocoderEvent) {
-    const dw = deprecationWarning.bind(undefined, GeocoderControlDirective.name);
+    const dw = deprecationWarning.bind(
+      undefined,
+      GeocoderControlDirective.name
+    );
     if (events.results.observers.length) {
       dw('results', 'geocoderResults');
     }

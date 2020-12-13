@@ -22,11 +22,19 @@ import { deprecationWarning } from '../utils';
   template: '<div #content><ng-content></ng-content></div>',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnInit {
+export class PopupComponent
+  implements OnChanges, OnDestroy, AfterViewInit, OnInit {
   /* Init input */
   @Input() closeButton?: boolean;
   @Input() closeOnClick?: boolean;
-  @Input() anchor?: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left';
+  @Input() anchor?:
+    | 'top'
+    | 'bottom'
+    | 'left'
+    | 'right'
+    | 'top-left'
+    | 'top-right'
+    | 'bottom-left';
   @Input() offset?: number | PointLike | { [anchor: string]: [number, number] };
   @Input() className?: string;
   @Input() maxWidth?: string;
@@ -55,17 +63,30 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
 
   ngOnInit() {
     this.warnDeprecatedOutputs();
-    if ((this.lngLat && this.marker) || (this.feature && this.lngLat) || (this.feature && this.marker)) {
+    if (
+      (this.lngLat && this.marker) ||
+      (this.feature && this.lngLat) ||
+      (this.feature && this.marker)
+    ) {
       throw new Error('marker, lngLat, feature input are mutually exclusive');
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if ((changes.lngLat && !changes.lngLat.isFirstChange()) || (changes.feature && !changes.feature.isFirstChange())) {
-      const newlngLat = changes.lngLat ? this.lngLat! : <[number, number]>this.feature!.geometry!.coordinates!;
+    if (
+      (changes.lngLat && !changes.lngLat.isFirstChange()) ||
+      (changes.feature && !changes.feature.isFirstChange())
+    ) {
+      const newlngLat = changes.lngLat
+        ? this.lngLat!
+        : <[number, number]>this.feature!.geometry!.coordinates!;
       this.MapService.removePopupFromMap(this.popupInstance!, true);
       const popupInstanceTmp = this.createPopup();
-      this.MapService.addPopupToMap(popupInstanceTmp, newlngLat, this.popupInstance!.isOpen());
+      this.MapService.addPopupToMap(
+        popupInstanceTmp,
+        newlngLat,
+        this.popupInstance!.isOpen()
+      );
       this.popupInstance = popupInstanceTmp;
     }
     if (changes.marker && !changes.marker.isFirstChange()) {
@@ -74,7 +95,10 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
         this.MapService.removePopupFromMarker(previousMarker.markerInstance);
       }
       if (this.marker && this.marker.markerInstance && this.popupInstance) {
-        this.MapService.addPopupToMarker(this.marker.markerInstance, this.popupInstance);
+        this.MapService.addPopupToMarker(
+          this.marker.markerInstance,
+          this.popupInstance
+        );
       }
     }
   }
@@ -122,12 +146,16 @@ export class PopupComponent implements OnChanges, OnDestroy, AfterViewInit, OnIn
       if (this.lngLat || this.feature) {
         this.MapService.addPopupToMap(
           popup,
-          this.lngLat ? this.lngLat : <[number, number]>this.feature!.geometry!.coordinates!
+          this.lngLat
+            ? this.lngLat
+            : <[number, number]>this.feature!.geometry!.coordinates!
         );
       } else if (this.marker && this.marker.markerInstance) {
         this.MapService.addPopupToMarker(this.marker.markerInstance, popup);
       } else {
-        throw new Error('mgl-popup need either lngLat/marker/feature to be set');
+        throw new Error(
+          'mgl-popup need either lngLat/marker/feature to be set'
+        );
       }
     });
   }

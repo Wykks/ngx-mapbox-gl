@@ -78,21 +78,57 @@ describe('MapService', () => {
       mapTouchMove: new EventEmitter<MapTouchEvent & EventData>(),
       mapTouchCancel: new EventEmitter<MapTouchEvent & EventData>(),
       mapWheel: new EventEmitter<MapWheelEvent & EventData>(),
-      moveStart: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>(),
-      move: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>(),
-      moveEnd: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>(),
-      mapDragStart: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
-      mapDrag: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
-      mapDragEnd: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
-      zoomStart: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>(),
-      zoomEvt: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>(),
-      zoomEnd: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>(),
-      rotateStart: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
-      rotate: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
-      rotateEnd: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
-      pitchStart: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
-      pitchEvt: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
-      pitchEnd: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
+      moveStart: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
+          EventData
+      >(),
+      move: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
+          EventData
+      >(),
+      moveEnd: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
+          EventData
+      >(),
+      mapDragStart: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+      >(),
+      mapDrag: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+      >(),
+      mapDragEnd: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+      >(),
+      zoomStart: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
+          EventData
+      >(),
+      zoomEvt: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
+          EventData
+      >(),
+      zoomEnd: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
+          EventData
+      >(),
+      rotateStart: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+      >(),
+      rotate: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+      >(),
+      rotateEnd: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+      >(),
+      pitchStart: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+      >(),
+      pitchEvt: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+      >(),
+      pitchEnd: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+      >(),
       boxZoomStart: new EventEmitter<MapBoxZoomEvent & EventData>(),
       boxZoomEnd: new EventEmitter<MapBoxZoomEvent & EventData>(),
       boxZoomCancel: new EventEmitter<MapBoxZoomEvent & EventData>(),
@@ -125,9 +161,15 @@ describe('MapService', () => {
       touchMove: new EventEmitter<MapTouchEvent & EventData>(),
       touchCancel: new EventEmitter<MapTouchEvent & EventData>(),
       wheel: new EventEmitter<MapWheelEvent & EventData>(),
-      dragStart: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
-      drag: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
-      dragEnd: new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>(),
+      dragStart: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+      >(),
+      drag: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+      >(),
+      dragEnd: new EventEmitter<
+        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+      >(),
       load: new EventEmitter<Map>(),
       error: new EventEmitter<ErrorEvent & EventData>(),
     };

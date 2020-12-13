@@ -12,7 +12,10 @@ import { MapMouseEvent, Map } from 'mapbox-gl';
       (mapLoad)="map = $event"
     >
       <mgl-geojson-source id="symbols-source">
-        <mgl-feature *ngFor="let geometry of geometries" [geometry]="geometry"></mgl-feature>
+        <mgl-feature
+          *ngFor="let geometry of geometries"
+          [geometry]="geometry"
+        ></mgl-feature>
       </mgl-geojson-source>
       <mgl-layer
         id="symbols"

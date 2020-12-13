@@ -52,7 +52,10 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
         switchMap(() =>
           fromEvent(<any>this.MapService.mapInstance, 'styledata').pipe(
             startWith(undefined),
-            filter(() => !this.isAdding && !this.MapService.mapInstance.hasImage(this.id))
+            filter(
+              () =>
+                !this.isAdding && !this.MapService.mapInstance.hasImage(this.id)
+            )
           )
         )
       )

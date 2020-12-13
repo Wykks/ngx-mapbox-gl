@@ -15,7 +15,8 @@ export const APP_ROUTES: Routes = [
       ...HOME_ROUTES,
       {
         path: 'doc',
-        loadChildren: () => import('../doc/doc.module').then((m) => m.DocModule),
+        loadChildren: () =>
+          import('../doc/doc.module').then((m) => m.DocModule),
       },
     ],
   },

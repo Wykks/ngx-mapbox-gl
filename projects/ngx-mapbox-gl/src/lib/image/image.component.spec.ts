@@ -41,13 +41,21 @@ describe('ImageComponent', () => {
 
   describe('Init/Destroy tests', () => {
     it('should init with custom inputs', () => {
-      component.data = { width: 500, height: 500, data: new Uint8Array([5, 5]) };
+      component.data = {
+        width: 500,
+        height: 500,
+        data: new Uint8Array([5, 5]),
+      };
       fixture.detectChanges();
       expect(msSpy.addImage).toHaveBeenCalled();
     });
 
     it('should remove image on destroy', () => {
-      component.data = { width: 500, height: 500, data: new Uint8Array([5, 5]) };
+      component.data = {
+        width: 500,
+        height: 500,
+        data: new Uint8Array([5, 5]),
+      };
       fixture.detectChanges();
       component.ngOnDestroy();
       expect(msSpy.removeImage).toHaveBeenCalledWith(component.id);
@@ -62,7 +70,11 @@ describe('ImageComponent', () => {
   describe('Change tests', () => {
     it('should update image', () => {
       component.id = 'layerId';
-      component.data = { width: 500, height: 500, data: new Uint8Array([5, 5]) };
+      component.data = {
+        width: 500,
+        height: 500,
+        data: new Uint8Array([5, 5]),
+      };
       fixture.detectChanges();
       component.ngOnChanges({
         data: new SimpleChange(null, component.data, false),

@@ -1,6 +1,9 @@
 import { Project } from '@stackblitz/sdk/typings/interfaces';
 
-export function createStackblitzProject(projectbase: string[], demoFiles: Record<string, string>): Project {
+export function createStackblitzProject(
+  projectbase: string[],
+  demoFiles: Record<string, string>
+): Project {
   return {
     files: {
       'src/main.ts': projectbase[0],

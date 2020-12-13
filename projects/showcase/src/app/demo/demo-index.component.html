@@ -4,15 +4,37 @@
   </button>
 </showcase-layout-toolbar-menu>
 <showcase-layout-toolbar-menu position="right">
-  <mat-slide-toggle color="accent" [(ngModel)]="isEditMode" (change)="toggleEdit($event)">
+  <mat-slide-toggle
+    color="accent"
+    [(ngModel)]="isEditMode"
+    (change)="toggleEdit($event)"
+  >
     Edit!
   </mat-slide-toggle>
 </showcase-layout-toolbar-menu>
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" [opened]="sidenavIsOpen" (openedChange)="onSidenavChange()">
+  <mat-sidenav
+    #sidenav
+    mode="side"
+    [opened]="sidenavIsOpen"
+    (openedChange)="onSidenavChange()"
+  >
     <mat-form-field class="search">
-      <input matInput type="text" placeholder="Search" [(ngModel)]="searchTerm" (ngModelChange)="search()" />
-      <button mat-button *ngIf="searchTerm" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+      <input
+        matInput
+        type="text"
+        placeholder="Search"
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="search()"
+      />
+      <button
+        mat-button
+        *ngIf="searchTerm"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="clearSearch()"
+      >
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
@@ -25,7 +47,9 @@
             mat-list-item
             [routerLink]="'/demo/' + (isEditMode ? '/edit/' : '') + route.path"
             routerLinkActive="active"
-            [routerLinkActiveOptions]="{ _routerLinkActiveWakeUpHack_: isEditMode }"
+            [routerLinkActiveOptions]="{
+              _routerLinkActiveWakeUpHack_: isEditMode
+            }"
             #exampleLink
           >
             {{ route.data.label }}

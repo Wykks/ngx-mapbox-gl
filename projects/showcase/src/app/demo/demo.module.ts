@@ -23,7 +23,10 @@ import { AddImageMissingGeneratedComponent } from './examples/add-image-missing-
 import { AddImageComponent } from './examples/add-image.component';
 import { AttributionPositionComponent } from './examples/attribution-position.component';
 import { CenterOnSymbolComponent } from './examples/center-on-symbol.component';
-import { ClusterHtmlComponent, ClusterPointComponent } from './examples/cluster-html.component';
+import {
+  ClusterHtmlComponent,
+  ClusterPointComponent,
+} from './examples/cluster-html.component';
 import { ClusterComponent } from './examples/cluster.component';
 import { CustomAttributionComponent } from './examples/custom-attribution.component';
 import { CustomLocaleComponent } from './examples/custom-locale.component';
@@ -43,7 +46,10 @@ import { LocateUserComponent } from './examples/locate-user.component';
 import { MapboxGlGeocoderComponent } from './examples/mapbox-gl-geocoder.component';
 import { MarkerAlignmentComponent } from './examples/marker-alignment.component';
 import { NavigationComponent } from './examples/navigation.component';
-import { ClusterPopupComponent, NgxClusterHtmlComponent } from './examples/ngx-cluster-html.component';
+import {
+  ClusterPopupComponent,
+  NgxClusterHtmlComponent,
+} from './examples/ngx-cluster-html.component';
 import { NgxCustomControlComponent } from './examples/ngx-custom-control.component';
 import { NgxCustomMarkerIconsComponent } from './examples/ngx-custom-marker-icons.component';
 import { NgxDragAPointComponent } from './examples/ngx-drag-a-point.component';

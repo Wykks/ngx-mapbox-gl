@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { CanvasSource, CanvasSourceOptions, CanvasSourceRaw } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -9,7 +17,8 @@ import { MapService } from '../map/map.service';
   template: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, CanvasSourceOptions {
+export class CanvasSourceComponent
+  implements OnInit, OnDestroy, OnChanges, CanvasSourceOptions {
   /* Init inputs */
   @Input() id: string;
 
@@ -40,7 +49,10 @@ export class CanvasSourceComponent implements OnInit, OnDestroy, OnChanges, Canv
     if (!this.sourceAdded) {
       return;
     }
-    if ((changes.canvas && !changes.canvas.isFirstChange()) || (changes.animate && !changes.animate.isFirstChange())) {
+    if (
+      (changes.canvas && !changes.canvas.isFirstChange()) ||
+      (changes.animate && !changes.animate.isFirstChange())
+    ) {
       this.ngOnDestroy();
       this.ngOnInit();
     } else if (changes.coordinates && !changes.coordinates.isFirstChange()) {

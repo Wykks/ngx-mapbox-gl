@@ -65,7 +65,8 @@ export class MapComponent
   @Input() fadeDuration?: MapboxOptions['fadeDuration'];
   @Input() hash?: MapboxOptions['hash'];
   @Input() refreshExpiredTiles?: MapboxOptions['refreshExpiredTiles'];
-  @Input() failIfMajorPerformanceCaveat?: MapboxOptions['failIfMajorPerformanceCaveat'];
+  @Input()
+  failIfMajorPerformanceCaveat?: MapboxOptions['failIfMajorPerformanceCaveat'];
   @Input() bearingSnap?: MapboxOptions['bearingSnap'];
   @Input() interactive?: MapboxOptions['interactive'];
   @Input() pitchWithRotate?: MapboxOptions['pitchWithRotate'];
@@ -128,26 +129,58 @@ export class MapComponent
   @Output() mapTouchMove = new EventEmitter<MapTouchEvent & EventData>();
   @Output() mapTouchCancel = new EventEmitter<MapTouchEvent & EventData>();
   @Output() mapWheel = new EventEmitter<MapWheelEvent & EventData>();
-  @Output() moveStart = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>();
-  @Output() move = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>();
-  @Output() moveEnd = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>();
-  @Output() mapDragStart = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
-  @Output() mapDrag = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
-  @Output() mapDragEnd = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
-  @Output() zoomStart = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>();
-  @Output() zoomEvt = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>();
-  @Output() zoomEnd = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData>();
-  @Output() rotateStart = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
-  @Output() rotate = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
-  @Output() rotateEnd = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
-  @Output() pitchStart = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
-  @Output() pitchEvt = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
-  @Output() pitchEnd = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
+  @Output() moveStart = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
+  >();
+  @Output() move = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
+  >();
+  @Output() moveEnd = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
+  >();
+  @Output() mapDragStart = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+  >();
+  @Output() mapDrag = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+  >();
+  @Output() mapDragEnd = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+  >();
+  @Output() zoomStart = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
+  >();
+  @Output() zoomEvt = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
+  >();
+  @Output() zoomEnd = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
+  >();
+  @Output() rotateStart = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+  >();
+  @Output() rotate = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+  >();
+  @Output() rotateEnd = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+  >();
+  @Output() pitchStart = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+  >();
+  @Output() pitchEvt = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+  >();
+  @Output() pitchEnd = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+  >();
   @Output() boxZoomStart = new EventEmitter<MapBoxZoomEvent & EventData>();
   @Output() boxZoomEnd = new EventEmitter<MapBoxZoomEvent & EventData>();
   @Output() boxZoomCancel = new EventEmitter<MapBoxZoomEvent & EventData>();
   @Output() webGlContextLost = new EventEmitter<MapContextEvent & EventData>();
-  @Output() webGlContextRestored = new EventEmitter<MapContextEvent & EventData>();
+  @Output() webGlContextRestored = new EventEmitter<
+    MapContextEvent & EventData
+  >();
   @Output() mapLoad = new EventEmitter<Map>();
   @Output() idle = new EventEmitter<MapboxEvent & EventData>();
   @Output() render = new EventEmitter<MapboxEvent & EventData>();
@@ -156,8 +189,12 @@ export class MapComponent
   @Output() styleData = new EventEmitter<MapStyleDataEvent & EventData>();
   @Output() sourceData = new EventEmitter<MapSourceDataEvent & EventData>();
   @Output() dataLoading = new EventEmitter<MapDataEvent & EventData>();
-  @Output() styleDataLoading = new EventEmitter<MapStyleDataEvent & EventData>();
-  @Output() sourceDataLoading = new EventEmitter<MapSourceDataEvent & EventData>();
+  @Output() styleDataLoading = new EventEmitter<
+    MapStyleDataEvent & EventData
+  >();
+  @Output() sourceDataLoading = new EventEmitter<
+    MapSourceDataEvent & EventData
+  >();
   @Output() styleImageMissing = new EventEmitter<{ id: string } & EventData>();
 
   /**
@@ -223,15 +260,21 @@ export class MapComponent
   /**
    * @deprecated Use mapDragStart instead
    */
-  @Output() dragStart = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
+  @Output() dragStart = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+  >();
   /**
    * @deprecated Use mapDrag instead
    */
-  @Output() drag = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
+  @Output() drag = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+  >();
   /**
    * @deprecated Use mapDragEnd instead
    */
-  @Output() dragEnd = new EventEmitter<MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData>();
+  @Output() dragEnd = new EventEmitter<
+    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+  >();
   /**
    * @deprecated Use mapLoad instead
    */
@@ -325,8 +368,13 @@ export class MapComponent
     if (changes.maxPitch && !changes.maxPitch.isFirstChange()) {
       this.MapService.updateMaxPitch(changes.maxPitch.currentValue);
     }
-    if (changes.renderWorldCopies && !changes.renderWorldCopies.isFirstChange()) {
-      this.MapService.updateRenderWorldCopies(changes.renderWorldCopies.currentValue);
+    if (
+      changes.renderWorldCopies &&
+      !changes.renderWorldCopies.isFirstChange()
+    ) {
+      this.MapService.updateRenderWorldCopies(
+        changes.renderWorldCopies.currentValue
+      );
     }
     if (changes.scrollZoom && !changes.scrollZoom.isFirstChange()) {
       this.MapService.updateScrollZoom(changes.scrollZoom.currentValue);
@@ -338,10 +386,14 @@ export class MapComponent
       this.MapService.updateTouchPitch(changes.touchPitch.currentValue);
     }
     if (changes.touchZoomRotate && !changes.touchZoomRotate.isFirstChange()) {
-      this.MapService.updateTouchZoomRotate(changes.touchZoomRotate.currentValue);
+      this.MapService.updateTouchZoomRotate(
+        changes.touchZoomRotate.currentValue
+      );
     }
     if (changes.doubleClickZoom && !changes.doubleClickZoom.isFirstChange()) {
-      this.MapService.updateDoubleClickZoom(changes.doubleClickZoom.currentValue);
+      this.MapService.updateDoubleClickZoom(
+        changes.doubleClickZoom.currentValue
+      );
     }
     if (changes.keyboard && !changes.keyboard.isFirstChange()) {
       this.MapService.updateKeyboard(changes.keyboard.currentValue);
@@ -358,11 +410,24 @@ export class MapComponent
     if (changes.maxBounds && !changes.maxBounds.isFirstChange()) {
       this.MapService.updateMaxBounds(changes.maxBounds.currentValue);
     }
-    if (changes.fitBounds && changes.fitBounds.currentValue && !changes.fitBounds.isFirstChange()) {
-      this.MapService.fitBounds(changes.fitBounds.currentValue, this.fitBoundsOptions);
+    if (
+      changes.fitBounds &&
+      changes.fitBounds.currentValue &&
+      !changes.fitBounds.isFirstChange()
+    ) {
+      this.MapService.fitBounds(
+        changes.fitBounds.currentValue,
+        this.fitBoundsOptions
+      );
     }
-    if (changes.fitScreenCoordinates && changes.fitScreenCoordinates.currentValue) {
-      if ((this.center || this.zoom || this.pitch || this.fitBounds) && changes.fitScreenCoordinates.isFirstChange()) {
+    if (
+      changes.fitScreenCoordinates &&
+      changes.fitScreenCoordinates.currentValue
+    ) {
+      if (
+        (this.center || this.zoom || this.pitch || this.fitBounds) &&
+        changes.fitScreenCoordinates.isFirstChange()
+      ) {
         console.warn(
           '[ngx-mapbox-gl] center / zoom / pitch / fitBounds inputs are being overridden by fitScreenCoordinates input'
         );
@@ -385,7 +450,9 @@ export class MapComponent
     } else if (
       (changes.center && !changes.center.isFirstChange()) ||
       (changes.zoom && !changes.zoom.isFirstChange()) ||
-      (changes.bearing && !changes.bearing.isFirstChange() && !changes.fitScreenCoordinates) ||
+      (changes.bearing &&
+        !changes.bearing.isFirstChange() &&
+        !changes.fitScreenCoordinates) ||
       (changes.pitch && !changes.pitch.isFirstChange())
     ) {
       this.MapService.move(

@@ -6,7 +6,10 @@ export const VERSIONS = ['master'];
   template: `
     <showcase-layout-toolbar-menu position="right">
       <mat-form-field>
-        <mat-select [(ngModel)]="currentVersion" (ngModelChange)="updateDocUrl()">
+        <mat-select
+          [(ngModel)]="currentVersion"
+          (ngModelChange)="updateDocUrl()"
+        >
           <mat-option *ngFor="let version of VERSIONS" [value]="version">
             {{ version }}
           </mat-option>

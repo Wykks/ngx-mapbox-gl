@@ -46,7 +46,9 @@ describe('LayerComponent', () => {
       component.paint = { 'background-color': 'green' };
       msSpy.addLayer.and.callFake((options: SetupLayer) => {
         expect(options.layerOptions.id).toEqual(component.id);
-        expect((<BackgroundPaint>options.layerOptions.paint)['background-color']).toEqual('green');
+        expect(
+          (<BackgroundPaint>options.layerOptions.paint)['background-color']
+        ).toEqual('green');
         done();
       });
       fixture.detectChanges();
@@ -76,7 +78,10 @@ describe('LayerComponent', () => {
       component.ngOnChanges({
         paint: new SimpleChange(null, component.paint, false),
       });
-      expect(msSpy.setAllLayerPaintProperty).toHaveBeenCalledWith(component.id, component.paint);
+      expect(msSpy.setAllLayerPaintProperty).toHaveBeenCalledWith(
+        component.id,
+        component.paint
+      );
     });
   });
 });

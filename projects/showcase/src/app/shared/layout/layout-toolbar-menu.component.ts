@@ -32,7 +32,11 @@ export class LayoutToolbarMenuComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.portalOutlet = new DomPortalOutlet(
-      document.querySelector(this.position === 'left' ? '#layout-left-custom-items' : '#layout-right-custom-items')!,
+      document.querySelector(
+        this.position === 'left'
+          ? '#layout-left-custom-items'
+          : '#layout-right-custom-items'
+      )!,
       this.componentFactoryResolver,
       this.appRef,
       this.injector

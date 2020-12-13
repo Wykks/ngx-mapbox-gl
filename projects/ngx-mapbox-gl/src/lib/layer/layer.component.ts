@@ -1,5 +1,19 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
-import { EventData, Layer, MapLayerMouseEvent, MapLayerTouchEvent } from 'mapbox-gl';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  EventData,
+  Layer,
+  MapLayerMouseEvent,
+  MapLayerTouchEvent,
+} from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter, mapTo, startWith, switchMap } from 'rxjs/operators';
 import { MapService, SetupLayer } from '../map/map.service';
@@ -10,7 +24,8 @@ import { deprecationWarning } from '../utils';
   selector: 'mgl-layer',
   template: '',
 })
-export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer, LayerEvents {
+export class LayerComponent
+  implements OnInit, OnDestroy, OnChanges, Layer, LayerEvents {
   /* Init inputs */
   @Input() id: Layer['id'];
   @Input() source?: Layer['source'];
@@ -30,15 +45,25 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer, Laye
   @Output() layerDblClick = new EventEmitter<MapLayerMouseEvent & EventData>();
   @Output() layerMouseDown = new EventEmitter<MapLayerMouseEvent & EventData>();
   @Output() layerMouseUp = new EventEmitter<MapLayerMouseEvent & EventData>();
-  @Output() layerMouseEnter = new EventEmitter<MapLayerMouseEvent & EventData>();
-  @Output() layerMouseLeave = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() layerMouseEnter = new EventEmitter<
+    MapLayerMouseEvent & EventData
+  >();
+  @Output() layerMouseLeave = new EventEmitter<
+    MapLayerMouseEvent & EventData
+  >();
   @Output() layerMouseMove = new EventEmitter<MapLayerMouseEvent & EventData>();
   @Output() layerMouseOver = new EventEmitter<MapLayerMouseEvent & EventData>();
   @Output() layerMouseOut = new EventEmitter<MapLayerMouseEvent & EventData>();
-  @Output() layerContextMenu = new EventEmitter<MapLayerMouseEvent & EventData>();
-  @Output() layerTouchStart = new EventEmitter<MapLayerTouchEvent & EventData>();
+  @Output() layerContextMenu = new EventEmitter<
+    MapLayerMouseEvent & EventData
+  >();
+  @Output() layerTouchStart = new EventEmitter<
+    MapLayerTouchEvent & EventData
+  >();
   @Output() layerTouchEnd = new EventEmitter<MapLayerTouchEvent & EventData>();
-  @Output() layerTouchCancel = new EventEmitter<MapLayerTouchEvent & EventData>();
+  @Output() layerTouchCancel = new EventEmitter<
+    MapLayerTouchEvent & EventData
+  >();
   /**
    * @deprecated Use layerClick instead
    */
@@ -117,10 +142,16 @@ export class LayerComponent implements OnInit, OnDestroy, OnChanges, Layer, Laye
       return;
     }
     if (changes.paint && !changes.paint.isFirstChange()) {
-      this.MapService.setAllLayerPaintProperty(this.id, changes.paint.currentValue!);
+      this.MapService.setAllLayerPaintProperty(
+        this.id,
+        changes.paint.currentValue!
+      );
     }
     if (changes.layout && !changes.layout.isFirstChange()) {
-      this.MapService.setAllLayerLayoutProperty(this.id, changes.layout.currentValue!);
+      this.MapService.setAllLayerLayoutProperty(
+        this.id,
+        changes.layout.currentValue!
+      );
     }
     if (changes.filter && !changes.filter.isFirstChange()) {
       this.MapService.setLayerFilter(this.id, changes.filter.currentValue!);

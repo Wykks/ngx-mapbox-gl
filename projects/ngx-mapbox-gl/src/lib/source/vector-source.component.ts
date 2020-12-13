@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { VectorSource, VectorSourceImpl } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -9,7 +17,8 @@ import { MapService } from '../map/map.service';
   template: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, VectorSource {
+export class VectorSourceComponent
+  implements OnInit, OnDestroy, OnChanges, VectorSource {
   /* Init inputs */
   @Input() id: string;
 
@@ -58,7 +67,10 @@ export class VectorSourceComponent implements OnInit, OnDestroy, OnChanges, Vect
     ) {
       this.ngOnDestroy();
       this.ngOnInit();
-    } else if ((changes.url && !changes.url.isFirstChange()) || (changes.tiles && !changes.tiles.isFirstChange())) {
+    } else if (
+      (changes.url && !changes.url.isFirstChange()) ||
+      (changes.tiles && !changes.tiles.isFirstChange())
+    ) {
       const source = this.MapService.getSource<VectorSourceImpl>(this.id);
 
       if (changes.url && this.url) {

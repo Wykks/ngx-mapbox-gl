@@ -24,7 +24,9 @@ export class DemoFileLoaderService {
         responseType: 'text',
       })
       .pipe(
-        switchMap((fileContent) => this.loadAdditionnalFilesIfNecessary(fileContent)),
+        switchMap((fileContent) =>
+          this.loadAdditionnalFilesIfNecessary(fileContent)
+        ),
         shareReplay(1)
       );
     this.fileCache.set(exampleName, req$);

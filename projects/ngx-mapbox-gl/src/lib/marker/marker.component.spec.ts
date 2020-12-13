@@ -64,7 +64,9 @@ describe('MarkerComponent', () => {
     it('should apply classes', () => {
       component.className = 'my-class1 my-class2';
       fixture.detectChanges();
-      const classes = (fixture.nativeElement as HTMLElement).querySelector('mgl-marker > div')!.classList;
+      const classes = (fixture.nativeElement as HTMLElement).querySelector(
+        'mgl-marker > div'
+      )!.classList;
       expect(classes).toContain('my-class1');
       expect(classes).toContain('my-class2');
     });

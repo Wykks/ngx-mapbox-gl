@@ -4,8 +4,16 @@ import { Marker } from 'mapbox-gl';
 @Component({
   selector: 'showcase-demo',
   template: `
-    <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[2]" [center]="[0, 0]">
-      <mgl-marker [lngLat]="[0, 0]" [draggable]="true" (markerDragEnd)="onDragEnd($event)"></mgl-marker>
+    <mgl-map
+      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [zoom]="[2]"
+      [center]="[0, 0]"
+    >
+      <mgl-marker
+        [lngLat]="[0, 0]"
+        [draggable]="true"
+        (markerDragEnd)="onDragEnd($event)"
+      ></mgl-marker>
       <mgl-control *ngIf="coordinates" position="bottom-left">
         <mat-card>
           <div>Longitude:&nbsp;{{ coordinates[0] }}</div>

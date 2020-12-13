@@ -19,12 +19,16 @@ describe('Popup', () => {
 
     const popup = element(by.className('mapboxgl-popup'));
     await browser.wait(EC.presenceOf(popup), 1000);
-    const popupClasses = popup.getAttribute('class').then((c) => c.split(' ').filter((c) => c.length > 0));
+    const popupClasses = popup
+      .getAttribute('class')
+      .then((c) => c.split(' ').filter((c) => c.length > 0));
     expect(popupClasses).toContain('custom-popup-class1');
     expect(popupClasses).toContain('custom-popup-class2');
 
     const popupContent = element(by.className('mapboxgl-popup-content'));
     await browser.wait(EC.presenceOf(popupContent), 1000);
-    expect(popupContent.element(by.tagName('div')).getText()).toBe('Hello world !');
+    expect(popupContent.element(by.tagName('div')).getText()).toBe(
+      'Hello world !'
+    );
   });
 });

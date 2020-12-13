@@ -181,7 +181,10 @@ Dynamic:
 ...
 <mgl-map ...>
   <mgl-geojson-source id="symbols-source">
-    <mgl-feature *ngFor="let geometry of geometries" [geometry]="geometry"></mgl-feature>
+    <mgl-feature
+      *ngFor="let geometry of geometries"
+      [geometry]="geometry"
+    ></mgl-feature>
   </mgl-geojson-source>
   ...
   <mgl-geojson-source
@@ -344,9 +347,7 @@ Dynamic:
 ```html
 ...
 <mgl-map ...>
-  <mgl-control>
-    Hello
-  </mgl-control>
+  <mgl-control> Hello </mgl-control>
   ...
   <mgl-control mglNavigation></mgl-control>
   ...
@@ -381,9 +382,7 @@ Init only:
 ...
 <mgl-map ...>
   <mgl-marker [lngLat]="[-66.324462890625, -16.024695711685304]">
-    <div (click)="alert('Foo')" class="marker">
-      Hello
-    </div>
+    <div (click)="alert('Foo')" class="marker">Hello</div>
   </mgl-marker>
 </mgl-map>
 ```
@@ -424,12 +423,8 @@ Dynamic:
     <h1>Hello world !</h1>
   </mgl-popup>
   ...
-  <mgl-marker #myMarker ...>
-    ...
-  </mgl-marker>
-  <mgl-popup [marker]="myMarker">
-    Hello from marker !
-  </mgl-popup>
+  <mgl-marker #myMarker ...> ... </mgl-marker>
+  <mgl-popup [marker]="myMarker"> Hello from marker ! </mgl-popup>
 </mgl-map>
 ```
 
@@ -463,11 +458,10 @@ Requires a geojson source that is clustered - see above.
 ...
 <mgl-map ...>
   <mgl-markers-for-cluster [source]="myGeoJsonclusteredSource">
-    <ng-template mglPoint let-feature>
-      Marker!
-    </ng-template>
+    <ng-template mglPoint let-feature> Marker! </ng-template>
     <ng-template mglClusterPoint let-feature>
-      ClusterId: {{feature.properties?.cluster_id}}, Points: {{feature.properties?.point_count}}
+      ClusterId: {{feature.properties?.cluster_id}}, Points:
+      {{feature.properties?.point_count}}
     </ng-template>
   </mgl-markers-for-cluster>
 </mgl-map>

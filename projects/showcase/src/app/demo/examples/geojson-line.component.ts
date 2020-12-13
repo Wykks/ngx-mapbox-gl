@@ -3,7 +3,11 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'showcase-demo',
   template: `
-    <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[15]" [center]="[-122.486052, 37.830348]">
+    <mgl-map
+      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [zoom]="[15]"
+      [center]="[-122.486052, 37.830348]"
+    >
       <mgl-layer
         id="route"
         type="line"

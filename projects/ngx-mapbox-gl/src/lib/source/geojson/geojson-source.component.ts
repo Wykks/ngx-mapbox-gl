@@ -8,7 +8,11 @@ import {
   SimpleChanges,
   NgZone,
 } from '@angular/core';
-import { GeoJSONSource, GeoJSONSourceOptions, GeoJSONSourceRaw } from 'mapbox-gl';
+import {
+  GeoJSONSource,
+  GeoJSONSourceOptions,
+  GeoJSONSourceRaw,
+} from 'mapbox-gl';
 import { fromEvent, Subject, Subscription } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
 import { MapService } from '../../map/map.service';
@@ -18,7 +22,8 @@ import { MapService } from '../../map/map.service';
   template: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, GeoJSONSourceOptions {
+export class GeoJSONSourceComponent
+  implements OnInit, OnDestroy, OnChanges, GeoJSONSourceOptions {
   /* Init inputs */
   @Input() id: string;
 
@@ -78,7 +83,8 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
       (changes.clusterRadius && !changes.clusterRadius.isFirstChange()) ||
       (changes.clusterMaxZoom && !changes.clusterMaxZoom.isFirstChange()) ||
       (changes.clusterMinPoints && !changes.clusterMinPoints.isFirstChange()) ||
-      (changes.clusterProperties && !changes.clusterProperties.isFirstChange()) ||
+      (changes.clusterProperties &&
+        !changes.clusterProperties.isFirstChange()) ||
       (changes.lineMetrics && !changes.lineMetrics.isFirstChange()) ||
       (changes.generateId && !changes.generateId.isFirstChange()) ||
       (changes.promoteId && !changes.promoteId.isFirstChange()) ||
@@ -127,15 +133,17 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
   async getClusterChildren(clusterId: number) {
     const source = this.MapService.getSource<GeoJSONSource>(this.id);
     return this.zone.run(async () => {
-      return new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>((resolve, reject) => {
-        source.getClusterChildren(clusterId, (error, features) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(features);
-          }
-        });
-      });
+      return new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>(
+        (resolve, reject) => {
+          source.getClusterChildren(clusterId, (error, features) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(features);
+            }
+          });
+        }
+      );
     });
   }
 
@@ -148,26 +156,37 @@ export class GeoJSONSourceComponent implements OnInit, OnDestroy, OnChanges, Geo
   async getClusterLeaves(clusterId: number, limit: number, offset: number) {
     const source = this.MapService.getSource<GeoJSONSource>(this.id);
     return this.zone.run(async () => {
-      return new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>((resolve, reject) => {
-        source.getClusterLeaves(clusterId, limit, offset, (error, features) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(features);
-          }
-        });
-      });
+      return new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>(
+        (resolve, reject) => {
+          source.getClusterLeaves(
+            clusterId,
+            limit,
+            offset,
+            (error, features) => {
+              if (error) {
+                reject(error);
+              } else {
+                resolve(features);
+              }
+            }
+          );
+        }
+      );
     });
   }
 
   _addFeature(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
-    const collection = <GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>this.data;
+    const collection = <GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>(
+      this.data
+    );
     collection.features.push(feature);
     this.updateFeatureData.next();
   }
 
   _removeFeature(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
-    const collection = <GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>this.data;
+    const collection = <GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>(
+      this.data
+    );
     const index = collection.features.indexOf(feature);
     if (index > -1) {
       collection.features.splice(index, 1);

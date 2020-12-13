@@ -84,7 +84,12 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
           this.loading = true;
           this.ChangeDetectorRef.markForCheck();
         }),
-        switchMap((params) => forkJoin([this.projectbase$, this.demoFileLoaderService.getDemoFiles(params.demoUrl)])),
+        switchMap((params) =>
+          forkJoin([
+            this.projectbase$,
+            this.demoFileLoaderService.getDemoFiles(params.demoUrl),
+          ])
+        ),
         switchMap(([projectbase, demoFiles]) =>
           from(this.openExample(projectbase, demoFiles)).pipe(
             finalize(() => {
@@ -97,7 +102,10 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
       .subscribe();
   }
 
-  private async openExample(projectbase: string[], demoFiles: Record<string, string>) {
+  private async openExample(
+    projectbase: string[],
+    demoFiles: Record<string, string>
+  ) {
     if (this.vm) {
       await this.vm.applyFsDiff({
         create: demoFiles,
@@ -107,12 +115,16 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
     }
     const project = createStackblitzProject(projectbase, demoFiles);
     await this.zone.runOutsideAngular(async () => {
-      this.vm = await StackBlitzSDK.embedProject(this.stackblitzContainer.nativeElement, project, {
-        hideExplorer: true,
-        hideNavigation: true,
-        forceEmbedLayout: true,
-        openFile: 'src/demo.ts',
-      });
+      this.vm = await StackBlitzSDK.embedProject(
+        this.stackblitzContainer.nativeElement,
+        project,
+        {
+          hideExplorer: true,
+          hideNavigation: true,
+          forceEmbedLayout: true,
+          openFile: 'src/demo.ts',
+        }
+      );
     });
   }
 }

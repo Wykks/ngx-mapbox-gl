@@ -105,7 +105,14 @@ Display a map:
 import { Component } from '@angular/core';
 
 @Component({
-  template: ` <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="[-74.5, 40]"> </mgl-map> `,
+  template: `
+    <mgl-map
+      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [zoom]="[9]"
+      [center]="[-74.5, 40]"
+    >
+    </mgl-map>
+  `,
   styles: [
     `
       mgl-map {
@@ -167,7 +174,9 @@ export interface IMyLibMapModuleConfig {
   imports: [CommonModule, NgxMapboxGLModule],
 })
 export class MyLibMapModule {
-  static forRoot(config: IMyLibMapModuleConfig): ModuleWithProviders<MyLibMapModule> {
+  static forRoot(
+    config: IMyLibMapModuleConfig
+  ): ModuleWithProviders<MyLibMapModule> {
     return {
       ngModule: MyLibMapModule,
       providers: [

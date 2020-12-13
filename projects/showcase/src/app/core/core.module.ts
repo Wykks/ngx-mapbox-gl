@@ -16,7 +16,8 @@ import { APP_ROUTES } from './routes';
 
     RouterModule.forRoot(APP_ROUTES),
     NgxMapboxGLModule.withConfig({
-      accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA',
+      accessToken:
+        'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA',
     }),
 
     LayoutModule,
@@ -26,11 +27,17 @@ import { APP_ROUTES } from './routes';
 })
 export class CoreModule {
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon('ngx-mapbox-gl', sanitizer.bypassSecurityTrustResourceUrl('assets/ngx-mapbox-gl.svg'));
+    iconRegistry.addSvgIcon(
+      'ngx-mapbox-gl',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/ngx-mapbox-gl.svg')
+    );
     iconRegistry.addSvgIcon(
       'ngx-mapbox-gl-red',
       sanitizer.bypassSecurityTrustResourceUrl('assets/ngx-mapbox-gl-red.svg')
     );
-    iconRegistry.addSvgIcon('github', sanitizer.bypassSecurityTrustResourceUrl('assets/github.svg'));
+    iconRegistry.addSvgIcon(
+      'github',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/github.svg')
+    );
   }
 }

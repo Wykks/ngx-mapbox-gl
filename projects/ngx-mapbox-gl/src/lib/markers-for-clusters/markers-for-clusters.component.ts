@@ -26,16 +26,27 @@ let uniqId = 0;
 @Component({
   selector: 'mgl-markers-for-clusters',
   template: `
-    <mgl-layer [id]="layerId" [source]="source" type="circle" [paint]="{ 'circle-radius': 0 }"></mgl-layer>
-    <ng-container *ngFor="let feature of clusterPoints; trackBy: trackByClusterPoint">
+    <mgl-layer
+      [id]="layerId"
+      [source]="source"
+      type="circle"
+      [paint]="{ 'circle-radius': 0 }"
+    ></mgl-layer>
+    <ng-container
+      *ngFor="let feature of clusterPoints; trackBy: trackByClusterPoint"
+    >
       <ng-container *ngIf="feature.properties.cluster">
         <mgl-marker [feature]="feature">
-          <ng-container *ngTemplateOutlet="clusterPointTpl; context: { $implicit: feature }"></ng-container>
+          <ng-container
+            *ngTemplateOutlet="clusterPointTpl; context: { $implicit: feature }"
+          ></ng-container>
         </mgl-marker>
       </ng-container>
       <ng-container *ngIf="!feature.properties.cluster">
         <mgl-marker [feature]="feature">
-          <ng-container *ngTemplateOutlet="pointTpl; context: { $implicit: feature }"></ng-container>
+          <ng-container
+            *ngTemplateOutlet="pointTpl; context: { $implicit: feature }"
+          ></ng-container>
         </mgl-marker>
       </ng-container>
     </ng-container>
@@ -43,23 +54,33 @@ let uniqId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
 })
-export class MarkersForClustersComponent implements OnDestroy, AfterContentInit {
+export class MarkersForClustersComponent
+  implements OnDestroy, AfterContentInit {
   /* Init input */
   @Input() source: string;
 
-  @ContentChild(PointDirective, { read: TemplateRef, static: false }) pointTpl?: TemplateRef<any>;
-  @ContentChild(ClusterPointDirective, { read: TemplateRef, static: false }) clusterPointTpl: TemplateRef<any>;
+  @ContentChild(PointDirective, { read: TemplateRef, static: false })
+  pointTpl?: TemplateRef<any>;
+  @ContentChild(ClusterPointDirective, { read: TemplateRef, static: false })
+  clusterPointTpl: TemplateRef<any>;
 
   clusterPoints: MapboxGeoJSONFeature[]; // Incorrect typings
   layerId = `mgl-markers-for-clusters-${uniqId++}`;
 
   private sub = new Subscription();
 
-  constructor(private MapService: MapService, private ChangeDetectorRef: ChangeDetectorRef, private zone: NgZone) {}
+  constructor(
+    private MapService: MapService,
+    private ChangeDetectorRef: ChangeDetectorRef,
+    private zone: NgZone
+  ) {}
 
   ngAfterContentInit() {
     const clusterDataUpdate = () =>
-      fromEvent<MapSourceDataEvent>(<any>this.MapService.mapInstance, 'data').pipe(
+      fromEvent<MapSourceDataEvent>(
+        <any>this.MapService.mapInstance,
+        'data'
+      ).pipe(
         filter(
           (e) =>
             e.sourceId === this.source &&
@@ -99,7 +120,9 @@ export class MarkersForClustersComponent implements OnDestroy, AfterContentInit 
     if (!this.pointTpl) {
       params.filter = ['==', 'cluster', true];
     }
-    this.clusterPoints = this.MapService.mapInstance.queryRenderedFeatures(params);
+    this.clusterPoints = this.MapService.mapInstance.queryRenderedFeatures(
+      params
+    );
     this.ChangeDetectorRef.markForCheck();
   }
 }

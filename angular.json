@@ -33,7 +33,10 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["projects/ngx-mapbox-gl/tsconfig.lib.json", "projects/ngx-mapbox-gl/tsconfig.spec.json"],
+            "tsConfig": [
+              "projects/ngx-mapbox-gl/tsconfig.lib.json",
+              "projects/ngx-mapbox-gl/tsconfig.spec.json"
+            ],
             "exclude": ["**/node_modules/**"],
             "format": "stylish"
           }
@@ -50,7 +53,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["@mapbox/mapbox-gl-geocoder", "@mapbox/mapbox-sdk", "suggestions"],
+            "allowedCommonJsDependencies": [
+              "@mapbox/mapbox-gl-geocoder",
+              "@mapbox/mapbox-sdk",
+              "suggestions"
+            ],
             "aot": true,
             "outputPath": "dist/showcase",
             "index": "projects/showcase/src/index.html",
@@ -119,13 +126,19 @@
             "karmaConfig": "projects/showcase/karma.conf.js",
             "styles": ["projects/showcase/src/styles.css"],
             "scripts": [],
-            "assets": ["projects/showcase/src/favicon.ico", "projects/showcase/src/assets"]
+            "assets": [
+              "projects/showcase/src/favicon.ico",
+              "projects/showcase/src/assets"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["projects/showcase/tsconfig.app.json", "projects/showcase/tsconfig.spec.json"],
+            "tsConfig": [
+              "projects/showcase/tsconfig.app.json",
+              "projects/showcase/tsconfig.spec.json"
+            ],
             "exclude": ["**/node_modules/**"],
             "format": "stylish"
           }

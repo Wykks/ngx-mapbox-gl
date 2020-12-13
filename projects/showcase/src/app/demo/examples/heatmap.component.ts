@@ -64,7 +64,11 @@ export class HeatMapComponent implements OnInit {
       filter:
         index === layersData.length - 1
           ? ['>=', 'point_count', data[0]]
-          : ['all', ['>=', 'point_count', data[0]], ['<', 'point_count', layersData[index + 1][0]]],
+          : [
+              'all',
+              ['>=', 'point_count', data[0]],
+              ['<', 'point_count', layersData[index + 1][0]],
+            ],
     }));
   }
 }

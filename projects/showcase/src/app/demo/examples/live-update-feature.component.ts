@@ -12,7 +12,8 @@ import { LngLatLike } from 'mapbox-gl';
       [pitch]="pitch"
       movingMethod="jumpTo"
     >
-      <mgl-geojson-source *ngIf="data" id="trace" [data]="data"> </mgl-geojson-source>
+      <mgl-geojson-source *ngIf="data" id="trace" [data]="data">
+      </mgl-geojson-source>
       <mgl-layer
         *ngIf="data"
         id="trace"
@@ -40,7 +41,9 @@ export class LiveUpdateFeatureComponent implements OnInit, OnDestroy {
   constructor() {}
 
   async ngOnInit() {
-    const data: GeoJSON.FeatureCollection<GeoJSON.LineString> = <any>await import('./hike.geo.json');
+    const data: GeoJSON.FeatureCollection<GeoJSON.LineString> = <any>(
+      await import('./hike.geo.json')
+    );
     const coordinates = data.features[0].geometry!.coordinates;
     data.features[0].geometry!.coordinates = [coordinates[0]];
     this.data = data;

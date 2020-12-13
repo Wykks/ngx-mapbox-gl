@@ -12,7 +12,14 @@ const PUBLIC_DECLARATIONS = [LayoutComponent, LayoutToolbarMenuComponent];
 
 @NgModule({
   declarations: PUBLIC_DECLARATIONS,
-  imports: [CommonModule, RouterModule, MatToolbarModule, MatIconModule, MatButtonModule, PortalModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    PortalModule,
+  ],
   exports: PUBLIC_DECLARATIONS,
   providers: [],
 })

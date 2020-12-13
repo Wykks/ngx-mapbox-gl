@@ -4,7 +4,10 @@ import { MapImageData } from 'ngx-mapbox-gl';
 @Component({
   selector: 'showcase-demo',
   template: `
-    <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" (styleImageMissing)="generateImage($event)">
+    <mgl-map
+      [style]="'mapbox://styles/mapbox/streets-v9'"
+      (styleImageMissing)="generateImage($event)"
+    >
       <mgl-image
         *ngFor="let imageData of imagesData; trackBy: trackByImage"
         [id]="imageData.id"

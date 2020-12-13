@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { RasterDemSource } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -9,7 +17,8 @@ import { MapService } from '../map/map.service';
   template: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RasterDemSourceComponent implements OnInit, OnDestroy, OnChanges, RasterDemSource {
+export class RasterDemSourceComponent
+  implements OnInit, OnDestroy, OnChanges, RasterDemSource {
   /* Init inputs */
   @Input() id: string;
 

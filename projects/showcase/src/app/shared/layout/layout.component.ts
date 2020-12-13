@@ -9,12 +9,8 @@ import { Component } from '@angular/core';
           <mat-icon svgIcon="ngx-mapbox-gl"></mat-icon>
           ngx-mapbox-gl
         </a>
-        <a mat-button routerLink="/demo">
-          Demo
-        </a>
-        <a mat-button routerLink="/doc">
-          Documentation
-        </a>
+        <a mat-button routerLink="/demo"> Demo </a>
+        <a mat-button routerLink="/doc"> Documentation </a>
       </div>
       <div>
         <div id="layout-right-custom-items"></div>
