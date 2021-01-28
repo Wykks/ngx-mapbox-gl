@@ -26,6 +26,6 @@
     "rxjs": "^6.5.0"
   },
   "dependencies": {
-    "@mapbox/mapbox-gl-geocoder": "^3.0.1"
+    "@mapbox/mapbox-gl-geocoder": "^4.0.0"
   }
 }
