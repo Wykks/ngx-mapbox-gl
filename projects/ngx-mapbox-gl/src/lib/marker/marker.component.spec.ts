@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { PointLike } from 'mapbox-gl';
 import { of } from 'rxjs';
 import { MapService } from '../map/map.service';
@@ -31,17 +31,19 @@ describe('MarkerComponent', () => {
   let component: MarkerTestComponent;
   let fixture: ComponentFixture<MarkerTestComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [MarkerTestComponent, MarkerComponent],
-    })
-      .overrideComponent(MarkerTestComponent, {
-        set: {
-          providers: [{ provide: MapService, useClass: MapServiceSpy }],
-        },
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [MarkerTestComponent, MarkerComponent],
       })
-      .compileComponents();
-  }));
+        .overrideComponent(MarkerTestComponent, {
+          set: {
+            providers: [{ provide: MapService, useClass: MapServiceSpy }],
+          },
+        })
+        .compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MarkerTestComponent);

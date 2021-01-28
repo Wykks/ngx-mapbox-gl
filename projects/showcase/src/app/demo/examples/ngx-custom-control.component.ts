@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Position } from '@angular/compiler';
 
 @Component({
   selector: 'showcase-demo',

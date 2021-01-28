@@ -9,6 +9,7 @@ import {
 import { FitBoundsOptions, GeolocateControl } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import { ControlComponent } from './control.component';
+import { Position } from '@angular/compiler';
 
 @Directive({
   selector: '[mglGeolocate]',

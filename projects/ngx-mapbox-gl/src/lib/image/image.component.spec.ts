@@ -1,5 +1,5 @@
 import { SimpleChange } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { MapService } from '../map/map.service';
 import { ImageComponent } from './image.component';
@@ -20,17 +20,19 @@ describe('ImageComponent', () => {
   let component: ImageComponent;
   let fixture: ComponentFixture<ImageComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ImageComponent],
-    })
-      .overrideComponent(ImageComponent, {
-        set: {
-          providers: [{ provide: MapService, useClass: MapServiceSpy }],
-        },
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ImageComponent],
       })
-      .compileComponents();
-  }));
+        .overrideComponent(ImageComponent, {
+          set: {
+            providers: [{ provide: MapService, useClass: MapServiceSpy }],
+          },
+        })
+        .compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ImageComponent);
