@@ -12,35 +12,19 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-// @ts-ignore
-import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import {
+  MapboxGeocoder,
+  Result,
+  Results,
+  LngLatLiteral,
+} from '@mapbox/mapbox-gl-geocoder';
 import { MapService } from '../map/map.service';
 import { GeocoderEvent } from '../map/map.types';
 import { deprecationWarning } from '../utils';
 import { ControlComponent } from './control.component';
 
 export const MAPBOX_GEOCODER_API_KEY = new InjectionToken('MapboxApiKey');
-
-export interface LngLatLiteral {
-  latitude: number;
-  longitude: number;
-}
-
-export interface Results extends GeoJSON.FeatureCollection<GeoJSON.Point> {
-  attribution: string;
-  query: string[];
-}
-
-export interface Result extends GeoJSON.Feature<GeoJSON.Point> {
-  bbox: [number, number, number, number];
-  center: number[];
-  place_name: string;
-  place_type: string[];
-  relevance: number;
-  text: string;
-  address: string;
-  context: any[];
-}
+export { Result, Results } from '@mapbox/mapbox-gl-geocoder';
 
 @Directive({
   selector: '[mglGeocoder]',
