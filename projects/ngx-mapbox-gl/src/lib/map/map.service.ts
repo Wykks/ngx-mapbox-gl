@@ -445,34 +445,46 @@ export class MapService {
       marker.markersEvents.markerDragStart.observers.length ||
       marker.markersEvents.dragStart.observers.length
     ) {
-      markerInstance.on('dragstart', (event: { target: MapboxGl.Marker }) =>
-        this.zone.run(() => {
-          marker.markersEvents.markerDragStart.emit(event.target);
-          marker.markersEvents.dragStart.emit(event.target);
-        })
-      );
+      markerInstance.on('dragstart', (event) => {
+        if (event) {
+          const { target } = event as { target: MapboxGl.Marker };
+          this.zone.run(() => {
+            marker.markersEvents.markerDragStart.emit(target);
+            marker.markersEvents.dragStart.emit(target);
+          });
+        }
+      });
     }
+    /*
+
+     */
     if (
       marker.markersEvents.markerDrag.observers.length ||
       marker.markersEvents.drag.observers.length
     ) {
-      markerInstance.on('drag', (event: { target: MapboxGl.Marker }) =>
-        this.zone.run(() => {
-          marker.markersEvents.markerDrag.emit(event.target);
-          marker.markersEvents.drag.emit(event.target);
-        })
-      );
+      markerInstance.on('drag', (event) => {
+        if (event) {
+          const { target } = event as { target: MapboxGl.Marker };
+          this.zone.run(() => {
+            marker.markersEvents.markerDrag.emit(target);
+            marker.markersEvents.drag.emit(target);
+          });
+        }
+      });
     }
     if (
       marker.markersEvents.markerDragEnd.observers.length ||
       marker.markersEvents.dragEnd.observers.length
     ) {
-      markerInstance.on('dragend', (event: { target: MapboxGl.Marker }) =>
-        this.zone.run(() => {
-          marker.markersEvents.markerDragEnd.emit(event.target);
-          marker.markersEvents.dragEnd.emit(event.target);
-        })
-      );
+      markerInstance.on('dragend', (event) => {
+        if (event) {
+          const { target } = event as { target: MapboxGl.Marker };
+          this.zone.run(() => {
+            marker.markersEvents.markerDragEnd.emit(target);
+            marker.markersEvents.dragEnd.emit(target);
+          });
+        }
+      });
     }
     const lngLat: MapboxGl.LngLatLike = marker.markersOptions.feature
       ? <[number, number]>marker.markersOptions.feature.geometry!.coordinates
@@ -578,17 +590,14 @@ export class MapService {
   ) {
     return this.zone.runOutsideAngular(() => {
       return new Promise<void>((resolve, reject) => {
-        this.mapInstance.loadImage(
-          url,
-          (error: { status: number } | null, image: ImageData) => {
-            if (error) {
-              reject(error);
-              return;
-            }
-            this.addImage(imageId, image, options);
-            resolve();
+        this.mapInstance.loadImage(url, (error, image) => {
+          if (error) {
+            reject(error);
+            return;
           }
-        );
+          this.addImage(imageId, image as ImageBitmap, options);
+          resolve();
+        });
       });
     });
   }

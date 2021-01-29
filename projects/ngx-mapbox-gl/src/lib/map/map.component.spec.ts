@@ -1,10 +1,10 @@
 import { SimpleChange } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   fakeAsync,
   flushMicrotasks,
   TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
 import { ReplaySubject } from 'rxjs';
 import { MapComponent } from './map.component';
@@ -24,17 +24,19 @@ describe('MapComponent', () => {
   let component: MapComponent;
   let fixture: ComponentFixture<MapComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [MapComponent],
-    })
-      .overrideComponent(MapComponent, {
-        set: {
-          providers: [{ provide: MapService, useClass: MapServiceSpy }],
-        },
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [MapComponent],
       })
-      .compileComponents();
-  }));
+        .overrideComponent(MapComponent, {
+          set: {
+            providers: [{ provide: MapService, useClass: MapServiceSpy }],
+          },
+        })
+        .compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MapComponent);

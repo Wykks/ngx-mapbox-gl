@@ -166,8 +166,10 @@ export interface GeocoderEvent {
 
 export type MapImageData =
   | HTMLImageElement
+  | ArrayBufferView
+  | { width: number; height: number; data: Uint8Array | Uint8ClampedArray }
   | ImageData
-  | { width: number; height: number; data: Uint8Array | Uint8ClampedArray };
+  | ImageBitmap;
 
 export interface MapImageOptions {
   pixelRatio: number;

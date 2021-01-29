@@ -9,6 +9,7 @@ import {
 import { FitBoundsOptions, GeolocateControl } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import { ControlComponent } from './control.component';
+import { Position } from '@angular/compiler';
 
 @Directive({
   selector: '[mglGeolocate]',
@@ -47,8 +48,8 @@ export class GeolocateControlDirective implements AfterContentInit {
         }
       });
       this.ControlComponent.control = new GeolocateControl(options);
-      this.ControlComponent.control.on('geolocate', (data: Position) =>
-        this.geolocate.emit(data)
+      this.ControlComponent.control.on('geolocate', (data) =>
+        this.geolocate.emit(data as Position)
       );
       this.MapService.addControl(
         this.ControlComponent.control,
