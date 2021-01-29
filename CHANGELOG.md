@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v5.0.0...v6.0.0) (2021-01-29)
+
+### ⚠ BREAKING CHANGES
+
+- Updating mapbox-gl from 1.1.0 to 2.0.1 may break existing code
+- Dropped Angular 8 support
+
+### Features
+
+- Update to mapbox-gl 2.0.1
+- Add Angular 11 support
+
 ## [5.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v4.8.1...v5.0.0) (2020-12-13)
 
 ### ⚠ BREAKING CHANGES
