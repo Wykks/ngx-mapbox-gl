@@ -12,16 +12,17 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import {
-  MapboxGeocoder,
+import MapboxGeocoder, {
   Result,
   Results,
   LngLatLiteral,
+  GeocoderOptions,
 } from '@mapbox/mapbox-gl-geocoder';
 import { MapService } from '../map/map.service';
 import { GeocoderEvent } from '../map/map.types';
 import { deprecationWarning } from '../utils';
 import { ControlComponent } from './control.component';
+import { Map, Marker } from 'mapbox-gl';
 
 export const MAPBOX_GEOCODER_API_KEY = new InjectionToken('MapboxApiKey');
 export { Result, Results } from '@mapbox/mapbox-gl-geocoder';
@@ -44,10 +45,12 @@ export class GeocoderControlDirective
   @Input() accessToken?: string;
   @Input() filter?: (feature: Result) => boolean;
   @Input() localGeocoder?: (query: string) => Result[];
+  @Input() mapboxgl?: Map;
+  @Input() marker: boolean | Marker = false;
 
   /* Dynamic inputs */
   @Input() proximity?: LngLatLiteral;
-  @Input() searchInput?: string;
+  @Input() searchInput: string;
 
   @Output() clear = new EventEmitter<void>();
   @Output() loading = new EventEmitter<{ query: string }>();
@@ -70,7 +73,7 @@ export class GeocoderControlDirective
    */
   @Output() error = new EventEmitter<any>();
 
-  geocoder: any;
+  geocoder: MapboxGeocoder;
 
   private lastResultId?: string | number;
 
@@ -88,7 +91,7 @@ export class GeocoderControlDirective
       if (this.ControlComponent.control) {
         throw new Error('Another control is already set for this control');
       }
-      const options = {
+      const options: GeocoderOptions = {
         proximity: this.proximity,
         countries: this.countries,
         placeholder: this.placeholder,
@@ -102,6 +105,8 @@ export class GeocoderControlDirective
         filter: this.filter,
         localGeocoder: this.localGeocoder,
         accessToken: this.accessToken || this.MAPBOX_GEOCODER_API_KEY,
+        mapboxgl: this.mapboxgl,
+        marker: this.marker,
       };
 
       Object.keys(options).forEach((key: string) => {

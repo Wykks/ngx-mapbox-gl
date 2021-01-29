@@ -1,10 +1,10 @@
 /// <reference types="mapbox-gl" />
 /// <reference types="geojson" />
 
-export = __MapboxGeocoder;
-export as namespace __MapboxGeocoder;
+export as namespace MapboxGeocoder;
+export = MapboxGeocoder;
 
-declare namespace __MapboxGeocoder {
+declare namespace MapboxGeocoder {
   interface LngLatLiteral {
     latitude: number;
     longitude: number;
@@ -27,21 +27,15 @@ declare namespace __MapboxGeocoder {
   }
 
   type Bbox = [number, number, number, number];
-  type EventType =
-    | '__clear__'
-    | '__loading__'
-    | '__results__'
-    | '__result__'
-    | '__error__';
 
-  interface Options {
+  interface GeocoderOptions {
     accessToken: string;
 
     /** Use to set a custom API origin. (optional, default "https://api.mapbox.com" */
     origin?: string;
 
     /** A [mapbox-gl](https://github.com/mapbox/mapbox-gl-js) instance to use when creating [Markers](https://docs.mapbox.com/mapbox-gl-js/api/#marker). Required if `options.marker` is `true`.*/
-    mapboxgl?: Object;
+    mapboxgl?: mapboxgl.Map;
 
     /** On geocoded result what zoom level should the map animate to when a bbox isn't found in the response. If a bbox is found the map will fit to the bbox. (optional, default 16) */
     zoom?: number;
@@ -89,7 +83,7 @@ declare namespace __MapboxGeocoder {
     language?: string;
 
     /** A function which accepts a Feature in the [Carmen GeoJSON](https://github.com/mapbox/carmen/blob/master/carmen-geojson.md) format to filter out results from the Geocoding API response before they are included in the suggestions list. Return `true` to keep the item, `false` otherwise.*/
-    filter?: (feature: __MapboxGeocoder.Result) => boolean;
+    filter?: (feature: Result) => boolean;
 
     /** A function accepting the query string and current features list which performs geocoding to supplement results from the Mapbox Geocoding API. Expected to return a Promise which resolves to an Array of GeoJSON Features in the [Carmen GeoJSON](https://github.com/mapbox/carmen/blob/master/carmen-geojson.md) format.*/
     externalGeocoder?: Function;
@@ -102,13 +96,13 @@ declare namespace __MapboxGeocoder {
 
     /** If `true`, a [Marker](https://docs.mapbox.com/mapbox-gl-js/api/#marker) will be added to the map at the location of the user-selected result using a default set of Marker options.
      * If the value is an object, the marker will be constructed using these options. If `false`, no marker will be added to the map. Requires that `options.mapboxgl` also be set. (optional, default true) */
-    marker?: boolean | Object;
+    marker?: boolean | mapboxgl.Marker;
 
     /** A function that specifies how the results should be rendered in the dropdown menu. This function should accepts a single [Carmen GeoJSON](https://github.com/mapbox/carmen/blob/master/carmen-geojson.md) object as input and return a string. Any HTML in the returned string will be rendered. */
-    render?: (feature: __MapboxGeocoder.Result) => string;
+    render?: (feature: Result) => string;
 
     /** A function that specifies how the selected result should be rendered in the search bar. This function should accept a single [Carmen GeoJSON](https://github.com/mapbox/carmen/blob/master/carmen-geojson.md) object as input and return a string. HTML tags in the output string will not be rendered. Defaults to `(item) => item.place_name`. */
-    getItemValue?: (feature: __MapboxGeocoder.Result) => string;
+    getItemValue?: (feature: Result) => string;
 
     /**  A string specifying the geocoding [endpoint](https://docs.mapbox.com/api/search/#endpoints) to query. Options are `mapbox.places` and `mapbox.places`. The `mapbox.places-permanent` mode requires an enterprise license for permanent geocodes. (optional, default "mapbox.places") */
     mode?: 'mapbox.places' | 'mapbox.places-permanent';
@@ -120,8 +114,8 @@ declare namespace __MapboxGeocoder {
   }
 }
 
-export class MapboxGeocoder implements mapboxgl.IControl {
-  constructor(options?: __MapboxGeocoder.Options);
+declare class MapboxGeocoder implements mapboxgl.IControl {
+  constructor(options?: MapboxGeocoder.GeocoderOptions);
 
   addTo(container: String | HTMLElement | mapboxgl.Map): this;
 
@@ -152,12 +146,12 @@ export class MapboxGeocoder implements mapboxgl.IControl {
   /**
    * Set proximity The new `options.proximity` value. This is a geographical point given as an object with `latitude` and `longitude` properties.
    */
-  setProximity(proximity: __MapboxGeocoder.LngLatLiteral): this;
+  setProximity(proximity: MapboxGeocoder.LngLatLiteral): this;
 
   /**
    * Get the geocoder proximity
    */
-  getProximity(): __MapboxGeocoder.LngLatLiteral;
+  getProximity(): MapboxGeocoder.LngLatLiteral;
 
   /**
    * Set the render function used in the results dropdown
@@ -215,9 +209,9 @@ export class MapboxGeocoder implements mapboxgl.IControl {
    */
   setPlaceholder(placeholder: string): this;
 
-  getBbox(): __MapboxGeocoder.Bbox;
+  getBbox(): MapboxGeocoder.Bbox;
 
-  setBbox(bbox: __MapboxGeocoder.Bbox): this;
+  setBbox(bbox: MapboxGeocoder.Bbox): this;
 
   getCountries(): string;
 
@@ -225,7 +219,7 @@ export class MapboxGeocoder implements mapboxgl.IControl {
 
   getTypes(): string;
 
-  setTypes(tupes: string): this;
+  setTypes(types: string): this;
 
   getMinLength(): number;
 
@@ -235,9 +229,9 @@ export class MapboxGeocoder implements mapboxgl.IControl {
 
   setLimit(limit: number): this;
 
-  getFilter(): (feature: __MapboxGeocoder.Result) => boolean;
+  getFilter(): (feature: MapboxGeocoder.Result) => boolean;
 
-  setFilter(filter: (feature: __MapboxGeocoder.Result) => boolean): this;
+  setFilter(filter: (feature: MapboxGeocoder.Result) => boolean): this;
 
   setOrigin(origin: Function): this;
 
@@ -253,7 +247,7 @@ export class MapboxGeocoder implements mapboxgl.IControl {
    * - __result__ `{ result } Fired when input is set`
    * - __error__ `{ error } Error as string`
    */
-  on(type: __MapboxGeocoder.EventType, fn: Function): this;
+  on(type: string, fn: Function): this;
 
-  off(type: __MapboxGeocoder.EventType, fn: Function): this;
+  off(type: string, fn: Function): this;
 }
