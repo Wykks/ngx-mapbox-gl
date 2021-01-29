@@ -181,6 +181,8 @@ describe('MapService', () => {
         container,
         style: geoJSONStyle,
         zoom: [0],
+        accessToken:
+          'sk.eyJ1IjoibXBrZWF0ZWNoIiwiYSI6ImNra2k1aGx2azFqc3cycHF0cWFpYzl3aHUifQ.XYK4HpeRKu0qrYvPX-XBWQ',
       },
       mapEvents,
     });
