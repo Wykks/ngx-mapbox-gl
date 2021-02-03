@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.0.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v6.0.0...v6.0.1) (2021-02-03)
+
+### Bug Fixes
+
+- **deps:** add @types/mapbox\_\_mapbox-gl-geocoder ([#274](https://github.com/Wykks/ngx-mapbox-gl/issues/274)) ([e4b058c](https://github.com/Wykks/ngx-mapbox-gl/commit/e4b058c54b36871ce0c57991862d2e5668147793))
+
 ## [6.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v5.0.0...v6.0.0) (2021-01-29)
 
 ### ⚠ BREAKING CHANGES
