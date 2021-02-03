@@ -69,6 +69,7 @@
     "@types/jasminewd2": "^2.0.6",
     "@types/lodash-es": "^4.17.3",
     "@types/mapbox-gl": "2.0.3",
+    "@types/mapbox__mapbox-gl-geocoder": "4.7.0",
     "angular-cli-ghpages": "^0.6.0",
     "codelyzer": "^6.0.0",
     "commitizen": "^4.0.3",

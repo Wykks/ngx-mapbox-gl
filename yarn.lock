@@ -1490,12 +1490,27 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.168.tgz#fe24632e79b7ade3f132891afff86caa5e5ce008"
   integrity sha512-oVfRvqHV/V6D1yifJbVRU3TMp8OT6o6BG+U9MkwuJ3U8/CsDHvalRpsxBqivn71ztOFZBTfJMvETbqHiaNSj7Q==
 
+"@types/mapbox-gl@*":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-2.0.4.tgz#cc407ee56d4ac89e71340b3bedbb6cc58d9d27e9"
+  integrity sha512-0qxx/jK+/t5dcJ9LjTCvtcUamryk8yZUCQcpcOs/mQU6JipW15taAfUKvyNLC/PmhJYLSN5U4GrLFl6cBSGemg==
+  dependencies:
+    "@types/geojson" "*"
+
 "@types/mapbox-gl@2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-2.0.3.tgz#06faab3b509902a97d65a27c200d6af151824e42"
   integrity sha512-mf51FlRjBo9IIjhgN0z6b0d1s5ShtvdSi6X+VfGGrzFki/oOLcUHk9q2eQ3XY5VQY8AJzc1nILAd0gV90ifYYA==
   dependencies:
     "@types/geojson" "*"
+
+"@types/mapbox__mapbox-gl-geocoder@4.7.0":
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/@types/mapbox__mapbox-gl-geocoder/-/mapbox__mapbox-gl-geocoder-4.7.0.tgz#804b4f5b0e5e281be15b79a9cef1253495974b60"
+  integrity sha512-I2mPBvibX5F9bTfWpHLFpDhJjUXdCziBcV+1ZW5vADjPqXrP9ee8gvUgTlrbDx5nZ4JyWB6nbQ4U6um9NJZN3g==
+  dependencies:
+    "@types/geojson" "*"
+    "@types/mapbox-gl" "*"
 
 "@types/minimatch@*":
   version "3.0.3"
