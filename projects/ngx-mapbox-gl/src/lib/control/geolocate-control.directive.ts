@@ -9,7 +9,7 @@ import {
 import { FitBoundsOptions, GeolocateControl } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import { ControlComponent } from './control.component';
-import { Position } from 'ngx-mapbox-gl'
+import { Position } from '../map/map.types'
 
 
 @Directive({
