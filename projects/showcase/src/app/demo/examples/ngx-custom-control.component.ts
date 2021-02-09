@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Position } from '@angular/compiler';
+import { Position } from 'ngx-mapbox-gl'
 
 @Component({
   selector: 'showcase-demo',

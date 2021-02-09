@@ -3,6 +3,7 @@ import { EventEmitter } from '@angular/core';
 import {
   ErrorEvent,
   EventData,
+  GeolocateControl,
   Map,
   MapboxEvent,
   MapBoxZoomEvent,
@@ -14,7 +15,7 @@ import {
   MapSourceDataEvent,
   MapStyleDataEvent,
   MapTouchEvent,
-  MapWheelEvent,
+  MapWheelEvent
 } from 'mapbox-gl';
 import { Results, Result } from '../control/geocoder-control.directive';
 
@@ -162,6 +163,13 @@ export interface GeocoderEvent {
   geocoderResults: EventEmitter<Results>;
   geocoderResult: EventEmitter<{ result: Result }>;
   geocoderError: EventEmitter<any>;
+}
+
+export interface Position {
+  coords: GeolocationCoordinates;
+  target: GeolocateControl;
+  timestamp: number
+  type: string
 }
 
 export type MapImageData =
