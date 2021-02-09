@@ -170,7 +170,7 @@ export interface GeocoderEvent {
  * to avoid deprecation angular version < 11.0.0 we declared own Coordinates, Position interface
  */
 
-interface NgxMapboxGeolocationCoordinates {
+export interface NgxMapboxGeolocationCoordinates {
   readonly accuracy: number;
   readonly altitude: number | null;
   readonly altitudeAccuracy: number | null;
