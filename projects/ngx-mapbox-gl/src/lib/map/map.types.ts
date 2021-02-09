@@ -15,7 +15,7 @@ import {
   MapSourceDataEvent,
   MapStyleDataEvent,
   MapTouchEvent,
-  MapWheelEvent
+  MapWheelEvent,
 } from 'mapbox-gl';
 import { Results, Result } from '../control/geocoder-control.directive';
 
@@ -165,11 +165,26 @@ export interface GeocoderEvent {
   geocoderError: EventEmitter<any>;
 }
 
+/**
+ * in typescript 4.1 DOM interface Position and Coordinates renamed to GeolocationPosition GeolocationCoordinates
+ * to avoid deprecation angular version < 11.0.0 we declared own Coordinates, Position interface
+ */
+
+interface NgxMapboxGeolocationCoordinates {
+  readonly accuracy: number;
+  readonly altitude: number | null;
+  readonly altitudeAccuracy: number | null;
+  readonly heading: number | null;
+  readonly latitude: number;
+  readonly longitude: number;
+  readonly speed: number | null;
+}
+
 export interface Position {
-  coords: GeolocationCoordinates;
+  coords: NgxMapboxGeolocationCoordinates;
   target: GeolocateControl;
-  timestamp: number
-  type: string
+  timestamp: number;
+  type: string;
 }
 
 export type MapImageData =
