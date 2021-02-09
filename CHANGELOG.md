@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.0.3](https://github.com/Wykks/ngx-mapbox-gl/compare/v6.0.2...v6.0.3) (2021-02-09)
+
+### Bug Fixes
+
+- Position interface ([#278](https://github.com/Wykks/ngx-mapbox-gl/issues/278)) ([d0658ba](https://github.com/Wykks/ngx-mapbox-gl/commit/d0658bac64b18cc6132697b7ecbecc076e25d06d))
+
 ### [6.0.2](https://github.com/Wykks/ngx-mapbox-gl/compare/v6.0.1...v6.0.2) (2021-02-09)
 
 ### Bug Fixes
