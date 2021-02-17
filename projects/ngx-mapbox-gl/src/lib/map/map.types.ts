@@ -15,7 +15,7 @@ import {
   MapSourceDataEvent,
   MapStyleDataEvent,
   MapTouchEvent,
-  MapWheelEvent
+  MapWheelEvent,
 } from 'mapbox-gl';
 import { Results, Result } from '../control/geocoder-control.directive';
 
@@ -181,10 +181,10 @@ export interface NgxMapboxGeolocationCoordinates {
 }
 
 export interface Position {
-  coords: GeolocationCoordinates;
+  coords: NgxMapboxGeolocationCoordinates;
   target: GeolocateControl;
-  timestamp: number
-  type: string
+  timestamp: number;
+  type: string;
 }
 
 export type MapImageData =
