@@ -30,7 +30,7 @@ export interface SetupMap {
 }
 
 export interface SetupLayer {
-  layerOptions: MapboxGl.AnyLayer;
+  layerOptions: MapboxGl.Layer;
   layerEvents: LayerEvents;
 }
 
@@ -271,7 +271,10 @@ export class MapService {
           delete layer.layerOptions[tkey];
         }
       });
-      this.mapInstance.addLayer(layer.layerOptions, before);
+      this.mapInstance.addLayer(
+        layer.layerOptions as MapboxGl.AnyLayer,
+        before
+      );
       if (bindEvents) {
         if (
           layer.layerEvents.layerClick.observers.length ||
