@@ -95,7 +95,8 @@ export class AppModule {}
 
 How to get a Mapbox token: https://www.mapbox.com/help/how-access-tokens-work/
 
-Note: `mapbox-gl` can work without a token, if you have your own source, for example: https://stackblitz.com/edit/ngx-mapbox-gl-without-token
+Note: `mapbox-gl` cannot work without a token anymore.
+If you want to keep using their services then make a free account, generate a new token for your application and use it inside your project.
 
 You can use https://github.com/klokantech/tileserver-gl to serve vector tiles.
 
