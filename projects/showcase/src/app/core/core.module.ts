@@ -3,7 +3,7 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { NgxMapLibreGLModule } from 'projects/ngx-maplibre-gl/src/public_api';
 import { LayoutModule } from '../shared/layout/layout.module';
 import { APP_ROUTES } from './routes';
 
@@ -15,11 +15,7 @@ import { APP_ROUTES } from './routes';
     MatIconModule,
 
     RouterModule.forRoot(APP_ROUTES, { relativeLinkResolution: 'legacy' }),
-    NgxMapboxGLModule.withConfig({
-      accessToken:
-        'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA',
-    }),
-
+    NgxMapLibreGLModule,
     LayoutModule,
   ],
   exports: [],

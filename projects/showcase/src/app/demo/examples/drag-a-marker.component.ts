@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Marker } from 'mapbox-gl';
+import { Marker } from 'maplibre-gl';
 
 @Component({
   selector: 'showcase-demo',

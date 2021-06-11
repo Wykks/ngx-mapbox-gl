@@ -45,6 +45,6 @@ export class DocComponent implements OnInit {
   }
 
   updateDocUrl() {
-    this.docUrl = `https://raw.githubusercontent.com/Wykks/ngx-mapbox-gl/${this.currentVersion}/docs/API.md`;
+    this.docUrl = `https://raw.githubusercontent.com/maplibre/ngx-maplibre-gl/${this.currentVersion}/docs/API.md`;
   }
 }

@@ -3,39 +3,39 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-mapbox-gl": {
-      "root": "projects/ngx-mapbox-gl",
-      "sourceRoot": "projects/ngx-mapbox-gl/src",
+    "ngx-maplibre-gl": {
+      "root": "projects/ngx-maplibre-gl",
+      "sourceRoot": "projects/ngx-maplibre-gl/src",
       "projectType": "library",
       "prefix": "mgl",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/ngx-mapbox-gl/tsconfig.lib.json",
-            "project": "projects/ngx-mapbox-gl/ng-package.json"
+            "tsConfig": "projects/ngx-maplibre-gl/tsconfig.lib.json",
+            "project": "projects/ngx-maplibre-gl/ng-package.json"
           },
           "configurations": {
             "production": {
-              "project": "projects/ngx-mapbox-gl/ng-package.prod.json",
-              "tsConfig": "projects/ngx-mapbox-gl/tsconfig.lib.prod.json"
+              "project": "projects/ngx-maplibre-gl/ng-package.prod.json",
+              "tsConfig": "projects/ngx-maplibre-gl/tsconfig.lib.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ngx-mapbox-gl/src/test.ts",
-            "tsConfig": "projects/ngx-mapbox-gl/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-mapbox-gl/karma.conf.js"
+            "main": "projects/ngx-maplibre-gl/src/test.ts",
+            "tsConfig": "projects/ngx-maplibre-gl/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-maplibre-gl/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ngx-mapbox-gl/tsconfig.lib.json",
-              "projects/ngx-mapbox-gl/tsconfig.spec.json"
+              "projects/ngx-maplibre-gl/tsconfig.lib.json",
+              "projects/ngx-maplibre-gl/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"],
             "format": "stylish"
@@ -54,7 +54,6 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "@mapbox/mapbox-gl-geocoder",
               "@mapbox/mapbox-sdk",
               "suggestions"
             ],
@@ -171,7 +170,7 @@
       }
     }
   },
-  "defaultProject": "ngx-mapbox-gl",
+  "defaultProject": "ngx-maplibre-gl",
   "cli": {
     "analytics": "2b945751-c795-4db1-b8ac-172907057b11"
   }

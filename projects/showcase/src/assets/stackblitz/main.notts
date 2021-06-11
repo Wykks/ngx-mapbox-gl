@@ -14,7 +14,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { NgxMapLibreGLModule } from 'ngx-maplibre-gl';
 import * as demo from './demo';
 
 const demoArray = Object.values(demo);
@@ -33,9 +33,7 @@ const demoArray = Object.values(demo);
     MatSlideToggleModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
-    NgxMapboxGLModule.withConfig({
-      accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA'
-    })
+    NgxMapLibreGLModule
   ],
   declarations: [...demoArray],
   bootstrap: [demoArray[demoArray.length - 1]]

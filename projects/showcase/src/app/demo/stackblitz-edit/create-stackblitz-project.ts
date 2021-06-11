@@ -28,8 +28,8 @@ import 'zone.js/dist/zone';
     template: 'angular-cli',
     dependencies: {
       tslib: '*',
-      'mapbox-gl': '*',
-      'ngx-mapbox-gl': '*',
+      'maplibre-gl': '*',
+      'ngx-maplibre-gl': '*',
       '@angular/cdk': '*',
       '@angular/material': '*',
       '@angular/animations': '*',
@@ -37,7 +37,6 @@ import 'zone.js/dist/zone';
       url: '*',
       querystring: '*',
       events: '*',
-      '@types/mapbox-gl': '*',
       '@types/supercluster': '*',
       '@types/geojson': '*',
     },

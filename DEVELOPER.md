@@ -1,4 +1,4 @@
-# Dev guide for ngx-mapbox-gl
+# Dev guide for ngx-maplibre-gl
 
 ## Install project dependencies (package.json)
 
@@ -6,7 +6,7 @@
 yarn
 ```
 
-## Run ngx-mapbox-gl showcase
+## Run ngx-maplibre-gl showcase
 
 ```
 yarn start
@@ -20,7 +20,7 @@ https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit
 
 ## Release a new version
 
-IMPORTANT: ngx-mapbox-gl follow https://semver.org/.
+IMPORTANT: ngx-maplibre-gl follow https://semver.org/.
 `standard-version` should auto increment the version correctly (as long as the commit message are correctly formatted). Make sure everything is correct before publishing a new version.
 
 Check if tests are OK (`yarn test` and `yarn e2e` or take a look at ci if your changes are pushed).
@@ -40,7 +40,7 @@ git push --follow-tags
 Publish on npm
 
 ```
-npm publish dist/ngx-mapbox-gl
+npm publish dist/ngx-maplibre-gl
 ```
 
 And finally, update the showcase app on github page (using https://github.com/angular-schule/angular-cli-ghpages)

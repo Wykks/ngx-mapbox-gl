@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LngLatLike } from 'mapbox-gl';
+import { LngLatLike } from 'maplibre-gl';
 
 @Component({
   selector: 'showcase-demo',

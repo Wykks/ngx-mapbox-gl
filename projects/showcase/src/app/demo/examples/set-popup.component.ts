@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/light-v9'"
+      [style]="'https://demotiles.maplibre.org/style.json'"
       [zoom]="[15]"
       [center]="[-77.0353, 38.8895]"
     >

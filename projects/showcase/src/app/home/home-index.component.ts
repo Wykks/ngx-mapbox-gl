@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { AnimationOptions } from 'mapbox-gl';
+import { AnimationOptions } from 'maplibre-gl';
 
 @Component({
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [style]="'https://demotiles.maplibre.org/style.json'"
       [zoom]="[2]"
       [center]="center"
       [centerWithPanTo]="true"
@@ -15,7 +15,7 @@ import { AnimationOptions } from 'mapbox-gl';
     ></mgl-map>
     <div class="main">
       <mat-icon class="logo" svgIcon="ngx-mapbox-gl-red"></mat-icon>
-      <h1>Angular binding of mapbox-gl-js</h1>
+      <h1>Angular binding of maplibre-gl-js</h1>
     </div>
   `,
   styleUrls: ['./home-index.component.scss'],

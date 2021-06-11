@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { LngLatBounds } from 'mapbox-gl';
+import { LngLatBounds } from 'maplibre-gl';
 
 @Component({
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/light-v9'"
+      [style]="'https://demotiles.maplibre.org/style.json'"
       [zoom]="[12]"
       [center]="[-77.0214, 38.897]"
       [fitBounds]="bounds"

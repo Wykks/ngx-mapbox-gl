@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AnyLayout } from 'mapbox-gl';
+import { AnyLayout } from 'maplibre-gl';
 
 @Component({
   selector: 'showcase-demo',

@@ -1,6 +1,5 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
-@import '~mapbox-gl/dist/mapbox-gl.css';
-@import '~@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css';
+@import '~maplibre-gl/dist/maplibre-gl.css';
 @import '~prismjs/themes/prism-okaidia.css';
 
 body {

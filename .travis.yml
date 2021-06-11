@@ -14,7 +14,7 @@ jobs:
   include:
     - stage: validation
       script: yarn build && yarn build:showcase --no-progress
-    - script: xvfb-run -a yarn test ngx-mapbox-gl --watch=false --no-progress --browsers=ChromeHeadless
+    - script: xvfb-run -a yarn test ngx-maplibre-gl --watch=false --no-progress --browsers=ChromeHeadless
     - script: yarn build && xvfb-run -a yarn e2e
     - script: yarn lint
 

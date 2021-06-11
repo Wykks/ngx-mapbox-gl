@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
       </div>
       <div>
         <div id="layout-right-custom-items"></div>
-        <a mat-button href="https://github.com/Wykks/ngx-mapbox-gl">
+        <a mat-button href="https://github.com/maplibre/ngx-maplibre-gl">
           <mat-icon svgIcon="github"></mat-icon>
           GitHub
         </a>

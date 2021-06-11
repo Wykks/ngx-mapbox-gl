@@ -14,7 +14,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterModule } from '@angular/router';
-import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { NgxMapLibreGLModule } from 'projects/ngx-maplibre-gl/src/public_api';
 import { LayoutModule } from '../shared/layout/layout.module';
 import { DemoIndexComponent } from './demo-index.component';
 import { Display3dBuildingsComponent } from './examples/3d-buildings.component';
@@ -43,7 +43,6 @@ import { LanguageSwitchComponent } from './examples/language-switch.component';
 import { LiveUpdateFeatureComponent } from './examples/live-update-feature.component';
 import { LiveUpdateImageSourceComponent } from './examples/live-update-image-srource.component';
 import { LocateUserComponent } from './examples/locate-user.component';
-import { MapboxGlGeocoderComponent } from './examples/mapbox-gl-geocoder.component';
 import { MarkerAlignmentComponent } from './examples/marker-alignment.component';
 import { NavigationComponent } from './examples/navigation.component';
 import {
@@ -74,7 +73,7 @@ import { StackblitzEditComponent } from './stackblitz-edit/stackblitz-edit.compo
     CommonModule,
     FormsModule,
 
-    NgxMapboxGLModule,
+    NgxMapLibreGLModule,
 
     LayoutModule,
 
@@ -115,7 +114,6 @@ import { StackblitzEditComponent } from './stackblitz-edit/stackblitz-edit.compo
     FullscreenComponent,
     NavigationComponent,
     LocateUserComponent,
-    MapboxGlGeocoderComponent,
     AttributionPositionComponent,
     NgxScaleControlComponent,
     NgxCustomControlComponent,

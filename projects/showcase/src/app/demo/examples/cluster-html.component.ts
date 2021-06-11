@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CirclePaint, SymbolLayout, SymbolPaint } from 'mapbox-gl';
+import { CirclePaint, SymbolLayout, SymbolPaint } from 'maplibre-gl';
 
 /**
  * Remember: mgl-layer are way faster than html markers

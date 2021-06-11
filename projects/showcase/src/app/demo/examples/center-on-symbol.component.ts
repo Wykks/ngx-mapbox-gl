@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MapMouseEvent, Map } from 'mapbox-gl';
+import { MapMouseEvent, Map } from 'maplibre-gl';
 
 @Component({
   selector: 'showcase-demo',

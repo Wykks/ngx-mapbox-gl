@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MapboxGeoJSONFeature, MapLayerMouseEvent } from 'mapbox-gl';
+import { MapboxGeoJSONFeature, MapLayerMouseEvent } from 'maplibre-gl';
 
 @Component({
   selector: 'showcase-demo',

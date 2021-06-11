@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Position } from 'ngx-mapbox-gl'
+import { Position } from 'projects/ngx-maplibre-gl/src/public_api';
 
 @Component({
   selector: 'showcase-demo',
@@ -18,7 +18,6 @@ import { Position } from 'ngx-mapbox-gl'
 
       <mgl-control mglAttribution position="top-right"></mgl-control>
       <mgl-control mglFullscreen position="top-right"></mgl-control>
-      <mgl-control mglGeocoder position="top-right"></mgl-control>
       <mgl-control
         mglGeolocate
         position="top-right"
