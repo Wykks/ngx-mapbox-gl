@@ -51,10 +51,8 @@ describe('MapComponent', () => {
     });
 
     it('should init with custom inputs', (done: DoneFn) => {
-      component.accessToken = 'tokenTest';
       component.style = 'style';
       msSpy.setup.and.callFake((options: SetupMap) => {
-        expect(options.accessToken).toEqual('tokenTest');
         expect(options.mapOptions.style).toEqual('style');
         done();
       });

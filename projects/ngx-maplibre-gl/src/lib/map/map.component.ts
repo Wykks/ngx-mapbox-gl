@@ -58,7 +58,6 @@ export class MapComponent
     Omit<MapboxOptions, 'bearing' | 'container' | 'pitch' | 'zoom'>,
     MapEvent {
   /* Init inputs */
-  @Input() accessToken?: MapboxOptions['accessToken'];
   @Input() collectResourceTiming?: MapboxOptions['collectResourceTiming'];
   @Input() crossSourceCollisions?: MapboxOptions['crossSourceCollisions'];
   @Input() customMapboxApiUrl?: string;
