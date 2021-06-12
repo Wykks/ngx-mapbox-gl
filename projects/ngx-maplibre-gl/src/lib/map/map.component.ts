@@ -295,7 +295,6 @@ export class MapComponent
   ngAfterViewInit() {
     this.warnDeprecatedOutputs();
     this.MapService.setup({
-      accessToken: this.accessToken,
       customMapboxApiUrl: this.customMapboxApiUrl,
       mapOptions: {
         collectResourceTiming: this.collectResourceTiming,

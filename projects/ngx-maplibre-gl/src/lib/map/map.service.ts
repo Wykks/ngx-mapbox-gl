@@ -1,10 +1,4 @@
-import {
-  EventEmitter,
-  Inject,
-  Injectable,
-  NgZone,
-  Optional,
-} from '@angular/core';
+import { EventEmitter, Injectable, NgZone } from '@angular/core';
 import * as MapLibreGl from 'maplibre-gl';
 import { AsyncSubject, Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -438,9 +432,9 @@ export class MapService {
       marker.markersEvents.markerDragStart.observers.length ||
       marker.markersEvents.dragStart.observers.length
     ) {
-      markerInstance.on('dragstart', (event) => {
+      markerInstance.on('dragstart', (event: { target: MapLibreGl.Marker }) => {
         if (event) {
-          const { target } = event as { target: MapLibreGl.Marker };
+          const { target } = event;
           this.zone.run(() => {
             marker.markersEvents.markerDragStart.emit(target);
             marker.markersEvents.dragStart.emit(target);
@@ -455,9 +449,9 @@ export class MapService {
       marker.markersEvents.markerDrag.observers.length ||
       marker.markersEvents.drag.observers.length
     ) {
-      markerInstance.on('drag', (event) => {
+      markerInstance.on('drag', (event: { target: MapLibreGl.Marker }) => {
         if (event) {
-          const { target } = event as { target: MapLibreGl.Marker };
+          const { target } = event;
           this.zone.run(() => {
             marker.markersEvents.markerDrag.emit(target);
             marker.markersEvents.drag.emit(target);
@@ -469,9 +463,9 @@ export class MapService {
       marker.markersEvents.markerDragEnd.observers.length ||
       marker.markersEvents.dragEnd.observers.length
     ) {
-      markerInstance.on('dragend', (event) => {
+      markerInstance.on('dragend', (event: { target: MapLibreGl.Marker }) => {
         if (event) {
-          const { target } = event as { target: MapLibreGl.Marker };
+          const { target } = event;
           this.zone.run(() => {
             marker.markersEvents.markerDragEnd.emit(target);
             marker.markersEvents.dragEnd.emit(target);
@@ -583,12 +577,12 @@ export class MapService {
   ) {
     return this.zone.runOutsideAngular(() => {
       return new Promise<void>((resolve, reject) => {
-        this.mapInstance.loadImage(url, (error, image) => {
+        this.mapInstance.loadImage(url, (error: Error, image: ImageBitmap) => {
           if (error) {
             reject(error);
             return;
           }
-          this.addImage(imageId, image as ImageBitmap, options);
+          this.addImage(imageId, image, options);
           resolve();
         });
       });

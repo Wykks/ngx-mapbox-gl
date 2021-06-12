@@ -10,7 +10,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "types": ["node"],
+    "types": ["node", "geojson"],
     "lib": ["dom", "es2015"]
   },
   "angularCompilerOptions": {

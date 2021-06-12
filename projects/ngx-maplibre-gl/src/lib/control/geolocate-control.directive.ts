@@ -48,8 +48,8 @@ export class GeolocateControlDirective implements AfterContentInit {
         }
       });
       this.ControlComponent.control = new GeolocateControl(options);
-      this.ControlComponent.control.on('geolocate', (data) => {
-        this.geolocate.emit(data as Position);
+      this.ControlComponent.control.on('geolocate', (data: Position) => {
+        this.geolocate.emit(data);
       });
       this.MapService.addControl(
         this.ControlComponent.control,
