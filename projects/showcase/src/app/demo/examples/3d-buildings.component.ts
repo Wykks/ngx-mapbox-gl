@@ -5,7 +5,9 @@ import { Map, SymbolLayer } from 'maplibre-gl';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/light-v9'"
+      [style]="
+        'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL'
+      "
       [zoom]="15.5"
       [center]="[-74.0066, 40.7135]"
       [pitch]="45"

@@ -6,7 +6,9 @@ import { Component, OnInit } from '@angular/core';
     <mgl-map
       [interactive]="false"
       movingMethod="jumpTo"
-      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [style]="
+        'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL'
+      "
       [pitch]="[pitch]"
       [bearing]="[bearing]"
       [zoom]="[17]"

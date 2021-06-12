@@ -5,7 +5,9 @@ import { interval, Subscription } from 'rxjs';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/satellite-v9'"
+      [style]="
+        'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL'
+      "
       [center]="center"
       [zoom]="[14]"
       movingMethod="jumpTo"

@@ -25,6 +25,9 @@ export class SetStyleComponent implements OnInit {
   }
 
   changeStyle(layerId: string) {
-    this.style = `mapbox://styles/mapbox/${layerId}-v9`;
+    this.style = `https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL`;
+    alert(
+      `This doesn't really change the style, but you should look at the code to get the general idea... ${layerId}`
+    );
   }
 }

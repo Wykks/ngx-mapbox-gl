@@ -4,7 +4,9 @@ import { Component } from '@angular/core';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/light-v9'"
+      [style]="
+        'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL'
+      "
       [center]="[36.235656, 50.00387]"
       [zoom]="[11.15]"
       [locale]="locale"

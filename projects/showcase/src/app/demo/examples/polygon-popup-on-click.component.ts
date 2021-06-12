@@ -6,7 +6,9 @@ import { GeoJsonProperties } from 'geojson';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [style]="
+        'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL'
+      "
       [zoom]="[3]"
       [center]="[-100.04, 38.907]"
       [cursorStyle]="cursorStyle"

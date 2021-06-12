@@ -5,7 +5,9 @@ import { MapMouseEvent, Map } from 'maplibre-gl';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/light-v9'"
+      [style]="
+        'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL'
+      "
       [zoom]="[8]"
       [center]="center"
       [cursorStyle]="cursorStyle"

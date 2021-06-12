@@ -5,7 +5,9 @@ import { MapboxGeoJSONFeature, MapLayerMouseEvent } from 'maplibre-gl';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [style]="
+        'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL'
+      "
       [zoom]="[11.15]"
       [center]="[-77.04, 38.907]"
       [cursorStyle]="cursorStyle"
