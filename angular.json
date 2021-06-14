@@ -70,7 +70,11 @@
               "projects/showcase/src/app/demo/examples"
             ],
             "styles": ["projects/showcase/src/styles.css"],
-            "scripts": [],
+            "scripts": [
+              "node_modules/marked/lib/marked.js",
+              "node_modules/prismjs/prism.js",
+              "node_modules/prismjs/components/prism-typescript.min.js"
+            ],
             "showCircularDependencies": false
           },
           "configurations": {
@@ -124,7 +128,11 @@
             "tsConfig": "projects/showcase/tsconfig.spec.json",
             "karmaConfig": "projects/showcase/karma.conf.js",
             "styles": ["projects/showcase/src/styles.css"],
-            "scripts": [],
+            "scripts": [
+              "node_modules/marked/lib/marked.js",
+              "node_modules/prismjs/prism.js",
+              "node_modules/prismjs/components/prism-typescript.min.js"
+            ],
             "assets": [
               "projects/showcase/src/favicon.ico",
               "projects/showcase/src/assets"
