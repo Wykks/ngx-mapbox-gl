@@ -24,8 +24,5 @@
     "@angular/core": ">= 9.0.0 < 12.0.0",
     "mapbox-gl": "^2.0.1",
     "rxjs": "^6.6.3"
-  },
-  "dependencies": {
-    "@mapbox/mapbox-gl-geocoder": "^4.0.0"
   }
 }

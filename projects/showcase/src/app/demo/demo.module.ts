@@ -15,6 +15,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterModule } from '@angular/router';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { NgxMapboxGlGeocoderControlModule } from 'ngx-mapbox-gl-geocoder-control';
+
 import { LayoutModule } from '../shared/layout/layout.module';
 import { DemoIndexComponent } from './demo-index.component';
 import { Display3dBuildingsComponent } from './examples/3d-buildings.component';
@@ -75,6 +77,7 @@ import { StackblitzEditComponent } from './stackblitz-edit/stackblitz-edit.compo
     FormsModule,
 
     NgxMapboxGLModule,
+    NgxMapboxGlGeocoderControlModule,
 
     LayoutModule,
 

@@ -17,7 +17,10 @@
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2017", "dom"],
     "paths": {
-      "ngx-mapbox-gl": ["projects/ngx-mapbox-gl/src/public_api"]
+      "ngx-mapbox-gl": ["projects/ngx-mapbox-gl/src/public_api"],
+      "ngx-mapbox-gl-geocoder-control": [
+        "projects/ngx-mapbox-gl-geocoder-control/src/public_api"
+      ]
     },
     "strict": true,
     "skipLibCheck": true,

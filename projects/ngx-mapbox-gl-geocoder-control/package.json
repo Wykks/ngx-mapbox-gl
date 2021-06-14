@@ -1,0 +1,14 @@
+{
+  "name": "ngx-mapbox-gl-geocoder-control",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^11.2.4",
+    "@angular/core": "^11.2.4",
+    "mapbox-gl": "<= 2.0.1",
+    "ngx-mapbox-gl": "^6.0.0"
+  },
+  "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^4.0.0",
+    "tslib": "^2.0.0"
+  }
+}

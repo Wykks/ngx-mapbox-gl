@@ -17,7 +17,6 @@ import {
   MapTouchEvent,
   MapWheelEvent,
 } from 'mapbox-gl';
-import { Results, Result } from '../control/geocoder-control.directive';
 
 export interface MapEvent {
   mapResize: EventEmitter<MapboxEvent & EventData>;
@@ -152,17 +151,6 @@ export interface LayerEvents {
   touchStart: EventEmitter<MapLayerTouchEvent & EventData>;
   touchEnd: EventEmitter<MapLayerTouchEvent & EventData>;
   touchCancel: EventEmitter<MapLayerTouchEvent & EventData>;
-}
-
-export interface GeocoderEvent {
-  clear: EventEmitter<void>;
-  loading: EventEmitter<{ query: string }>;
-  results: EventEmitter<Results>;
-  result: EventEmitter<{ result: Result }>;
-  error: EventEmitter<any>;
-  geocoderResults: EventEmitter<Results>;
-  geocoderResult: EventEmitter<{ result: Result }>;
-  geocoderError: EventEmitter<any>;
 }
 
 /**
