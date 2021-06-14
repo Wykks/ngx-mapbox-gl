@@ -19,7 +19,7 @@
     "paths": {
       "ngx-mapbox-gl": ["projects/ngx-mapbox-gl/src/public_api"],
       "ngx-mapbox-gl-geocoder-control": [
-        "projects/ngx-mapbox-gl-geocoder-control/src/public_api"
+        "projects/ngx-mapbox-gl-geocoder-control/src/public-api"
       ]
     },
     "strict": true,
