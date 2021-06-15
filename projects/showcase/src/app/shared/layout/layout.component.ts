@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
       <div>
         <div id="layout-left-custom-items"></div>
         <a mat-button routerLink="/">
-          <mat-icon svgIcon="ngx-mapbox-gl"></mat-icon>
+          <mat-icon svgIcon="ngx-maplibre-gl"></mat-icon>
           ngx-maplibre-gl
         </a>
         <a mat-button routerLink="/demo"> Demo </a>

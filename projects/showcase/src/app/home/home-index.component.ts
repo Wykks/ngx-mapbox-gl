@@ -14,7 +14,7 @@ import { AnimationOptions } from 'maplibre-gl';
       (moveEnd)="moveCenter()"
     ></mgl-map>
     <div class="main">
-      <mat-icon class="logo" svgIcon="ngx-mapbox-gl-red"></mat-icon>
+      <mat-icon class="logo" svgIcon="ngx-maplibre-gl-red"></mat-icon>
       <h1>Angular binding of maplibre-gl-js</h1>
     </div>
   `,

@@ -24,12 +24,12 @@ import { APP_ROUTES } from './routes';
 export class CoreModule {
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
-      'ngx-mapbox-gl',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/ngx-mapbox-gl.svg')
+      'ngx-maplibre-gl',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/ngx-maplibre-gl.svg')
     );
     iconRegistry.addSvgIcon(
-      'ngx-mapbox-gl-red',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/ngx-mapbox-gl-red.svg')
+      'ngx-maplibre-gl-red',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/ngx-maplibre-gl-red.svg')
     );
     iconRegistry.addSvgIcon(
       'github',
