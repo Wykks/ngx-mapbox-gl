@@ -1,7 +1,6 @@
 # ngx-maplibre-gl
 
-[![Build Status](https://travis-ci.com/Wykks/ngx-mapbox-gl.svg?branch=master)](https://travis-ci.com/Wykks/ngx-mapbox-gl)
-[![npm version](https://img.shields.io/npm/v/ngx-mapbox-gl.svg?style=flat)](https://www.npmjs.com/package/ngx-mapbox-gl)
+[![npm version](https://img.shields.io/npm/v/ngx-maplibre-gl.svg?style=flat)](https://www.npmjs.com/package/ngx-maplibre-gl)
 
 Angular wrapper for [maplibre-gl](https://www.maplibre.org/). It exposes a bunch of components meant to be simple to use with Angular.
 

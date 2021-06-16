@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [11.2.0](https://github.com/maplibre/ngx-maplibre-gl/compare/v6.0.4...v11.2.0) (2021-06-16)
+
+- Migrate to mapblire.
+- Sync package version with angular supported version
+
 ### [6.0.4](https://github.com/Wykks/ngx-mapbox-gl/compare/v6.0.3...v6.0.4) (2021-02-17)
 
 ### [6.0.3](https://github.com/Wykks/ngx-mapbox-gl/compare/v6.0.2...v6.0.3) (2021-02-09)
