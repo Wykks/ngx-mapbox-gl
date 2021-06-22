@@ -185,7 +185,7 @@
       "projectType": "library",
       "root": "projects/ngx-mapbox-gl-geocoder-control",
       "sourceRoot": "projects/ngx-mapbox-gl-geocoder-control/src",
-      "prefix": "lib",
+      "prefix": "mgl",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
