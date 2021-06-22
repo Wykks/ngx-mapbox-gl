@@ -94,8 +94,11 @@ export class GeoJSONSourceComponent
       this.ngOnInit();
     }
     if (changes.data && !changes.data.isFirstChange()) {
-      const source = this.MapService.getSource<GeoJSONSource>(this.id);
-      source.setData(this.data!);
+      setTimeout(() => {
+        const source = this.MapService.getSource<GeoJSONSource>(this.id);
+        source.setData(this.data!);
+        
+      }, 0);
     }
   }
 
