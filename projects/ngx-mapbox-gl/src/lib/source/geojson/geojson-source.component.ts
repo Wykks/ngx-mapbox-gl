@@ -96,9 +96,8 @@ export class GeoJSONSourceComponent
     if (changes.data && !changes.data.isFirstChange()) {
       setTimeout(() => {
         const source = this.MapService.getSource<GeoJSONSource>(this.id);
-        if (source !== undefined) {
-          source.setData(this.data!);
-        }
+        source.setData(this.data!);
+        
       }, 0);
     }
   }
