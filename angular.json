@@ -175,6 +175,44 @@
           }
         }
       }
+    },
+    "ngx-mapbox-gl-geocoder-control": {
+      "projectType": "library",
+      "root": "projects/ngx-mapbox-gl-geocoder-control",
+      "sourceRoot": "projects/ngx-mapbox-gl-geocoder-control/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/ngx-mapbox-gl-geocoder-control/tsconfig.lib.json",
+            "project": "projects/ngx-mapbox-gl-geocoder-control/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-mapbox-gl-geocoder-control/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-mapbox-gl-geocoder-control/src/test.ts",
+            "tsConfig": "projects/ngx-mapbox-gl-geocoder-control/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-mapbox-gl-geocoder-control/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-mapbox-gl-geocoder-control/tsconfig.lib.json",
+              "projects/ngx-mapbox-gl-geocoder-control/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ngx-mapbox-gl",

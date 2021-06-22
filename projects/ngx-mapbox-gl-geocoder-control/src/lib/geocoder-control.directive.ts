@@ -4,7 +4,6 @@ import {
   EventEmitter,
   Host,
   Inject,
-  InjectionToken,
   Input,
   NgZone,
   OnChanges,
@@ -18,14 +17,26 @@ import MapboxGeocoder, {
   LngLatLiteral,
   GeocoderOptions,
 } from '@mapbox/mapbox-gl-geocoder';
-import { MapService } from '../map/map.service';
-import { GeocoderEvent } from '../map/map.types';
-import { deprecationWarning } from '../utils';
-import { ControlComponent } from './control.component';
+import {
+  MapService,
+  deprecationWarning,
+  ControlComponent,
+  MAPBOX_GEOCODER_API_KEY,
+} from 'ngx-mapbox-gl';
 import { Map, Marker } from 'mapbox-gl';
 
-export const MAPBOX_GEOCODER_API_KEY = new InjectionToken('MapboxApiKey');
 export { Result, Results } from '@mapbox/mapbox-gl-geocoder';
+
+export interface GeocoderEvent {
+  clear: EventEmitter<void>;
+  loading: EventEmitter<{ query: string }>;
+  results: EventEmitter<Results>;
+  result: EventEmitter<{ result: Result }>;
+  error: EventEmitter<any>;
+  geocoderResults: EventEmitter<Results>;
+  geocoderResult: EventEmitter<{ result: Result }>;
+  geocoderError: EventEmitter<any>;
+}
 
 @Directive({
   selector: '[mglGeocoder]',

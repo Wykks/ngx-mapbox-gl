@@ -1,12 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
 import { AttributionControlDirective } from './control/attribution-control.directive';
 import { ControlComponent } from './control/control.component';
 import { FullscreenControlDirective } from './control/fullscreen-control.directive';
-import {
-  GeocoderControlDirective,
-  MAPBOX_GEOCODER_API_KEY,
-} from './control/geocoder-control.directive';
 import { GeolocateControlDirective } from './control/geolocate-control.directive';
 import { NavigationControlDirective } from './control/navigation-control.directive';
 import { ScaleControlDirective } from './control/scale-control.directive';
@@ -31,6 +27,8 @@ import { RasterSourceComponent } from './source/raster-source.component';
 import { VectorSourceComponent } from './source/vector-source.component';
 import { VideoSourceComponent } from './source/video-source.component';
 
+export const MAPBOX_GEOCODER_API_KEY = new InjectionToken('MapboxApiKey');
+
 @NgModule({
   imports: [CommonModule],
   declarations: [
@@ -51,7 +49,6 @@ import { VideoSourceComponent } from './source/video-source.component';
     ControlComponent,
     FullscreenControlDirective,
     NavigationControlDirective,
-    GeocoderControlDirective,
     GeolocateControlDirective,
     AttributionControlDirective,
     ScaleControlDirective,
@@ -77,7 +74,6 @@ import { VideoSourceComponent } from './source/video-source.component';
     ControlComponent,
     FullscreenControlDirective,
     NavigationControlDirective,
-    GeocoderControlDirective,
     GeolocateControlDirective,
     AttributionControlDirective,
     ScaleControlDirective,
