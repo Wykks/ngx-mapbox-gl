@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterModule, Routes } from '@angular/router';
-import { NgxMdModule } from 'ngx-md';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/prism';
+import { MarkdownModule } from 'ngx-markdown';
 import { LayoutModule } from '../shared/layout/layout.module';
 import { DocComponent } from './doc.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import 'prismjs/components/prism-typescript.min.js';
 
 const DOC_ROUTES: Routes = [
   {
@@ -22,9 +22,8 @@ const DOC_ROUTES: Routes = [
     CommonModule,
     RouterModule.forChild(DOC_ROUTES),
     FormsModule,
-
-    NgxMdModule.forRoot(),
-
+    HttpClientModule,
+    MarkdownModule.forRoot({ loader: HttpClient }),
     MatFormFieldModule,
     MatSelectModule,
 
