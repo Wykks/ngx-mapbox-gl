@@ -97,7 +97,7 @@ export class GeoJSONSourceComponent
       setTimeout(() => {
         const source = this.MapService.getSource<GeoJSONSource>(this.id);
         source.setData(this.data!);
-        
+
       }, 0);
     }
   }
