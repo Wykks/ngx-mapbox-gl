@@ -13,6 +13,10 @@ v3.X : Angular 7.2
 
 v4.X : Angular 8 - 10 (rxjs >= 6.5)
 
+v5.X - 6.X : Angular 9 - 11 (rxjs >= 6.5)
+
+v7.X : Angular 12 (rxjs >= 6.6)
+
 Include the following components:
 
 - [mgl-map](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-map-mapbox-gl-api)
@@ -31,7 +35,6 @@ Include the following components:
   - mglAttribution
   - mglGeolocate
   - mglNavigation
-  - mglGeocoder (see '@mapbox/mapbox-gl-geocoder')
 - [mgl-marker](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-marker-mapbox-gl-api)
 - [mgl-popup](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-popup-mapbox-gl-api)
 - [mgl-marker-cluster](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#ngx-mgl-marker-cluster-supercluster-api)

@@ -195,6 +195,7 @@
           },
           "configurations": {
             "production": {
+              "project": "projects/ngx-mapbox-gl-geocoder-control/ng-package.prod.json",
               "tsConfig": "projects/ngx-mapbox-gl-geocoder-control/tsconfig.lib.prod.json"
             }
           }
