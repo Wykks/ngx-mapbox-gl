@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v6.0.4...v7.0.0) (2021-06-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* move the geocoding control to a separate library ([#300](https://github.com/Wykks/ngx-mapbox-gl/issues/300)) ([fb4803e](https://github.com/Wykks/ngx-mapbox-gl/commit/fb4803e3e76b7d196488281b4235da65ba5e25f9))
+
+
+### Bug Fixes
+
+* exception when accessing to MapService.getSource ([#313](https://github.com/Wykks/ngx-mapbox-gl/issues/313)) ([095e13d](https://github.com/Wykks/ngx-mapbox-gl/commit/095e13df329bed27c0524d267a01276eec35af7d))
+
 ### [6.0.4](https://github.com/Wykks/ngx-mapbox-gl/compare/v6.0.3...v6.0.4) (2021-02-17)
 
 ### [6.0.3](https://github.com/Wykks/ngx-mapbox-gl/compare/v6.0.2...v6.0.3) (2021-02-09)
