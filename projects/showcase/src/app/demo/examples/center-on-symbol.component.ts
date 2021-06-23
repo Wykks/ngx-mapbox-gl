@@ -24,7 +24,7 @@ import { MapMouseEvent, Map } from 'maplibre-gl';
         type="symbol"
         source="symbols-source"
         [layout]="{
-          'icon-image': 'rocket-15'
+          'icon-image': 'oneway'
         }"
         (layerClick)="centerMapTo($event)"
         (layerMouseEnter)="cursorStyle = 'pointer'"

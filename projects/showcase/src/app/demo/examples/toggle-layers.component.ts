@@ -83,8 +83,6 @@ export class ToggleLayersComponent implements OnInit {
       visibility:
         this.layouts[evt.value].visibility === 'visible' ? 'none' : 'visible',
     };
-    alert(
-      "This doesn't really change the source, but you should check the code to see what it does..."
-    );
+    // HM TODO: this needs a fix...
   }
 }

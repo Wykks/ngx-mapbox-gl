@@ -26,7 +26,6 @@ import { Layer } from 'maplibre-gl';
           source="earthquakes"
           [filter]="layer.filter"
           [paint]="layer.paint"
-          before="waterway-label"
         ></mgl-layer>
         <mgl-layer
           id="unclustered-point"
@@ -38,7 +37,6 @@ import { Layer } from 'maplibre-gl';
             'circle-radius': 20,
             'circle-blur': 1
           }"
-          before="waterway-label"
         ></mgl-layer>
       </ng-container>
     </mgl-map>
