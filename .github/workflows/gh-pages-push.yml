@@ -1,0 +1,27 @@
+name: Github pages push
+
+on:
+  push:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+
+      # Runs a set of commands using the runners shell
+      - name: Install and build
+        run: |
+          npm install
+          npm run build:showcase
+          
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: dist/ngx-maplibre-gl
