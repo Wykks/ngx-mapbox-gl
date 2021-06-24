@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [7.0.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v7.0.0...v7.0.1) (2021-06-24)
+
+
+### Bug Fixes
+
+* safari fullscreen mode does not work properly [#301](https://github.com/Wykks/ngx-mapbox-gl/issues/301) ([#316](https://github.com/Wykks/ngx-mapbox-gl/issues/316)) ([43c6cc4](https://github.com/Wykks/ngx-mapbox-gl/commit/43c6cc4fe3df4cf386d5f9d1e901a50305561460))
+
 ## [7.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v6.0.4...v7.0.0) (2021-06-23)
 
 
