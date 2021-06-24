@@ -8,56 +8,51 @@ import { AnyLayout } from 'maplibre-gl';
       [style]="
         'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL'
       "
-      [zoom]="[15]"
+      [zoom]="[3]"
       [center]="[-71.97722138410576, -13.517379300798098]"
     >
       <mgl-vector-source
-        id="museums"
-        url="https://api.maptiler.com/tiles/v3/tiles.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL"
+        id="countries"
+        [tiles]="['https://demotiles.maplibre.org/tiles/{z}/{x}/{y}.pbf']"
       >
       </mgl-vector-source>
       <mgl-vector-source
-        id="contours"
+        id="everything"
         url="https://api.maptiler.com/tiles/v3/tiles.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL"
       >
       </mgl-vector-source>
       <mgl-layer
-        id="museums"
-        type="circle"
-        source="museums"
-        [layout]="layouts['museums']"
+        id="countries-layer"
+        type="line"
+        source="countries"
+        [layout]="layouts['countries']"
         [paint]="{
-          'circle-radius': 8,
-          'circle-color': 'rgba(55,148,179,1)'
+          'line-color': 'blue'
         }"
-        sourceLayer="museum-cusco"
+        sourceLayer="countries"
       >
       </mgl-layer>
       <mgl-layer
-        id="contours"
-        type="line"
-        source="contours"
-        [layout]="layouts['contours']"
-        [paint]="{
-          'line-color': '#877b59',
-          'line-width': 1
-        }"
-        sourceLayer="contour"
+        id="names"
+        type="symbol"
+        source="everything"
+        [layout]="layouts['names']"
+        sourceLayer="place"
       >
       </mgl-layer>
     </mgl-map>
     <div class="menu">
       <mat-button-toggle
         [checked]="true"
-        value="contours"
+        value="names"
         (change)="toggleLayer($event)"
-        >contours</mat-button-toggle
+        >countries names</mat-button-toggle
       >
       <mat-button-toggle
         [checked]="true"
-        value="museums"
+        value="countries"
         (change)="toggleLayer($event)"
-        >museums</mat-button-toggle
+        >countries border</mat-button-toggle
       >
     </div>
   `,
@@ -65,13 +60,13 @@ import { AnyLayout } from 'maplibre-gl';
 })
 export class ToggleLayersComponent implements OnInit {
   layouts: { [key: string]: AnyLayout } = {
-    contours: {
-      visibility: 'visible',
-      'line-join': 'round',
-      'line-cap': 'round',
+    countries: {
+      visibility: 'none',
     },
-    museums: {
-      visibility: 'visible',
+    names: {
+      visibility: 'none',
+      'text-field': '{name:latin}',
+      'text-size': 30,
     },
   };
 
@@ -83,6 +78,5 @@ export class ToggleLayersComponent implements OnInit {
       visibility:
         this.layouts[evt.value].visibility === 'visible' ? 'none' : 'visible',
     };
-    // HM TODO: this needs a fix...
   }
 }

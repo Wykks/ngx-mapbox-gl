@@ -16,7 +16,7 @@ import { Map, SymbolLayer } from 'maplibre-gl';
     >
       <mgl-layer
         id="3d-buildings"
-        source="composite"
+        source="openmaptiles"
         sourceLayer="building"
         [filter]="['==', 'extrude', 'true']"
         type="fill-extrusion"
