@@ -17,7 +17,7 @@ describe('Popup', () => {
     const canvas = element(by.tagName('canvas'));
     await browser.wait(EC.presenceOf(canvas), 2000);
 
-    const popup = element(by.className('mapboxgl-popup'));
+    const popup = element(by.className('maplibregl-popup'));
     await browser.wait(EC.presenceOf(popup), 1000);
     const popupClasses = popup
       .getAttribute('class')
@@ -25,7 +25,7 @@ describe('Popup', () => {
     expect(popupClasses).toContain('custom-popup-class1');
     expect(popupClasses).toContain('custom-popup-class2');
 
-    const popupContent = element(by.className('mapboxgl-popup-content'));
+    const popupContent = element(by.className('maplibregl-popup-content'));
     await browser.wait(EC.presenceOf(popupContent), 1000);
     expect(popupContent.element(by.tagName('div')).getText()).toBe(
       'Hello world !'

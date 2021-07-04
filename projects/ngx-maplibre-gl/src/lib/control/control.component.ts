@@ -29,7 +29,7 @@ export class CustomControl implements IControl {
 @Component({
   selector: 'mgl-control',
   template:
-    '<div class="mapboxgl-ctrl" #content><ng-content></ng-content></div>',
+    '<div class="maplibregl-ctrl" #content><ng-content></ng-content></div>',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ControlComponent<T extends IControl>
