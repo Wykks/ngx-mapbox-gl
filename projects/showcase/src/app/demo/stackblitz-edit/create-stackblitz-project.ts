@@ -18,7 +18,7 @@ html, body {
 }
 `,
       'src/polyfills.ts': `
-import 'zone.js/dist/zone';
+import 'zone.js';
 (window as any).global = window;
 `,
       ...demoFiles,
