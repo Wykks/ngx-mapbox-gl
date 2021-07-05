@@ -58,7 +58,7 @@
     "rxjs": "^6.6.6",
     "scroll-into-view-if-needed": "^2.2.20",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1102.4",
