@@ -16,7 +16,7 @@ export const VERSIONS = ['master'];
         </mat-select>
       </mat-form-field>
     </showcase-layout-toolbar-menu>
-    <ngx-md [path]="docUrl"></ngx-md>
+    <markdown [src]="docUrl"></markdown>
   `,
   styles: [
     `
@@ -27,7 +27,7 @@ export const VERSIONS = ['master'];
         justify-content: center;
       }
 
-      ngx-md {
+      markdown {
         margin: 8px;
         width: 60%;
       }
