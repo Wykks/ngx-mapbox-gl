@@ -25,24 +25,10 @@ IMPORTANT: ngx-maplibre-gl follow https://semver.org/.
 
 Check if tests are OK (`npm run test` and `npm run e2e` or take a look at ci if your changes are pushed).
 
-```
-yarn release
-```
+Change the version in both package.json files - the version should match the supported angular version
 
-Now check the version, and manually edit `CHANGELOG.md` if necessary.
+Manually edit `CHANGELOG.md` if necessary.
 
-If eveything is OK, push the commit (with the tag)
+If eveything is OK, push the changes
 
-```
-git push --follow-tags
-```
-
-This will create a tag in gihub and automatically publish to npm using Github actions
-
-And finally, update the showcase app on github page (using https://github.com/angular-schule/angular-cli-ghpages)
-
-```
-npm run build:showcase && npm run publish:showcase
-```
-
-(This could be updated to the more recent `ng deploy`)
+Create a Github release with the same version name, for example `v1.2.3` - this will triger the Github actions to update the npm package and the gh-pages

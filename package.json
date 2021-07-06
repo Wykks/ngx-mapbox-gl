@@ -1,6 +1,6 @@
 {
   "name": "ngx-maplibre-gl-srcs",
-  "version": "11.2.1",
+  "version": "12.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve showcase",
@@ -15,12 +15,6 @@
     "update-version": "./update_version.sh",
     "prettier": "prettier --config ./.prettierrc --write \"projects/**/*{.ts,.js,.json,.css,.scss}\"",
     "commit": "git-cz"
-  },
-  "standard-version": {
-    "scripts": {
-      "postbump": "yarn update-version && yarn build",
-      "precommit": "git add projects/ngx-maplibre-gl/package.json"
-    }
   },
   "lint-staged": {
     "*.ts": "tslint --project ./tsconfig.json --config ./tslint.json --fix",

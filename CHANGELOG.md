@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [12.0.0](https://github.com/maplibre/ngx-maplibre-gl/compare/v11.2.0...v12.0.0) (2021-06-16)
+
+- Update maplibre to version 1.15.1.
+- Fix css according to breaking changes
+- Got fixes from upstream version (see the following items) - sync to commit: https://github.com/Wykks/ngx-mapbox-gl/commit/950ff71e1c0604417a88a364888994ab6265d1bf
+- Support angular 12 and ivy
+- Changes ngx-md to ngx-markdown
+- safari fullscreen mode does not work properly
+- exception when accessing to MapService.getSource
+
 ### [11.2.0](https://github.com/maplibre/ngx-maplibre-gl/compare/v6.0.4...v11.2.0) (2021-06-16)
 
 - Migrate to mapblire.
