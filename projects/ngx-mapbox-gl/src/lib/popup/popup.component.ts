@@ -27,6 +27,8 @@ export class PopupComponent
   /* Init input */
   @Input() closeButton?: PopupOptions['closeButton'];
   @Input() closeOnClick?: PopupOptions['closeOnClick'];
+  @Input() closeOnMove?: PopupOptions['closeOnMove'];
+  @Input() focusAfterOpen?: PopupOptions['focusAfterOpen'];
   @Input() anchor?: PopupOptions['anchor'];
   @Input() className?: PopupOptions['className'];
   @Input() maxWidth?: PopupOptions['maxWidth'];
@@ -125,6 +127,8 @@ export class PopupComponent
         popupOptions: {
           closeButton: this.closeButton,
           closeOnClick: this.closeOnClick,
+          closeOnMove: this.closeOnMove,
+          focusAfterOpen: this.focusAfterOpen,
           anchor: this.anchor,
           offset: this.offset,
           className: this.className,
