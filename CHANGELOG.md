@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.1.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v7.0.1...v7.1.0) (2021-08-13)
+
+
+### Features
+
+* add closeOnMove and focusAfterOpen init-only inputs to mgl-popup [#325](https://github.com/Wykks/ngx-mapbox-gl/issues/325) ([d8003c1](https://github.com/Wykks/ngx-mapbox-gl/commit/d8003c1a370f22bcf98bdd040577baf54ff9c040))
+
 ### [7.0.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v7.0.0...v7.0.1) (2021-06-24)
 
 
