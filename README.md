@@ -4,15 +4,15 @@
 
 Angular wrapper for [maplibre-gl](https://www.maplibre.org/). It exposes a bunch of components meant to be simple to use with Angular.
 
-## Demo site 
+### Demo site 
 Can be found here (based on the generated gh-pages in this repo):
 https://maplibre.org/ngx-maplibre-gl/
 
-## Attribution
+### Attribution
 
 This is a fork of [ngx-mapbox-gl](https://github.com/Wykks/ngx-mapbox-gl) and I would like to thank the maintainers there for thier amazing work to build this up. It's truely a great piece of sotware!
 
-## Components
+### Components
 
 - [mgl-map](docs/API.md#mgl-map-mapbox-gl-api)
 - [mgl-layer](docs/API.md#mgl-layer-mapbox-gl-style-spec)
