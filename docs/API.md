@@ -1,4 +1,4 @@
-## mgl-map [Mapbox GL API](https://www.mapbox.com/mapbox-gl-js/api#map)
+## mgl-map [Maplibre GL API](https://maplibre.org/maplibre-gl-js-docs/api/map/)
 
 ### Example
 
@@ -40,8 +40,7 @@ Init only:
 - **renderWorldCopies**: `boolean`
 - **trackResize**: `boolean`
 - **transformRequest**: `Function`
-- **bounds**: [`LngLatBoundsLike`](https://www.mapbox.com/mapbox-gl-js/api/#lnglatboundslike) Use **fitBounds** if you want the dynamic version. Use **fitBoundsOptions** to specify bounds options.
-- [ngx] **accessToken**: `string` https://www.mapbox.com/mapbox-gl-js/api/#accesstoken
+- **bounds**: [`LngLatBoundsLike`](https://maplibre.org/maplibre-gl-js-docs/api/geography/#lnglatboundslike) Use **fitBounds** if you want the dynamic version. Use **fitBoundsOptions** to specify bounds options.
 - [ngx] **customMapboxApiUrl**: `string` Change url of `mapbox://` (set config.API_URL)
 
 Dynamic:
@@ -57,17 +56,17 @@ Dynamic:
 - **boxZoom**: `boolean`
 - **style**: `Style | string`
 - **center**: `LngLatLike`
-- **maxBounds**: [`LngLatBoundsLike`](https://www.mapbox.com/mapbox-gl-js/api/#lnglatboundslike)
+- **maxBounds**: [`LngLatBoundsLike`](https://maplibre.org/maplibre-gl-js-docs/api/geography/#lnglatboundslike)
 - **zoom**: `[number]` The initial zoom level of the map. If zoom is not specified in the constructor options, Mapbox GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to 0. [ngx] It's an array in order to be able to force changes (by changing the array ref) because this input can be desync after user manipulation on map.
 - **bearing**: `[number]` The initial bearing (rotation) of the map, measured in degrees counter-clockwise from north. If bearing is not specified in the constructor options, Mapbox GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to 0. [ngx] It's an array in order to be able to force changes (by changing the array ref) because this input can be desync after user manipulation on map.
 - **pitch**: `[number]` The initial pitch (tilt) of the map, measured in degrees away from the plane of the screen (0-60). If pitch is not specified in the constructor options, Mapbox GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to 0. [ngx] It's an array in order to be able to force changes (by changing the array ref) because this input can be desync after user manipulation on map.
-- **fitBoundsOptions** https://www.mapbox.com/mapbox-gl-js/api/#map#fitbounds
-- [ngx] **fitBounds**: [`LngLatBoundsLike`](https://www.mapbox.com/mapbox-gl-js/api/#lnglatboundslike) If set, the map will center on the given coordinates. Dynamic version of **bounds**.
-- [ngx] **fitScreenCoordinates**: `[PointLike, PointLike]` https://www.mapbox.com/mapbox-gl-js/api/#map#fitscreencoordinates (use movingOptions as options)
+- **fitBoundsOptions** https://maplibre.org/maplibre-gl-js-docs/api/map/#map#fitbounds
+- [ngx] **fitBounds**: [`LngLatBoundsLike`](https://maplibre.org/maplibre-gl-js-docs/api/geography/#lnglatboundslike) If set, the map will center on the given coordinates. Dynamic version of **bounds**.
+- [ngx] **fitScreenCoordinates**: `[PointLike, PointLike]` https://maplibre.org/maplibre-gl-js-docs/api/map/#map#fitscreencoordinates (use movingOptions as options)
 - [ngx] **movingMethod**: `'jumpTo' | 'easeTo' | 'flyTo'` _(Default: `'flyTo'`)_ Define the method used when changing the center or zoom position.
-- [ngx] **movingOptions** Options passed to the moving method (https://www.mapbox.com/mapbox-gl-js/api/#map#flyto https://www.mapbox.com/mapbox-gl-js/api/#map#easeto https://www.mapbox.com/mapbox-gl-js/api/#map#jumpto)
-- [ngx] **panToOptions** Options passed to panTo (https://www.mapbox.com/mapbox-gl-js/api/#map#panto)
-- [ngx] **centerWithPanTo**: `boolean` If set to true, then [panTo](https://www.mapbox.com/mapbox-gl-js/api/#map#panto) is used instead of the specified method in **movingMethod** (if only **center** is changed, see live-update-feature example)
+- [ngx] **movingOptions** Options passed to the moving method (https://maplibre.org/maplibre-gl-js-docs/api/map/#map#flyto https://maplibre.org/maplibre-gl-js-docs/api/map/#map#easeto)
+- [ngx] **panToOptions** Options passed to panTo (https://maplibre.org/maplibre-gl-js-docs/api/map/#map#panto)
+- [ngx] **centerWithPanTo**: `boolean` If set to true, then [panTo](https://maplibre.org/maplibre-gl-js-docs/api/map/#map#panto) is used instead of the specified method in **movingMethod** (if only **center** is changed, see live-update-feature example)
 - [ngx] **cursorStyle**: `string` change the cursor of the map canvas (`canvas.style.cursor`).
 
 ### Outputs
