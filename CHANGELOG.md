@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [7.1.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v7.1.0...v7.1.1) (2021-10-07)
+
+
+### Bug Fixes
+
+* check map instance source on undefined ([#333](https://github.com/Wykks/ngx-mapbox-gl/issues/333)) ([d2413bf](https://github.com/Wykks/ngx-mapbox-gl/commit/d2413bfb14a05090af4dee10404f686f5f1df4ef))
+
 ## [7.1.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v7.0.1...v7.1.0) (2021-08-13)
 
 
