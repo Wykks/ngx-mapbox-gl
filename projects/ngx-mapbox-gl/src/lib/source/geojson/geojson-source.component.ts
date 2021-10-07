@@ -83,8 +83,7 @@ export class GeoJSONSourceComponent
       (changes.clusterRadius && !changes.clusterRadius.isFirstChange()) ||
       (changes.clusterMaxZoom && !changes.clusterMaxZoom.isFirstChange()) ||
       (changes.clusterMinPoints && !changes.clusterMinPoints.isFirstChange()) ||
-      (changes.clusterProperties &&
-        !changes.clusterProperties.isFirstChange()) ||
+      (changes.clusterProperties && !changes.clusterProperties.isFirstChange()) ||
       (changes.lineMetrics && !changes.lineMetrics.isFirstChange()) ||
       (changes.generateId && !changes.generateId.isFirstChange()) ||
       (changes.promoteId && !changes.promoteId.isFirstChange()) ||
@@ -94,10 +93,11 @@ export class GeoJSONSourceComponent
       this.ngOnInit();
     }
     if (changes.data && !changes.data.isFirstChange()) {
-      setTimeout(() => {
-        const source = this.MapService.getSource<GeoJSONSource>(this.id);
-        source.setData(this.data!);
-      }, 0);
+      const source = this.MapService.getSource<GeoJSONSource>(this.id);
+      if (source === undefined) {
+        return;
+      }
+      source.setData(this.data!);
     }
   }
 
@@ -221,6 +221,9 @@ export class GeoJSONSourceComponent
     this.MapService.addSource(this.id, source);
     const sub = this.updateFeatureData.pipe(debounceTime(0)).subscribe(() => {
       const source = this.MapService.getSource<GeoJSONSource>(this.id);
+      if (source === undefined){
+        return
+      }
       source.setData(this.data!);
     });
     this.sub.add(sub);
