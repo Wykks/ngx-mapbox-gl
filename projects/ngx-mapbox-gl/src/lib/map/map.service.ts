@@ -257,8 +257,8 @@ export class MapService {
         ...movingOptions,
         zoom: zoom ? zoom : this.mapInstance.getZoom(),
         center: center ? center : this.mapInstance.getCenter(),
-        bearing: bearing ? bearing : this.mapInstance.getBearing(),
-        pitch: pitch ? pitch : this.mapInstance.getPitch(),
+        bearing: bearing != null ? bearing : this.mapInstance.getBearing(),
+        pitch: pitch != null ? pitch : this.mapInstance.getPitch(),
       });
     });
   }
