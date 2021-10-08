@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [7.1.2](https://github.com/Wykks/ngx-mapbox-gl/compare/v7.1.1...v7.1.2) (2021-10-08)
+
+
+### Bug Fixes
+
+* 'falsy' pitch & bearings changes are ignored [#334](https://github.com/Wykks/ngx-mapbox-gl/issues/334) ([6d6a9a9](https://github.com/Wykks/ngx-mapbox-gl/commit/6d6a9a98688515b5988f868491f930cef1b83dec))
+
 ### [7.1.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v7.1.0...v7.1.1) (2021-10-07)
 
 
