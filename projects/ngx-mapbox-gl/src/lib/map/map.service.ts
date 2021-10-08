@@ -255,10 +255,10 @@ export class MapService {
     return this.zone.runOutsideAngular(() => {
       (<any>this.mapInstance[movingMethod])({
         ...movingOptions,
-        zoom: zoom ? zoom : this.mapInstance.getZoom(),
-        center: center ? center : this.mapInstance.getCenter(),
-        bearing: bearing ? bearing : this.mapInstance.getBearing(),
-        pitch: pitch ? pitch : this.mapInstance.getPitch(),
+        zoom: zoom != null ? zoom : this.mapInstance.getZoom(),
+        center: center != null ? center : this.mapInstance.getCenter(),
+        bearing: bearing != null ? bearing : this.mapInstance.getBearing(),
+        pitch: pitch != null ? pitch : this.mapInstance.getPitch(),
       });
     });
   }
