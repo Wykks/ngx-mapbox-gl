@@ -54,6 +54,9 @@ export class VideoSourceComponent
       this.ngOnInit();
     } else if (changes.coordinates && !changes.coordinates.isFirstChange()) {
       const source = this.MapService.getSource<VideoSource>(this.id);
+      if (source === undefined) {
+        return;
+      }
       source.setCoordinates(this.coordinates!);
     }
   }

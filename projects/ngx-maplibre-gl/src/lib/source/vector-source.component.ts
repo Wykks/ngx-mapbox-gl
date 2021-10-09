@@ -72,7 +72,9 @@ export class VectorSourceComponent
       (changes.tiles && !changes.tiles.isFirstChange())
     ) {
       const source = this.MapService.getSource<VectorSourceImpl>(this.id);
-
+      if (source === undefined) {
+        return;
+      }
       if (changes.url && this.url) {
         source.setUrl(this.url);
       }

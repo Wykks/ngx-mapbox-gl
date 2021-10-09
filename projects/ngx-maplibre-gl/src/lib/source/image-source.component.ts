@@ -40,6 +40,9 @@ export class ImageSourceComponent
     }
 
     const source = this.MapService.getSource<ImageSource>(this.sourceId);
+    if (source === undefined) {
+      return;
+    }
     source.updateImage({
       url: changes.url === undefined ? undefined : this.url,
       coordinates:

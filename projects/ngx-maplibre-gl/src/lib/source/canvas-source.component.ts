@@ -61,6 +61,9 @@ export class CanvasSourceComponent
       this.ngOnInit();
     } else if (changes.coordinates && !changes.coordinates.isFirstChange()) {
       const source = this.MapService.getSource<CanvasSource>(this.id);
+      if (source === undefined) {
+        return;
+      }
       source.setCoordinates(this.coordinates);
     }
   }
