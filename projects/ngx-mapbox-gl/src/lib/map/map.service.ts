@@ -783,7 +783,7 @@ export class MapService {
   }
 
   private hookEvents(events: MapEvent) {
-    this.mapInstance.on('load', (evt) => {
+    this.mapInstance.on('style.load', (evt) => {
       this.mapLoaded.next(undefined);
       this.mapLoaded.complete();
       this.zone.run(() => {
