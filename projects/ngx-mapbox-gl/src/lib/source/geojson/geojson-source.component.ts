@@ -58,7 +58,7 @@ export class GeoJSONSourceComponent
         features: [],
       };
     }
-    const sub1 = this.MapService.mapLoaded$.subscribe(() => {
+    const sub1 = this.MapService.mapStyleLoaded$.subscribe(() => {
       this.init();
       const sub = fromEvent(<any>this.MapService.mapInstance, 'styledata')
         .pipe(filter(() => !this.MapService.mapInstance.getSource(this.id)))

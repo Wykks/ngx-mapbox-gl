@@ -76,10 +76,12 @@ export class MapService {
   mapInstance: MapboxGl.Map;
   mapCreated$: Observable<void>;
   mapLoaded$: Observable<void>;
+  mapStyleLoaded$: Observable<void>;
   mapEvents: MapEvent;
 
   private mapCreated = new AsyncSubject<void>();
   private mapLoaded = new AsyncSubject<void>();
+  private mapStyleLoaded = new AsyncSubject<void>();
   private markersToRemove: MapboxGl.Marker[] = [];
   private popupsToRemove: MapboxGl.Popup[] = [];
   private imageIdsToRemove: string[] = [];
@@ -91,6 +93,7 @@ export class MapService {
   ) {
     this.mapCreated$ = this.mapCreated.asObservable();
     this.mapLoaded$ = this.mapLoaded.asObservable();
+    this.mapStyleLoaded$ = this.mapStyleLoaded.asObservable();
   }
 
   setup(options: SetupMap) {
@@ -783,7 +786,7 @@ export class MapService {
   }
 
   private hookEvents(events: MapEvent) {
-    this.mapInstance.on('style.load', (evt) => {
+    this.mapInstance.on('load', (evt) => {
       this.mapLoaded.next(undefined);
       this.mapLoaded.complete();
       this.zone.run(() => {
@@ -791,6 +794,14 @@ export class MapService {
         events.load.emit(evt.target);
       });
     });
+
+    this.mapInstance.on('style.load', () => {
+      this.mapStyleLoaded.next(undefined);
+      this.mapStyleLoaded.complete();
+
+    });
+
+
     if (events.mapResize.observers.length || events.resize.observers.length) {
       this.mapInstance.on('resize', (evt) =>
         this.zone.run(() => {
