@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MapboxGeoJSONFeature, MapLayerMouseEvent } from 'maplibre-gl';
+import { MapLayerMouseEvent } from 'maplibre-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -34,7 +34,7 @@ import { MapboxGeoJSONFeature, MapLayerMouseEvent } from 'maplibre-gl';
 })
 export class PopupOnClickComponent {
   points: GeoJSON.FeatureCollection<GeoJSON.Point>;
-  selectedPoint: MapboxGeoJSONFeature | null;
+  selectedPoint: GeoJSON.Feature | null;
   cursorStyle: string;
 
   constructor() {

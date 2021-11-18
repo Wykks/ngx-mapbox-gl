@@ -8,11 +8,7 @@ import {
   SimpleChanges,
   NgZone,
 } from '@angular/core';
-import {
-  GeoJSONSource,
-  GeoJSONSourceOptions,
-  GeoJSONSourceRaw,
-} from 'maplibre-gl';
+import { GeoJSONSourceSpecification, Source } from 'maplibre-gl';
 import { fromEvent, Subject, Subscription } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
 import { MapService } from '../../map/map.service';
@@ -23,25 +19,27 @@ import { MapService } from '../../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GeoJSONSourceComponent
-  implements OnInit, OnDestroy, OnChanges, GeoJSONSourceOptions {
+  implements OnInit, OnDestroy, OnChanges, GeoJSONSourceSpecification {
   /* Init inputs */
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() data?: GeoJSONSourceOptions['data'];
-  @Input() maxzoom?: GeoJSONSourceOptions['maxzoom'];
-  @Input() attribution?: GeoJSONSourceOptions['attribution'];
-  @Input() buffer?: GeoJSONSourceOptions['buffer'];
-  @Input() tolerance?: GeoJSONSourceOptions['tolerance'];
-  @Input() cluster?: GeoJSONSourceOptions['cluster'];
-  @Input() clusterRadius?: GeoJSONSourceOptions['clusterRadius'];
-  @Input() clusterMaxZoom?: GeoJSONSourceOptions['clusterMaxZoom'];
-  @Input() clusterMinPoints?: GeoJSONSourceOptions['clusterMinPoints'];
-  @Input() clusterProperties?: GeoJSONSourceOptions['clusterProperties'];
-  @Input() lineMetrics?: GeoJSONSourceOptions['lineMetrics'];
-  @Input() generateId?: GeoJSONSourceOptions['generateId'];
-  @Input() promoteId?: GeoJSONSourceOptions['promoteId'];
-  @Input() filter?: GeoJSONSourceOptions['filter'];
+  @Input() data?: GeoJSONSourceSpecification['data'];
+  @Input() maxzoom?: GeoJSONSourceSpecification['maxzoom'];
+  @Input() attribution?: GeoJSONSourceSpecification['attribution'];
+  @Input() buffer?: GeoJSONSourceSpecification['buffer'];
+  @Input() tolerance?: GeoJSONSourceSpecification['tolerance'];
+  @Input() cluster?: GeoJSONSourceSpecification['cluster'];
+  @Input() clusterRadius?: GeoJSONSourceSpecification['clusterRadius'];
+  @Input() clusterMaxZoom?: GeoJSONSourceSpecification['clusterMaxZoom'];
+  @Input() clusterMinPoints?: GeoJSONSourceSpecification['clusterMinPoints'];
+  @Input() clusterProperties?: GeoJSONSourceSpecification['clusterProperties'];
+  @Input() lineMetrics?: GeoJSONSourceSpecification['lineMetrics'];
+  @Input() generateId?: GeoJSONSourceSpecification['generateId'];
+  @Input() promoteId?: GeoJSONSourceSpecification['promoteId'];
+  @Input() filter?: GeoJSONSourceSpecification['filter'];
+
+  type: GeoJSONSourceSpecification['type'] = 'geojson';
 
   updateFeatureData = new Subject();
 
@@ -94,7 +92,10 @@ export class GeoJSONSourceComponent
       this.ngOnInit();
     }
     if (changes.data && !changes.data.isFirstChange()) {
-      const source = this.MapService.getSource<GeoJSONSource>(this.id);
+      // HM TODO: decide what to do with this
+      const source = this.MapService.getSource<Source & { setData: Function }>(
+        this.id
+      );
       if (source === undefined) {
         return;
       }
@@ -115,16 +116,21 @@ export class GeoJSONSourceComponent
    * @param clusterId The value of the cluster's cluster_id property.
    */
   async getClusterExpansionZoom(clusterId: number) {
-    const source = this.MapService.getSource<GeoJSONSource>(this.id);
+    const source = this.MapService.getSource<
+      Source & { getClusterExpansionZoom: Function }
+    >(this.id);
     return this.zone.run(async () => {
       return new Promise<number>((resolve, reject) => {
-        source.getClusterExpansionZoom(clusterId, (error, zoom) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(zoom);
+        source.getClusterExpansionZoom(
+          clusterId,
+          (error: Error, zoom: number) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(zoom);
+            }
           }
-        });
+        );
       });
     });
   }
@@ -134,17 +140,22 @@ export class GeoJSONSourceComponent
    * @param clusterId The value of the cluster's cluster_id property.
    */
   async getClusterChildren(clusterId: number) {
-    const source = this.MapService.getSource<GeoJSONSource>(this.id);
+    const source = this.MapService.getSource<
+      Source & { getClusterChildren: Function }
+    >(this.id);
     return this.zone.run(async () => {
       return new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>(
         (resolve, reject) => {
-          source.getClusterChildren(clusterId, (error, features) => {
-            if (error) {
-              reject(error);
-            } else {
-              resolve(features);
+          source.getClusterChildren(
+            clusterId,
+            (error: Error, features: GeoJSON.Feature<GeoJSON.Geometry>[]) => {
+              if (error) {
+                reject(error);
+              } else {
+                resolve(features);
+              }
             }
-          });
+          );
         }
       );
     });
@@ -157,7 +168,9 @@ export class GeoJSONSourceComponent
    * @param offset The number of features to skip (e.g. for pagination).
    */
   async getClusterLeaves(clusterId: number, limit: number, offset: number) {
-    const source = this.MapService.getSource<GeoJSONSource>(this.id);
+    const source = this.MapService.getSource<
+      Source & { getClusterLeaves: Function }
+    >(this.id);
     return this.zone.run(async () => {
       return new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>(
         (resolve, reject) => {
@@ -165,7 +178,7 @@ export class GeoJSONSourceComponent
             clusterId,
             limit,
             offset,
-            (error, features) => {
+            (error: Error, features: GeoJSON.Feature<GeoJSON.Geometry>[]) => {
               if (error) {
                 reject(error);
               } else {
@@ -202,7 +215,7 @@ export class GeoJSONSourceComponent
   }
 
   private init() {
-    const source: GeoJSONSourceRaw = {
+    const source: GeoJSONSourceSpecification = {
       type: 'geojson',
       data: this.data,
       maxzoom: this.maxzoom,
@@ -221,7 +234,10 @@ export class GeoJSONSourceComponent
     };
     this.MapService.addSource(this.id, source);
     const sub = this.updateFeatureData.pipe(debounceTime(0)).subscribe(() => {
-      const source = this.MapService.getSource<GeoJSONSource>(this.id);
+      // HM TODO: fix source defintions in this file
+      const source = this.MapService.getSource<Source & { setData: Function }>(
+        this.id
+      );
       if (source === undefined) {
         return;
       }

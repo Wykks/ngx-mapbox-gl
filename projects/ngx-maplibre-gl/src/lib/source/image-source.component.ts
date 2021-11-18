@@ -7,7 +7,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { ImageSource, ImageSourceOptions, ImageSourceRaw } from 'maplibre-gl';
+import { ImageSourceSpecification, Source } from 'maplibre-gl';
 import { Subscription } from 'rxjs';
 import { MapService } from '../map/map.service';
 
@@ -17,13 +17,15 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImageSourceComponent
-  implements OnInit, OnDestroy, OnChanges, ImageSourceOptions {
+  implements OnInit, OnDestroy, OnChanges, ImageSourceSpecification {
   /* Init inputs */
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() url: ImageSourceOptions['url'];
-  @Input() coordinates: ImageSourceOptions['coordinates'];
+  @Input() url: ImageSourceSpecification['url'];
+  @Input() coordinates: ImageSourceSpecification['coordinates'];
+
+  type: ImageSourceSpecification['type'] = 'image';
 
   private sub: Subscription;
   private sourceId?: string;
@@ -38,8 +40,10 @@ export class ImageSourceComponent
     if (this.sourceId === undefined) {
       return;
     }
-
-    const source = this.MapService.getSource<ImageSource>(this.sourceId);
+    // HM TODO: expose image source implementation?
+    const source = this.MapService.getSource<
+      Source & { updateImage: Function }
+    >(this.sourceId);
     if (source === undefined) {
       return;
     }
@@ -62,7 +66,7 @@ export class ImageSourceComponent
   }
 
   private init() {
-    const imageSource: ImageSourceRaw = {
+    const imageSource: ImageSourceSpecification = {
       type: 'image',
       url: this.url,
       coordinates: this.coordinates,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Layer } from 'maplibre-gl';
+import { CircleLayerSpecification, LayerSpecification } from 'maplibre-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -45,7 +45,7 @@ import { Layer } from 'maplibre-gl';
 })
 export class HeatMapComponent implements OnInit {
   earthquakes: object;
-  clusterLayers: Layer[];
+  clusterLayers: LayerSpecification[];
 
   async ngOnInit() {
     this.earthquakes = await import('./earthquakes.geo.json');
@@ -54,22 +54,25 @@ export class HeatMapComponent implements OnInit {
       [20, 'orange'],
       [200, 'red'],
     ];
-    this.clusterLayers = layersData.map((data, index) => ({
-      type: 'circle',
-      id: `cluster-${index}`,
-      paint: {
-        'circle-color': data[1],
-        'circle-radius': 70,
-        'circle-blur': 1,
-      },
-      filter:
-        index === layersData.length - 1
-          ? ['>=', 'point_count', data[0]]
-          : [
-              'all',
-              ['>=', 'point_count', data[0]],
-              ['<', 'point_count', layersData[index + 1][0]],
-            ],
-    }));
+    this.clusterLayers = layersData.map(
+      (data, index) =>
+        ({
+          type: 'circle',
+          id: `cluster-${index}`,
+          paint: {
+            'circle-color': data[1],
+            'circle-radius': 70,
+            'circle-blur': 1,
+          },
+          filter:
+            index === layersData.length - 1
+              ? ['>=', 'point_count', data[0]]
+              : [
+                  'all',
+                  ['>=', 'point_count', data[0]],
+                  ['<', 'point_count', layersData[index + 1][0]],
+                ],
+        } as CircleLayerSpecification)
+    );
   }
 }

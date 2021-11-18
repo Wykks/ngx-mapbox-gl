@@ -1,12 +1,10 @@
 // Can't use MapEvent interface because some event name are changed (eg zoomChange)
 import { EventEmitter } from '@angular/core';
 import {
-  ErrorEvent,
-  EventData,
   GeolocateControl,
   Map,
-  MapboxEvent,
-  MapBoxZoomEvent,
+  MapLibreEvent,
+  MapLibreZoomEvent,
   MapContextEvent,
   MapDataEvent,
   MapLayerMouseEvent,
@@ -18,9 +16,11 @@ import {
   MapWheelEvent,
 } from 'maplibre-gl';
 
+export interface EventData { [key: string]: any }
+
 export interface MapEvent {
-  mapResize: EventEmitter<MapboxEvent & EventData>;
-  mapRemove: EventEmitter<MapboxEvent & EventData>;
+  mapResize: EventEmitter<MapLibreEvent & EventData>;
+  mapRemove: EventEmitter<MapLibreEvent & EventData>;
   mapMouseDown: EventEmitter<MapMouseEvent & EventData>;
   mapMouseUp: EventEmitter<MapMouseEvent & EventData>;
   mapMouseMove: EventEmitter<MapMouseEvent & EventData>;
@@ -35,57 +35,57 @@ export interface MapEvent {
   mapTouchCancel: EventEmitter<MapTouchEvent & EventData>;
   mapWheel: EventEmitter<MapWheelEvent & EventData>;
   moveStart: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
+    MapLibreEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
   >;
   move: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
+  MapLibreEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
   >;
   moveEnd: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
+  MapLibreEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
   >;
   mapDragStart: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+  MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
   >;
   mapDrag: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+    MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
   >;
   mapDragEnd: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+    MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
   >;
   zoomStart: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
+    MapLibreEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
   >;
   zoomEvt: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
+    MapLibreEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
   >;
   zoomEnd: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
+    MapLibreEvent<MouseEvent | TouchEvent | WheelEvent | undefined> & EventData
   >;
   rotateStart: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+    MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
   >;
   rotate: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+    MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
   >;
   rotateEnd: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+    MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
   >;
   pitchStart: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+    MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
   >;
   pitchEvt: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+    MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
   >;
   pitchEnd: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+    MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
   >;
-  boxZoomStart: EventEmitter<MapBoxZoomEvent & EventData>;
-  boxZoomEnd: EventEmitter<MapBoxZoomEvent & EventData>;
-  boxZoomCancel: EventEmitter<MapBoxZoomEvent & EventData>;
+  boxZoomStart: EventEmitter<MapLibreZoomEvent & EventData>;
+  boxZoomEnd: EventEmitter<MapLibreZoomEvent & EventData>;
+  boxZoomCancel: EventEmitter<MapLibreZoomEvent & EventData>;
   webGlContextLost: EventEmitter<MapContextEvent & EventData>;
   webGlContextRestored: EventEmitter<MapContextEvent & EventData>;
-  mapLoad: EventEmitter<Map>; // Consider emitting MapboxEvent for consistency (breaking change).
-  render: EventEmitter<MapboxEvent & EventData>;
+  mapLoad: EventEmitter<Map>; // Consider emitting MapLibreEvent for consistency (breaking change).
+  render: EventEmitter<MapLibreEvent & EventData>;
   mapError: EventEmitter<ErrorEvent & EventData>;
   data: EventEmitter<MapDataEvent & EventData>;
   styleData: EventEmitter<MapStyleDataEvent & EventData>;
@@ -94,10 +94,10 @@ export interface MapEvent {
   styleDataLoading: EventEmitter<MapStyleDataEvent & EventData>;
   sourceDataLoading: EventEmitter<MapSourceDataEvent & EventData>;
   styleImageMissing: EventEmitter<{ id: string } & EventData>;
-  idle: EventEmitter<MapboxEvent & EventData>;
+  idle: EventEmitter<MapLibreEvent & EventData>;
 
-  resize: EventEmitter<MapboxEvent & EventData>;
-  remove: EventEmitter<MapboxEvent & EventData>;
+  resize: EventEmitter<MapLibreEvent & EventData>;
+  remove: EventEmitter<MapLibreEvent & EventData>;
   mouseDown: EventEmitter<MapMouseEvent & EventData>;
   mouseUp: EventEmitter<MapMouseEvent & EventData>;
   mouseMove: EventEmitter<MapMouseEvent & EventData>;
@@ -112,15 +112,15 @@ export interface MapEvent {
   touchCancel: EventEmitter<MapTouchEvent & EventData>;
   wheel: EventEmitter<MapWheelEvent & EventData>;
   dragStart: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+    MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
   >;
   drag: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+    MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
   >;
   dragEnd: EventEmitter<
-    MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+    MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
   >;
-  load: EventEmitter<Map>; // Consider emitting MapboxEvent for consistency (breaking change).
+  load: EventEmitter<Map>; // Consider emitting MapLibreEvent for consistency (breaking change).
   error: EventEmitter<ErrorEvent & EventData>;
 }
 

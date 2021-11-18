@@ -1,6 +1,6 @@
 import { SimpleChange } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { BackgroundLayer } from 'maplibre-gl';
+import { BackgroundLayerSpecification } from 'maplibre-gl';
 import { of } from 'rxjs';
 import { MapService, SetupLayer } from '../map/map.service';
 import { LayerComponent } from './layer.component';
@@ -50,7 +50,9 @@ describe('LayerComponent', () => {
       msSpy.addLayer.and.callFake((options: SetupLayer) => {
         expect(options.layerOptions.id).toEqual(component.id);
         expect(
-          (<BackgroundLayer>options.layerOptions).paint!['background-color']
+          (<BackgroundLayerSpecification>options.layerOptions).paint![
+            'background-color'
+          ]
         ).toEqual('green');
         done();
       });

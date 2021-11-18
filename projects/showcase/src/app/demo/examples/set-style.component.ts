@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RasterLayer, RasterLayout, RasterSource, Style } from 'maplibre-gl';
+import {
+  RasterLayerSpecification,
+  RasterSourceSpecification,
+  StyleSpecification,
+} from 'maplibre-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -15,7 +19,7 @@ import { RasterLayer, RasterLayout, RasterSource, Style } from 'maplibre-gl';
 })
 export class SetStyleComponent implements OnInit {
   layerId = 'basic';
-  style: string | Style;
+  style: string | StyleSpecification;
 
   ngOnInit() {
     this.changeStyle(this.layerId);
@@ -32,18 +36,18 @@ export class SetStyleComponent implements OnInit {
         maxzoom: 15,
         scheme: 'xyz',
         tileSize: 256,
-      } as RasterSource;
+      } as RasterSourceSpecification;
       const layer = {
         id: 'some-raster-layer-id',
         type: 'raster',
         source: 'raster',
         layout: {
           visibility: 'visible',
-        } as RasterLayout,
+        },
         paint: {
           'raster-opacity': 1.0,
         },
-      } as RasterLayer;
+      } as RasterLayerSpecification;
 
       this.style = {
         version: 8,

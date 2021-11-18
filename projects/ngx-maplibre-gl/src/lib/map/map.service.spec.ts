@@ -1,11 +1,9 @@
 import { EventEmitter, NgZone } from '@angular/core';
 import { inject, TestBed } from '@angular/core/testing';
 import {
-  ErrorEvent,
-  EventData,
   Map,
-  MapboxEvent,
-  MapBoxZoomEvent,
+  MapLibreEvent,
+  MapLibreZoomEvent,
   MapContextEvent,
   MapDataEvent,
   MapMouseEvent,
@@ -13,16 +11,16 @@ import {
   MapStyleDataEvent,
   MapTouchEvent,
   MapWheelEvent,
-  Style,
+  StyleSpecification,
 } from 'maplibre-gl';
 import { first } from 'rxjs/operators';
 import { MapService } from './map.service';
-import { MapEvent } from './map.types';
+import { MapEvent, EventData } from './map.types';
 import { MockNgZone } from './mock-ng-zone';
 
 const countries = require('./countries.geo.json');
 
-const geoJSONStyle: Style = {
+const geoJSONStyle: StyleSpecification = {
   sources: {
     world: {
       type: 'geojson',
@@ -63,8 +61,8 @@ describe('MapService', () => {
     });
     container = document.createElement('div');
     mapEvents = {
-      mapResize: new EventEmitter<MapboxEvent & EventData>(),
-      mapRemove: new EventEmitter<MapboxEvent & EventData>(),
+      mapResize: new EventEmitter<MapLibreEvent & EventData>(),
+      mapRemove: new EventEmitter<MapLibreEvent & EventData>(),
       mapMouseDown: new EventEmitter<MapMouseEvent & EventData>(),
       mapMouseUp: new EventEmitter<MapMouseEvent & EventData>(),
       mapMouseMove: new EventEmitter<MapMouseEvent & EventData>(),
@@ -79,63 +77,63 @@ describe('MapService', () => {
       mapTouchCancel: new EventEmitter<MapTouchEvent & EventData>(),
       mapWheel: new EventEmitter<MapWheelEvent & EventData>(),
       moveStart: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
+        MapLibreEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
           EventData
       >(),
       move: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
+        MapLibreEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
           EventData
       >(),
       moveEnd: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
+        MapLibreEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
           EventData
       >(),
       mapDragStart: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+        MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
       >(),
       mapDrag: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+        MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
       >(),
       mapDragEnd: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+        MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
       >(),
       zoomStart: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
+        MapLibreEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
           EventData
       >(),
       zoomEvt: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
+        MapLibreEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
           EventData
       >(),
       zoomEnd: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
+        MapLibreEvent<MouseEvent | TouchEvent | WheelEvent | undefined> &
           EventData
       >(),
       rotateStart: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+        MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
       >(),
       rotate: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+        MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
       >(),
       rotateEnd: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+        MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
       >(),
       pitchStart: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+        MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
       >(),
       pitchEvt: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+        MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
       >(),
       pitchEnd: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+        MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
       >(),
-      boxZoomStart: new EventEmitter<MapBoxZoomEvent & EventData>(),
-      boxZoomEnd: new EventEmitter<MapBoxZoomEvent & EventData>(),
-      boxZoomCancel: new EventEmitter<MapBoxZoomEvent & EventData>(),
+      boxZoomStart: new EventEmitter<MapLibreZoomEvent & EventData>(),
+      boxZoomEnd: new EventEmitter<MapLibreZoomEvent & EventData>(),
+      boxZoomCancel: new EventEmitter<MapLibreZoomEvent & EventData>(),
       webGlContextLost: new EventEmitter<MapContextEvent & EventData>(),
       webGlContextRestored: new EventEmitter<MapContextEvent & EventData>(),
       mapLoad: new EventEmitter<Map>(),
-      render: new EventEmitter<MapboxEvent & EventData>(),
+      render: new EventEmitter<MapLibreEvent & EventData>(),
       mapError: new EventEmitter<ErrorEvent & EventData>(),
       data: new EventEmitter<MapDataEvent & EventData>(),
       styleData: new EventEmitter<MapStyleDataEvent & EventData>(),
@@ -144,10 +142,10 @@ describe('MapService', () => {
       styleDataLoading: new EventEmitter<MapStyleDataEvent & EventData>(),
       sourceDataLoading: new EventEmitter<MapSourceDataEvent & EventData>(),
       styleImageMissing: new EventEmitter<{ id: string } & EventData>(),
-      idle: new EventEmitter<MapboxEvent & EventData>(),
+      idle: new EventEmitter<MapLibreEvent & EventData>(),
 
-      resize: new EventEmitter<MapboxEvent & EventData>(),
-      remove: new EventEmitter<MapboxEvent & EventData>(),
+      resize: new EventEmitter<MapLibreEvent & EventData>(),
+      remove: new EventEmitter<MapLibreEvent & EventData>(),
       mouseDown: new EventEmitter<MapMouseEvent & EventData>(),
       mouseUp: new EventEmitter<MapMouseEvent & EventData>(),
       mouseMove: new EventEmitter<MapMouseEvent & EventData>(),
@@ -162,13 +160,13 @@ describe('MapService', () => {
       touchCancel: new EventEmitter<MapTouchEvent & EventData>(),
       wheel: new EventEmitter<MapWheelEvent & EventData>(),
       dragStart: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+        MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
       >(),
       drag: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+        MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
       >(),
       dragEnd: new EventEmitter<
-        MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
+        MapLibreEvent<MouseEvent | TouchEvent | undefined> & EventData
       >(),
       load: new EventEmitter<Map>(),
       error: new EventEmitter<ErrorEvent & EventData>(),
@@ -181,8 +179,6 @@ describe('MapService', () => {
         container,
         style: geoJSONStyle,
         zoom: [0],
-        accessToken:
-          'sk.eyJ1IjoibXBrZWF0ZWNoIiwiYSI6ImNra2k1aGx2azFqc3cycHF0cWFpYzl3aHUifQ.XYK4HpeRKu0qrYvPX-XBWQ',
       },
       mapEvents,
     });

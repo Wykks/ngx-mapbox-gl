@@ -7,7 +7,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { VideoSource, VideoSourceOptions, VideoSourceRaw } from 'maplibre-gl';
+import { Source, VideoSourceSpecification } from 'maplibre-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
@@ -18,13 +18,15 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideoSourceComponent
-  implements OnInit, OnDestroy, OnChanges, VideoSourceOptions {
+  implements OnInit, OnDestroy, OnChanges, VideoSourceSpecification {
   /* Init inputs */
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() urls: VideoSourceOptions['urls'];
-  @Input() coordinates: VideoSourceOptions['coordinates'];
+  @Input() urls: VideoSourceSpecification['urls'];
+  @Input() coordinates: VideoSourceSpecification['coordinates'];
+
+  type: VideoSourceSpecification['type'] = 'video';
 
   private sourceAdded = false;
   private sub = new Subscription();
@@ -53,7 +55,9 @@ export class VideoSourceComponent
       this.ngOnDestroy();
       this.ngOnInit();
     } else if (changes.coordinates && !changes.coordinates.isFirstChange()) {
-      const source = this.MapService.getSource<VideoSource>(this.id);
+      const source = this.MapService.getSource<
+        Source & { setCoordinates: Function }
+      >(this.id);
       if (source === undefined) {
         return;
       }
@@ -70,7 +74,7 @@ export class VideoSourceComponent
   }
 
   private init() {
-    const source: VideoSourceRaw = {
+    const source: VideoSourceSpecification = {
       type: 'video',
       urls: this.urls,
       coordinates: this.coordinates,

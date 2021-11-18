@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Map, SymbolLayer } from 'maplibre-gl';
+import { Map, SymbolLayerSpecification } from 'maplibre-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -58,7 +58,7 @@ export class Display3dBuildingsComponent {
     for (let i = 0; i < layers.length; i++) {
       if (
         layers[i].type === 'symbol' &&
-        (<SymbolLayer>layers[i]).layout!['text-field']
+        (<SymbolLayerSpecification>layers[i]).layout!['text-field']
       ) {
         this.labelLayerId = layers[i].id;
         break;

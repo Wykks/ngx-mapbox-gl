@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CirclePaint, SymbolLayout, SymbolPaint } from 'maplibre-gl';
+import {
+  CircleLayerSpecification,
+  SymbolLayerSpecification,
+} from 'maplibre-gl';
 
 /**
  * Remember: mgl-layer are way faster than html markers
@@ -57,9 +60,9 @@ const COLORS = ['#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c'];
 })
 export class ClusterHtmlComponent {
   clusterProperties: any;
-  circlePaint: CirclePaint;
-  labelLayout: SymbolLayout;
-  labelPaint: SymbolPaint;
+  circlePaint: CircleLayerSpecification['paint'];
+  labelLayout: SymbolLayerSpecification['layout'];
+  labelPaint: SymbolLayerSpecification['paint'];
 
   constructor() {
     // filters for classifying earthquakes into five categories based on magnitude

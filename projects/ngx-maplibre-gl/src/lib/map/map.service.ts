@@ -1,5 +1,31 @@
 import { EventEmitter, Injectable, NgZone } from '@angular/core';
-import * as MapLibreGl from 'maplibre-gl';
+import {
+  CameraOptions,
+  FlyToOptions,
+  LngLatLike,
+  MapOptions,
+  MarkerOptions,
+  PopupOptions,
+  Map,
+  Marker,
+  Popup,
+  AnimationOptions,
+  LayerSpecification,
+  StyleSpecification,
+  LngLatBoundsLike,
+  PointLike,
+  IControl,
+  SourceSpecification,
+  FitBoundsOptions,
+  Source,
+  BackgroundLayerSpecification,
+  FillLayerSpecification,
+  FillExtrusionLayerSpecification,
+  LineLayerSpecification,
+  SymbolLayerSpecification,
+  RasterLayerSpecification,
+  CircleLayerSpecification,
+} from 'maplibre-gl';
 import { AsyncSubject, Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import {
@@ -10,8 +36,7 @@ import {
 } from './map.types';
 
 export interface SetupMap {
-  customMapboxApiUrl?: string;
-  mapOptions: Omit<MapLibreGl.MapboxOptions, 'bearing' | 'pitch' | 'zoom'> & {
+  mapOptions: Omit<MapOptions, 'bearing' | 'pitch' | 'zoom'> & {
     bearing?: [number];
     pitch?: [number];
     zoom?: [number];
@@ -20,12 +45,12 @@ export interface SetupMap {
 }
 
 export interface SetupLayer {
-  layerOptions: MapLibreGl.Layer;
+  layerOptions: LayerSpecification;
   layerEvents: LayerEvents;
 }
 
 export interface SetupPopup {
-  popupOptions: MapLibreGl.PopupOptions;
+  popupOptions: PopupOptions;
   popupEvents: {
     open: EventEmitter<void>;
     close: EventEmitter<void>;
@@ -36,42 +61,42 @@ export interface SetupPopup {
 
 export interface SetupMarker {
   markersOptions: {
-    pitchAlignment?: MapLibreGl.MarkerOptions['pitchAlignment'];
-    rotationAlignment?: MapLibreGl.MarkerOptions['rotationAlignment'];
-    offset?: MapLibreGl.MarkerOptions['offset'];
-    anchor?: MapLibreGl.MarkerOptions['anchor'];
-    draggable?: MapLibreGl.MarkerOptions['draggable'];
+    pitchAlignment?: MarkerOptions['pitchAlignment'];
+    rotationAlignment?: MarkerOptions['rotationAlignment'];
+    offset?: MarkerOptions['offset'];
+    anchor?: MarkerOptions['anchor'];
+    draggable?: MarkerOptions['draggable'];
     element: HTMLElement;
     feature?: GeoJSON.Feature<GeoJSON.Point>;
-    lngLat?: MapLibreGl.LngLatLike;
-    clickTolerance?: MapLibreGl.MarkerOptions['clickTolerance'];
+    lngLat?: LngLatLike;
+    clickTolerance?: MarkerOptions['clickTolerance'];
   };
   markersEvents: {
-    markerDragStart: EventEmitter<MapLibreGl.Marker>;
-    markerDrag: EventEmitter<MapLibreGl.Marker>;
-    markerDragEnd: EventEmitter<MapLibreGl.Marker>;
-    dragStart: EventEmitter<MapLibreGl.Marker>;
-    drag: EventEmitter<MapLibreGl.Marker>;
-    dragEnd: EventEmitter<MapLibreGl.Marker>;
+    markerDragStart: EventEmitter<Marker>;
+    markerDrag: EventEmitter<Marker>;
+    markerDragEnd: EventEmitter<Marker>;
+    dragStart: EventEmitter<Marker>;
+    drag: EventEmitter<Marker>;
+    dragEnd: EventEmitter<Marker>;
   };
 }
 
 export type MovingOptions =
-  | MapLibreGl.FlyToOptions
-  | (MapLibreGl.AnimationOptions & MapLibreGl.CameraOptions)
-  | MapLibreGl.CameraOptions;
+  | FlyToOptions
+  | (AnimationOptions & CameraOptions)
+  | CameraOptions;
 
 @Injectable()
 export class MapService {
-  mapInstance: MapLibreGl.Map;
+  mapInstance: Map;
   mapCreated$: Observable<void>;
   mapLoaded$: Observable<void>;
   mapEvents: MapEvent;
 
   private mapCreated = new AsyncSubject<void>();
   private mapLoaded = new AsyncSubject<void>();
-  private markersToRemove: MapLibreGl.Marker[] = [];
-  private popupsToRemove: MapLibreGl.Popup[] = [];
+  private markersToRemove: Marker[] = [];
+  private popupsToRemove: Popup[] = [];
   private imageIdsToRemove: string[] = [];
   private subscription = new Subscription();
 
@@ -84,10 +109,7 @@ export class MapService {
     // Need onStable to wait for a potential @angular/route transition to end
     this.zone.onStable.pipe(first()).subscribe(() => {
       // Workaround rollup issue
-      if (options.customMapboxApiUrl) {
-        this.assign(MapLibreGl, 'config.API_URL', options.customMapboxApiUrl);
-      }
-      this.createMap(options.mapOptions as MapLibreGl.MapboxOptions);
+      this.createMap(options.mapOptions as MapOptions);
       this.hookEvents(options.mapEvents);
       this.mapEvents = options.mapEvents;
       this.mapCreated.next(undefined);
@@ -196,13 +218,13 @@ export class MapService {
     });
   }
 
-  updateStyle(style: MapLibreGl.Style) {
+  updateStyle(style: StyleSpecification) {
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.setStyle(style);
     });
   }
 
-  updateMaxBounds(maxBounds: MapLibreGl.LngLatBoundsLike) {
+  updateMaxBounds(maxBounds: LngLatBoundsLike) {
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.setMaxBounds(maxBounds);
     });
@@ -214,15 +236,13 @@ export class MapService {
   }
 
   queryRenderedFeatures(
-    pointOrBox?:
-      | MapLibreGl.PointLike
-      | [MapLibreGl.PointLike, MapLibreGl.PointLike],
+    pointOrBox?: PointLike | [PointLike, PointLike],
     parameters?: { layers?: string[]; filter?: any[] }
   ): GeoJSON.Feature<GeoJSON.GeometryObject>[] {
     return this.mapInstance.queryRenderedFeatures(pointOrBox, parameters);
   }
 
-  panTo(center: MapLibreGl.LngLatLike, options?: MapLibreGl.AnimationOptions) {
+  panTo(center: LngLatLike, options?: AnimationOptions) {
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.panTo(center, options);
     });
@@ -232,7 +252,7 @@ export class MapService {
     movingMethod: 'jumpTo' | 'easeTo' | 'flyTo',
     movingOptions?: MovingOptions,
     zoom?: number,
-    center?: MapLibreGl.LngLatLike,
+    center?: LngLatLike,
     bearing?: number,
     pitch?: number
   ) {
@@ -250,13 +270,13 @@ export class MapService {
   addLayer(layer: SetupLayer, bindEvents: boolean, before?: string) {
     this.zone.runOutsideAngular(() => {
       Object.keys(layer.layerOptions).forEach((key: string) => {
-        const tkey = <keyof MapLibreGl.AnyLayer>key;
+        const tkey = <keyof LayerSpecification>key;
         if (layer.layerOptions[tkey] === undefined) {
           delete layer.layerOptions[tkey];
         }
       });
       this.mapInstance.addLayer(
-        layer.layerOptions as MapLibreGl.AnyLayer,
+        layer.layerOptions as LayerSpecification,
         before
       );
       if (bindEvents) {
@@ -416,7 +436,7 @@ export class MapService {
   }
 
   addMarker(marker: SetupMarker) {
-    const options: MapLibreGl.MarkerOptions = {
+    const options: MarkerOptions = {
       offset: marker.markersOptions.offset,
       anchor: marker.markersOptions.anchor,
       draggable: !!marker.markersOptions.draggable,
@@ -427,12 +447,12 @@ export class MapService {
     if (marker.markersOptions.element.childNodes.length > 0) {
       options.element = marker.markersOptions.element;
     }
-    const markerInstance = new MapLibreGl.Marker(options);
+    const markerInstance = new Marker(options);
     if (
       marker.markersEvents.markerDragStart.observers.length ||
       marker.markersEvents.dragStart.observers.length
     ) {
-      markerInstance.on('dragstart', (event: { target: MapLibreGl.Marker }) => {
+      markerInstance.on('dragstart', (event: { target: Marker }) => {
         if (event) {
           const { target } = event;
           this.zone.run(() => {
@@ -449,7 +469,7 @@ export class MapService {
       marker.markersEvents.markerDrag.observers.length ||
       marker.markersEvents.drag.observers.length
     ) {
-      markerInstance.on('drag', (event: { target: MapLibreGl.Marker }) => {
+      markerInstance.on('drag', (event: { target: Marker }) => {
         if (event) {
           const { target } = event;
           this.zone.run(() => {
@@ -463,7 +483,7 @@ export class MapService {
       marker.markersEvents.markerDragEnd.observers.length ||
       marker.markersEvents.dragEnd.observers.length
     ) {
-      markerInstance.on('dragend', (event: { target: MapLibreGl.Marker }) => {
+      markerInstance.on('dragend', (event: { target: Marker }) => {
         if (event) {
           const { target } = event;
           this.zone.run(() => {
@@ -473,7 +493,7 @@ export class MapService {
         }
       });
     }
-    const lngLat: MapLibreGl.LngLatLike = marker.markersOptions.feature
+    const lngLat: LngLatLike = marker.markersOptions.feature
       ? <[number, number]>marker.markersOptions.feature.geometry!.coordinates
       : marker.markersOptions.lngLat!;
     markerInstance.setLngLat(lngLat);
@@ -483,7 +503,7 @@ export class MapService {
     });
   }
 
-  removeMarker(marker: MapLibreGl.Marker) {
+  removeMarker(marker: Marker) {
     this.markersToRemove.push(marker);
   }
 
@@ -494,7 +514,7 @@ export class MapService {
           (<any>popup.popupOptions)[key] === undefined &&
           delete (<any>popup.popupOptions)[key]
       );
-      const popupInstance = new MapLibreGl.Popup(popup.popupOptions);
+      const popupInstance = new Popup(popup.popupOptions);
       popupInstance.setDOMContent(element);
       if (
         popup.popupEvents.popupClose.observers.length ||
@@ -522,11 +542,7 @@ export class MapService {
     });
   }
 
-  addPopupToMap(
-    popup: MapLibreGl.Popup,
-    lngLat: MapLibreGl.LngLatLike,
-    skipOpenEvent = false
-  ) {
+  addPopupToMap(popup: Popup, lngLat: LngLatLike, skipOpenEvent = false) {
     return this.zone.runOutsideAngular(() => {
       if (skipOpenEvent && (<any>popup)._listeners) {
         delete (<any>popup)._listeners['open'];
@@ -536,27 +552,27 @@ export class MapService {
     });
   }
 
-  addPopupToMarker(marker: MapLibreGl.Marker, popup: MapLibreGl.Popup) {
+  addPopupToMarker(marker: Marker, popup: Popup) {
     return this.zone.runOutsideAngular(() => {
       marker.setPopup(popup);
     });
   }
 
-  removePopupFromMap(popup: MapLibreGl.Popup, skipCloseEvent = false) {
+  removePopupFromMap(popup: Popup, skipCloseEvent = false) {
     if (skipCloseEvent && (<any>popup)._listeners) {
       delete (<any>popup)._listeners['close'];
     }
     this.popupsToRemove.push(popup);
   }
 
-  removePopupFromMarker(marker: MapLibreGl.Marker) {
+  removePopupFromMarker(marker: Marker) {
     return this.zone.runOutsideAngular(() => {
       marker.setPopup(undefined);
     });
   }
 
   addControl(
-    control: MapLibreGl.Control | MapLibreGl.IControl,
+    control: IControl,
     position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
   ) {
     return this.zone.runOutsideAngular(() => {
@@ -564,7 +580,7 @@ export class MapService {
     });
   }
 
-  removeControl(control: MapLibreGl.Control | MapLibreGl.IControl) {
+  removeControl(control: IControl) {
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.removeControl(<any>control);
     });
@@ -577,7 +593,7 @@ export class MapService {
   ) {
     return this.zone.runOutsideAngular(() => {
       return new Promise<void>((resolve, reject) => {
-        this.mapInstance.loadImage(url, (error: Error, image: ImageBitmap) => {
+        this.mapInstance.loadImage(url, (error: any, image: any) => {
           if (error) {
             reject(error);
             return;
@@ -599,7 +615,7 @@ export class MapService {
     this.imageIdsToRemove.push(imageId);
   }
 
-  addSource(sourceId: string, source: MapLibreGl.AnySourceData) {
+  addSource(sourceId: string, source: SourceSpecification) {
     return this.zone.runOutsideAngular(() => {
       Object.keys(source).forEach(
         (key) => (<any>source)[key] === undefined && delete (<any>source)[key]
@@ -608,7 +624,7 @@ export class MapService {
     });
   }
 
-  getSource<T extends MapLibreGl.AnySourceImpl>(sourceId: string) {
+  getSource<T extends Source>(sourceId: string): T {
     return <T>this.mapInstance.getSource(sourceId);
   }
 
@@ -624,16 +640,16 @@ export class MapService {
   setAllLayerPaintProperty(
     layerId: string,
     paint:
-      | MapLibreGl.BackgroundPaint
-      | MapLibreGl.FillPaint
-      | MapLibreGl.FillExtrusionPaint
-      | MapLibreGl.LinePaint
-      | MapLibreGl.SymbolPaint
-      | MapLibreGl.RasterPaint
-      | MapLibreGl.CirclePaint
+      | BackgroundLayerSpecification['paint']
+      | FillLayerSpecification['paint']
+      | FillExtrusionLayerSpecification['paint']
+      | LineLayerSpecification['paint']
+      | SymbolLayerSpecification['paint']
+      | RasterLayerSpecification['paint']
+      | CircleLayerSpecification['paint']
   ) {
     return this.zone.runOutsideAngular(() => {
-      Object.keys(paint).forEach((key) => {
+      Object.keys(paint as any).forEach((key) => {
         // TODO Check for perf, setPaintProperty only on changed paint props maybe
         this.mapInstance.setPaintProperty(layerId, key, (<any>paint)[key]);
       });
@@ -643,16 +659,16 @@ export class MapService {
   setAllLayerLayoutProperty(
     layerId: string,
     layout:
-      | MapLibreGl.BackgroundLayout
-      | MapLibreGl.FillLayout
-      | MapLibreGl.FillExtrusionLayout
-      | MapLibreGl.LineLayout
-      | MapLibreGl.SymbolLayout
-      | MapLibreGl.RasterLayout
-      | MapLibreGl.CircleLayout
+      | BackgroundLayerSpecification['layout']
+      | FillLayerSpecification['layout']
+      | FillExtrusionLayerSpecification['layout']
+      | LineLayerSpecification['layout']
+      | SymbolLayerSpecification['layout']
+      | RasterLayerSpecification['layout']
+      | CircleLayerSpecification['layout']
   ) {
     return this.zone.runOutsideAngular(() => {
-      Object.keys(layout).forEach((key) => {
+      Object.keys(layout as any).forEach((key) => {
         // TODO Check for perf, setPaintProperty only on changed paint props maybe
         this.mapInstance.setLayoutProperty(layerId, key, (<any>layout)[key]);
       });
@@ -681,19 +697,16 @@ export class MapService {
     });
   }
 
-  fitBounds(
-    bounds: MapLibreGl.LngLatBoundsLike,
-    options?: MapLibreGl.FitBoundsOptions
-  ) {
+  fitBounds(bounds: LngLatBoundsLike, options?: FitBoundsOptions) {
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.fitBounds(bounds, options);
     });
   }
 
   fitScreenCoordinates(
-    points: [MapLibreGl.PointLike, MapLibreGl.PointLike],
+    points: [PointLike, PointLike],
     bearing: number,
-    options?: MapLibreGl.AnimationOptions & MapLibreGl.CameraOptions
+    options?: AnimationOptions & CameraOptions
   ) {
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.fitScreenCoordinates(
@@ -713,15 +726,15 @@ export class MapService {
     });
   }
 
-  private createMap(options: MapLibreGl.MapboxOptions) {
+  private createMap(options: MapOptions) {
     NgZone.assertNotInAngularZone();
     Object.keys(options).forEach((key: string) => {
-      const tkey = <keyof MapLibreGl.MapboxOptions>key;
+      const tkey = <keyof MapOptions>key;
       if (options[tkey] === undefined) {
         delete options[tkey];
       }
     });
-    this.mapInstance = new MapLibreGl.Map(options);
+    this.mapInstance = new Map(options);
 
     const isIEorEdge =
       window && /msie\s|trident\/|edge\//i.test(window.navigator.userAgent);
@@ -755,7 +768,7 @@ export class MapService {
     this.imageIdsToRemove = [];
   }
 
-  private findLayersBySourceId(sourceId: string): MapLibreGl.Layer[] {
+  private findLayersBySourceId(sourceId: string): LayerSpecification[] {
     const layers = this.mapInstance.getStyle().layers;
     if (layers == null) {
       return [];
@@ -1089,27 +1102,6 @@ export class MapService {
       this.mapInstance.on('idle', (evt) =>
         this.zone.run(() => events.idle.emit(evt))
       );
-    }
-  }
-
-  // TODO move this elsewhere
-  private assign(obj: any, prop: any, value: any) {
-    if (typeof prop === 'string') {
-      // tslint:disable-next-line:no-parameter-reassignment
-      prop = prop.split('.');
-    }
-    if (prop.length > 1) {
-      const e = prop.shift();
-      this.assign(
-        (obj[e] =
-          Object.prototype.toString.call(obj[e]) === '[object Object]'
-            ? obj[e]
-            : {}),
-        prop,
-        value
-      );
-    } else {
-      obj[prop[0]] = value;
     }
   }
 }

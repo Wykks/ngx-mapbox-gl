@@ -7,7 +7,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { VectorSource, VectorSourceImpl } from 'maplibre-gl';
+import { VectorSourceSpecification, Source } from 'maplibre-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
@@ -18,21 +18,21 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VectorSourceComponent
-  implements OnInit, OnDestroy, OnChanges, VectorSource {
+  implements OnInit, OnDestroy, OnChanges, VectorSourceSpecification {
   /* Init inputs */
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() url?: VectorSource['url'];
-  @Input() tiles?: VectorSource['tiles'];
-  @Input() bounds?: VectorSource['bounds'];
-  @Input() scheme?: VectorSource['scheme'];
-  @Input() minzoom?: VectorSource['minzoom'];
-  @Input() maxzoom?: VectorSource['maxzoom'];
-  @Input() attribution?: VectorSource['attribution'];
-  @Input() promoteId?: VectorSource['promoteId'];
+  @Input() url?: VectorSourceSpecification['url'];
+  @Input() tiles?: VectorSourceSpecification['tiles'];
+  @Input() bounds?: VectorSourceSpecification['bounds'];
+  @Input() scheme?: VectorSourceSpecification['scheme'];
+  @Input() minzoom?: VectorSourceSpecification['minzoom'];
+  @Input() maxzoom?: VectorSourceSpecification['maxzoom'];
+  @Input() attribution?: VectorSourceSpecification['attribution'];
+  @Input() promoteId?: VectorSourceSpecification['promoteId'];
 
-  type: VectorSource['type'] = 'vector';
+  type: VectorSourceSpecification['type'] = 'vector';
 
   private sourceAdded = false;
   private sub = new Subscription();
@@ -71,7 +71,10 @@ export class VectorSourceComponent
       (changes.url && !changes.url.isFirstChange()) ||
       (changes.tiles && !changes.tiles.isFirstChange())
     ) {
-      const source = this.MapService.getSource<VectorSourceImpl>(this.id);
+      // HM TODO export vector source implementation?
+      const source = this.MapService.getSource<
+        Source & { setUrl: Function; setTiles: Function }
+      >(this.id);
       if (source === undefined) {
         return;
       }
@@ -94,7 +97,7 @@ export class VectorSourceComponent
   }
 
   private init() {
-    const source: VectorSource = {
+    const source: VectorSourceSpecification = {
       type: this.type,
       url: this.url,
       tiles: this.tiles,

@@ -9,16 +9,15 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {
-  AnyLayer,
-  EventData,
-  Layer,
+  LayerSpecification,
+  FilterSpecification,
   MapLayerMouseEvent,
   MapLayerTouchEvent,
 } from 'maplibre-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter, mapTo, startWith, switchMap } from 'rxjs/operators';
 import { MapService, SetupLayer } from '../map/map.service';
-import { LayerEvents } from '../map/map.types';
+import { EventData, LayerEvents } from '../map/map.types';
 import { deprecationWarning } from '../utils';
 
 @Component({
@@ -26,21 +25,21 @@ import { deprecationWarning } from '../utils';
   template: '',
 })
 export class LayerComponent
-  implements OnInit, OnDestroy, OnChanges, Layer, LayerEvents {
+  implements OnInit, OnDestroy, OnChanges, LayerEvents {
   /* Init inputs */
-  @Input() id: AnyLayer['id'];
-  @Input() source?: Layer['source'];
-  @Input() type: AnyLayer['type'];
-  @Input() metadata?: Layer['metadata'];
-  @Input() sourceLayer?: Layer['source-layer'];
+  @Input() id: LayerSpecification['id'];
+  @Input() source?: string;
+  @Input() type: LayerSpecification['type'];
+  @Input() metadata?: LayerSpecification['metadata'];
+  @Input() sourceLayer?: string;
 
   /* Dynamic inputs */
-  @Input() filter?: Layer['filter'];
-  @Input() layout?: Layer['layout'];
-  @Input() paint?: Layer['paint'];
+  @Input() filter?: FilterSpecification;
+  @Input() layout?: LayerSpecification['layout'];
+  @Input() paint?: LayerSpecification['paint'];
   @Input() before?: string;
-  @Input() minzoom?: Layer['minzoom'];
-  @Input() maxzoom?: Layer['maxzoom'];
+  @Input() minzoom?: LayerSpecification['minzoom'];
+  @Input() maxzoom?: LayerSpecification['maxzoom'];
 
   @Output() layerClick = new EventEmitter<MapLayerMouseEvent & EventData>();
   @Output() layerDblClick = new EventEmitter<MapLayerMouseEvent & EventData>();
@@ -182,7 +181,7 @@ export class LayerComponent
       layerOptions: {
         id: this.id,
         type: <any>this.type,
-        source: this.source,
+        source: this.source as string,
         metadata: this.metadata,
         'source-layer': this.sourceLayer,
         minzoom: this.minzoom,
@@ -190,7 +189,7 @@ export class LayerComponent
         filter: this.filter,
         layout: this.layout,
         paint: this.paint,
-      },
+      } as LayerSpecification,
       layerEvents: {
         layerClick: this.layerClick,
         layerDblClick: this.layerDblClick,

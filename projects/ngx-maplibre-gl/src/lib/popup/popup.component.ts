@@ -12,7 +12,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { LngLatLike, PointLike, Popup, PopupOptions } from 'maplibre-gl';
+import { LngLatLike, Offset, Popup, PopupOptions } from 'maplibre-gl';
 import { MapService } from '../map/map.service';
 import { MarkerComponent } from '../marker/marker.component';
 import { deprecationWarning } from '../utils';
@@ -37,7 +37,7 @@ export class PopupComponent
   @Input() feature?: GeoJSON.Feature<GeoJSON.Point>;
   @Input() lngLat?: LngLatLike;
   @Input() marker?: MarkerComponent;
-  @Input() offset?: number | PointLike | { [anchor: string]: [number, number] };
+  @Input() offset?: Offset;
 
   @Output() popupClose = new EventEmitter<void>();
   @Output() popupOpen = new EventEmitter<void>();
@@ -52,7 +52,7 @@ export class PopupComponent
 
   @ViewChild('content', { static: true }) content: ElementRef;
 
-  popupInstance?: Popup;
+  popupInstance?: maplibregl.Popup;
 
   constructor(private MapService: MapService) {}
 
@@ -107,7 +107,7 @@ export class PopupComponent
 
   ngAfterViewInit() {
     this.popupInstance = this.createPopup();
-    this.addPopup(this.popupInstance);
+    this.addPopup(this.popupInstance as Popup);
   }
 
   ngOnDestroy() {

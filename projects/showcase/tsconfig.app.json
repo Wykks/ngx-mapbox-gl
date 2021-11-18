@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../../out-tsc/app",
     "resolveJsonModule": true,
-    "types": []
+    "types": ["geojson"]
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

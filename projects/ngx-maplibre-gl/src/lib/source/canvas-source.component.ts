@@ -7,14 +7,22 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import {
-  CanvasSource,
-  CanvasSourceOptions,
-  CanvasSourceRaw,
-} from 'maplibre-gl';
+import { Source } from 'maplibre-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
+
+interface CanvasSourceSpecification {
+  type: 'canvas';
+  coordinates: [
+    [number, number],
+    [number, number],
+    [number, number],
+    [number, number]
+  ];
+  animate?: boolean;
+  canvas: string | HTMLCanvasElement;
+}
 
 @Component({
   selector: 'mgl-canvas-source',
@@ -22,15 +30,16 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CanvasSourceComponent
-  implements OnInit, OnDestroy, OnChanges, CanvasSourceOptions {
+  implements OnInit, OnDestroy, OnChanges, CanvasSourceSpecification {
   /* Init inputs */
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() coordinates: CanvasSourceOptions['coordinates'];
-  @Input() canvas: CanvasSourceOptions['canvas'];
-  @Input() animate?: CanvasSourceOptions['animate'];
+  @Input() coordinates: CanvasSourceSpecification['coordinates'];
+  @Input() canvas: CanvasSourceSpecification['canvas'];
+  @Input() animate?: CanvasSourceSpecification['animate'];
 
+  type: CanvasSourceSpecification['type'] = 'canvas';
   private sourceAdded = false;
   private sub = new Subscription();
 
@@ -60,7 +69,9 @@ export class CanvasSourceComponent
       this.ngOnDestroy();
       this.ngOnInit();
     } else if (changes.coordinates && !changes.coordinates.isFirstChange()) {
-      const source = this.MapService.getSource<CanvasSource>(this.id);
+      const source = this.MapService.getSource<
+        Source & { setCoordinates: Function }
+      >(this.id);
       if (source === undefined) {
         return;
       }
@@ -77,13 +88,13 @@ export class CanvasSourceComponent
   }
 
   private init() {
-    const source: CanvasSourceRaw = {
+    const source: CanvasSourceSpecification = {
       type: 'canvas',
       coordinates: this.coordinates,
       canvas: this.canvas,
       animate: this.animate,
     };
-    this.MapService.addSource(this.id, source);
+    this.MapService.addSource(this.id, source as any);
     this.sourceAdded = true;
   }
 }

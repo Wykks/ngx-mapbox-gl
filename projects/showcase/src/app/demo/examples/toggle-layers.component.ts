@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AnyLayout } from 'maplibre-gl';
+import { LayerSpecification } from 'maplibre-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -59,7 +59,7 @@ import { AnyLayout } from 'maplibre-gl';
   styleUrls: ['./examples.css', './toggle-layers.component.css'],
 })
 export class ToggleLayersComponent implements OnInit {
-  layouts: { [key: string]: AnyLayout } = {
+  layouts: { [key: string]: LayerSpecification['layout'] } = {
     countries: {
       visibility: 'none',
     },
@@ -76,7 +76,9 @@ export class ToggleLayersComponent implements OnInit {
     this.layouts[evt.value] = {
       ...this.layouts[evt.value],
       visibility:
-        this.layouts[evt.value].visibility === 'visible' ? 'none' : 'visible',
+        (this.layouts[evt.value] as any).visibility === 'visible'
+          ? 'none'
+          : 'visible',
     };
   }
 }
