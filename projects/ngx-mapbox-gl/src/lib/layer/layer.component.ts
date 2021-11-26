@@ -33,6 +33,7 @@ export class LayerComponent
   @Input() type: AnyLayer['type'];
   @Input() metadata?: Layer['metadata'];
   @Input() sourceLayer?: Layer['source-layer'];
+  @Input() removeSource?: boolean; // Flag to enable removeSource clean up functionality
 
   /* Dynamic inputs */
   @Input() filter?: Layer['filter'];
@@ -120,6 +121,7 @@ export class LayerComponent
 
   private layerAdded = false;
   private sub: Subscription;
+  private sourceIdAdded?: string;
 
   constructor(private MapService: MapService) {}
 
@@ -171,6 +173,12 @@ export class LayerComponent
   ngOnDestroy() {
     if (this.layerAdded) {
       this.MapService.removeLayer(this.id);
+      if (undefined !== this.sourceIdAdded) {
+        // Clean up any automatically created source for this layer
+        if (this.MapService.getSource(this.sourceIdAdded)) {
+          this.MapService.removeSource(this.sourceIdAdded);
+        }
+      }
     }
     if (this.sub) {
       this.sub.unsubscribe();
@@ -220,7 +228,20 @@ export class LayerComponent
         touchCancel: this.touchCancel,
       },
     };
+    if (this.removeSource && typeof this.source !== "string") {
+      // There is no id of an existing source bound to this layer
+      if(undefined === this.MapService.getSource(this.id)) {
+        // A source with this layer id doesn't exist so it will be created automatically in the addLayer call below
+        this.sourceIdAdded = this.id;
+      }
+    }
     this.MapService.addLayer(layer, bindEvents, this.before);
+    if (undefined !== this.sourceIdAdded) {
+      if(undefined === this.MapService.getSource(this.sourceIdAdded)) {
+        // If it wasn't created for some reason then we don't want to clean it up
+        this.sourceIdAdded = undefined;
+      }
+    }
     this.layerAdded = true;
   }
 
