@@ -1,10 +1,11 @@
 # ngx-maplibre-gl
 
-[![npm version](https://img.shields.io/npm/v/ngx-maplibre-gl.svg?style=flat)](https://www.npmjs.com/package/ngx-maplibre-gl)
+[![npm version](https://img.shields.io/npm/v/ngx-maplibre-gl.svg?style=flat)](https://www.npmjs.com/package/@maplibre/ngx-maplibre-gl)
 
 Angular wrapper for [maplibre-gl](https://www.maplibre.org/). It exposes a bunch of components meant to be simple to use with Angular.
 
-### Demo site 
+### Demo site
+
 Can be found here (based on the generated gh-pages in this repo):
 https://maplibre.org/ngx-maplibre-gl/
 
@@ -37,8 +38,8 @@ This is a fork of [ngx-mapbox-gl](https://github.com/Wykks/ngx-mapbox-gl) and I 
 ## How to start
 
 ```
-npm install ngx-maplibre-gl maplibre-gl @types/geojson
-yarn add ngx-maplibre-gl maplibre-gl @types/geojson
+npm install @maplibre/ngx-maplibre-gl maplibre-gl
+yarn add @maplibre/ngx-maplibre-gl maplibre-gl
 ```
 
 Load the CSS of `maplibre-gl`
@@ -68,7 +69,7 @@ Then, in your app's main module (or in any other module), import the `NgxMapboxG
 
 ```ts
 ...
-import { NgxMapLibreGLModule } from 'ngx-maplibre-gl';
+import { NgxMapLibreGLModule } from '@maplibre/ngx-maplibre-gl';
 
 @NgModule({
   imports: [
