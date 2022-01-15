@@ -29,6 +29,6 @@ Change the version in both package.json files - the version should match the sup
 
 Manually edit `CHANGELOG.md` if necessary.
 
-If eveything is OK, push the changes
+If everything is OK, push the changes
 
 Create a Github release with the same version name, for example `v1.2.3` - this will triger the Github actions to update the npm package and the gh-pages
