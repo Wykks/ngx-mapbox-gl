@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [12.2.0](https://github.com/maplibre/ngx-maplibre-gl/compare/v12.0.0...v12.2.0) (2022-01-15)
+
+- Upgrade to use maplibre 2.0
+
 ### [12.0.0](https://github.com/maplibre/ngx-maplibre-gl/compare/v11.2.0...v12.0.0) (2021-06-16)
 
 - Update maplibre to version 1.15.1.
