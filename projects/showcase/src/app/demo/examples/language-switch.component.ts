@@ -6,7 +6,7 @@ import { Map } from 'maplibre-gl';
   template: `
     <mgl-map
       [style]="
-        'https://api.maptiler.com/maps/basic/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL'
+        'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL'
       "
       [zoom]="[2.9]"
       [center]="[16.05, 48]"
@@ -52,9 +52,19 @@ export class LanguageSwitchComponent {
 
   changeLangTo(language: string) {
     this.map.setLayoutProperty(
-      'label_country',
+      'country_1',
       'text-field',
-      '{name_' + language + '}'
+      '{name:' + language + '}'
+    );
+    this.map.setLayoutProperty(
+      'country_2',
+      'text-field',
+      '{name:' + language + '}'
+    );
+    this.map.setLayoutProperty(
+      'country_3',
+      'text-field',
+      '{name:' + language + '}'
     );
   }
 }
