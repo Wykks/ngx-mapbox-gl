@@ -3,10 +3,7 @@
   "dest": "../../dist/ngx-maplibre-gl",
   "deleteDestPath": false,
   "lib": {
-    "entryFile": "src/public_api.ts",
-    "umdModuleIds": {
-      "maplibre-gl": "maplibre-gl"
-    }
+    "entryFile": "src/public_api.ts"
   },
   "allowedNonPeerDependencies": ["."]
 }

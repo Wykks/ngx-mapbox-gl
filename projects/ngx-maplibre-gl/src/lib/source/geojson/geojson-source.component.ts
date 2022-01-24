@@ -196,7 +196,7 @@ export class GeoJSONSourceComponent
       this.data
     );
     collection.features.push(feature);
-    this.updateFeatureData.next();
+    this.updateFeatureData.next(undefined);
   }
 
   _removeFeature(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
@@ -207,7 +207,7 @@ export class GeoJSONSourceComponent
     if (index > -1) {
       collection.features.splice(index, 1);
     }
-    this.updateFeatureData.next();
+    this.updateFeatureData.next(undefined);
   }
 
   _getNewFeatureId() {

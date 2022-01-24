@@ -77,7 +77,7 @@ export class DemoIndexComponent implements OnInit, AfterViewInit {
   }
 
   onSidenavChange() {
-    this.mapResizeService.resize$.next();
+    this.mapResizeService.resize$.next(undefined);
   }
 
   search() {

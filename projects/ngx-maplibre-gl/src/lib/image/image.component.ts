@@ -99,8 +99,8 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
         });
       } catch (error) {
         this.zone.run(() => {
-          this.imageError.emit(error);
-          this.error.emit(error);
+          this.imageError.emit(<any>error);
+          this.error.emit(<any>error);
         });
       }
     }
