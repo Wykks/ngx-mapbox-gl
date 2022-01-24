@@ -38,4 +38,4 @@ jobs:
         run: npm run lint
         
       - name: Run e2e tests
-        run: npm run e2e
+        run: xvfb-run -s "-ac -screen 0 1280x1024x24" npm run e2e
