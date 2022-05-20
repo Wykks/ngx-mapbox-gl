@@ -37,9 +37,9 @@ export class LiveUpdateImageSourceComponent implements OnInit, OnDestroy {
   coordinates: number[][];
 
   async ngOnInit() {
-    const data: GeoJSON.FeatureCollection<GeoJSON.LineString> = <any>(
+    const data: GeoJSON.FeatureCollection<GeoJSON.LineString> = (
       await import('./hike.geo.json')
-    );
+    ) as any;
     const points = data.features[0].geometry!.coordinates;
     const coordinates = points.map((c) => this.makeRectangle(c));
 

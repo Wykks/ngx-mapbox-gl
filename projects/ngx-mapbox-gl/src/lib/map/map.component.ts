@@ -101,7 +101,8 @@ export class MapComponent
   @Input() zoom?: [number];
   @Input() bearing?: [number];
   @Input() pitch?: [number];
-  @Input() fitBoundsOptions?: MapboxOptions['fitBoundsOptions']; // First value goes to options.fitBoundsOptions. Subsequents changes are passed to fitBounds
+  // First value goes to options.fitBoundsOptions. Subsequents changes are passed to fitBounds
+  @Input() fitBoundsOptions?: MapboxOptions['fitBoundsOptions'];
   @Input() renderWorldCopies?: MapboxOptions['renderWorldCopies'];
 
   /* Added by ngx-mapbox-gl */
@@ -200,38 +201,47 @@ export class MapComponent
   /**
    * @deprecated Use mapResize instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() resize = new EventEmitter<MapboxEvent & EventData>();
   /**
    * @deprecated Use mapRemove instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() remove = new EventEmitter<MapboxEvent & EventData>();
   /**
    * @deprecated Use mapMouseDown instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() mouseDown = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use mapMouseUp instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() mouseUp = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use mapMouseMove instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() mouseMove = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use mapClick instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() click = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use mapDblClick instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() dblClick = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use mapMouseOver instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() mouseOver = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use mapMouseOut instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() mouseOut = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use mapContextMenu instead
@@ -256,6 +266,7 @@ export class MapComponent
   /**
    * @deprecated Use mapWheel instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() wheel = new EventEmitter<MapWheelEvent & EventData>();
   /**
    * @deprecated Use mapDragStart instead
@@ -266,6 +277,7 @@ export class MapComponent
   /**
    * @deprecated Use mapDrag instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() drag = new EventEmitter<
     MapboxEvent<MouseEvent | TouchEvent | undefined> & EventData
   >();
@@ -278,23 +290,25 @@ export class MapComponent
   /**
    * @deprecated Use mapLoad instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() load = new EventEmitter<Map>();
   /**
    * @deprecated Use mapError instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() error = new EventEmitter<ErrorEvent & EventData>();
 
   get mapInstance(): Map {
-    return this.MapService.mapInstance;
+    return this.mapService.mapInstance;
   }
 
   @ViewChild('container', { static: true }) mapContainer: ElementRef;
 
-  constructor(private MapService: MapService) {}
+  constructor(private mapService: MapService) {}
 
   ngAfterViewInit() {
     this.warnDeprecatedOutputs();
-    this.MapService.setup({
+    this.mapService.setup({
       accessToken: this.accessToken,
       customMapboxApiUrl: this.customMapboxApiUrl,
       mapOptions: {
@@ -343,79 +357,79 @@ export class MapComponent
       mapEvents: this,
     });
     if (this.cursorStyle) {
-      this.MapService.changeCanvasCursor(this.cursorStyle);
+      this.mapService.changeCanvasCursor(this.cursorStyle);
     }
   }
 
   ngOnDestroy() {
-    this.MapService.destroyMap();
+    this.mapService.destroyMap();
   }
 
   async ngOnChanges(changes: SimpleChanges) {
-    await this.MapService.mapCreated$.toPromise();
+    await this.mapService.mapCreated$.toPromise();
     if (changes.cursorStyle && !changes.cursorStyle.isFirstChange()) {
-      this.MapService.changeCanvasCursor(changes.cursorStyle.currentValue);
+      this.mapService.changeCanvasCursor(changes.cursorStyle.currentValue);
     }
     if (changes.minZoom && !changes.minZoom.isFirstChange()) {
-      this.MapService.updateMinZoom(changes.minZoom.currentValue);
+      this.mapService.updateMinZoom(changes.minZoom.currentValue);
     }
     if (changes.maxZoom && !changes.maxZoom.isFirstChange()) {
-      this.MapService.updateMaxZoom(changes.maxZoom.currentValue);
+      this.mapService.updateMaxZoom(changes.maxZoom.currentValue);
     }
     if (changes.minPitch && !changes.minPitch.isFirstChange()) {
-      this.MapService.updateMinPitch(changes.minPitch.currentValue);
+      this.mapService.updateMinPitch(changes.minPitch.currentValue);
     }
     if (changes.maxPitch && !changes.maxPitch.isFirstChange()) {
-      this.MapService.updateMaxPitch(changes.maxPitch.currentValue);
+      this.mapService.updateMaxPitch(changes.maxPitch.currentValue);
     }
     if (
       changes.renderWorldCopies &&
       !changes.renderWorldCopies.isFirstChange()
     ) {
-      this.MapService.updateRenderWorldCopies(
+      this.mapService.updateRenderWorldCopies(
         changes.renderWorldCopies.currentValue
       );
     }
     if (changes.scrollZoom && !changes.scrollZoom.isFirstChange()) {
-      this.MapService.updateScrollZoom(changes.scrollZoom.currentValue);
+      this.mapService.updateScrollZoom(changes.scrollZoom.currentValue);
     }
     if (changes.dragRotate && !changes.dragRotate.isFirstChange()) {
-      this.MapService.updateDragRotate(changes.dragRotate.currentValue);
+      this.mapService.updateDragRotate(changes.dragRotate.currentValue);
     }
     if (changes.touchPitch && !changes.touchPitch.isFirstChange()) {
-      this.MapService.updateTouchPitch(changes.touchPitch.currentValue);
+      this.mapService.updateTouchPitch(changes.touchPitch.currentValue);
     }
     if (changes.touchZoomRotate && !changes.touchZoomRotate.isFirstChange()) {
-      this.MapService.updateTouchZoomRotate(
+      this.mapService.updateTouchZoomRotate(
         changes.touchZoomRotate.currentValue
       );
     }
     if (changes.doubleClickZoom && !changes.doubleClickZoom.isFirstChange()) {
-      this.MapService.updateDoubleClickZoom(
+      this.mapService.updateDoubleClickZoom(
         changes.doubleClickZoom.currentValue
       );
     }
     if (changes.keyboard && !changes.keyboard.isFirstChange()) {
-      this.MapService.updateKeyboard(changes.keyboard.currentValue);
+      this.mapService.updateKeyboard(changes.keyboard.currentValue);
     }
     if (changes.dragPan && !changes.dragPan.isFirstChange()) {
-      this.MapService.updateDragPan(changes.dragPan.currentValue);
+      this.mapService.updateDragPan(changes.dragPan.currentValue);
     }
     if (changes.boxZoom && !changes.boxZoom.isFirstChange()) {
-      this.MapService.updateBoxZoom(changes.boxZoom.currentValue);
+      this.mapService.updateBoxZoom(changes.boxZoom.currentValue);
     }
     if (changes.style && !changes.style.isFirstChange()) {
-      this.MapService.updateStyle(changes.style.currentValue);
+      this.mapService.updateStyle(changes.style.currentValue);
     }
     if (changes.maxBounds && !changes.maxBounds.isFirstChange()) {
-      this.MapService.updateMaxBounds(changes.maxBounds.currentValue);
+      this.mapService.updateMaxBounds(changes.maxBounds.currentValue);
     }
     if (
       changes.fitBounds &&
       changes.fitBounds.currentValue &&
       !changes.fitBounds.isFirstChange()
     ) {
-      this.MapService.fitBounds(
+      this.mapService.fitBounds(
         changes.fitBounds.currentValue,
         this.fitBoundsOptions
       );
@@ -432,7 +446,7 @@ export class MapComponent
           '[ngx-mapbox-gl] center / zoom / pitch / fitBounds inputs are being overridden by fitScreenCoordinates input'
         );
       }
-      this.MapService.fitScreenCoordinates(
+      this.mapService.fitScreenCoordinates(
         changes.fitScreenCoordinates.currentValue,
         this.bearing ? this.bearing[0] : 0,
         this.movingOptions
@@ -446,7 +460,7 @@ export class MapComponent
       !changes.bearing &&
       !changes.pitch
     ) {
-      this.MapService.panTo(this.center!, this.panToOptions);
+      this.mapService.panTo(this.center!, this.panToOptions);
     } else if (
       (changes.center && !changes.center.isFirstChange()) ||
       (changes.zoom && !changes.zoom.isFirstChange()) ||
@@ -455,7 +469,7 @@ export class MapComponent
         !changes.fitScreenCoordinates) ||
       (changes.pitch && !changes.pitch.isFirstChange())
     ) {
-      this.MapService.move(
+      this.mapService.move(
         this.movingMethod,
         this.movingOptions,
         changes.zoom && this.zoom ? this.zoom[0] : undefined,

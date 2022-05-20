@@ -10,9 +10,7 @@ describe('Toggle layers', () => {
     logs.ignore(/vector tile spec v2/i);
   });
 
-  afterEach(() => {
-    return logs.verify();
-  });
+  afterEach(() => logs.verify());
 
   it('should toggle layers', async () => {
     await browser.get('/demo/toggle-layers');

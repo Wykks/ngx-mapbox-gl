@@ -78,10 +78,12 @@ export class GeocoderControlDirective
   /**
    * @deprecated Use geocoderResult instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() result = new EventEmitter<{ result: Result }>();
   /**
    * @deprecated Use geocoderError instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() error = new EventEmitter<any>();
 
   geocoder: MapboxGeocoder;
@@ -89,17 +91,17 @@ export class GeocoderControlDirective
   private lastResultId?: string | number;
 
   constructor(
-    private MapService: MapService,
+    private mapService: MapService,
     private zone: NgZone,
-    @Host() private ControlComponent: ControlComponent<MapboxGeocoder>,
+    @Host() private controlComponent: ControlComponent<MapboxGeocoder>,
     @Optional()
     @Inject(MAPBOX_GEOCODER_API_KEY)
     private readonly MAPBOX_GEOCODER_API_KEY: string
   ) {}
 
   ngAfterContentInit() {
-    this.MapService.mapCreated$.subscribe(() => {
-      if (this.ControlComponent.control) {
+    this.mapService.mapCreated$.subscribe(() => {
+      if (this.controlComponent.control) {
         throw new Error('Another control is already set for this control');
       }
       const options: GeocoderOptions = {
@@ -121,7 +123,7 @@ export class GeocoderControlDirective
       };
 
       Object.keys(options).forEach((key: string) => {
-        const tkey = <keyof typeof options>key;
+        const tkey = key as keyof typeof options;
         if (options[tkey] === undefined) {
           delete options[tkey];
         }
@@ -131,7 +133,7 @@ export class GeocoderControlDirective
       this.addControl();
     });
     if (this.searchInput) {
-      this.MapService.mapLoaded$.subscribe(() => {
+      this.mapService.mapLoaded$.subscribe(() => {
         this.geocoder.query(this.searchInput);
       });
     }
@@ -150,10 +152,10 @@ export class GeocoderControlDirective
   }
 
   private addControl() {
-    this.ControlComponent.control = this.geocoder;
-    this.MapService.addControl(
-      this.ControlComponent.control,
-      this.ControlComponent.position
+    this.controlComponent.control = this.geocoder;
+    this.mapService.addControl(
+      this.controlComponent.control,
+      this.controlComponent.position
     );
   }
 

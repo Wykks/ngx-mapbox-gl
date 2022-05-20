@@ -55,6 +55,6 @@ export class CenterOnSymbolComponent {
   ];
 
   centerMapTo(evt: MapMouseEvent) {
-    this.center = (<any>evt).features[0].geometry.coordinates;
+    this.center = (evt as any).features[0].geometry.coordinates;
   }
 }

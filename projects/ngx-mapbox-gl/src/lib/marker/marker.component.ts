@@ -53,13 +53,14 @@ export class MarkerComponent
   /**
    * @deprecated Use markerDrag instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() drag = new EventEmitter<Marker>();
 
   @ViewChild('content', { static: true }) content: ElementRef;
 
   markerInstance?: Marker;
 
-  constructor(private MapService: MapService) {}
+  constructor(private mapService: MapService) {}
 
   ngOnInit() {
     this.warnDeprecatedOutputs();
@@ -74,7 +75,7 @@ export class MarkerComponent
     }
     if (changes.feature && !changes.feature.isFirstChange()) {
       this.markerInstance!.setLngLat(
-        <[number, number]>this.feature!.geometry!.coordinates
+        this.feature!.geometry!.coordinates as [number, number]
       );
     }
     if (changes.draggable && !changes.draggable.isFirstChange()) {
@@ -82,7 +83,7 @@ export class MarkerComponent
     }
     if (changes.popupShown && !changes.popupShown.isFirstChange()) {
       changes.popupShown.currentValue
-        ? this.markerInstance!.getPopup().addTo(this.MapService.mapInstance)
+        ? this.markerInstance!.getPopup().addTo(this.mapService.mapInstance)
         : this.markerInstance!.getPopup().remove();
     }
     if (changes.pitchAlignment && !changes.pitchAlignment.isFirstChange()) {
@@ -101,8 +102,8 @@ export class MarkerComponent
   }
 
   ngAfterViewInit() {
-    this.MapService.mapCreated$.subscribe(() => {
-      this.markerInstance = this.MapService.addMarker({
+    this.mapService.mapCreated$.subscribe(() => {
+      this.markerInstance = this.mapService.addMarker({
         markersOptions: {
           offset: this.offset,
           anchor: this.anchor,
@@ -127,7 +128,7 @@ export class MarkerComponent
   }
 
   ngOnDestroy() {
-    this.MapService.removeMarker(this.markerInstance!);
+    this.mapService.removeMarker(this.markerInstance!);
     this.markerInstance = undefined;
   }
 
@@ -136,7 +137,7 @@ export class MarkerComponent
   }
 
   updateCoordinates(coordinates: number[]) {
-    this.markerInstance!.setLngLat(<[number, number]>coordinates);
+    this.markerInstance!.setLngLat(coordinates as [number, number]);
   }
 
   private warnDeprecatedOutputs() {

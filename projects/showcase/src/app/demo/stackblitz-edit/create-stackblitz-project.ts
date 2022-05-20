@@ -1,9 +1,10 @@
 import { Project } from '@stackblitz/sdk/typings/interfaces';
 
-export function createStackblitzProject(
+export const createStackblitzProject = (
   projectbase: string[],
   demoFiles: Record<string, string>
-): Project {
+  // eslint-disable-next-line arrow-body-style
+): Project => {
   return {
     files: {
       'src/main.ts': projectbase[0],
@@ -42,4 +43,4 @@ import 'zone.js';
       '@types/geojson': '*',
     },
   };
-}
+};

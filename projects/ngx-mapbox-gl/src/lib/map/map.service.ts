@@ -253,7 +253,7 @@ export class MapService {
     pitch?: number
   ) {
     return this.zone.runOutsideAngular(() => {
-      (<any>this.mapInstance[movingMethod])({
+      (this.mapInstance[movingMethod] as any)({
         ...movingOptions,
         zoom: zoom != null ? zoom : this.mapInstance.getZoom(),
         center: center != null ? center : this.mapInstance.getCenter(),
@@ -266,7 +266,7 @@ export class MapService {
   addLayer(layer: SetupLayer, bindEvents: boolean, before?: string) {
     this.zone.runOutsideAngular(() => {
       Object.keys(layer.layerOptions).forEach((key: string) => {
-        const tkey = <keyof MapboxGl.AnyLayer>key;
+        const tkey = key as keyof MapboxGl.AnyLayer;
         if (layer.layerOptions[tkey] === undefined) {
           delete layer.layerOptions[tkey];
         }
@@ -490,7 +490,7 @@ export class MapService {
       });
     }
     const lngLat: MapboxGl.LngLatLike = marker.markersOptions.feature
-      ? <[number, number]>marker.markersOptions.feature.geometry!.coordinates
+      ? marker.markersOptions.feature.geometry!.coordinates as [number, number]
       : marker.markersOptions.lngLat!;
     markerInstance.setLngLat(lngLat);
     return this.zone.runOutsideAngular(() => {
@@ -507,8 +507,8 @@ export class MapService {
     return this.zone.runOutsideAngular(() => {
       Object.keys(popup.popupOptions).forEach(
         (key) =>
-          (<any>popup.popupOptions)[key] === undefined &&
-          delete (<any>popup.popupOptions)[key]
+          (popup.popupOptions as any)[key] === undefined &&
+          delete (popup.popupOptions as any)[key]
       );
       const popupInstance = new MapboxGl.Popup(popup.popupOptions);
       popupInstance.setDOMContent(element);
@@ -544,8 +544,8 @@ export class MapService {
     skipOpenEvent = false
   ) {
     return this.zone.runOutsideAngular(() => {
-      if (skipOpenEvent && (<any>popup)._listeners) {
-        delete (<any>popup)._listeners['open'];
+      if (skipOpenEvent && (popup as any)._listeners) {
+        delete (popup as any)._listeners['open'];
       }
       popup.setLngLat(lngLat);
       popup.addTo(this.mapInstance);
@@ -559,8 +559,8 @@ export class MapService {
   }
 
   removePopupFromMap(popup: MapboxGl.Popup, skipCloseEvent = false) {
-    if (skipCloseEvent && (<any>popup)._listeners) {
-      delete (<any>popup)._listeners['close'];
+    if (skipCloseEvent && (popup as any)._listeners) {
+      delete (popup as any)._listeners['close'];
     }
     this.popupsToRemove.push(popup);
   }
@@ -576,13 +576,13 @@ export class MapService {
     position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
   ) {
     return this.zone.runOutsideAngular(() => {
-      this.mapInstance.addControl(<any>control, position);
+      this.mapInstance.addControl(control as any, position);
     });
   }
 
   removeControl(control: MapboxGl.Control | MapboxGl.IControl) {
     return this.zone.runOutsideAngular(() => {
-      this.mapInstance.removeControl(<any>control);
+      this.mapInstance.removeControl(control as any);
     });
   }
 
@@ -591,8 +591,8 @@ export class MapService {
     url: string,
     options?: MapImageOptions
   ) {
-    return this.zone.runOutsideAngular(() => {
-      return new Promise<void>((resolve, reject) => {
+    return this.zone.runOutsideAngular(() =>
+      new Promise<void>((resolve, reject) => {
         this.mapInstance.loadImage(url, (error, image) => {
           if (error) {
             reject(error);
@@ -601,13 +601,13 @@ export class MapService {
           this.addImage(imageId, image as ImageBitmap, options);
           resolve();
         });
-      });
-    });
+      })
+    );
   }
 
   addImage(imageId: string, data: MapImageData, options?: MapImageOptions) {
     return this.zone.runOutsideAngular(() => {
-      this.mapInstance.addImage(imageId, <any>data, options);
+      this.mapInstance.addImage(imageId, data as any, options);
     });
   }
 
@@ -618,14 +618,14 @@ export class MapService {
   addSource(sourceId: string, source: MapboxGl.AnySourceData) {
     return this.zone.runOutsideAngular(() => {
       Object.keys(source).forEach(
-        (key) => (<any>source)[key] === undefined && delete (<any>source)[key]
+        (key) => (source as any)[key] === undefined && delete (source as any)[key]
       );
       this.mapInstance.addSource(sourceId, source);
     });
   }
 
   getSource<T extends MapboxGl.AnySourceImpl>(sourceId: string) {
-    return <T>this.mapInstance.getSource(sourceId);
+    return this.mapInstance.getSource(sourceId) as T;
   }
 
   removeSource(sourceId: string) {
@@ -651,7 +651,7 @@ export class MapService {
     return this.zone.runOutsideAngular(() => {
       Object.keys(paint).forEach((key) => {
         // TODO Check for perf, setPaintProperty only on changed paint props maybe
-        this.mapInstance.setPaintProperty(layerId, key, (<any>paint)[key]);
+        this.mapInstance.setPaintProperty(layerId, key, (paint as any)[key]);
       });
     });
   }
@@ -670,7 +670,7 @@ export class MapService {
     return this.zone.runOutsideAngular(() => {
       Object.keys(layout).forEach((key) => {
         // TODO Check for perf, setPaintProperty only on changed paint props maybe
-        this.mapInstance.setLayoutProperty(layerId, key, (<any>layout)[key]);
+        this.mapInstance.setLayoutProperty(layerId, key, (layout as any)[key]);
       });
     });
   }
@@ -732,7 +732,7 @@ export class MapService {
   private createMap(options: MapboxGl.MapboxOptions) {
     NgZone.assertNotInAngularZone();
     Object.keys(options).forEach((key: string) => {
-      const tkey = <keyof MapboxGl.MapboxOptions>key;
+      const tkey = key as keyof MapboxGl.MapboxOptions;
       if (options[tkey] === undefined) {
         delete options[tkey];
       }
@@ -1111,7 +1111,7 @@ export class MapService {
   // TODO move this elsewhere
   private assign(obj: any, prop: any, value: any) {
     if (typeof prop === 'string') {
-      // tslint:disable-next-line:no-parameter-reassignment
+      // eslint-disable-next-line no-param-reassign
       prop = prop.split('.');
     }
     if (prop.length > 1) {

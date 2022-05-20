@@ -70,7 +70,7 @@ export class MarkersForClustersComponent
   private sub = new Subscription();
 
   constructor(
-    private MapService: MapService,
+    private mapService: MapService,
     private ChangeDetectorRef: ChangeDetectorRef,
     private zone: NgZone
   ) {}
@@ -78,23 +78,23 @@ export class MarkersForClustersComponent
   ngAfterContentInit() {
     const clusterDataUpdate = () =>
       fromEvent<MapSourceDataEvent>(
-        <any>this.MapService.mapInstance,
+        this.mapService.mapInstance as any,
         'data'
       ).pipe(
         filter(
           (e) =>
             e.sourceId === this.source &&
             e.sourceDataType !== 'metadata' &&
-            this.MapService.mapInstance.isSourceLoaded(this.source)
+            this.mapService.mapInstance.isSourceLoaded(this.source)
         )
       );
-    const sub = this.MapService.mapCreated$
+    const sub = this.mapService.mapCreated$
       .pipe(
         switchMap(clusterDataUpdate),
         switchMap(() =>
           merge(
-            fromEvent(<any>this.MapService.mapInstance, 'move'),
-            fromEvent(<any>this.MapService.mapInstance, 'moveend')
+            fromEvent(this.mapService.mapInstance as any, 'move'),
+            fromEvent(this.mapService.mapInstance as any, 'moveend')
           ).pipe(startWith<any>(undefined))
         )
       )
@@ -120,7 +120,7 @@ export class MarkersForClustersComponent
     if (!this.pointTpl) {
       params.filter = ['==', 'cluster', true];
     }
-    this.clusterPoints = this.MapService.mapInstance.queryRenderedFeatures(
+    this.clusterPoints = this.mapService.mapInstance.queryRenderedFeatures(
       params
     );
     this.ChangeDetectorRef.markForCheck();

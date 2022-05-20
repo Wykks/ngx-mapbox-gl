@@ -9,9 +9,7 @@ describe('Live update feature', () => {
     logs = browserLogs(browser);
   });
 
-  afterEach(() => {
-    return logs.verify();
-  });
+  afterEach(() => logs.verify());
 
   it('should move the map', async () => {
     browser.waitForAngularEnabled(false);

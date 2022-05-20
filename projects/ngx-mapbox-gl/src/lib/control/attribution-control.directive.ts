@@ -12,13 +12,13 @@ export class AttributionControlDirective implements AfterContentInit {
   @Input() customAttribution?: string | string[];
 
   constructor(
-    private MapService: MapService,
-    @Host() private ControlComponent: ControlComponent<AttributionControl>
+    private mapService: MapService,
+    @Host() private controlComponent: ControlComponent<AttributionControl>
   ) {}
 
   ngAfterContentInit() {
-    this.MapService.mapCreated$.subscribe(() => {
-      if (this.ControlComponent.control) {
+    this.mapService.mapCreated$.subscribe(() => {
+      if (this.controlComponent.control) {
         throw new Error('Another control is already set for this control');
       }
       const options: {
@@ -31,10 +31,10 @@ export class AttributionControlDirective implements AfterContentInit {
       if (this.customAttribution !== undefined) {
         options.customAttribution = this.customAttribution;
       }
-      this.ControlComponent.control = new AttributionControl(options);
-      this.MapService.addControl(
-        this.ControlComponent.control,
-        this.ControlComponent.position
+      this.controlComponent.control = new AttributionControl(options);
+      this.mapService.addControl(
+        this.controlComponent.control,
+        this.controlComponent.position
       );
     });
   }

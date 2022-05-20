@@ -37,7 +37,7 @@ describe('ImageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ImageComponent);
     component = fixture.componentInstance;
-    msSpy = <any>fixture.debugElement.injector.get<MapService>(MapService);
+    msSpy = fixture.debugElement.injector.get<MapService>(MapService) as any;
     component.id = 'imageId';
   });
 

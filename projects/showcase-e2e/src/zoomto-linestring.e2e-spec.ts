@@ -9,9 +9,7 @@ describe('Zoomto Linestring', () => {
     logs = browserLogs(browser);
   });
 
-  afterEach(() => {
-    return logs.verify();
-  });
+  afterEach(() => logs.verify());
 
   it('should zoom to linestring', async () => {
     await browser.get('/demo/zoomto-linestring');

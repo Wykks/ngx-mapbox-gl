@@ -31,14 +31,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ngx-mapbox-gl/tsconfig.lib.json",
-              "projects/ngx-mapbox-gl/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"],
-            "format": "stylish"
+            "lintFilePatterns": [
+              "projects/ngx-mapbox-gl/**/*.ts",
+              "projects/ngx-mapbox-gl/**/*.html"
+            ]
           }
         }
       }
@@ -68,7 +66,9 @@
               "projects/showcase/src/assets",
               "projects/showcase/src/app/demo/examples"
             ],
-            "styles": ["projects/showcase/src/styles.css"],
+            "styles": [
+              "projects/showcase/src/styles.css"
+            ],
             "scripts": [
               "node_modules/marked/lib/marked.js",
               "node_modules/prismjs/prism.js"
@@ -131,7 +131,9 @@
             "polyfills": "projects/showcase/src/polyfills.ts",
             "tsConfig": "projects/showcase/tsconfig.spec.json",
             "karmaConfig": "projects/showcase/karma.conf.js",
-            "styles": ["projects/showcase/src/styles.css"],
+            "styles": [
+              "projects/showcase/src/styles.css"
+            ],
             "scripts": [
               "node_modules/marked/lib/marked.js",
               "node_modules/prismjs/prism.js"
@@ -143,14 +145,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/showcase/tsconfig.app.json",
-              "projects/showcase/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"],
-            "format": "stylish"
+            "lintFilePatterns": [
+              "projects/showcase/**/*.ts",
+              "projects/showcase/**/*.html"
+            ]
           }
         }
       }
@@ -172,11 +172,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": "projects/showcase-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"],
-            "format": "stylish"
+            "lintFilePatterns": [
+              "projects/showcase-e2e/**/*.ts",
+              "projects/showcase-e2e/**/*.html"
+            ]
           }
         }
       }
@@ -209,13 +210,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ngx-mapbox-gl-geocoder-control/tsconfig.lib.json",
-              "projects/ngx-mapbox-gl-geocoder-control/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
+            "lintFilePatterns": [
+              "projects/ngx-mapbox-gl-geocoder-control/**/*.ts",
+              "projects/ngx-mapbox-gl-geocoder-control/**/*.html"
+            ]
           }
         }
       }
@@ -223,6 +223,7 @@
   },
   "defaultProject": "ngx-mapbox-gl",
   "cli": {
-    "analytics": "2b945751-c795-4db1-b8ac-172907057b11"
+    "analytics": "2b945751-c795-4db1-b8ac-172907057b11",
+    "defaultCollection": "@angular-eslint/schematics"
   }
 }

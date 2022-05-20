@@ -38,13 +38,13 @@ export class DemoIndexComponent implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute,
     private mapResizeService: MapResizeService
   ) {
-    this.originalRoutes = <RoutesByCategory>(
-      (<any>(
+    this.originalRoutes = (
+      (
         groupBy(DEMO_ROUTES[0].children, (route) =>
           route.data ? route.data.cat : null
         )
-      ))
-    );
+      ) as any
+    ) as RoutesByCategory;
     this.categories = [
       Category.STYLES,
       Category.LAYERS,
@@ -87,7 +87,7 @@ export class DemoIndexComponent implements OnInit, AfterViewInit {
       category.forEach((route, index) => {
         if (
           route.data &&
-          !(<string>route.data.label)
+          !(route.data.label as string)
             .toLowerCase()
             .includes(this.searchTerm.toLowerCase())
         ) {
@@ -105,10 +105,10 @@ export class DemoIndexComponent implements OnInit, AfterViewInit {
   private scrollInToActiveExampleLink() {
     this.zone.onStable.pipe(first()).subscribe(() => {
       const activeLink = this.exampleLinks.find((elm) =>
-        (<HTMLElement>elm.nativeElement).classList.contains('active')
+        (elm.nativeElement as HTMLElement).classList.contains('active')
       );
       if (activeLink) {
-        scrollIntoView(<HTMLElement>activeLink.nativeElement, {
+        scrollIntoView(activeLink.nativeElement as HTMLElement, {
           block: 'center',
           scrollMode: 'if-needed',
         });

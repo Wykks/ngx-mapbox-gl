@@ -9,9 +9,7 @@ describe('Language switch', () => {
     logs = browserLogs(browser);
   });
 
-  afterEach(() => {
-    return logs.verify();
-  });
+  afterEach(() => logs.verify());
 
   it('should change language', async () => {
     await browser.get('/demo/language-switch');

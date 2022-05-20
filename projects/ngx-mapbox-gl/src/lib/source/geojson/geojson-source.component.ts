@@ -49,7 +49,7 @@ export class GeoJSONSourceComponent
   private sourceAdded = false;
   private featureIdCounter = 0;
 
-  constructor(private MapService: MapService, private zone: NgZone) {}
+  constructor(private mapService: MapService, private zone: NgZone) {}
 
   ngOnInit() {
     if (!this.data) {
@@ -58,10 +58,10 @@ export class GeoJSONSourceComponent
         features: [],
       };
     }
-    const sub1 = this.MapService.mapLoaded$.subscribe(() => {
+    const sub1 = this.mapService.mapLoaded$.subscribe(() => {
       this.init();
-      const sub = fromEvent(<any>this.MapService.mapInstance, 'styledata')
-        .pipe(filter(() => !this.MapService.mapInstance.getSource(this.id)))
+      const sub = fromEvent(this.mapService.mapInstance as any, 'styledata')
+        .pipe(filter(() => !this.mapService.mapInstance.getSource(this.id)))
         .subscribe(() => {
           this.init();
         });
@@ -93,7 +93,7 @@ export class GeoJSONSourceComponent
       this.ngOnInit();
     }
     if (changes.data && !changes.data.isFirstChange()) {
-      const source = this.MapService.getSource<GeoJSONSource>(this.id);
+      const source = this.mapService.getSource<GeoJSONSource>(this.id);
       if (source === undefined) {
         return;
       }
@@ -104,19 +104,20 @@ export class GeoJSONSourceComponent
   ngOnDestroy() {
     this.sub.unsubscribe();
     if (this.sourceAdded) {
-      this.MapService.removeSource(this.id);
+      this.mapService.removeSource(this.id);
       this.sourceAdded = false;
     }
   }
 
   /**
    * For clustered sources, fetches the zoom at which the given cluster expands.
+   *
    * @param clusterId The value of the cluster's cluster_id property.
    */
   async getClusterExpansionZoom(clusterId: number) {
-    const source = this.MapService.getSource<GeoJSONSource>(this.id);
-    return this.zone.run(async () => {
-      return new Promise<number>((resolve, reject) => {
+    const source = this.mapService.getSource<GeoJSONSource>(this.id);
+    return this.zone.run(async () =>
+      new Promise<number>((resolve, reject) => {
         source.getClusterExpansionZoom(clusterId, (error, zoom) => {
           if (error) {
             reject(error);
@@ -124,18 +125,19 @@ export class GeoJSONSourceComponent
             resolve(zoom);
           }
         });
-      });
-    });
+      })
+    );
   }
 
   /**
    * For clustered sources, fetches the children of the given cluster on the next zoom level (as an array of GeoJSON features).
+   *
    * @param clusterId The value of the cluster's cluster_id property.
    */
   async getClusterChildren(clusterId: number) {
-    const source = this.MapService.getSource<GeoJSONSource>(this.id);
-    return this.zone.run(async () => {
-      return new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>(
+    const source = this.mapService.getSource<GeoJSONSource>(this.id);
+    return this.zone.run(async () =>
+      new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>(
         (resolve, reject) => {
           source.getClusterChildren(clusterId, (error, features) => {
             if (error) {
@@ -145,20 +147,21 @@ export class GeoJSONSourceComponent
             }
           });
         }
-      );
-    });
+      )
+    );
   }
 
   /**
    * For clustered sources, fetches the original points that belong to the cluster (as an array of GeoJSON features).
+   *
    * @param clusterId The value of the cluster's cluster_id property.
    * @param limit The maximum number of features to return.
    * @param offset The number of features to skip (e.g. for pagination).
    */
   async getClusterLeaves(clusterId: number, limit: number, offset: number) {
-    const source = this.MapService.getSource<GeoJSONSource>(this.id);
-    return this.zone.run(async () => {
-      return new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>(
+    const source = this.mapService.getSource<GeoJSONSource>(this.id);
+    return this.zone.run(async () =>
+      new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>(
         (resolve, reject) => {
           source.getClusterLeaves(
             clusterId,
@@ -173,22 +176,22 @@ export class GeoJSONSourceComponent
             }
           );
         }
-      );
-    });
+      )
+    );
   }
 
   _addFeature(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
-    const collection = <GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>(
+    const collection = (
       this.data
-    );
+    ) as GeoJSON.FeatureCollection<GeoJSON.GeometryObject>;
     collection.features.push(feature);
     this.updateFeatureData.next();
   }
 
   _removeFeature(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
-    const collection = <GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>(
+    const collection = (
       this.data
-    );
+    ) as GeoJSON.FeatureCollection<GeoJSON.GeometryObject>;
     const index = collection.features.indexOf(feature);
     if (index > -1) {
       collection.features.splice(index, 1);
@@ -218,11 +221,11 @@ export class GeoJSONSourceComponent
       promoteId: this.promoteId,
       filter: this.filter,
     };
-    this.MapService.addSource(this.id, source);
+    this.mapService.addSource(this.id, source);
     const sub = this.updateFeatureData.pipe(debounceTime(0)).subscribe(() => {
-      const source = this.MapService.getSource<GeoJSONSource>(this.id);
+      const source = this.mapService.getSource<GeoJSONSource>(this.id);
       if (source === undefined){
-        return
+        return;
       }
       source.setData(this.data!);
     });
