@@ -30,13 +30,13 @@ export class CanvasSourceComponent
   private sourceAdded = false;
   private sub = new Subscription();
 
-  constructor(private MapService: MapService) {}
+  constructor(private mapService: MapService) {}
 
   ngOnInit() {
-    const sub1 = this.MapService.mapLoaded$.subscribe(() => {
+    const sub1 = this.mapService.mapLoaded$.subscribe(() => {
       this.init();
-      const sub = fromEvent(<any>this.MapService.mapInstance, 'styledata')
-        .pipe(filter(() => !this.MapService.mapInstance.getSource(this.id)))
+      const sub = fromEvent(this.mapService.mapInstance as any, 'styledata')
+        .pipe(filter(() => !this.mapService.mapInstance.getSource(this.id)))
         .subscribe(() => {
           this.init();
         });
@@ -56,9 +56,9 @@ export class CanvasSourceComponent
       this.ngOnDestroy();
       this.ngOnInit();
     } else if (changes.coordinates && !changes.coordinates.isFirstChange()) {
-      const source = this.MapService.getSource<CanvasSource>(this.id);
+      const source = this.mapService.getSource<CanvasSource>(this.id);
       if (source === undefined){
-        return
+        return;
       }
       source.setCoordinates(this.coordinates);
     }
@@ -67,7 +67,7 @@ export class CanvasSourceComponent
   ngOnDestroy() {
     this.sub.unsubscribe();
     if (this.sourceAdded) {
-      this.MapService.removeSource(this.id);
+      this.mapService.removeSource(this.id);
       this.sourceAdded = false;
     }
   }
@@ -79,7 +79,7 @@ export class CanvasSourceComponent
       canvas: this.canvas,
       animate: this.animate,
     };
-    this.MapService.addSource(this.id, source);
+    this.mapService.addSource(this.id, source);
     this.sourceAdded = true;
   }
 }

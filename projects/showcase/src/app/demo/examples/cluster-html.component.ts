@@ -93,11 +93,11 @@ export class ClusterHtmlComponent {
     };
     this.labelLayout = {
       // typings issue
-      'text-field': <any>[
+      'text-field': [
         'number-format',
         ['get', 'mag'],
         { 'min-fraction-digits': 1, 'max-fraction-digits': 1 },
-      ],
+      ] as any,
       'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
       'text-size': 10,
     };
@@ -151,9 +151,9 @@ export class ClusterPointComponent implements OnInit {
       this.properties.mag5,
     ];
     let total = 0;
-    for (let i = 0; i < counts.length; i++) {
+    for(const count of counts) {
       offsets.push(total);
-      total += counts[i];
+      total += count;
     }
     const fontSize =
       total >= 1000 ? 22 : total >= 100 ? 20 : total >= 10 ? 18 : 16;
@@ -182,13 +182,13 @@ export class ClusterPointComponent implements OnInit {
     }
     const a0 = 2 * Math.PI * (start - 0.25);
     const a1 = 2 * Math.PI * (end - 0.25);
-    const x0 = Math.cos(a0),
-      y0 = Math.sin(a0);
-    const x1 = Math.cos(a1),
-      y1 = Math.sin(a1);
+    const x0 = Math.cos(a0);
+    const y0 = Math.sin(a0);
+    const x1 = Math.cos(a1);
+    const y1 = Math.sin(a1);
     const largeArc = end - start > 0.5 ? 1 : 0;
     return {
-      // tslint:disable-next-line:max-line-length
+      // eslint-disable-next-line max-len
       d: `M ${this.r + this.r0 * x0} ${this.r + this.r0 * y0} L ${
         this.r + this.r * x0
       } ${this.r + this.r * y0} A ${this.r} ${this.r} 0 ${largeArc} 1 ${

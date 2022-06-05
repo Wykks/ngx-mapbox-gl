@@ -29,13 +29,13 @@ export class VideoSourceComponent
   private sourceAdded = false;
   private sub = new Subscription();
 
-  constructor(private MapService: MapService) {}
+  constructor(private mapService: MapService) {}
 
   ngOnInit() {
-    const sub1 = this.MapService.mapLoaded$.subscribe(() => {
+    const sub1 = this.mapService.mapLoaded$.subscribe(() => {
       this.init();
-      const sub = fromEvent(<any>this.MapService.mapInstance, 'styledata')
-        .pipe(filter(() => !this.MapService.mapInstance.getSource(this.id)))
+      const sub = fromEvent(this.mapService.mapInstance as any, 'styledata')
+        .pipe(filter(() => !this.mapService.mapInstance.getSource(this.id)))
         .subscribe(() => {
           this.init();
         });
@@ -53,9 +53,9 @@ export class VideoSourceComponent
       this.ngOnDestroy();
       this.ngOnInit();
     } else if (changes.coordinates && !changes.coordinates.isFirstChange()) {
-      const source = this.MapService.getSource<VideoSource>(this.id);
+      const source = this.mapService.getSource<VideoSource>(this.id);
       if (source === undefined){
-        return
+        return;
       }
       source.setCoordinates(this.coordinates!);
     }
@@ -64,7 +64,7 @@ export class VideoSourceComponent
   ngOnDestroy() {
     this.sub.unsubscribe();
     if (this.sourceAdded) {
-      this.MapService.removeSource(this.id);
+      this.mapService.removeSource(this.id);
       this.sourceAdded = false;
     }
   }
@@ -75,7 +75,7 @@ export class VideoSourceComponent
       urls: this.urls,
       coordinates: this.coordinates,
     };
-    this.MapService.addSource(this.id, source);
+    this.mapService.addSource(this.id, source);
     this.sourceAdded = true;
   }
 }

@@ -8,9 +8,7 @@ describe('Generic runtime error check', () => {
     logs = browserLogs(browser);
   });
 
-  afterEach(() => {
-    return logs.verify();
-  });
+  afterEach(() => logs.verify());
 
   [
     'display-map',

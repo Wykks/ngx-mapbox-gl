@@ -41,7 +41,7 @@ describe('MapComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MapComponent);
     component = fixture.debugElement.componentInstance;
-    msSpy = <any>fixture.debugElement.injector.get<MapService>(MapService);
+    msSpy = fixture.debugElement.injector.get<MapService>(MapService) as any;
   });
 
   describe('Init tests', () => {

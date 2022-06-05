@@ -53,12 +53,12 @@ export class Display3dBuildingsComponent {
   onLoad(mapInstance: Map) {
     const layers = mapInstance.getStyle().layers!;
 
-    for (let i = 0; i < layers.length; i++) {
+    for (const layer of layers) {
       if (
-        layers[i].type === 'symbol' &&
-        (<SymbolLayer>layers[i]).layout!['text-field']
+        layer.type === 'symbol' &&
+        layer.layout!['text-field']
       ) {
-        this.labelLayerId = layers[i].id;
+        this.labelLayerId = layer.id;
         break;
       }
     }

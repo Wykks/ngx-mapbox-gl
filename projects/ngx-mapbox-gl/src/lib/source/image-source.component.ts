@@ -28,10 +28,10 @@ export class ImageSourceComponent
   private sub: Subscription;
   private sourceId?: string;
 
-  constructor(private MapService: MapService) {}
+  constructor(private mapService: MapService) {}
 
   ngOnInit() {
-    this.sub = this.MapService.mapLoaded$.subscribe(() => this.init());
+    this.sub = this.mapService.mapLoaded$.subscribe(() => this.init());
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -39,9 +39,9 @@ export class ImageSourceComponent
       return;
     }
 
-    const source = this.MapService.getSource<ImageSource>(this.sourceId);
+    const source = this.mapService.getSource<ImageSource>(this.sourceId);
     if (source === undefined){
-      return
+      return;
     }
     source.updateImage({
       url: changes.url === undefined ? undefined : this.url,
@@ -56,7 +56,7 @@ export class ImageSourceComponent
     }
 
     if (this.sourceId !== undefined) {
-      this.MapService.removeSource(this.sourceId);
+      this.mapService.removeSource(this.sourceId);
       this.sourceId = undefined;
     }
   }
@@ -67,7 +67,7 @@ export class ImageSourceComponent
       url: this.url,
       coordinates: this.coordinates,
     };
-    this.MapService.addSource(this.id, imageSource);
+    this.mapService.addSource(this.id, imageSource);
     this.sourceId = this.id;
   }
 }

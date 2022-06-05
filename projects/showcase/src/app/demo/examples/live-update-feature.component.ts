@@ -41,19 +41,19 @@ export class LiveUpdateFeatureComponent implements OnInit, OnDestroy {
   constructor() {}
 
   async ngOnInit() {
-    const data: GeoJSON.FeatureCollection<GeoJSON.LineString> = <any>(
+    const data: GeoJSON.FeatureCollection<GeoJSON.LineString> = (
       await import('./hike.geo.json')
-    );
+    ) as any;
     const coordinates = data.features[0].geometry!.coordinates;
     data.features[0].geometry!.coordinates = [coordinates[0]];
     this.data = data;
-    this.center = <[number, number]>coordinates[0];
+    this.center = coordinates[0] as [number, number];
     this.zoom = [14];
     this.pitch = 30;
     let i = 0;
     this.timer = window.setInterval(() => {
       if (i < coordinates.length) {
-        this.center = <[number, number]>coordinates[i];
+        this.center = coordinates[i] as [number, number];
         data.features[0].geometry!.coordinates.push(coordinates[i]);
         this.data = { ...this.data };
         i++;

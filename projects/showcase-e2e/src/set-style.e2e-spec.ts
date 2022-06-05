@@ -9,9 +9,7 @@ describe('Set style', () => {
     logs = browserLogs(browser);
   });
 
-  afterEach(() => {
-    return logs.verify();
-  });
+  afterEach(() => logs.verify());
 
   xit('should change the style', async () => {
     await browser.get('/demo/set-style');

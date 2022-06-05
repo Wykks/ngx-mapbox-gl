@@ -78,7 +78,7 @@ export const DEMO_ROUTES: Routes = [
       {
         path: 'set-style',
         component: SetStyleComponent,
-        data: { label: "Change a map's style", cat: Category.STYLES },
+        data: { label: 'Change a map\'s style', cat: Category.STYLES },
       },
       {
         path: 'satellite-map',
@@ -227,7 +227,7 @@ export const DEMO_ROUTES: Routes = [
         path: 'language-switch',
         component: LanguageSwitchComponent,
         data: {
-          label: "Change a map's language",
+          label: 'Change a map\'s language',
           cat: Category.USER_INTERACTION,
         },
       },

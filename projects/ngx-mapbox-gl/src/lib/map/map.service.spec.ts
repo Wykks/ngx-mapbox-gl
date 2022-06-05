@@ -30,7 +30,7 @@ const geoJSONStyle: Style = {
     },
   },
   version: 8,
-  layers: <any>[
+  layers: [
     {
       id: 'countries',
       type: 'fill',
@@ -40,7 +40,7 @@ const geoJSONStyle: Style = {
         'fill-color': '#6F788A',
       },
     },
-  ],
+  ] as any,
 };
 
 describe('MapService', () => {

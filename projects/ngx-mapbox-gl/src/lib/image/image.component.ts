@@ -33,6 +33,7 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   /**
    * @deprecated Use imageError instead
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() error = new EventEmitter<{ status: number }>();
   /**
    * @deprecated Use imageLoaded instead
@@ -43,18 +44,18 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   private isAdding = false;
   private sub: Subscription;
 
-  constructor(private MapService: MapService, private zone: NgZone) {}
+  constructor(private mapService: MapService, private zone: NgZone) {}
 
   ngOnInit() {
     this.warnDeprecatedOutputs();
-    this.sub = this.MapService.mapLoaded$
+    this.sub = this.mapService.mapLoaded$
       .pipe(
         switchMap(() =>
-          fromEvent(<any>this.MapService.mapInstance, 'styledata').pipe(
+          fromEvent(this.mapService.mapInstance as any, 'styledata').pipe(
             startWith(undefined),
             filter(
               () =>
-                !this.isAdding && !this.MapService.mapInstance.hasImage(this.id)
+                !this.isAdding && !this.mapService.mapInstance.hasImage(this.id)
             )
           )
         )
@@ -75,7 +76,7 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy() {
     if (this.isAdded) {
-      this.MapService.removeImage(this.id);
+      this.mapService.removeImage(this.id);
     }
     if (this.sub) {
       this.sub.unsubscribe();
@@ -85,19 +86,19 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   private async init() {
     this.isAdding = true;
     if (this.data) {
-      this.MapService.addImage(this.id, this.data, this.options);
+      this.mapService.addImage(this.id, this.data, this.options);
       this.isAdded = true;
       this.isAdding = false;
     } else if (this.url) {
       try {
-        await this.MapService.loadAndAddImage(this.id, this.url, this.options);
+        await this.mapService.loadAndAddImage(this.id, this.url, this.options);
         this.isAdded = true;
         this.isAdding = false;
         this.zone.run(() => {
           this.imageLoaded.emit();
           this.loaded.emit();
         });
-      } catch (error) {
+      } catch (error: any) {
         this.zone.run(() => {
           this.imageError.emit(error);
           this.error.emit(error);

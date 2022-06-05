@@ -8,9 +8,7 @@ describe('Popup', () => {
     logs = browserLogs(browser);
   });
 
-  afterEach(() => {
-    return logs.verify();
-  });
+  afterEach(() => logs.verify());
 
   it('should show', async () => {
     await browser.get('/demo/popup');

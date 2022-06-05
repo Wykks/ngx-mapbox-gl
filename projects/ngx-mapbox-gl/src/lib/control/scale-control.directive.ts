@@ -21,19 +21,19 @@ export class ScaleControlDirective implements AfterContentInit, OnChanges {
   @Input() unit?: 'imperial' | 'metric' | 'nautical';
 
   constructor(
-    private MapService: MapService,
-    @Host() private ControlComponent: ControlComponent<ScaleControl>
+    private mapService: MapService,
+    @Host() private controlComponent: ControlComponent<ScaleControl>
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.unit && !changes.unit.isFirstChange()) {
-      (<any>this.ControlComponent.control).setUnit(changes.unit.currentValue);
+      (this.controlComponent.control as any).setUnit(changes.unit.currentValue);
     }
   }
 
   ngAfterContentInit() {
-    this.MapService.mapCreated$.subscribe(() => {
-      if (this.ControlComponent.control) {
+    this.mapService.mapCreated$.subscribe(() => {
+      if (this.controlComponent.control) {
         throw new Error('Another control is already set for this control');
       }
       const options: { maxWidth?: number; unit?: string } = {};
@@ -43,10 +43,10 @@ export class ScaleControlDirective implements AfterContentInit, OnChanges {
       if (this.unit !== undefined) {
         options.unit = this.unit;
       }
-      this.ControlComponent.control = new ScaleControl(options);
-      this.MapService.addControl(
-        this.ControlComponent.control,
-        this.ControlComponent.position
+      this.controlComponent.control = new ScaleControl(options);
+      this.mapService.addControl(
+        this.controlComponent.control,
+        this.controlComponent.position
       );
     });
   }

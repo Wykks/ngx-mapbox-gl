@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { MapResizeService } from './map-resize.service';
 
 @Directive({
-  // tslint:disable-next-line: directive-selector
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'mgl-map',
 })
 export class MglMapResizeDirective implements OnInit, OnDestroy {

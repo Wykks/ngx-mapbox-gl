@@ -49,7 +49,7 @@ export class ZoomtoLinestringComponent {
           geometry: {
             type: 'LineString',
             properties: {},
-            coordinates: <[number, number][]>[
+            coordinates: [
               [-77.0366048812866, 38.89873175227713],
               [-77.03364372253417, 38.89876515143842],
               [-77.03364372253417, 38.89549195896866],
@@ -61,7 +61,7 @@ export class ZoomtoLinestringComponent {
               [-77.00832366943358, 38.89143365883688],
               [-77.00818419456482, 38.89082405874451],
               [-77.00815200805664, 38.88989712255097],
-            ],
+            ] as [number, number][],
           },
         },
       ],
@@ -71,8 +71,8 @@ export class ZoomtoLinestringComponent {
   zoomToBounds() {
     const coordinates = this.source.data.features[0].geometry.coordinates;
 
-    this.bounds = coordinates.reduce((bounds, coord) => {
-      return bounds.extend(<any>coord);
-    }, new LngLatBounds(coordinates[0], coordinates[0]));
+    this.bounds = coordinates.reduce((bounds, coord) =>
+      bounds.extend(coord as any),
+      new LngLatBounds(coordinates[0], coordinates[0]));
   }
 }

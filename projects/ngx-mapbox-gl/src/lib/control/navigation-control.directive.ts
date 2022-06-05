@@ -12,13 +12,13 @@ export class NavigationControlDirective implements AfterContentInit {
   @Input() showZoom?: boolean;
 
   constructor(
-    private MapService: MapService,
-    @Host() private ControlComponent: ControlComponent<NavigationControl>
+    private mapService: MapService,
+    @Host() private controlComponent: ControlComponent<NavigationControl>
   ) {}
 
   ngAfterContentInit() {
-    this.MapService.mapCreated$.subscribe(() => {
-      if (this.ControlComponent.control) {
+    this.mapService.mapCreated$.subscribe(() => {
+      if (this.controlComponent.control) {
         throw new Error('Another control is already set for this control');
       }
       const options: { showCompass?: boolean; showZoom?: boolean } = {};
@@ -28,10 +28,10 @@ export class NavigationControlDirective implements AfterContentInit {
       if (this.showZoom !== undefined) {
         options.showZoom = this.showZoom;
       }
-      this.ControlComponent.control = new NavigationControl(options);
-      this.MapService.addControl(
-        this.ControlComponent.control,
-        this.ControlComponent.position
+      this.controlComponent.control = new NavigationControl(options);
+      this.mapService.addControl(
+        this.controlComponent.control,
+        this.controlComponent.position
       );
     });
   }

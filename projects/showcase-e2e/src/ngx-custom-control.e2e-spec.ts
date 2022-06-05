@@ -8,9 +8,7 @@ describe('Custom control', () => {
     logs = browserLogs(browser);
   });
 
-  afterEach(() => {
-    return logs.verify();
-  });
+  afterEach(() => logs.verify());
 
   beforeEach(async () => {
     await browser.get('/demo/ngx-custom-control');
