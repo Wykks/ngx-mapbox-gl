@@ -23,7 +23,8 @@ import { MapService } from '../../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GeoJSONSourceComponent
-  implements OnInit, OnDestroy, OnChanges, GeoJSONSourceOptions {
+  implements OnInit, OnDestroy, OnChanges, GeoJSONSourceOptions
+{
   /* Init inputs */
   @Input() id: string;
 
@@ -83,7 +84,8 @@ export class GeoJSONSourceComponent
       (changes.clusterRadius && !changes.clusterRadius.isFirstChange()) ||
       (changes.clusterMaxZoom && !changes.clusterMaxZoom.isFirstChange()) ||
       (changes.clusterMinPoints && !changes.clusterMinPoints.isFirstChange()) ||
-      (changes.clusterProperties && !changes.clusterProperties.isFirstChange()) ||
+      (changes.clusterProperties &&
+        !changes.clusterProperties.isFirstChange()) ||
       (changes.lineMetrics && !changes.lineMetrics.isFirstChange()) ||
       (changes.generateId && !changes.generateId.isFirstChange()) ||
       (changes.promoteId && !changes.promoteId.isFirstChange()) ||
@@ -116,16 +118,17 @@ export class GeoJSONSourceComponent
    */
   async getClusterExpansionZoom(clusterId: number) {
     const source = this.mapService.getSource<GeoJSONSource>(this.id);
-    return this.zone.run(async () =>
-      new Promise<number>((resolve, reject) => {
-        source.getClusterExpansionZoom(clusterId, (error, zoom) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(zoom);
-          }
-        });
-      })
+    return this.zone.run(
+      async () =>
+        new Promise<number>((resolve, reject) => {
+          source.getClusterExpansionZoom(clusterId, (error, zoom) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(zoom);
+            }
+          });
+        })
     );
   }
 
@@ -136,9 +139,9 @@ export class GeoJSONSourceComponent
    */
   async getClusterChildren(clusterId: number) {
     const source = this.mapService.getSource<GeoJSONSource>(this.id);
-    return this.zone.run(async () =>
-      new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>(
-        (resolve, reject) => {
+    return this.zone.run(
+      async () =>
+        new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>((resolve, reject) => {
           source.getClusterChildren(clusterId, (error, features) => {
             if (error) {
               reject(error);
@@ -146,8 +149,7 @@ export class GeoJSONSourceComponent
               resolve(features);
             }
           });
-        }
-      )
+        })
     );
   }
 
@@ -160,9 +162,9 @@ export class GeoJSONSourceComponent
    */
   async getClusterLeaves(clusterId: number, limit: number, offset: number) {
     const source = this.mapService.getSource<GeoJSONSource>(this.id);
-    return this.zone.run(async () =>
-      new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>(
-        (resolve, reject) => {
+    return this.zone.run(
+      async () =>
+        new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>((resolve, reject) => {
           source.getClusterLeaves(
             clusterId,
             limit,
@@ -175,28 +177,25 @@ export class GeoJSONSourceComponent
               }
             }
           );
-        }
-      )
+        })
     );
   }
 
   _addFeature(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
-    const collection = (
-      this.data
-    ) as GeoJSON.FeatureCollection<GeoJSON.GeometryObject>;
+    const collection = this
+      .data as GeoJSON.FeatureCollection<GeoJSON.GeometryObject>;
     collection.features.push(feature);
-    this.updateFeatureData.next();
+    this.updateFeatureData.next(null);
   }
 
   _removeFeature(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
-    const collection = (
-      this.data
-    ) as GeoJSON.FeatureCollection<GeoJSON.GeometryObject>;
+    const collection = this
+      .data as GeoJSON.FeatureCollection<GeoJSON.GeometryObject>;
     const index = collection.features.indexOf(feature);
     if (index > -1) {
       collection.features.splice(index, 1);
     }
-    this.updateFeatureData.next();
+    this.updateFeatureData.next(null);
   }
 
   _getNewFeatureId() {
@@ -224,7 +223,7 @@ export class GeoJSONSourceComponent
     this.mapService.addSource(this.id, source);
     const sub = this.updateFeatureData.pipe(debounceTime(0)).subscribe(() => {
       const source = this.mapService.getSource<GeoJSONSource>(this.id);
-      if (source === undefined){
+      if (source === undefined) {
         return;
       }
       source.setData(this.data!);

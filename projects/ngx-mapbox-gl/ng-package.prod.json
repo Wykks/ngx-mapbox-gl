@@ -2,10 +2,7 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/ngx-mapbox-gl",
   "lib": {
-    "entryFile": "src/public_api.ts",
-    "umdModuleIds": {
-      "mapbox-gl": "mapbox-gl"
-    }
+    "entryFile": "src/public_api.ts"
   },
   "allowedNonPeerDependencies": ["."]
 }
