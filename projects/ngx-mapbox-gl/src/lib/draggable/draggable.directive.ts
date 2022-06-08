@@ -3,7 +3,7 @@ import {
   EventEmitter,
   Host,
   Input,
-  ngZone,
+  NgZone,
   OnDestroy,
   OnInit,
   Optional,
@@ -45,7 +45,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
 
   constructor(
     private mapService: MapService,
-    private ngZone: ngZone,
+    private ngZone: NgZone,
     @Optional() @Host() private featureComponent?: FeatureComponent
   ) {}
 

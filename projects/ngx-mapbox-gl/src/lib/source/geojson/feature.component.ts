@@ -48,6 +48,6 @@ export class FeatureComponent
 
   updateCoordinates(coordinates: number[]) {
     (this.feature.geometry as GeoJSON.Point).coordinates = coordinates;
-    this.GeoJSONSourceComponent.updateFeatureData.next();
+    this.GeoJSONSourceComponent.updateFeatureData.next(null);
   }
 }
