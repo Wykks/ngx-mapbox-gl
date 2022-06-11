@@ -3,7 +3,7 @@ import {
   EventEmitter,
   Host,
   Input,
-  ngZone,
+  NgZone,
   OnDestroy,
   OnInit,
   Optional,
@@ -45,7 +45,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
 
   constructor(
     private mapService: MapService,
-    private ngZone: ngZone,
+    private ngZone: NgZone,
     @Optional() @Host() private featureComponent?: FeatureComponent
   ) {}
 
@@ -172,17 +172,15 @@ export class DraggableDirective implements OnInit, OnDestroy {
 
   private filterFeature(evt: MapMouseEvent) {
     if (this.featureComponent && this.layer) {
-      const feature: GeoJSON.Feature<any> = this.mapService.queryRenderedFeatures(
-        evt.point,
-        {
+      const feature: GeoJSON.Feature<any> =
+        this.mapService.queryRenderedFeatures(evt.point, {
           layers: [this.layer.id],
           filter: [
             'all',
             ['==', '$type', 'Point'],
             ['==', '$id', this.featureComponent.id],
           ],
-        }
-      )[0];
+        })[0];
       if (!feature) {
         return false;
       }

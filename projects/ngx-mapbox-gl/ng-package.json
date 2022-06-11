@@ -3,10 +3,7 @@
   "dest": "../../dist/ngx-mapbox-gl",
   "deleteDestPath": false,
   "lib": {
-    "entryFile": "src/public_api.ts",
-    "umdModuleIds": {
-      "mapbox-gl": "mapbox-gl"
-    }
+    "entryFile": "src/public_api.ts"
   },
   "allowedNonPeerDependencies": ["."]
 }

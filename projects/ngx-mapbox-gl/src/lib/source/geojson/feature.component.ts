@@ -15,7 +15,8 @@ import { GeoJSONSourceComponent } from './geojson-source.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeatureComponent
-  implements OnInit, OnDestroy, GeoJSON.Feature<GeoJSON.GeometryObject> {
+  implements OnInit, OnDestroy, GeoJSON.Feature<GeoJSON.GeometryObject>
+{
   /* Init inputs */
   @Input() id?: number; // FIXME number only for now https://github.com/mapbox/mapbox-gl-js/issues/2716
   @Input() geometry: GeoJSON.GeometryObject;
@@ -48,6 +49,6 @@ export class FeatureComponent
 
   updateCoordinates(coordinates: number[]) {
     (this.feature.geometry as GeoJSON.Point).coordinates = coordinates;
-    this.GeoJSONSourceComponent.updateFeatureData.next();
+    this.GeoJSONSourceComponent.updateFeatureData.next(null);
   }
 }
