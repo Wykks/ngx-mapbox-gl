@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [8.0.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v8.0.0...v8.0.1) (2022-06-19)
+
+
+### Bug Fixes
+
+* cannot set property acccessToken [#373](https://github.com/Wykks/ngx-mapbox-gl/issues/373) ([#374](https://github.com/Wykks/ngx-mapbox-gl/issues/374)) ([55e5dfe](https://github.com/Wykks/ngx-mapbox-gl/commit/55e5dfe0373a5165b1bfcdbab23e0486a979fb7d))
+
 ## [8.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v7.1.2...v8.0.0) (2022-06-11)
 
 
