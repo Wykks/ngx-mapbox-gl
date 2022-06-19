@@ -23,6 +23,6 @@
     "@angular/common": "13.x",
     "@angular/core": "13.x",
     "mapbox-gl": "^2.3.1",
-    "rxjs": "^6.6.3"
+    "rxjs": "^7.4.6"
   }
 }

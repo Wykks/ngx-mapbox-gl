@@ -66,6 +66,10 @@ export interface SetupMarker {
   };
 }
 
+interface MapboxOptionsWithAccessToken extends MapboxGl.MapboxOptions {
+  accessToken: typeof MapboxGl.accessToken;
+}
+
 export type MovingOptions =
   | MapboxGl.FlyToOptions
   | (MapboxGl.AnimationOptions & MapboxGl.CameraOptions)
@@ -97,15 +101,18 @@ export class MapService {
     // Need onStable to wait for a potential @angular/route transition to end
     this.zone.onStable.pipe(first()).subscribe(() => {
       // Workaround rollup issue
-      this.assign(
-        MapboxGl,
-        'accessToken',
-        options.accessToken || this.MAPBOX_API_KEY
-      );
+      // this.assign(
+      //   MapboxGl,
+      //   'accessToken',
+      //   options.accessToken || this.MAPBOX_API_KEY
+      // );
       if (options.customMapboxApiUrl) {
         this.assign(MapboxGl, 'config.API_URL', options.customMapboxApiUrl);
       }
-      this.createMap(options.mapOptions as MapboxGl.MapboxOptions);
+      this.createMap({
+        ...options.mapOptions as MapboxGl.MapboxOptions,
+        accessToken: options.accessToken || this.MAPBOX_API_KEY
+      });
       this.hookEvents(options.mapEvents);
       this.mapEvents = options.mapEvents;
       this.mapCreated.next(undefined);
@@ -729,20 +736,20 @@ export class MapService {
     });
   }
 
-  private createMap(options: MapboxGl.MapboxOptions) {
+  private createMap(optionsWithAccessToken: MapboxOptionsWithAccessToken) {
     NgZone.assertNotInAngularZone();
-    Object.keys(options).forEach((key: string) => {
+    Object.keys(optionsWithAccessToken).forEach((key: string) => {
       const tkey = key as keyof MapboxGl.MapboxOptions;
-      if (options[tkey] === undefined) {
-        delete options[tkey];
+      if (optionsWithAccessToken[tkey] === undefined) {
+        delete optionsWithAccessToken[tkey];
       }
     });
-    this.mapInstance = new MapboxGl.Map(options);
+    this.mapInstance = new MapboxGl.Map(optionsWithAccessToken);
 
     const isIEorEdge =
       window && /msie\s|trident\/|edge\//i.test(window.navigator.userAgent);
     if (isIEorEdge) {
-      this.mapInstance.setStyle(options.style!);
+      this.mapInstance.setStyle(optionsWithAccessToken.style!);
     }
 
     this.subscription.add(
