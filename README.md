@@ -19,6 +19,8 @@ v7.X : Angular 12 (rxjs >= 6.6)
 
 v8.X : Angular 13
 
+v9.X : Angular 14
+
 Include the following components:
 
 - [mgl-map](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-map-mapbox-gl-api)

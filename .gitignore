@@ -16,7 +16,6 @@ node_modules
 *.launch
 .settings/
 *.sublime-workspace
-.angular/
 
 # IDE - VSCode
 .vscode/*
@@ -32,10 +31,21 @@ node_modules
 /libpeerconnection.log
 npm-debug.log
 yarn-error.log
-package-lock.json
 testem.log
 /typings
 
 # System Files
 .DS_Store
 Thumbs.db
+
+# Yarn berry
+
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+.angular
