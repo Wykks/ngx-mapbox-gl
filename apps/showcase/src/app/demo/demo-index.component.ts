@@ -38,13 +38,9 @@ export class DemoIndexComponent implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute,
     private mapResizeService: MapResizeService
   ) {
-    this.originalRoutes = (
-      (
-        groupBy(DEMO_ROUTES[0].children, (route) =>
-          route.data ? route.data.cat : null
-        )
-      ) as any
-    ) as RoutesByCategory;
+    this.originalRoutes = groupBy(DEMO_ROUTES[0].children, (route) =>
+      route.data ? route.data.cat : null
+    ) as any as RoutesByCategory;
     this.categories = [
       Category.STYLES,
       Category.LAYERS,

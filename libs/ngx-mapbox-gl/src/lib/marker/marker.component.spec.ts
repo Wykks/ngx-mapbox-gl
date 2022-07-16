@@ -31,19 +31,17 @@ describe('MarkerComponent', () => {
   let component: MarkerTestComponent;
   let fixture: ComponentFixture<MarkerTestComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [MarkerTestComponent, MarkerComponent],
-      })
-        .overrideComponent(MarkerTestComponent, {
-          set: {
-            providers: [{ provide: MapService, useClass: MapServiceSpy }],
-          },
-        })
-        .compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [MarkerTestComponent, MarkerComponent],
     })
-  );
+      .overrideComponent(MarkerTestComponent, {
+        set: {
+          providers: [{ provide: MapService, useClass: MapServiceSpy }],
+        },
+      })
+      .compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MarkerTestComponent);

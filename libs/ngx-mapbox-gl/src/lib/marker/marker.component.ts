@@ -24,7 +24,8 @@ import { deprecationWarning } from '../utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MarkerComponent
-  implements OnChanges, OnDestroy, AfterViewInit, OnInit {
+  implements OnChanges, OnDestroy, AfterViewInit, OnInit
+{
   /* Init input */
   @Input() offset?: MarkerOptions['offset'];
   @Input() anchor?: MarkerOptions['anchor'];

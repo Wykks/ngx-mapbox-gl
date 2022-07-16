@@ -42,7 +42,8 @@ export interface GeocoderEvent {
   selector: '[mglGeocoder]',
 })
 export class GeocoderControlDirective
-  implements AfterContentInit, OnChanges, GeocoderEvent {
+  implements AfterContentInit, OnChanges, GeocoderEvent
+{
   /* Init inputs */
   @Input() countries?: string;
   @Input() placeholder?: string;

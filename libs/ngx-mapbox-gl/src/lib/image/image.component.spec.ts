@@ -20,19 +20,17 @@ describe('ImageComponent', () => {
   let component: ImageComponent;
   let fixture: ComponentFixture<ImageComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [ImageComponent],
-      })
-        .overrideComponent(ImageComponent, {
-          set: {
-            providers: [{ provide: MapService, useClass: MapServiceSpy }],
-          },
-        })
-        .compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [ImageComponent],
     })
-  );
+      .overrideComponent(ImageComponent, {
+        set: {
+          providers: [{ provide: MapService, useClass: MapServiceSpy }],
+        },
+      })
+      .compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ImageComponent);

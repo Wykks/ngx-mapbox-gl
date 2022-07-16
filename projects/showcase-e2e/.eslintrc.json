@@ -1,17 +1,11 @@
 {
   "extends": "../../.eslintrc.json",
-  "ignorePatterns": [
-    "!**/*"
-  ],
+  "ignorePatterns": ["!**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "projects/showcase-e2e/tsconfig.e2e.json"
-        ],
+        "project": ["projects/showcase-e2e/tsconfig.e2e.json"],
         "createDefaultProgram": true
       },
       "rules": {
@@ -36,9 +30,7 @@
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
+      "files": ["*.html"],
       "rules": {}
     }
   ]

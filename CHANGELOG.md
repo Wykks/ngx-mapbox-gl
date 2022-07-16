@@ -4,54 +4,47 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [8.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v7.1.2...v8.0.0) (2022-06-11)
 
-
 ### ⚠ BREAKING CHANGES
 
-* Update to Angular 13
+- Update to Angular 13
 
 ### build
 
-* Update/angular 13 ([#368](https://github.com/Wykks/ngx-mapbox-gl/issues/368)) ([fed7855](https://github.com/Wykks/ngx-mapbox-gl/commit/fed785585f0d86fcb63d55ac3402d275252797cc))
+- Update/angular 13 ([#368](https://github.com/Wykks/ngx-mapbox-gl/issues/368)) ([fed7855](https://github.com/Wykks/ngx-mapbox-gl/commit/fed785585f0d86fcb63d55ac3402d275252797cc))
 
 ### [7.1.2](https://github.com/Wykks/ngx-mapbox-gl/compare/v7.1.1...v7.1.2) (2021-10-08)
 
-
 ### Bug Fixes
 
-* 'falsy' pitch & bearings changes are ignored [#334](https://github.com/Wykks/ngx-mapbox-gl/issues/334) ([6d6a9a9](https://github.com/Wykks/ngx-mapbox-gl/commit/6d6a9a98688515b5988f868491f930cef1b83dec))
+- 'falsy' pitch & bearings changes are ignored [#334](https://github.com/Wykks/ngx-mapbox-gl/issues/334) ([6d6a9a9](https://github.com/Wykks/ngx-mapbox-gl/commit/6d6a9a98688515b5988f868491f930cef1b83dec))
 
 ### [7.1.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v7.1.0...v7.1.1) (2021-10-07)
 
-
 ### Bug Fixes
 
-* check map instance source on undefined ([#333](https://github.com/Wykks/ngx-mapbox-gl/issues/333)) ([d2413bf](https://github.com/Wykks/ngx-mapbox-gl/commit/d2413bfb14a05090af4dee10404f686f5f1df4ef))
+- check map instance source on undefined ([#333](https://github.com/Wykks/ngx-mapbox-gl/issues/333)) ([d2413bf](https://github.com/Wykks/ngx-mapbox-gl/commit/d2413bfb14a05090af4dee10404f686f5f1df4ef))
 
 ## [7.1.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v7.0.1...v7.1.0) (2021-08-13)
 
-
 ### Features
 
-* add closeOnMove and focusAfterOpen init-only inputs to mgl-popup [#325](https://github.com/Wykks/ngx-mapbox-gl/issues/325) ([d8003c1](https://github.com/Wykks/ngx-mapbox-gl/commit/d8003c1a370f22bcf98bdd040577baf54ff9c040))
+- add closeOnMove and focusAfterOpen init-only inputs to mgl-popup [#325](https://github.com/Wykks/ngx-mapbox-gl/issues/325) ([d8003c1](https://github.com/Wykks/ngx-mapbox-gl/commit/d8003c1a370f22bcf98bdd040577baf54ff9c040))
 
 ### [7.0.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v7.0.0...v7.0.1) (2021-06-24)
 
-
 ### Bug Fixes
 
-* safari fullscreen mode does not work properly [#301](https://github.com/Wykks/ngx-mapbox-gl/issues/301) ([#316](https://github.com/Wykks/ngx-mapbox-gl/issues/316)) ([43c6cc4](https://github.com/Wykks/ngx-mapbox-gl/commit/43c6cc4fe3df4cf386d5f9d1e901a50305561460))
+- safari fullscreen mode does not work properly [#301](https://github.com/Wykks/ngx-mapbox-gl/issues/301) ([#316](https://github.com/Wykks/ngx-mapbox-gl/issues/316)) ([43c6cc4](https://github.com/Wykks/ngx-mapbox-gl/commit/43c6cc4fe3df4cf386d5f9d1e901a50305561460))
 
 ## [7.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v6.0.4...v7.0.0) (2021-06-23)
 
-
 ### ⚠ BREAKING CHANGES
 
-* move the geocoding control to a separate library ([#300](https://github.com/Wykks/ngx-mapbox-gl/issues/300)) ([fb4803e](https://github.com/Wykks/ngx-mapbox-gl/commit/fb4803e3e76b7d196488281b4235da65ba5e25f9))
-
+- move the geocoding control to a separate library ([#300](https://github.com/Wykks/ngx-mapbox-gl/issues/300)) ([fb4803e](https://github.com/Wykks/ngx-mapbox-gl/commit/fb4803e3e76b7d196488281b4235da65ba5e25f9))
 
 ### Bug Fixes
 
-* exception when accessing to MapService.getSource ([#313](https://github.com/Wykks/ngx-mapbox-gl/issues/313)) ([095e13d](https://github.com/Wykks/ngx-mapbox-gl/commit/095e13df329bed27c0524d267a01276eec35af7d))
+- exception when accessing to MapService.getSource ([#313](https://github.com/Wykks/ngx-mapbox-gl/issues/313)) ([095e13d](https://github.com/Wykks/ngx-mapbox-gl/commit/095e13df329bed27c0524d267a01276eec35af7d))
 
 ### [6.0.4](https://github.com/Wykks/ngx-mapbox-gl/compare/v6.0.3...v6.0.4) (2021-02-17)
 

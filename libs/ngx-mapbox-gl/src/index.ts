@@ -32,5 +32,3 @@ export * from './lib/source/vector-source.component';
 export * from './lib/source/video-source.component';
 // Expose deprecation warning
 export * from './lib/utils';
-
-

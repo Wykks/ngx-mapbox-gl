@@ -17,7 +17,8 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImageSourceComponent
-  implements OnInit, OnDestroy, OnChanges, ImageSourceOptions {
+  implements OnInit, OnDestroy, OnChanges, ImageSourceOptions
+{
   /* Init inputs */
   @Input() id: string;
 
@@ -40,7 +41,7 @@ export class ImageSourceComponent
     }
 
     const source = this.mapService.getSource<ImageSource>(this.sourceId);
-    if (source === undefined){
+    if (source === undefined) {
       return;
     }
     source.updateImage({

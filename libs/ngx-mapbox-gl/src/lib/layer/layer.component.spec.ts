@@ -22,19 +22,17 @@ describe('LayerComponent', () => {
   let component: LayerComponent;
   let fixture: ComponentFixture<LayerComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [LayerComponent],
-      })
-        .overrideComponent(LayerComponent, {
-          set: {
-            providers: [{ provide: MapService, useClass: MapServiceSpy }],
-          },
-        })
-        .compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [LayerComponent],
     })
-  );
+      .overrideComponent(LayerComponent, {
+        set: {
+          providers: [{ provide: MapService, useClass: MapServiceSpy }],
+        },
+      })
+      .compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LayerComponent);

@@ -55,7 +55,8 @@ let uniqId = 0;
   preserveWhitespaces: false,
 })
 export class MarkersForClustersComponent
-  implements OnDestroy, AfterContentInit {
+  implements OnDestroy, AfterContentInit
+{
   /* Init input */
   @Input() source: string;
 
@@ -120,9 +121,8 @@ export class MarkersForClustersComponent
     if (!this.pointTpl) {
       params.filter = ['==', 'cluster', true];
     }
-    this.clusterPoints = this.mapService.mapInstance.queryRenderedFeatures(
-      params
-    );
+    this.clusterPoints =
+      this.mapService.mapInstance.queryRenderedFeatures(params);
     this.ChangeDetectorRef.markForCheck();
   }
 }

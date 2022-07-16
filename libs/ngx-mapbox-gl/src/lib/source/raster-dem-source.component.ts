@@ -18,7 +18,8 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RasterDemSourceComponent
-  implements OnInit, OnDestroy, OnChanges, RasterDemSource {
+  implements OnInit, OnDestroy, OnChanges, RasterDemSource
+{
   /* Init inputs */
   @Input() id: string;
 

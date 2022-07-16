@@ -56,7 +56,8 @@ export class MapComponent
     OnDestroy,
     AfterViewInit,
     Omit<MapboxOptions, 'bearing' | 'container' | 'pitch' | 'zoom'>,
-    MapEvent {
+    MapEvent
+{
   /* Init inputs */
   @Input() accessToken?: MapboxOptions['accessToken'];
   @Input() collectResourceTiming?: MapboxOptions['collectResourceTiming'];

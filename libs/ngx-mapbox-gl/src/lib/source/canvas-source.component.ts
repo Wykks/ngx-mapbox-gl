@@ -18,7 +18,8 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CanvasSourceComponent
-  implements OnInit, OnDestroy, OnChanges, CanvasSourceOptions {
+  implements OnInit, OnDestroy, OnChanges, CanvasSourceOptions
+{
   /* Init inputs */
   @Input() id: string;
 
@@ -57,7 +58,7 @@ export class CanvasSourceComponent
       this.ngOnInit();
     } else if (changes.coordinates && !changes.coordinates.isFirstChange()) {
       const source = this.mapService.getSource<CanvasSource>(this.id);
-      if (source === undefined){
+      if (source === undefined) {
         return;
       }
       source.setCoordinates(this.coordinates);

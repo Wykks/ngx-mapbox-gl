@@ -1,4 +1,10 @@
-import { AfterContentInit, Directive, Host, HostListener, Input } from '@angular/core';
+import {
+  AfterContentInit,
+  Directive,
+  Host,
+  HostListener,
+  Input,
+} from '@angular/core';
 import { FullscreenControl } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import { ControlComponent } from './control.component';
@@ -16,8 +22,8 @@ export class FullscreenControlDirective implements AfterContentInit {
   ) {}
 
   @HostListener('window:webkitfullscreenchange', ['$event.target'])
-  onFullscreen(){
-      this.mapService.mapInstance.resize();
+  onFullscreen() {
+    this.mapService.mapInstance.resize();
   }
 
   ngAfterContentInit() {

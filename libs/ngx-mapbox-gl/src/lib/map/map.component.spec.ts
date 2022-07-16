@@ -24,19 +24,17 @@ describe('MapComponent', () => {
   let component: MapComponent;
   let fixture: ComponentFixture<MapComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [MapComponent],
-      })
-        .overrideComponent(MapComponent, {
-          set: {
-            providers: [{ provide: MapService, useClass: MapServiceSpy }],
-          },
-        })
-        .compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [MapComponent],
     })
-  );
+      .overrideComponent(MapComponent, {
+        set: {
+          providers: [{ provide: MapService, useClass: MapServiceSpy }],
+        },
+      })
+      .compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MapComponent);
