@@ -26,7 +26,8 @@ import { deprecationWarning } from '../utils';
   template: '',
 })
 export class LayerComponent
-  implements OnInit, OnDestroy, OnChanges, Layer, LayerEvents {
+  implements OnInit, OnDestroy, OnChanges, Layer, LayerEvents
+{
   /* Init inputs */
   @Input() id: AnyLayer['id'];
   @Input() source?: Layer['source'];

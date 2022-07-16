@@ -151,7 +151,7 @@ export class ClusterPointComponent implements OnInit {
       this.properties.mag5,
     ];
     let total = 0;
-    for(const count of counts) {
+    for (const count of counts) {
       offsets.push(total);
       total += count;
     }

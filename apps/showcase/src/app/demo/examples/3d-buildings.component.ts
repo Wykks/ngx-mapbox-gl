@@ -54,10 +54,7 @@ export class Display3dBuildingsComponent {
     const layers = mapInstance.getStyle().layers!;
 
     for (const layer of layers) {
-      if (
-        layer.type === 'symbol' &&
-        layer.layout!['text-field']
-      ) {
+      if (layer.type === 'symbol' && layer.layout!['text-field']) {
         this.labelLayerId = layer.id;
         break;
       }

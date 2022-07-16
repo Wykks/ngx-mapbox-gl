@@ -23,7 +23,8 @@ import { deprecationWarning } from '../utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PopupComponent
-  implements OnChanges, OnDestroy, AfterViewInit, OnInit {
+  implements OnChanges, OnDestroy, AfterViewInit, OnInit
+{
   /* Init input */
   @Input() closeButton?: PopupOptions['closeButton'];
   @Input() closeOnClick?: PopupOptions['closeOnClick'];
@@ -76,7 +77,7 @@ export class PopupComponent
     ) {
       const newlngLat = changes.lngLat
         ? this.lngLat!
-        : this.feature!.geometry!.coordinates! as [number, number];
+        : (this.feature!.geometry!.coordinates! as [number, number]);
       this.mapService.removePopupFromMap(this.popupInstance!, true);
       const popupInstanceTmp = this.createPopup();
       this.mapService.addPopupToMap(
@@ -154,7 +155,7 @@ export class PopupComponent
           popup,
           this.lngLat
             ? this.lngLat
-            : this.feature!.geometry!.coordinates! as [number, number]
+            : (this.feature!.geometry!.coordinates! as [number, number])
         );
       } else if (this.marker && this.marker.markerInstance) {
         this.mapService.addPopupToMarker(this.marker.markerInstance, popup);

@@ -18,7 +18,8 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideoSourceComponent
-  implements OnInit, OnDestroy, OnChanges, VideoSourceOptions {
+  implements OnInit, OnDestroy, OnChanges, VideoSourceOptions
+{
   /* Init inputs */
   @Input() id: string;
 
@@ -54,7 +55,7 @@ export class VideoSourceComponent
       this.ngOnInit();
     } else if (changes.coordinates && !changes.coordinates.isFirstChange()) {
       const source = this.mapService.getSource<VideoSource>(this.id);
-      if (source === undefined){
+      if (source === undefined) {
         return;
       }
       source.setCoordinates(this.coordinates!);

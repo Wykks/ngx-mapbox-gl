@@ -18,7 +18,8 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VectorSourceComponent
-  implements OnInit, OnDestroy, OnChanges, VectorSource {
+  implements OnInit, OnDestroy, OnChanges, VectorSource
+{
   /* Init inputs */
   @Input() id: string;
 
@@ -72,7 +73,7 @@ export class VectorSourceComponent
       (changes.tiles && !changes.tiles.isFirstChange())
     ) {
       const source = this.mapService.getSource<VectorSourceImpl>(this.id);
-      if (source === undefined){
+      if (source === undefined) {
         return;
       }
       if (changes.url && this.url) {

@@ -64,9 +64,9 @@ export class NgxClusterHtmlComponent implements OnInit {
   selectedCluster: { geometry: GeoJSON.Point; properties: any };
 
   async ngOnInit() {
-    const earthquakes: GeoJSON.FeatureCollection = (
-      await import('./earthquakes.geo.json')
-    ) as any;
+    const earthquakes: GeoJSON.FeatureCollection = (await import(
+      './earthquakes.geo.json'
+    )) as any;
     setInterval(() => {
       if (earthquakes.features.length) {
         earthquakes.features.pop();

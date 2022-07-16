@@ -33,7 +33,8 @@ export class CustomControl implements IControl {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ControlComponent<T extends IControl>
-  implements OnDestroy, AfterContentInit {
+  implements OnDestroy, AfterContentInit
+{
   /* Init inputs */
   @Input() position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
