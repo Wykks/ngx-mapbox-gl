@@ -31,7 +31,7 @@ import { Component } from '@angular/core';
 })
 export class NgxGeoJSONLineComponent {
   geometry = {
-    type: 'LineString',
+    type: 'LineString' as const,
     coordinates: [
       [-122.48369693756104, 37.83381888486939],
       [-122.48348236083984, 37.83317489144141],

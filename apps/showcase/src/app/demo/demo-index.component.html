@@ -47,9 +47,11 @@
             mat-list-item
             [routerLink]="'/demo/' + (isEditMode ? '/edit/' : '') + route.path"
             routerLinkActive="active"
-            [routerLinkActiveOptions]="{
-              _routerLinkActiveWakeUpHack_: isEditMode
-            }"
+            [routerLinkActiveOptions]="
+              $any({
+                _routerLinkActiveWakeUpHack_: isEditMode
+              })
+            "
             #exampleLink
           >
             {{ route.data.label }}

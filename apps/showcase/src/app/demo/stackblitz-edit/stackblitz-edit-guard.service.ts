@@ -7,7 +7,9 @@ export class StackblitzEditGuard implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot) {
-    if (DEMO_ROUTES[0].children!.some((r) => r.path === route.params.demoUrl)) {
+    if (
+      DEMO_ROUTES[0].children?.some((r) => r.path === route.params['demoUrl'])
+    ) {
       return true;
     }
     this.router.navigate(['/demo']);

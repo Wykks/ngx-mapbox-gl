@@ -130,7 +130,7 @@ export class LayerComponent
     this.sub = this.mapService.mapLoaded$
       .pipe(
         switchMap(() =>
-          fromEvent(this.mapService.mapInstance as any, 'styledata').pipe(
+          fromEvent(this.mapService.mapInstance, 'styledata').pipe(
             mapTo(false),
             filter(() => !this.mapService.mapInstance.getLayer(this.id)),
             startWith(true)
@@ -144,27 +144,27 @@ export class LayerComponent
     if (!this.layerAdded) {
       return;
     }
-    if (changes.paint && !changes.paint.isFirstChange()) {
+    if (changes['paint'] && !changes['paint'].isFirstChange()) {
       this.mapService.setAllLayerPaintProperty(
         this.id,
-        changes.paint.currentValue!
+        changes['paint'].currentValue!
       );
     }
-    if (changes.layout && !changes.layout.isFirstChange()) {
+    if (changes['layout'] && !changes['layout'].isFirstChange()) {
       this.mapService.setAllLayerLayoutProperty(
         this.id,
-        changes.layout.currentValue!
+        changes['layout'].currentValue!
       );
     }
-    if (changes.filter && !changes.filter.isFirstChange()) {
-      this.mapService.setLayerFilter(this.id, changes.filter.currentValue!);
+    if (changes['filter'] && !changes['filter'].isFirstChange()) {
+      this.mapService.setLayerFilter(this.id, changes['filter'].currentValue!);
     }
-    if (changes.before && !changes.before.isFirstChange()) {
-      this.mapService.setLayerBefore(this.id, changes.before.currentValue!);
+    if (changes['before'] && !changes['before'].isFirstChange()) {
+      this.mapService.setLayerBefore(this.id, changes['before'].currentValue!);
     }
     if (
-      (changes.minzoom && !changes.minzoom.isFirstChange()) ||
-      (changes.maxzoom && !changes.maxzoom.isFirstChange())
+      (changes['minzoom'] && !changes['minzoom'].isFirstChange()) ||
+      (changes['maxzoom'] && !changes['maxzoom'].isFirstChange())
     ) {
       this.mapService.setLayerZoomRange(this.id, this.minzoom, this.maxzoom);
     }

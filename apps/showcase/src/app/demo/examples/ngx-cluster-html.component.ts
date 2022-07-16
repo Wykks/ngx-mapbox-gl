@@ -1,10 +1,10 @@
 import {
   Component,
   Input,
-  OnInit,
   OnChanges,
-  ViewChild,
+  OnInit,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { GeoJSONSourceComponent } from 'ngx-mapbox-gl';
@@ -61,12 +61,12 @@ import { GeoJSONSourceComponent } from 'ngx-mapbox-gl';
 })
 export class NgxClusterHtmlComponent implements OnInit {
   earthquakes: GeoJSON.FeatureCollection;
-  selectedCluster: { geometry: GeoJSON.Point; properties: any };
+  selectedCluster: GeoJSON.Feature<GeoJSON.Point>;
 
   async ngOnInit() {
     const earthquakes: GeoJSON.FeatureCollection = (await import(
       './earthquakes.geo.json'
-    )) as any;
+    )) as unknown as GeoJSON.FeatureCollection<GeoJSON.Geometry>;
     setInterval(() => {
       if (earthquakes.features.length) {
         earthquakes.features.pop();
@@ -78,10 +78,7 @@ export class NgxClusterHtmlComponent implements OnInit {
   selectCluster(event: MouseEvent, feature: any) {
     event.stopPropagation(); // This is needed, otherwise the popup will close immediately
     // Change the ref, to trigger mgl-popup onChanges (when the user click on the same cluster)
-    this.selectedCluster = {
-      geometry: feature.geometry,
-      properties: feature.properties,
-    };
+    this.selectedCluster = feature;
   }
 }
 
@@ -90,18 +87,18 @@ export class NgxClusterHtmlComponent implements OnInit {
   template: `
     <mat-list>
       <mat-list-item *ngFor="let leaf of leaves">
-        {{ leaf.properties['Primary ID'] }}
+        {{ leaf.properties?.['Primary ID'] }}
       </mat-list-item>
     </mat-list>
     <mat-paginator
-      [length]="selectedCluster.properties?.point_count"
+      [length]="selectedCluster.properties?.['point_count']"
       [pageSize]="5"
       (page)="changePage($event)"
     ></mat-paginator>
   `,
 })
 export class ClusterPopupComponent implements OnChanges {
-  @Input() selectedCluster: { geometry: GeoJSON.Point; properties: any };
+  @Input() selectedCluster: GeoJSON.Feature<GeoJSON.Point>;
   @Input() clusterComponent: GeoJSONSourceComponent;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -110,7 +107,10 @@ export class ClusterPopupComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     this.changePage();
-    if (changes.selectedCluster && !changes.selectedCluster.isFirstChange()) {
+    if (
+      changes['selectedCluster'] &&
+      !changes['selectedCluster'].isFirstChange()
+    ) {
       this.paginator.firstPage();
     }
   }
@@ -121,7 +121,7 @@ export class ClusterPopupComponent implements OnChanges {
       offset = pageEvent.pageIndex * 5;
     }
     this.leaves = await this.clusterComponent.getClusterLeaves(
-      this.selectedCluster.properties!.cluster_id,
+      this.selectedCluster.properties?.['cluster_id'] ?? 0,
       5,
       offset
     );

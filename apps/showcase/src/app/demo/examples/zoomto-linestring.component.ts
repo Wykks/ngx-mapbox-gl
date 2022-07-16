@@ -40,14 +40,15 @@ export class ZoomtoLinestringComponent {
   bounds: LngLatBounds;
 
   source = {
-    type: 'geojson',
+    type: 'geojson' as const,
     data: {
-      type: 'FeatureCollection',
+      type: 'FeatureCollection' as const,
       features: [
         {
-          type: 'Feature',
+          type: 'Feature' as const,
+          properties: {},
           geometry: {
-            type: 'LineString',
+            type: 'LineString' as const,
             properties: {},
             coordinates: [
               [-77.0366048812866, 38.89873175227713],

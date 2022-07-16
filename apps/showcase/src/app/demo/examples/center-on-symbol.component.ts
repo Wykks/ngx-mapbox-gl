@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MapMouseEvent, Map } from 'mapbox-gl';
+import { Map, MapMouseEvent } from 'mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -37,19 +37,19 @@ export class CenterOnSymbolComponent {
   map: Map;
   cursorStyle: string;
 
-  center = [-90.96, -0.47];
+  center: [number, number] = [-90.96, -0.47];
 
   geometries = [
     {
-      type: 'Point',
+      type: 'Point' as const,
       coordinates: [-91.395263671875, -0.9145729757782163],
     },
     {
-      type: 'Point',
+      type: 'Point' as const,
       coordinates: [-90.32958984375, -0.6344474832838974],
     },
     {
-      type: 'Point',
+      type: 'Point' as const,
       coordinates: [-91.34033203125, 0.01647949196029245],
     },
   ];

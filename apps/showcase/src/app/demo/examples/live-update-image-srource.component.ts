@@ -31,7 +31,7 @@ import { interval, Subscription } from 'rxjs';
 export class LiveUpdateImageSourceComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   private readonly size = 0.001;
-  center: number[];
+  center: [number, number];
 
   url = 'assets/red.png';
   coordinates: number[][];
@@ -40,10 +40,10 @@ export class LiveUpdateImageSourceComponent implements OnInit, OnDestroy {
     const data: GeoJSON.FeatureCollection<GeoJSON.LineString> = (await import(
       './hike.geo.json'
     )) as any;
-    const points = data.features[0].geometry!.coordinates;
+    const points = data.features[0].geometry?.coordinates;
     const coordinates = points.map((c) => this.makeRectangle(c));
 
-    this.center = points[0];
+    this.center = points[0] as [number, number];
     this.coordinates = coordinates[0];
 
     let i = 0;

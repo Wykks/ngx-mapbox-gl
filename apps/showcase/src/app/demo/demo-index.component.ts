@@ -27,7 +27,7 @@ export class DemoIndexComponent implements OnInit, AfterViewInit {
   categories: Category[];
   searchTerm: string;
   sidenavIsOpen = true;
-  isEditMode = !!this.activatedRoute.snapshot.firstChild!.params.demoUrl;
+  isEditMode = !!this.activatedRoute.snapshot.firstChild?.params['demoUrl'];
 
   @ViewChildren('exampleLink', { read: ElementRef })
   exampleLinks: QueryList<ElementRef>;
@@ -39,8 +39,8 @@ export class DemoIndexComponent implements OnInit, AfterViewInit {
     private mapResizeService: MapResizeService
   ) {
     this.originalRoutes = groupBy(DEMO_ROUTES[0].children, (route) =>
-      route.data ? route.data.cat : null
-    ) as any as RoutesByCategory;
+      route.data ? route.data['cat'] : null
+    ) as unknown as RoutesByCategory;
     this.categories = [
       Category.STYLES,
       Category.LAYERS,
@@ -64,16 +64,17 @@ export class DemoIndexComponent implements OnInit, AfterViewInit {
   }
 
   toggleEdit(change: MatSlideToggleChange) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const snapshot = this.activatedRoute.snapshot.firstChild!;
     if (change.checked) {
       this.router.navigate(['demo', 'edit', snapshot.url[0].path]);
     } else {
-      this.router.navigate(['demo', snapshot.params.demoUrl]);
+      this.router.navigate(['demo', snapshot.params['demoUrl']]);
     }
   }
 
   onSidenavChange() {
-    this.mapResizeService.resize$.next();
+    this.mapResizeService.resize$.next(undefined);
   }
 
   search() {
@@ -83,7 +84,7 @@ export class DemoIndexComponent implements OnInit, AfterViewInit {
       category.forEach((route, index) => {
         if (
           route.data &&
-          !(route.data.label as string)
+          !(route.data['label'] as string)
             .toLowerCase()
             .includes(this.searchTerm.toLowerCase())
         ) {

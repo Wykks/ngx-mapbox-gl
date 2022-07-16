@@ -35,7 +35,7 @@ export class VideoSourceComponent
   ngOnInit() {
     const sub1 = this.mapService.mapLoaded$.subscribe(() => {
       this.init();
-      const sub = fromEvent(this.mapService.mapInstance as any, 'styledata')
+      const sub = fromEvent(this.mapService.mapInstance, 'styledata')
         .pipe(filter(() => !this.mapService.mapInstance.getSource(this.id)))
         .subscribe(() => {
           this.init();
@@ -50,10 +50,13 @@ export class VideoSourceComponent
       return;
     }
 
-    if (changes.urls && !changes.urls.isFirstChange()) {
+    if (changes['urls'] && !changes['urls'].isFirstChange()) {
       this.ngOnDestroy();
       this.ngOnInit();
-    } else if (changes.coordinates && !changes.coordinates.isFirstChange()) {
+    } else if (
+      changes['coordinates'] &&
+      !changes['coordinates'].isFirstChange()
+    ) {
       const source = this.mapService.getSource<VideoSource>(this.id);
       if (source === undefined) {
         return;

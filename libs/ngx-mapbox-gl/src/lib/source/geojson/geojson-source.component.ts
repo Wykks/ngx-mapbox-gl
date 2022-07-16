@@ -2,11 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
+  NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
   SimpleChanges,
-  NgZone,
 } from '@angular/core';
 import {
   GeoJSONSource,
@@ -61,7 +61,7 @@ export class GeoJSONSourceComponent
     }
     const sub1 = this.mapService.mapLoaded$.subscribe(() => {
       this.init();
-      const sub = fromEvent(this.mapService.mapInstance as any, 'styledata')
+      const sub = fromEvent(this.mapService.mapInstance, 'styledata')
         .pipe(filter(() => !this.mapService.mapInstance.getSource(this.id)))
         .subscribe(() => {
           this.init();
@@ -76,25 +76,27 @@ export class GeoJSONSourceComponent
       return;
     }
     if (
-      (changes.maxzoom && !changes.maxzoom.isFirstChange()) ||
-      (changes.attribution && !changes.attribution.isFirstChange()) ||
-      (changes.buffer && !changes.buffer.isFirstChange()) ||
-      (changes.tolerance && !changes.tolerance.isFirstChange()) ||
-      (changes.cluster && !changes.cluster.isFirstChange()) ||
-      (changes.clusterRadius && !changes.clusterRadius.isFirstChange()) ||
-      (changes.clusterMaxZoom && !changes.clusterMaxZoom.isFirstChange()) ||
-      (changes.clusterMinPoints && !changes.clusterMinPoints.isFirstChange()) ||
-      (changes.clusterProperties &&
-        !changes.clusterProperties.isFirstChange()) ||
-      (changes.lineMetrics && !changes.lineMetrics.isFirstChange()) ||
-      (changes.generateId && !changes.generateId.isFirstChange()) ||
-      (changes.promoteId && !changes.promoteId.isFirstChange()) ||
-      (changes.filter && !changes.filter.isFirstChange())
+      (changes['maxzoom'] && !changes['maxzoom'].isFirstChange()) ||
+      (changes['attribution'] && !changes['attribution'].isFirstChange()) ||
+      (changes['buffer'] && !changes['buffer'].isFirstChange()) ||
+      (changes['tolerance'] && !changes['tolerance'].isFirstChange()) ||
+      (changes['cluster'] && !changes['cluster'].isFirstChange()) ||
+      (changes['clusterRadius'] && !changes['clusterRadius'].isFirstChange()) ||
+      (changes['clusterMaxZoom'] &&
+        !changes['clusterMaxZoom'].isFirstChange()) ||
+      (changes['clusterMinPoints'] &&
+        !changes['clusterMinPoints'].isFirstChange()) ||
+      (changes['clusterProperties'] &&
+        !changes['clusterProperties'].isFirstChange()) ||
+      (changes['lineMetrics'] && !changes['lineMetrics'].isFirstChange()) ||
+      (changes['generateId'] && !changes['generateId'].isFirstChange()) ||
+      (changes['promoteId'] && !changes['promoteId'].isFirstChange()) ||
+      (changes['filter'] && !changes['filter'].isFirstChange())
     ) {
       this.ngOnDestroy();
       this.ngOnInit();
     }
-    if (changes.data && !changes.data.isFirstChange()) {
+    if (changes['data'] && !changes['data'].isFirstChange()) {
       const source = this.mapService.getSource<GeoJSONSource>(this.id);
       if (source === undefined) {
         return;

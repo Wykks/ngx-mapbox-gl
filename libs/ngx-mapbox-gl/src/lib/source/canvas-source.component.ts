@@ -36,7 +36,7 @@ export class CanvasSourceComponent
   ngOnInit() {
     const sub1 = this.mapService.mapLoaded$.subscribe(() => {
       this.init();
-      const sub = fromEvent(this.mapService.mapInstance as any, 'styledata')
+      const sub = fromEvent(this.mapService.mapInstance, 'styledata')
         .pipe(filter(() => !this.mapService.mapInstance.getSource(this.id)))
         .subscribe(() => {
           this.init();
@@ -51,12 +51,15 @@ export class CanvasSourceComponent
       return;
     }
     if (
-      (changes.canvas && !changes.canvas.isFirstChange()) ||
-      (changes.animate && !changes.animate.isFirstChange())
+      (changes['canvas'] && !changes['canvas'].isFirstChange()) ||
+      (changes['animate'] && !changes['animate'].isFirstChange())
     ) {
       this.ngOnDestroy();
       this.ngOnInit();
-    } else if (changes.coordinates && !changes.coordinates.isFirstChange()) {
+    } else if (
+      changes['coordinates'] &&
+      !changes['coordinates'].isFirstChange()
+    ) {
       const source = this.mapService.getSource<CanvasSource>(this.id);
       if (source === undefined) {
         return;

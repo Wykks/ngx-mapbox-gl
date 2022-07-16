@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MapboxGeoJSONFeature, MapLayerMouseEvent } from 'mapbox-gl';
+import { MapLayerMouseEvent } from 'mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -24,7 +24,7 @@ import { MapboxGeoJSONFeature, MapLayerMouseEvent } from 'mapbox-gl';
         (layerMouseLeave)="cursorStyle = ''"
       ></mgl-layer>
       <mgl-popup *ngIf="selectedPoint" [feature]="selectedPoint">
-        <span [innerHTML]="selectedPoint.properties?.description"></span>
+        <span [innerHTML]="selectedPoint.properties?.['description']"></span>
       </mgl-popup>
     </mgl-map>
   `,
@@ -32,7 +32,7 @@ import { MapboxGeoJSONFeature, MapLayerMouseEvent } from 'mapbox-gl';
 })
 export class PopupOnClickComponent {
   points: GeoJSON.FeatureCollection<GeoJSON.Point>;
-  selectedPoint: MapboxGeoJSONFeature | null;
+  selectedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
   cursorStyle: string;
 
   constructor() {
@@ -161,6 +161,6 @@ export class PopupOnClickComponent {
   }
 
   onClick(evt: MapLayerMouseEvent) {
-    this.selectedPoint = evt.features![0];
+    this.selectedPoint = evt.features?.[0] as GeoJSON.Feature<GeoJSON.Point>;
   }
 }

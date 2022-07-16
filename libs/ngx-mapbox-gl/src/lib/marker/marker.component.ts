@@ -71,33 +71,36 @@ export class MarkerComponent
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.lngLat && !changes.lngLat.isFirstChange()) {
+    if (changes['lngLat'] && !changes['lngLat'].isFirstChange()) {
       this.markerInstance!.setLngLat(this.lngLat!);
     }
-    if (changes.feature && !changes.feature.isFirstChange()) {
+    if (changes['feature'] && !changes['feature'].isFirstChange()) {
       this.markerInstance!.setLngLat(
         this.feature!.geometry!.coordinates as [number, number]
       );
     }
-    if (changes.draggable && !changes.draggable.isFirstChange()) {
+    if (changes['draggable'] && !changes['draggable'].isFirstChange()) {
       this.markerInstance!.setDraggable(!!this.draggable);
     }
-    if (changes.popupShown && !changes.popupShown.isFirstChange()) {
-      changes.popupShown.currentValue
+    if (changes['popupShown'] && !changes['popupShown'].isFirstChange()) {
+      changes['popupShown'].currentValue
         ? this.markerInstance!.getPopup().addTo(this.mapService.mapInstance)
         : this.markerInstance!.getPopup().remove();
     }
-    if (changes.pitchAlignment && !changes.pitchAlignment.isFirstChange()) {
+    if (
+      changes['pitchAlignment'] &&
+      !changes['pitchAlignment'].isFirstChange()
+    ) {
       this.markerInstance!.setPitchAlignment(
-        changes.pitchAlignment.currentValue
+        changes['pitchAlignment'].currentValue
       );
     }
     if (
-      changes.rotationAlignment &&
-      !changes.rotationAlignment.isFirstChange()
+      changes['rotationAlignment'] &&
+      !changes['rotationAlignment'].isFirstChange()
     ) {
       this.markerInstance!.setRotationAlignment(
-        changes.rotationAlignment.currentValue
+        changes['rotationAlignment'].currentValue
       );
     }
   }
@@ -120,9 +123,9 @@ export class MarkerComponent
           markerDragStart: this.markerDragStart,
           markerDrag: this.markerDrag,
           markerDragEnd: this.markerDragEnd,
-          dragStart: this.dragStart,
-          drag: this.drag,
-          dragEnd: this.dragEnd,
+          dragStart: this.markerDragStart,
+          drag: this.markerDrag,
+          dragEnd: this.markerDragEnd,
         },
       });
     });
@@ -143,13 +146,13 @@ export class MarkerComponent
 
   private warnDeprecatedOutputs() {
     const dw = deprecationWarning.bind(undefined, MarkerComponent.name);
-    if (this.dragStart.observers.length) {
+    if (this.markerDragStart.observers.length) {
       dw('dragStart', 'markerDragStart');
     }
-    if (this.dragEnd.observers.length) {
+    if (this.markerDragEnd.observers.length) {
       dw('dragEnd', 'markerDragEnd');
     }
-    if (this.drag.observers.length) {
+    if (this.markerDrag.observers.length) {
       dw('drag', 'markerDrag');
     }
   }

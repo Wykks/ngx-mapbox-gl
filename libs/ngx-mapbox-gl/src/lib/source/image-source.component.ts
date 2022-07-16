@@ -45,9 +45,9 @@ export class ImageSourceComponent
       return;
     }
     source.updateImage({
-      url: changes.url === undefined ? undefined : this.url,
+      url: changes['url'] === undefined ? undefined : this.url,
       coordinates:
-        changes.coordinates === undefined ? undefined : this.coordinates,
+        changes['coordinates'] === undefined ? undefined : this.coordinates,
     });
   }
 

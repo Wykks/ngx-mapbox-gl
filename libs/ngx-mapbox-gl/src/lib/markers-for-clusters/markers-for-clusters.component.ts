@@ -35,17 +35,17 @@ let uniqId = 0;
     <ng-container
       *ngFor="let feature of clusterPoints; trackBy: trackByClusterPoint"
     >
-      <ng-container *ngIf="feature.properties.cluster">
-        <mgl-marker [feature]="feature">
+      <ng-container *ngIf="feature.properties!['cluster']">
+        <mgl-marker [feature]="$any(feature)">
           <ng-container
             *ngTemplateOutlet="clusterPointTpl; context: { $implicit: feature }"
           ></ng-container>
         </mgl-marker>
       </ng-container>
-      <ng-container *ngIf="!feature.properties.cluster">
-        <mgl-marker [feature]="feature">
+      <ng-container *ngIf="!feature.properties!['cluster']">
+        <mgl-marker [feature]="$any(feature)">
           <ng-container
-            *ngTemplateOutlet="pointTpl; context: { $implicit: feature }"
+            *ngTemplateOutlet="pointTpl!; context: { $implicit: feature }"
           ></ng-container>
         </mgl-marker>
       </ng-container>
@@ -61,11 +61,11 @@ export class MarkersForClustersComponent
   @Input() source: string;
 
   @ContentChild(PointDirective, { read: TemplateRef, static: false })
-  pointTpl?: TemplateRef<any>;
+  pointTpl?: TemplateRef<unknown>;
   @ContentChild(ClusterPointDirective, { read: TemplateRef, static: false })
-  clusterPointTpl: TemplateRef<any>;
+  clusterPointTpl: TemplateRef<unknown>;
 
-  clusterPoints: MapboxGeoJSONFeature[]; // Incorrect typings
+  clusterPoints!: MapboxGeoJSONFeature[]; // Incorrect typings
   layerId = `mgl-markers-for-clusters-${uniqId++}`;
 
   private sub = new Subscription();
@@ -78,10 +78,7 @@ export class MarkersForClustersComponent
 
   ngAfterContentInit() {
     const clusterDataUpdate = () =>
-      fromEvent<MapSourceDataEvent>(
-        this.mapService.mapInstance as any,
-        'data'
-      ).pipe(
+      fromEvent<MapSourceDataEvent>(this.mapService.mapInstance, 'data').pipe(
         filter(
           (e) =>
             e.sourceId === this.source &&
@@ -94,9 +91,9 @@ export class MarkersForClustersComponent
         switchMap(clusterDataUpdate),
         switchMap(() =>
           merge(
-            fromEvent(this.mapService.mapInstance as any, 'move'),
-            fromEvent(this.mapService.mapInstance as any, 'moveend')
-          ).pipe(startWith<any>(undefined))
+            fromEvent(this.mapService.mapInstance, 'move'),
+            fromEvent(this.mapService.mapInstance, 'moveend')
+          ).pipe(startWith(undefined))
         )
       )
       .subscribe(() => {
@@ -111,12 +108,13 @@ export class MarkersForClustersComponent
     this.sub.unsubscribe();
   }
 
-  trackByClusterPoint(_index: number, clusterPoint: { id: number }) {
+  trackByClusterPoint(_index: number, clusterPoint: MapboxGeoJSONFeature) {
     return clusterPoint.id;
   }
 
   private updateCluster() {
     // Invalid queryRenderedFeatures typing
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const params: any = { layers: [this.layerId] };
     if (!this.pointTpl) {
       params.filter = ['==', 'cluster', true];
