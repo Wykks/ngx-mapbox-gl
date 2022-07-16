@@ -9,7 +9,7 @@ import { LngLatLike } from 'mapbox-gl';
       [zoom]="zoom"
       [center]="center"
       [centerWithPanTo]="true"
-      [pitch]="pitch"
+      [pitch]="[pitch]"
       movingMethod="jumpTo"
     >
       <mgl-geojson-source *ngIf="data" id="trace" [data]="data">
@@ -33,19 +33,17 @@ import { LngLatLike } from 'mapbox-gl';
 export class LiveUpdateFeatureComponent implements OnInit, OnDestroy {
   data: GeoJSON.FeatureCollection<GeoJSON.LineString>;
   center: LngLatLike;
-  zoom = [0];
+  zoom: [number] = [0];
   pitch: number;
 
   private timer: number;
-
-  constructor() {}
 
   async ngOnInit() {
     const data: GeoJSON.FeatureCollection<GeoJSON.LineString> = (await import(
       './hike.geo.json'
     )) as any;
-    const coordinates = data.features[0].geometry!.coordinates;
-    data.features[0].geometry!.coordinates = [coordinates[0]];
+    const coordinates = data.features[0].geometry.coordinates;
+    data.features[0].geometry.coordinates = [coordinates[0]];
     this.data = data;
     this.center = coordinates[0] as [number, number];
     this.zoom = [14];
@@ -54,7 +52,7 @@ export class LiveUpdateFeatureComponent implements OnInit, OnDestroy {
     this.timer = window.setInterval(() => {
       if (i < coordinates.length) {
         this.center = coordinates[i] as [number, number];
-        data.features[0].geometry!.coordinates.push(coordinates[i]);
+        data.features[0].geometry.coordinates.push(coordinates[i]);
         this.data = { ...this.data };
         i++;
       } else {

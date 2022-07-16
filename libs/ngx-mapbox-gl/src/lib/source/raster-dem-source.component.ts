@@ -43,7 +43,7 @@ export class RasterDemSourceComponent
   ngOnInit() {
     const sub1 = this.mapService.mapLoaded$.subscribe(() => {
       this.init();
-      const sub = fromEvent(this.mapService.mapInstance as any, 'styledata')
+      const sub = fromEvent(this.mapService.mapInstance, 'styledata')
         .pipe(filter(() => !this.mapService.mapInstance.getSource(this.id)))
         .subscribe(() => {
           this.init();
@@ -58,14 +58,14 @@ export class RasterDemSourceComponent
       return;
     }
     if (
-      (changes.url && !changes.url.isFirstChange()) ||
-      (changes.tiles && !changes.tiles.isFirstChange()) ||
-      (changes.bounds && !changes.bounds.isFirstChange()) ||
-      (changes.minzoom && !changes.minzoom.isFirstChange()) ||
-      (changes.maxzoom && !changes.maxzoom.isFirstChange()) ||
-      (changes.tileSize && !changes.tileSize.isFirstChange()) ||
-      (changes.attribution && !changes.attribution.isFirstChange()) ||
-      (changes.encoding && !changes.encoding.isFirstChange())
+      (changes['url'] && !changes['url'].isFirstChange()) ||
+      (changes['tiles'] && !changes['tiles'].isFirstChange()) ||
+      (changes['bounds'] && !changes['bounds'].isFirstChange()) ||
+      (changes['minzoom'] && !changes['minzoom'].isFirstChange()) ||
+      (changes['maxzoom'] && !changes['maxzoom'].isFirstChange()) ||
+      (changes['tileSize'] && !changes['tileSize'].isFirstChange()) ||
+      (changes['attribution'] && !changes['attribution'].isFirstChange()) ||
+      (changes['encoding'] && !changes['encoding'].isFirstChange())
     ) {
       this.ngOnDestroy();
       this.ngOnInit();

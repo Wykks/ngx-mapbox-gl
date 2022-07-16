@@ -72,10 +72,10 @@ export class PopupComponent
 
   ngOnChanges(changes: SimpleChanges) {
     if (
-      (changes.lngLat && !changes.lngLat.isFirstChange()) ||
-      (changes.feature && !changes.feature.isFirstChange())
+      (changes['lngLat'] && !changes['lngLat'].isFirstChange()) ||
+      (changes['feature'] && !changes['feature'].isFirstChange())
     ) {
-      const newlngLat = changes.lngLat
+      const newlngLat = changes['lngLat']
         ? this.lngLat!
         : (this.feature!.geometry!.coordinates! as [number, number]);
       this.mapService.removePopupFromMap(this.popupInstance!, true);
@@ -87,8 +87,8 @@ export class PopupComponent
       );
       this.popupInstance = popupInstanceTmp;
     }
-    if (changes.marker && !changes.marker.isFirstChange()) {
-      const previousMarker: MarkerComponent = changes.marker.previousValue;
+    if (changes['marker'] && !changes['marker'].isFirstChange()) {
+      const previousMarker: MarkerComponent = changes['marker'].previousValue;
       if (previousMarker.markerInstance) {
         this.mapService.removePopupFromMarker(previousMarker.markerInstance);
       }
@@ -100,8 +100,8 @@ export class PopupComponent
       }
     }
     if (
-      changes.offset &&
-      !changes.offset.isFirstChange() &&
+      changes['offset'] &&
+      !changes['offset'].isFirstChange() &&
       this.popupInstance
     ) {
       this.popupInstance.setOffset(this.offset);

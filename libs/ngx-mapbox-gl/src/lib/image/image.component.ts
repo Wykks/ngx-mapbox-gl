@@ -51,7 +51,7 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
     this.sub = this.mapService.mapLoaded$
       .pipe(
         switchMap(() =>
-          fromEvent(this.mapService.mapInstance as any, 'styledata').pipe(
+          fromEvent(this.mapService.mapInstance, 'styledata').pipe(
             startWith(undefined),
             filter(
               () =>
@@ -65,9 +65,9 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (
-      (changes.data && !changes.data.isFirstChange()) ||
-      (changes.options && !changes.options.isFirstChange()) ||
-      (changes.url && !changes.url.isFirstChange())
+      (changes['data'] && !changes['data'].isFirstChange()) ||
+      (changes['options'] && !changes['options'].isFirstChange()) ||
+      (changes['url'] && !changes['url'].isFirstChange())
     ) {
       this.ngOnDestroy();
       this.ngOnInit();

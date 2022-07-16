@@ -23,7 +23,6 @@ import { LanguageSwitchComponent } from './examples/language-switch.component';
 import { LiveUpdateFeatureComponent } from './examples/live-update-feature.component';
 import { LiveUpdateImageSourceComponent } from './examples/live-update-image-srource.component';
 import { LocateUserComponent } from './examples/locate-user.component';
-import { MapboxGlGeocoderComponent } from './examples/mapbox-gl-geocoder.component';
 import { MarkerAlignmentComponent } from './examples/marker-alignment.component';
 import { NavigationComponent } from './examples/navigation.component';
 import { NgxClusterHtmlComponent } from './examples/ngx-cluster-html.component';
@@ -294,11 +293,6 @@ export const DEMO_ROUTES: Routes = [
           label: '[NGX] Display HTML clusters with custom properties',
           cat: Category.LAYERS,
         },
-      },
-      {
-        path: 'mapbox-gl-geocoder',
-        component: MapboxGlGeocoderComponent,
-        data: { label: 'Add a geocoder', cat: Category.CONTROLS_AND_OVERLAYS },
       },
       {
         path: 'polygon-popup-on-click',

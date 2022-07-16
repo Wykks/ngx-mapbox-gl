@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { Map, SymbolLayer } from 'mapbox-gl';
+import { AnyLayer, Map } from 'mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
   template: `
     <mgl-map
       [style]="'mapbox://styles/mapbox/light-v9'"
-      [zoom]="15.5"
+      [zoom]="[15.5]"
       [center]="[-74.0066, 40.7135]"
-      [pitch]="45"
-      [bearing]="-17.6"
+      [pitch]="[45]"
+      [bearing]="[-17.6]"
       (mapLoad)="onLoad($event)"
     >
       <mgl-layer
@@ -48,16 +48,22 @@ import { Map, SymbolLayer } from 'mapbox-gl';
   styleUrls: ['./examples.css'],
 })
 export class Display3dBuildingsComponent {
-  labelLayerId: string;
+  labelLayerId?: string;
 
   onLoad(mapInstance: Map) {
-    const layers = mapInstance.getStyle().layers!;
+    const layers = mapInstance.getStyle().layers;
+    if (!layers) {
+      return;
+    }
+    this.labelLayerId = this.getLabelLayerId(layers);
+  }
 
+  private getLabelLayerId(layers: AnyLayer[]) {
     for (const layer of layers) {
-      if (layer.type === 'symbol' && layer.layout!['text-field']) {
-        this.labelLayerId = layer.id;
-        break;
+      if (layer.type === 'symbol' && layer.layout?.['text-field']) {
+        return layer.id;
       }
     }
+    return;
   }
 }

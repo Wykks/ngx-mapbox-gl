@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { LngLat, MapLayerMouseEvent } from 'mapbox-gl';
 import { GeoJsonProperties } from 'geojson';
+import { LngLat, MapLayerMouseEvent } from 'mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -27,7 +27,7 @@ import { GeoJsonProperties } from 'geojson';
         (layerClick)="onClick($event)"
       ></mgl-layer>
       <mgl-popup *ngIf="selectedLngLat" [lngLat]="selectedLngLat">
-        <span [innerHTML]="selectedElement?.name"></span>
+        <span [innerHTML]="selectedElement?.['name']"></span>
       </mgl-popup>
     </mgl-map>
   `,
@@ -40,6 +40,6 @@ export class PolygonPopupOnClickComponent {
 
   onClick(evt: MapLayerMouseEvent) {
     this.selectedLngLat = evt.lngLat;
-    this.selectedElement = evt.features![0].properties;
+    this.selectedElement = evt.features?.[0].properties as GeoJsonProperties;
   }
 }

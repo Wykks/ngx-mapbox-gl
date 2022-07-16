@@ -43,7 +43,7 @@ export class VectorSourceComponent
   ngOnInit() {
     const sub1 = this.mapService.mapLoaded$.subscribe(() => {
       this.init();
-      const sub = fromEvent(this.mapService.mapInstance as any, 'styledata')
+      const sub = fromEvent(this.mapService.mapInstance, 'styledata')
         .pipe(filter(() => !this.mapService.mapInstance.getSource(this.id)))
         .subscribe(() => {
           this.init();
@@ -59,28 +59,28 @@ export class VectorSourceComponent
     }
 
     if (
-      (changes.bounds && !changes.bounds.isFirstChange()) ||
-      (changes.scheme && !changes.scheme.isFirstChange()) ||
-      (changes.minzoom && !changes.minzoom.isFirstChange()) ||
-      (changes.maxzoom && !changes.maxzoom.isFirstChange()) ||
-      (changes.attribution && !changes.attribution.isFirstChange()) ||
-      (changes.promoteId && !changes.promoteId.isFirstChange())
+      (changes['bounds'] && !changes['bounds'].isFirstChange()) ||
+      (changes['scheme'] && !changes['scheme'].isFirstChange()) ||
+      (changes['minzoom'] && !changes['minzoom'].isFirstChange()) ||
+      (changes['maxzoom'] && !changes['maxzoom'].isFirstChange()) ||
+      (changes['attribution'] && !changes['attribution'].isFirstChange()) ||
+      (changes['promoteId'] && !changes['promoteId'].isFirstChange())
     ) {
       this.ngOnDestroy();
       this.ngOnInit();
     } else if (
-      (changes.url && !changes.url.isFirstChange()) ||
-      (changes.tiles && !changes.tiles.isFirstChange())
+      (changes['url'] && !changes['url'].isFirstChange()) ||
+      (changes['tiles'] && !changes['tiles'].isFirstChange())
     ) {
       const source = this.mapService.getSource<VectorSourceImpl>(this.id);
       if (source === undefined) {
         return;
       }
-      if (changes.url && this.url) {
+      if (changes['url'] && this.url) {
         source.setUrl(this.url);
       }
 
-      if (changes.tiles && this.tiles) {
+      if (changes['tiles'] && this.tiles) {
         source.setTiles(this.tiles);
       }
     }

@@ -13,6 +13,7 @@
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "strictPropertyInitialization": false,
     "baseUrl": ".",
     "paths": {
       "@ngx-mapbox-gl/ngx-mapbox-gl": ["libs/ngx-mapbox-gl/src/index.ts"],

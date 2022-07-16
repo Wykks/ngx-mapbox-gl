@@ -368,115 +368,121 @@ export class MapComponent
 
   async ngOnChanges(changes: SimpleChanges) {
     await this.mapService.mapCreated$.toPromise();
-    if (changes.cursorStyle && !changes.cursorStyle.isFirstChange()) {
-      this.mapService.changeCanvasCursor(changes.cursorStyle.currentValue);
+    if (changes['cursorStyle'] && !changes['cursorStyle'].isFirstChange()) {
+      this.mapService.changeCanvasCursor(changes['cursorStyle'].currentValue);
     }
-    if (changes.minZoom && !changes.minZoom.isFirstChange()) {
-      this.mapService.updateMinZoom(changes.minZoom.currentValue);
+    if (changes['minZoom'] && !changes['minZoom'].isFirstChange()) {
+      this.mapService.updateMinZoom(changes['minZoom'].currentValue);
     }
-    if (changes.maxZoom && !changes.maxZoom.isFirstChange()) {
-      this.mapService.updateMaxZoom(changes.maxZoom.currentValue);
+    if (changes['maxZoom'] && !changes['maxZoom'].isFirstChange()) {
+      this.mapService.updateMaxZoom(changes['maxZoom'].currentValue);
     }
-    if (changes.minPitch && !changes.minPitch.isFirstChange()) {
-      this.mapService.updateMinPitch(changes.minPitch.currentValue);
+    if (changes['minPitch'] && !changes['minPitch'].isFirstChange()) {
+      this.mapService.updateMinPitch(changes['minPitch'].currentValue);
     }
-    if (changes.maxPitch && !changes.maxPitch.isFirstChange()) {
-      this.mapService.updateMaxPitch(changes.maxPitch.currentValue);
+    if (changes['maxPitch'] && !changes['maxPitch'].isFirstChange()) {
+      this.mapService.updateMaxPitch(changes['maxPitch'].currentValue);
     }
     if (
-      changes.renderWorldCopies &&
-      !changes.renderWorldCopies.isFirstChange()
+      changes['renderWorldCopies'] &&
+      !changes['renderWorldCopies'].isFirstChange()
     ) {
       this.mapService.updateRenderWorldCopies(
-        changes.renderWorldCopies.currentValue
+        changes['renderWorldCopies'].currentValue
       );
     }
-    if (changes.scrollZoom && !changes.scrollZoom.isFirstChange()) {
-      this.mapService.updateScrollZoom(changes.scrollZoom.currentValue);
+    if (changes['scrollZoom'] && !changes['scrollZoom'].isFirstChange()) {
+      this.mapService.updateScrollZoom(changes['scrollZoom'].currentValue);
     }
-    if (changes.dragRotate && !changes.dragRotate.isFirstChange()) {
-      this.mapService.updateDragRotate(changes.dragRotate.currentValue);
+    if (changes['dragRotate'] && !changes['dragRotate'].isFirstChange()) {
+      this.mapService.updateDragRotate(changes['dragRotate'].currentValue);
     }
-    if (changes.touchPitch && !changes.touchPitch.isFirstChange()) {
-      this.mapService.updateTouchPitch(changes.touchPitch.currentValue);
-    }
-    if (changes.touchZoomRotate && !changes.touchZoomRotate.isFirstChange()) {
-      this.mapService.updateTouchZoomRotate(
-        changes.touchZoomRotate.currentValue
-      );
-    }
-    if (changes.doubleClickZoom && !changes.doubleClickZoom.isFirstChange()) {
-      this.mapService.updateDoubleClickZoom(
-        changes.doubleClickZoom.currentValue
-      );
-    }
-    if (changes.keyboard && !changes.keyboard.isFirstChange()) {
-      this.mapService.updateKeyboard(changes.keyboard.currentValue);
-    }
-    if (changes.dragPan && !changes.dragPan.isFirstChange()) {
-      this.mapService.updateDragPan(changes.dragPan.currentValue);
-    }
-    if (changes.boxZoom && !changes.boxZoom.isFirstChange()) {
-      this.mapService.updateBoxZoom(changes.boxZoom.currentValue);
-    }
-    if (changes.style && !changes.style.isFirstChange()) {
-      this.mapService.updateStyle(changes.style.currentValue);
-    }
-    if (changes.maxBounds && !changes.maxBounds.isFirstChange()) {
-      this.mapService.updateMaxBounds(changes.maxBounds.currentValue);
+    if (changes['touchPitch'] && !changes['touchPitch'].isFirstChange()) {
+      this.mapService.updateTouchPitch(changes['touchPitch'].currentValue);
     }
     if (
-      changes.fitBounds &&
-      changes.fitBounds.currentValue &&
-      !changes.fitBounds.isFirstChange()
+      changes['touchZoomRotate'] &&
+      !changes['touchZoomRotate'].isFirstChange()
+    ) {
+      this.mapService.updateTouchZoomRotate(
+        changes['touchZoomRotate'].currentValue
+      );
+    }
+    if (
+      changes['doubleClickZoom'] &&
+      !changes['doubleClickZoom'].isFirstChange()
+    ) {
+      this.mapService.updateDoubleClickZoom(
+        changes['doubleClickZoom'].currentValue
+      );
+    }
+    if (changes['keyboard'] && !changes['keyboard'].isFirstChange()) {
+      this.mapService.updateKeyboard(changes['keyboard'].currentValue);
+    }
+    if (changes['dragPan'] && !changes['dragPan'].isFirstChange()) {
+      this.mapService.updateDragPan(changes['dragPan'].currentValue);
+    }
+    if (changes['boxZoom'] && !changes['boxZoom'].isFirstChange()) {
+      this.mapService.updateBoxZoom(changes['boxZoom'].currentValue);
+    }
+    if (changes['style'] && !changes['style'].isFirstChange()) {
+      this.mapService.updateStyle(changes['style'].currentValue);
+    }
+    if (changes['maxBounds'] && !changes['maxBounds'].isFirstChange()) {
+      this.mapService.updateMaxBounds(changes['maxBounds'].currentValue);
+    }
+    if (
+      changes['fitBounds'] &&
+      changes['fitBounds'].currentValue &&
+      !changes['fitBounds'].isFirstChange()
     ) {
       this.mapService.fitBounds(
-        changes.fitBounds.currentValue,
+        changes['fitBounds'].currentValue,
         this.fitBoundsOptions
       );
     }
     if (
-      changes.fitScreenCoordinates &&
-      changes.fitScreenCoordinates.currentValue
+      changes['fitScreenCoordinates'] &&
+      changes['fitScreenCoordinates'].currentValue
     ) {
       if (
         (this.center || this.zoom || this.pitch || this.fitBounds) &&
-        changes.fitScreenCoordinates.isFirstChange()
+        changes['fitScreenCoordinates'].isFirstChange()
       ) {
         console.warn(
           '[ngx-mapbox-gl] center / zoom / pitch / fitBounds inputs are being overridden by fitScreenCoordinates input'
         );
       }
       this.mapService.fitScreenCoordinates(
-        changes.fitScreenCoordinates.currentValue,
+        changes['fitScreenCoordinates'].currentValue,
         this.bearing ? this.bearing[0] : 0,
         this.movingOptions
       );
     }
     if (
       this.centerWithPanTo &&
-      changes.center &&
-      !changes.center.isFirstChange() &&
-      !changes.zoom &&
-      !changes.bearing &&
-      !changes.pitch
+      changes['center'] &&
+      !changes['center'].isFirstChange() &&
+      !changes['zoom'] &&
+      !changes['bearing'] &&
+      !changes['pitch']
     ) {
       this.mapService.panTo(this.center!, this.panToOptions);
     } else if (
-      (changes.center && !changes.center.isFirstChange()) ||
-      (changes.zoom && !changes.zoom.isFirstChange()) ||
-      (changes.bearing &&
-        !changes.bearing.isFirstChange() &&
-        !changes.fitScreenCoordinates) ||
-      (changes.pitch && !changes.pitch.isFirstChange())
+      (changes['center'] && !changes['center'].isFirstChange()) ||
+      (changes['zoom'] && !changes['zoom'].isFirstChange()) ||
+      (changes['bearing'] &&
+        !changes['bearing'].isFirstChange() &&
+        !changes['fitScreenCoordinates']) ||
+      (changes['pitch'] && !changes['pitch'].isFirstChange())
     ) {
       this.mapService.move(
         this.movingMethod,
         this.movingOptions,
-        changes.zoom && this.zoom ? this.zoom[0] : undefined,
-        changes.center ? this.center : undefined,
-        changes.bearing && this.bearing ? this.bearing[0] : undefined,
-        changes.pitch && this.pitch ? this.pitch[0] : undefined
+        changes['zoom'] && this.zoom ? this.zoom[0] : undefined,
+        changes['center'] ? this.center : undefined,
+        changes['bearing'] && this.bearing ? this.bearing[0] : undefined,
+        changes['pitch'] && this.pitch ? this.pitch[0] : undefined
       );
     }
   }

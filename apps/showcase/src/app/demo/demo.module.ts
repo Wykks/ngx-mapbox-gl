@@ -15,7 +15,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterModule } from '@angular/router';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
-import { NgxMapboxGlGeocoderControlModule } from 'ngx-mapbox-gl-geocoder-control';
 
 import { LayoutModule } from '../shared/layout/layout.module';
 import { DemoIndexComponent } from './demo-index.component';
@@ -45,7 +44,6 @@ import { LanguageSwitchComponent } from './examples/language-switch.component';
 import { LiveUpdateFeatureComponent } from './examples/live-update-feature.component';
 import { LiveUpdateImageSourceComponent } from './examples/live-update-image-srource.component';
 import { LocateUserComponent } from './examples/locate-user.component';
-import { MapboxGlGeocoderComponent } from './examples/mapbox-gl-geocoder.component';
 import { MarkerAlignmentComponent } from './examples/marker-alignment.component';
 import { NavigationComponent } from './examples/navigation.component';
 import {
@@ -77,7 +75,6 @@ import { StackblitzEditComponent } from './stackblitz-edit/stackblitz-edit.compo
     FormsModule,
 
     NgxMapboxGLModule,
-    NgxMapboxGlGeocoderControlModule,
 
     LayoutModule,
 
@@ -118,7 +115,6 @@ import { StackblitzEditComponent } from './stackblitz-edit/stackblitz-edit.compo
     FullscreenComponent,
     NavigationComponent,
     LocateUserComponent,
-    MapboxGlGeocoderComponent,
     AttributionPositionComponent,
     NgxScaleControlComponent,
     NgxCustomControlComponent,

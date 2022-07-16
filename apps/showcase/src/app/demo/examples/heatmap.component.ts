@@ -20,7 +20,7 @@ import { Layer } from 'mapbox-gl';
         <mgl-layer
           *ngFor="let layer of clusterLayers"
           [id]="layer.id"
-          [type]="layer.type"
+          [type]="$any(layer.type)"
           source="earthquakes"
           [filter]="layer.filter"
           [paint]="layer.paint"
@@ -44,11 +44,13 @@ import { Layer } from 'mapbox-gl';
   styleUrls: ['./examples.css'],
 })
 export class HeatMapComponent implements OnInit {
-  earthquakes: object;
+  earthquakes: GeoJSON.FeatureCollection<GeoJSON.Geometry>;
   clusterLayers: Layer[];
 
   async ngOnInit() {
-    this.earthquakes = await import('./earthquakes.geo.json');
+    this.earthquakes = (await import(
+      './earthquakes.geo.json'
+    )) as unknown as GeoJSON.FeatureCollection<GeoJSON.Geometry>;
     const layersData: [number, string][] = [
       [0, 'green'],
       [20, 'orange'],

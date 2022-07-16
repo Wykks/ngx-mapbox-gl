@@ -75,9 +75,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./examples.css'],
 })
 export class ClusterComponent implements OnInit {
-  earthquakes: object;
+  earthquakes: GeoJSON.FeatureCollection<GeoJSON.Geometry>;
 
   async ngOnInit() {
-    this.earthquakes = await import('./earthquakes.geo.json');
+    this.earthquakes = (await import(
+      './earthquakes.geo.json'
+    )) as unknown as GeoJSON.FeatureCollection<GeoJSON.Geometry>;
   }
 }

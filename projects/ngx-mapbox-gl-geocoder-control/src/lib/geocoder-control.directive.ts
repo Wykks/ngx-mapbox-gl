@@ -12,18 +12,18 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import MapboxGeocoder, {
+  GeocoderOptions,
+  LngLatLiteral,
   Result,
   Results,
-  LngLatLiteral,
-  GeocoderOptions,
 } from '@mapbox/mapbox-gl-geocoder';
-import {
-  MapService,
-  deprecationWarning,
-  ControlComponent,
-  MAPBOX_GEOCODER_API_KEY,
-} from 'ngx-mapbox-gl';
 import { Map, Marker } from 'mapbox-gl';
+import {
+  ControlComponent,
+  deprecationWarning,
+  MAPBOX_GEOCODER_API_KEY,
+  MapService,
+} from 'ngx-mapbox-gl';
 
 export { Result, Results } from '@mapbox/mapbox-gl-geocoder';
 
@@ -144,10 +144,10 @@ export class GeocoderControlDirective
     if (!this.geocoder) {
       return;
     }
-    if (changes.proximity && !changes.proximity.isFirstChange()) {
-      this.geocoder.setProximity(changes.proximity.currentValue);
+    if (changes['proximity'] && !changes['proximity'].isFirstChange()) {
+      this.geocoder.setProximity(changes['proximity'].currentValue);
     }
-    if (changes.searchInput) {
+    if (changes['searchInput']) {
       this.geocoder.query(this.searchInput);
     }
   }

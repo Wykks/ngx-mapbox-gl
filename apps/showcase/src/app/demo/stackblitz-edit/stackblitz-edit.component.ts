@@ -87,7 +87,7 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
         switchMap((params) =>
           forkJoin([
             this.projectbase$,
-            this.demoFileLoaderService.getDemoFiles(params.demoUrl),
+            this.demoFileLoaderService.getDemoFiles(params['demoUrl']),
           ])
         ),
         switchMap(([projectbase, demoFiles]) =>

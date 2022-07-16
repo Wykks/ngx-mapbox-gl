@@ -21,7 +21,7 @@ import { AnimationOptions } from 'mapbox-gl';
   styleUrls: ['./home-index.component.scss'],
 })
 export class HomeIndexComponent {
-  center = [0, 0];
+  center: [number, number] = [0, 0];
   panToOptions: AnimationOptions = { duration: 10000, easing: (t) => t };
 
   moveCenter() {
