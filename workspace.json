@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "ngx-mapbox-gl": "libs/ngx-mapbox-gl",
+    "showcase": "apps/showcase"
+  }
+}

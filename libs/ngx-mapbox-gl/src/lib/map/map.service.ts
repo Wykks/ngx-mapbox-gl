@@ -110,8 +110,8 @@ export class MapService {
         this.assign(MapboxGl, 'config.API_URL', options.customMapboxApiUrl);
       }
       this.createMap({
-        ...options.mapOptions as MapboxGl.MapboxOptions,
-        accessToken: options.accessToken || this.MAPBOX_API_KEY
+        ...(options.mapOptions as MapboxGl.MapboxOptions),
+        accessToken: options.accessToken || this.MAPBOX_API_KEY,
       });
       this.hookEvents(options.mapEvents);
       this.mapEvents = options.mapEvents;
@@ -497,7 +497,10 @@ export class MapService {
       });
     }
     const lngLat: MapboxGl.LngLatLike = marker.markersOptions.feature
-      ? marker.markersOptions.feature.geometry!.coordinates as [number, number]
+      ? (marker.markersOptions.feature.geometry!.coordinates as [
+          number,
+          number
+        ])
       : marker.markersOptions.lngLat!;
     markerInstance.setLngLat(lngLat);
     return this.zone.runOutsideAngular(() => {
@@ -598,17 +601,18 @@ export class MapService {
     url: string,
     options?: MapImageOptions
   ) {
-    return this.zone.runOutsideAngular(() =>
-      new Promise<void>((resolve, reject) => {
-        this.mapInstance.loadImage(url, (error, image) => {
-          if (error) {
-            reject(error);
-            return;
-          }
-          this.addImage(imageId, image as ImageBitmap, options);
-          resolve();
-        });
-      })
+    return this.zone.runOutsideAngular(
+      () =>
+        new Promise<void>((resolve, reject) => {
+          this.mapInstance.loadImage(url, (error, image) => {
+            if (error) {
+              reject(error);
+              return;
+            }
+            this.addImage(imageId, image as ImageBitmap, options);
+            resolve();
+          });
+        })
     );
   }
 
@@ -625,7 +629,8 @@ export class MapService {
   addSource(sourceId: string, source: MapboxGl.AnySourceData) {
     return this.zone.runOutsideAngular(() => {
       Object.keys(source).forEach(
-        (key) => (source as any)[key] === undefined && delete (source as any)[key]
+        (key) =>
+          (source as any)[key] === undefined && delete (source as any)[key]
       );
       this.mapInstance.addSource(sourceId, source);
     });

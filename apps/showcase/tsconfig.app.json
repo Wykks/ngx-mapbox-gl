@@ -1,14 +1,10 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../out-tsc/app",
-    "resolveJsonModule": true,
+    "outDir": "../../dist/out-tsc",
     "types": []
   },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "preserveWhitespaces": false
-  },
   "files": ["src/main.ts", "src/polyfills.ts"],
-  "include": ["projects/showcase/src/**/*.d.ts"]
+  "include": ["src/**/*.d.ts"],
+  "exclude": ["**/*.test.ts", "**/*.spec.ts"]
 }
