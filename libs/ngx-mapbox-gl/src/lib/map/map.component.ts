@@ -489,64 +489,64 @@ export class MapComponent
 
   private warnDeprecatedOutputs() {
     const dw = deprecationWarning.bind(undefined, MapComponent.name);
-    if (this.resize.observers.length) {
+    if (this.resize.observed) {
       dw('resize', 'mapResize');
     }
-    if (this.remove.observers.length) {
+    if (this.remove.observed) {
       dw('remove', 'mapRemove');
     }
-    if (this.mouseDown.observers.length) {
+    if (this.mouseDown.observed) {
       dw('mouseDown', 'mapMouseDown');
     }
-    if (this.mouseUp.observers.length) {
+    if (this.mouseUp.observed) {
       dw('mouseUp', 'mapMouseUp');
     }
-    if (this.mouseMove.observers.length) {
+    if (this.mouseMove.observed) {
       dw('mouseMove', 'mapMouseMove');
     }
-    if (this.click.observers.length) {
+    if (this.click.observed) {
       dw('click', 'mapClick');
     }
-    if (this.dblClick.observers.length) {
+    if (this.dblClick.observed) {
       dw('dblClick', 'mapDblClick');
     }
-    if (this.mouseOver.observers.length) {
+    if (this.mouseOver.observed) {
       dw('mouseOver', 'mapMouseOver');
     }
-    if (this.mouseOut.observers.length) {
+    if (this.mouseOut.observed) {
       dw('mouseOut', 'mapMouseOut');
     }
-    if (this.contextMenu.observers.length) {
+    if (this.contextMenu.observed) {
       dw('contextMenu', 'mapContextMenu');
     }
-    if (this.touchStart.observers.length) {
+    if (this.touchStart.observed) {
       dw('touchStart', 'mapTouchStart');
     }
-    if (this.touchEnd.observers.length) {
+    if (this.touchEnd.observed) {
       dw('touchEnd', 'mapTouchEnd');
     }
-    if (this.touchMove.observers.length) {
+    if (this.touchMove.observed) {
       dw('touchMove', 'mapTouchMove');
     }
-    if (this.touchCancel.observers.length) {
+    if (this.touchCancel.observed) {
       dw('touchCancel', 'mapTouchCancel');
     }
-    if (this.wheel.observers.length) {
+    if (this.wheel.observed) {
       dw('wheel', 'mapWheel');
     }
-    if (this.dragStart.observers.length) {
+    if (this.dragStart.observed) {
       dw('dragStart', 'mapDragStart');
     }
-    if (this.drag.observers.length) {
+    if (this.drag.observed) {
       dw('drag', 'mapDrag');
     }
-    if (this.dragEnd.observers.length) {
+    if (this.dragEnd.observed) {
       dw('dragEnd', 'mapDragEnd');
     }
-    if (this.load.observers.length) {
+    if (this.load.observed) {
       dw('load', 'mapLoad');
     }
-    if (this.error.observers.length) {
+    if (this.error.observed) {
       dw('error', 'mapError');
     }
   }

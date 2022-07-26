@@ -146,13 +146,13 @@ export class MarkerComponent
 
   private warnDeprecatedOutputs() {
     const dw = deprecationWarning.bind(undefined, MarkerComponent.name);
-    if (this.markerDragStart.observers.length) {
+    if (this.markerDragStart.observed) {
       dw('dragStart', 'markerDragStart');
     }
-    if (this.markerDragEnd.observers.length) {
+    if (this.markerDragEnd.observed) {
       dw('dragEnd', 'markerDragEnd');
     }
-    if (this.markerDrag.observers.length) {
+    if (this.markerDrag.observed) {
       dw('drag', 'markerDrag');
     }
   }

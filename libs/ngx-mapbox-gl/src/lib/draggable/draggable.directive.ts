@@ -115,10 +115,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
       this.sub.add(
         dragStart$.subscribe((evt) => {
           moving = true;
-          if (
-            this.featureDragStart.observers.length ||
-            this.dragStart.observers.length
-          ) {
+          if (this.featureDragStart.observed || this.dragStart.observed) {
             this.ngZone.run(() => {
               this.featureDragStart.emit(evt);
               this.dragStart.emit(evt);
@@ -129,7 +126,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
       this.sub.add(
         dragging$.subscribe((evt) => {
           updateCoords([evt.lngLat.lng, evt.lngLat.lat]);
-          if (this.featureDrag.observers.length || this.drag.observers.length) {
+          if (this.featureDrag.observed || this.drag.observed) {
             this.ngZone.run(() => {
               this.featureDrag.emit(evt);
               this.drag.emit(evt);
@@ -140,10 +137,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
       this.sub.add(
         dragEnd$.subscribe((evt) => {
           moving = false;
-          if (
-            this.featureDragEnd.observers.length ||
-            this.dragEnd.observers.length
-          ) {
+          if (this.featureDragEnd.observed || this.dragEnd.observed) {
             this.ngZone.run(() => {
               this.featureDragEnd.emit(evt);
               this.dragEnd.emit(evt);
@@ -190,13 +184,13 @@ export class DraggableDirective implements OnInit, OnDestroy {
 
   private warnDeprecatedOutputs() {
     const dw = deprecationWarning.bind(undefined, DraggableDirective.name);
-    if (this.dragStart.observers.length) {
+    if (this.dragStart.observed) {
       dw('dragStart', 'featureDragStart');
     }
-    if (this.dragEnd.observers.length) {
+    if (this.dragEnd.observed) {
       dw('dragEnd', 'featureDragEnd');
     }
-    if (this.drag.observers.length) {
+    if (this.drag.observed) {
       dw('drag', 'featureDrag');
     }
   }

@@ -228,43 +228,43 @@ export class LayerComponent
 
   private warnDeprecatedOutputs() {
     const dw = deprecationWarning.bind(undefined, LayerComponent.name);
-    if (this.click.observers.length) {
+    if (this.click.observed) {
       dw('click', 'layerClick');
     }
-    if (this.dblClick.observers.length) {
+    if (this.dblClick.observed) {
       dw('dblClick', 'layerDblClick');
     }
-    if (this.mouseDown.observers.length) {
+    if (this.mouseDown.observed) {
       dw('mouseDown', 'layerMouseDown');
     }
-    if (this.mouseUp.observers.length) {
+    if (this.mouseUp.observed) {
       dw('mouseUp', 'layerMouseUp');
     }
-    if (this.mouseEnter.observers.length) {
+    if (this.mouseEnter.observed) {
       dw('mouseEnter', 'layerMouseEnter');
     }
-    if (this.mouseLeave.observers.length) {
+    if (this.mouseLeave.observed) {
       dw('mouseLeave', 'layerMouseLeave');
     }
-    if (this.mouseMove.observers.length) {
+    if (this.mouseMove.observed) {
       dw('mouseMove', 'layerMouseMove');
     }
-    if (this.mouseOver.observers.length) {
+    if (this.mouseOver.observed) {
       dw('mouseOver', 'layerMouseOver');
     }
-    if (this.mouseOut.observers.length) {
+    if (this.mouseOut.observed) {
       dw('mouseOut', 'layerMouseOut');
     }
-    if (this.contextMenu.observers.length) {
+    if (this.contextMenu.observed) {
       dw('contextMenu', 'layerContextMenu');
     }
-    if (this.touchStart.observers.length) {
+    if (this.touchStart.observed) {
       dw('touchStart', 'layerTouchStart');
     }
-    if (this.touchEnd.observers.length) {
+    if (this.touchEnd.observed) {
       dw('touchEnd', 'layerTouchEnd');
     }
-    if (this.touchCancel.observers.length) {
+    if (this.touchCancel.observed) {
       dw('touchCancel', 'layerTouchCancel');
     }
   }

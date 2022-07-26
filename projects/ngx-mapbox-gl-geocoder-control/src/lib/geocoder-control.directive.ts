@@ -162,10 +162,7 @@ export class GeocoderControlDirective
 
   private hookEvents(events: GeocoderEvent) {
     this.warnDeprecatedOutputs(events);
-    if (
-      events.results.observers.length ||
-      events.geocoderResults.observers.length
-    ) {
+    if (events.results.observed || events.geocoderResults.observed) {
       this.geocoder.on('results', (evt: Results) =>
         this.zone.run(() => {
           events.geocoderResults.emit(evt);
@@ -173,10 +170,7 @@ export class GeocoderControlDirective
         })
       );
     }
-    if (
-      events.geocoderResult.observers.length ||
-      events.result.observers.length
-    ) {
+    if (events.geocoderResult.observed || events.result.observed) {
       this.geocoder.on('result', (evt: { result: Result }) => {
         // Workaroud issue https://github.com/mapbox/mapbox-gl-geocoder/issues/99
         if (this.lastResultId !== evt.result.id) {
@@ -188,10 +182,7 @@ export class GeocoderControlDirective
         }
       });
     }
-    if (
-      events.error.observers.length ||
-      events.geocoderError.observers.length
-    ) {
+    if (events.error.observed || events.geocoderError.observed) {
       this.geocoder.on('error', (evt: any) =>
         this.zone.run(() => {
           events.geocoderError.emit(evt);
@@ -199,12 +190,12 @@ export class GeocoderControlDirective
         })
       );
     }
-    if (events.loading.observers.length) {
+    if (events.loading.observed) {
       this.geocoder.on('loading', (evt: { query: string }) =>
         this.zone.run(() => events.loading.emit(evt))
       );
     }
-    if (events.clear.observers.length) {
+    if (events.clear.observed) {
       this.geocoder.on('clear', () => this.zone.run(() => events.clear.emit()));
     }
   }
@@ -214,13 +205,13 @@ export class GeocoderControlDirective
       undefined,
       GeocoderControlDirective.name
     );
-    if (events.results.observers.length) {
+    if (events.results.observed) {
       dw('results', 'geocoderResults');
     }
-    if (events.result.observers.length) {
+    if (events.result.observed) {
       dw('result', 'geocoderResult');
     }
-    if (events.error.observers.length) {
+    if (events.error.observed) {
       dw('error', 'geocoderError');
     }
   }
