@@ -1,5 +1,5 @@
-import { EventEmitter, NgZone } from '@angular/core';
-import { inject, TestBed } from '@angular/core/testing';
+import { EventEmitter } from '@angular/core';
+import { subscribeSpyTo } from '@hirez_io/observer-spy';
 import {
   ErrorEvent,
   EventData,
@@ -15,24 +15,22 @@ import {
   MapWheelEvent,
   Style,
 } from 'mapbox-gl';
-import { first } from 'rxjs/operators';
 import { MapService } from './map.service';
 import { MapEvent } from './map.types';
+import { mockMapbox } from './mapbox.mock';
 import { MockNgZone } from './mock-ng-zone';
-
-const countries = require('./countries.geo.json');
 
 const geoJSONStyle: Style = {
   sources: {
     world: {
       type: 'geojson',
-      data: countries,
+      data: '',
     },
   },
   version: 8,
   layers: [
     {
-      id: 'countries',
+      id: 'stuff',
       type: 'fill',
       source: 'world',
       layout: {},
@@ -40,27 +38,19 @@ const geoJSONStyle: Style = {
         'fill-color': '#6F788A',
       },
     },
-  ] as any,
+  ],
 };
 
 describe('MapService', () => {
+  let service: MapService;
   let container: HTMLElement;
   let mapEvents: MapEvent;
   let zone: MockNgZone;
+  let mapboxInstanceMock: ReturnType<typeof mockMapbox>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        MapService,
-        {
-          provide: NgZone,
-          useFactory: () => {
-            zone = new MockNgZone();
-            return zone;
-          },
-        },
-      ],
-    });
+    zone = new MockNgZone();
+    service = new MapService(zone, null);
     container = document.createElement('div');
     mapEvents = {
       mapResize: new EventEmitter<MapboxEvent & EventData>(),
@@ -175,63 +165,42 @@ describe('MapService', () => {
     };
   });
 
-  beforeEach(inject([MapService], (service: MapService) => {
+  beforeEach(() => {
+    mapboxInstanceMock = mockMapbox();
+  });
+
+  function setupMap() {
     service.setup({
       mapOptions: {
         container,
         style: geoJSONStyle,
         zoom: [0],
-        accessToken:
-          'sk.eyJ1IjoibXBrZWF0ZWNoIiwiYSI6ImNra2k1aGx2azFqc3cycHF0cWFpYzl3aHUifQ.XYK4HpeRKu0qrYvPX-XBWQ',
       },
       mapEvents,
     });
     zone.simulateZoneExit();
-  }));
+  }
 
-  it('should create a map', inject([MapService], (service: MapService) => {
+  it('should create a map', () => {
+    setupMap();
     expect(service.mapInstance).toBeTruthy();
-  }));
-
-  it('should fire mapLoad event', (done: DoneFn) => {
-    mapEvents.mapLoad.pipe(first()).subscribe(() => {
-      expect(true).toBe(true);
-      done();
-    });
   });
 
-  it('should update minZoom', (done: DoneFn) =>
-    inject([MapService], (service: MapService) => {
-      mapEvents.mapLoad.pipe(first()).subscribe(() => {
-        service.updateMinZoom(6);
-        expect(service.mapInstance.getMinZoom()).toEqual(6);
-        done();
-      });
-    })());
+  it('should fire mapLoad event', () => {
+    const mapLoadSpy = subscribeSpyTo(mapEvents.mapLoad);
+    setupMap();
+    expect(mapLoadSpy.getValues()).toEqual([service.mapInstance]);
+  });
 
-  it('should update minPitch', (done: DoneFn) =>
-    inject([MapService], (service: MapService) => {
-      mapEvents.mapLoad.pipe(first()).subscribe(() => {
-        service.updateMinPitch(15);
-        expect(service.mapInstance.getMinPitch()).toEqual(15);
-        done();
-      });
-    })());
+  it('should call setMinZoom', () => {
+    setupMap();
+    service.updateMinZoom(6);
+    expect(mapboxInstanceMock.setMinZoom).toBeCalledTimes(1);
+  });
 
-  it('should update maxPitch', (done: DoneFn) =>
-    inject([MapService], (service: MapService) => {
-      mapEvents.mapLoad.pipe(first()).subscribe(() => {
-        service.updateMaxPitch(25);
-        expect(service.mapInstance.getMaxPitch()).toEqual(25);
-        done();
-      });
-    })());
-
-  // xit('should update zoom', (done: DoneFn) => inject([MapService], (service: MapService) => {
-  //   mapEvents.mapEvents.load.first().subscribe(() => {
-  //     service.prepareZoom(6);
-  //     service.startMoveIfNeeded
-  //     done();
-  //   });
-  // })());
+  it('should call setMinPitch', () => {
+    setupMap();
+    service.updateMinPitch(6);
+    expect(mapboxInstanceMock.setMinPitch).toBeCalledTimes(1);
+  });
 });

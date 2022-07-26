@@ -12,11 +12,11 @@ import { MapService, SetupMap } from './map.service';
 
 describe('MapComponent', () => {
   class MapServiceSpy {
-    setup = jasmine.createSpy('setup');
-    updateMinZoom = jasmine.createSpy('updateMinZoom');
-    updateMaxPitch = jasmine.createSpy('updateMaxPitch');
-    updateMinPitch = jasmine.createSpy('updateMinPitch');
-    destroyMap = jasmine.createSpy('destroyMap');
+    setup = jest.fn();
+    updateMinZoom = jest.fn();
+    updateMaxPitch = jest.fn();
+    updateMinPitch = jest.fn();
+    destroyMap = jest.fn();
     mapCreated$ = new ReplaySubject(1);
   }
 
@@ -45,18 +45,18 @@ describe('MapComponent', () => {
   describe('Init tests', () => {
     it('should init', () => {
       fixture.detectChanges();
-      expect(msSpy.setup.calls.count()).toBe(1);
+      expect(msSpy.setup).toHaveBeenCalledTimes(1);
     });
 
-    it('should init with custom inputs', (done: DoneFn) => {
+    it('should init with custom inputs', () => {
       component.accessToken = 'tokenTest';
       component.style = 'style';
-      msSpy.setup.and.callFake((options: SetupMap) => {
+      msSpy.setup.mockImplementation((options: SetupMap) => {
         expect(options.accessToken).toEqual('tokenTest');
         expect(options.mapOptions.style).toEqual('style');
-        done();
       });
       fixture.detectChanges();
+      expect.assertions(2);
     });
   });
 

@@ -2,18 +2,15 @@ import { SimpleChange } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { MapService } from '../map/map.service';
+import { mockMapbox } from '../map/mapbox.mock';
 import { ImageComponent } from './image.component';
 
 describe('ImageComponent', () => {
   class MapServiceSpy {
-    addImage = jasmine.createSpy('addImage');
-    removeImage = jasmine.createSpy('removeImage');
+    addImage = jest.fn();
+    removeImage = jest.fn();
     mapLoaded$ = of(undefined);
-    mapInstance = new (class {
-      on() {}
-      off() {}
-      hasImage() {}
-    })();
+    mapInstance = mockMapbox();
   }
 
   let msSpy: MapServiceSpy;

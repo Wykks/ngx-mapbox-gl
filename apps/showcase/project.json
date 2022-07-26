@@ -13,8 +13,15 @@
         "polyfills": "apps/showcase/src/polyfills.ts",
         "tsConfig": "apps/showcase/tsconfig.app.json",
         "assets": ["apps/showcase/src/favicon.ico", "apps/showcase/src/assets"],
-        "styles": ["apps/showcase/src/styles.css"],
-        "scripts": []
+        "styles": [
+          "apps/showcase/src/styles.css",
+          "node_modules/prismjs/themes/prism-okaidia.css"
+        ],
+        "scripts": [
+          "node_modules/marked/marked.min.js",
+          "node_modules/prismjs/prism.js",
+          "node_modules/prismjs/components/prism-typescript.min.js"
+        ]
       },
       "configurations": {
         "production": {

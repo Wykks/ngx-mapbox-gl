@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { PointLike } from 'mapbox-gl';
 import { of } from 'rxjs';
@@ -12,18 +12,16 @@ import { MarkerComponent } from './marker.component';
     </mgl-marker>
   `,
 })
-class MarkerTestComponent implements OnDestroy {
+class MarkerTestComponent {
   offset: PointLike;
   lngLat: [number, number];
   className: string;
-
-  ngOnDestroy() {}
 }
 
 describe('MarkerComponent', () => {
   class MapServiceSpy {
-    addMarker = jasmine.createSpy('addMarker');
-    removeMarker = jasmine.createSpy('removeMarker');
+    addMarker = jest.fn();
+    removeMarker = jest.fn();
     mapCreated$ = of(undefined);
   }
 
@@ -46,7 +44,7 @@ describe('MarkerComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MarkerTestComponent);
     component = fixture.componentInstance;
-    msSpy = fixture.debugElement.injector.get<MapService>(MapService) as any;
+    msSpy = fixture.debugElement.injector.get(MapService) as any;
   });
 
   describe('Init/Destroy tests', () => {
