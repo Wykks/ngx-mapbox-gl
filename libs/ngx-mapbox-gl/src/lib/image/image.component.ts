@@ -109,10 +109,10 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
 
   private warnDeprecatedOutputs() {
     const dw = deprecationWarning.bind(undefined, ImageComponent.name);
-    if (this.error.observers.length) {
+    if (this.error.observed) {
       dw('error', 'imageError');
     }
-    if (this.loaded.observers.length) {
+    if (this.loaded.observed) {
       dw('loaded', 'imageLoaded');
     }
   }

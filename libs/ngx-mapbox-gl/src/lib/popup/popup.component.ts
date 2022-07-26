@@ -169,10 +169,10 @@ export class PopupComponent
 
   private warnDeprecatedOutputs() {
     const dw = deprecationWarning.bind(undefined, PopupComponent.name);
-    if (this.close.observers.length) {
+    if (this.close.observed) {
       dw('close', 'popupClose');
     }
-    if (this.open.observers.length) {
+    if (this.open.observed) {
       dw('open', 'popupOpen');
     }
   }
