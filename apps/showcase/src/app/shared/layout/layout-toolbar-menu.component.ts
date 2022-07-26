@@ -3,7 +3,6 @@ import {
   AfterViewInit,
   ApplicationRef,
   Component,
-  ComponentFactoryResolver,
   Injector,
   Input,
   OnDestroy,
@@ -24,20 +23,20 @@ export class LayoutToolbarMenuComponent implements AfterViewInit, OnDestroy {
   private portalOutlet: DomPortalOutlet;
   @ViewChild(CdkPortal) portal: CdkPortal;
 
-  constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private injector: Injector,
-    private appRef: ApplicationRef
-  ) {}
+  constructor(private injector: Injector, private appRef: ApplicationRef) {}
 
   ngAfterViewInit() {
+    const target = document.querySelector(
+      this.position === 'left'
+        ? '#layout-left-custom-items'
+        : '#layout-right-custom-items'
+    );
+    if (!target) {
+      throw new Error('LayoutToolbarMenuComponent: No target found');
+    }
     this.portalOutlet = new DomPortalOutlet(
-      document.querySelector(
-        this.position === 'left'
-          ? '#layout-left-custom-items'
-          : '#layout-right-custom-items'
-      )!,
-      this.componentFactoryResolver,
+      target,
+      undefined,
       this.appRef,
       this.injector
     );

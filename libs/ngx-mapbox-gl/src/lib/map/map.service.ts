@@ -91,7 +91,9 @@ export class MapService {
 
   constructor(
     private zone: NgZone,
-    @Optional() @Inject(MAPBOX_API_KEY) private readonly MAPBOX_API_KEY: string
+    @Optional()
+    @Inject(MAPBOX_API_KEY)
+    private readonly MAPBOX_API_KEY: string | null
   ) {
     this.mapCreated$ = this.mapCreated.asObservable();
     this.mapLoaded$ = this.mapLoaded.asObservable();
@@ -111,7 +113,7 @@ export class MapService {
       }
       this.createMap({
         ...(options.mapOptions as MapboxGl.MapboxOptions),
-        accessToken: options.accessToken || this.MAPBOX_API_KEY,
+        accessToken: options.accessToken || this.MAPBOX_API_KEY || '',
       });
       this.hookEvents(options.mapEvents);
       this.mapEvents = options.mapEvents;

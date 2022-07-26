@@ -3,19 +3,16 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BackgroundLayer } from 'mapbox-gl';
 import { of } from 'rxjs';
 import { MapService, SetupLayer } from '../map/map.service';
+import { mockMapbox } from '../map/mapbox.mock';
 import { LayerComponent } from './layer.component';
 
 describe('LayerComponent', () => {
   class MapServiceSpy {
-    addLayer = jasmine.createSpy('addLayer');
-    removeLayer = jasmine.createSpy('removeLayer');
-    setAllLayerPaintProperty = jasmine.createSpy('setAllPaintProperty');
+    addLayer = jest.fn();
+    removeLayer = jest.fn();
+    setAllLayerPaintProperty = jest.fn();
     mapLoaded$ = of(undefined);
-    mapInstance = new (class {
-      on() {}
-      off() {}
-      getLayer() {}
-    })();
+    mapInstance = mockMapbox();
   }
 
   let msSpy: MapServiceSpy;
@@ -42,17 +39,17 @@ describe('LayerComponent', () => {
   });
 
   describe('Init/Destroy tests', () => {
-    it('should init with custom inputs', (done: DoneFn) => {
+    it('should init with custom inputs', () => {
       component.paint = { 'background-color': 'green' };
       component.type = 'background';
-      msSpy.addLayer.and.callFake((options: SetupLayer) => {
+      msSpy.addLayer.mockImplementation((options: SetupLayer) => {
         expect(options.layerOptions.id).toEqual(component.id);
         expect(
           (options.layerOptions as BackgroundLayer).paint!['background-color']
         ).toEqual('green');
-        done();
       });
       fixture.detectChanges();
+      expect.assertions(2);
     });
 
     it('should remove layer on destroy', () => {

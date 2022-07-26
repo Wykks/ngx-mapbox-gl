@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AnyLayout } from 'mapbox-gl';
 
 @Component({
@@ -55,7 +55,7 @@ import { AnyLayout } from 'mapbox-gl';
   `,
   styleUrls: ['./examples.css', './toggle-layers.component.css'],
 })
-export class ToggleLayersComponent implements OnInit {
+export class ToggleLayersComponent {
   layouts: { [key: string]: AnyLayout } = {
     contours: {
       visibility: 'visible',
@@ -66,8 +66,6 @@ export class ToggleLayersComponent implements OnInit {
       visibility: 'visible',
     },
   };
-
-  ngOnInit() {}
 
   toggleLayer(evt: { value: string }) {
     this.layouts[evt.value] = {
