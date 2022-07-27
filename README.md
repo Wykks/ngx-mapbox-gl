@@ -56,15 +56,14 @@ npm install @types/mapbox-gl --save-dev
 yarn add @types/mapbox-gl --dev
 ```
 
-Load the CSS of `mapbox-gl` (and `mapbox-gl-geocoder` if `mglGeocoder` is used)
+Load the CSS of `mapbox-gl`
 
 For example, with _angular-cli_ add this in `angular.json`:
 
 ```json
 "styles": [
         ...
-        "./node_modules/mapbox-gl/dist/mapbox-gl.css",
-        "./node_modules/@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css"
+        "./node_modules/mapbox-gl/dist/mapbox-gl.css"
       ],
 ```
 
@@ -72,7 +71,6 @@ Or in the global CSS file (called `styles.css` for example in _angular-cli_):
 
 ```css
 @import '~mapbox-gl/dist/mapbox-gl.css';
-@import '~@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css';
 ```
 
 Add this in your polyfill.ts file (https://github.com/Wykks/ngx-mapbox-gl/issues/136#issuecomment-496224634):
@@ -103,8 +101,6 @@ How to get a Mapbox token: https://www.mapbox.com/help/how-access-tokens-work/
 Note: `mapbox-gl` cannot work without a token anymore.
 If you want to keep using their services then make a free account, generate a new token for your application and use it inside your project.
 
-You can use https://github.com/klokantech/tileserver-gl to serve vector tiles.
-
 Display a map:
 
 ```ts
@@ -129,95 +125,4 @@ import { Component } from '@angular/core';
   ],
 })
 export class DisplayMapComponent {}
-```
-
-## Angular libraries `AOT` compilation
-
-If you want to build a library using this module, you will most likely face this error when building for production:
-
-```
-ERROR: Error during template compile of 'YourLibraryModule'
-  Function calls are not supported in decorators, but 'NgxMapboxGLModule' was called.
-
-An unhandled exception occurred: Error during template compile of 'YourLibraryModule'
-  Function calls are not supported in decorators, but 'NgxMapboxGLModule' was called.
-```
-
-This error is generated due to the AOT compilation that occurs in _prod_ mode.
-The part that will generate the error will be this one:
-
-```ts
-@NgModule({
-  imports: [
-    ...
-    NgxMapboxGLModule.withConfig({
-      accessToken: 'TOKEN',
-    })
-  ]
-})
-```
-
-So the error is pretty clear: `Function calls are not supported in decorators but 'NgxMapboxGLModule' was called`.
-
-#### Solution
-
-To solve this problem, we simply need to provide the _accessToken_ via module configuration rather than how you would normally do:
-
-```ts
-import {
-  MAPBOX_API_KEY, // ngx-mapbox-gl uses this injection token to provide the accessToken
-  NgxMapboxGLModule,
-} from 'ngx-mapbox-gl';
-
-export interface IMyLibMapModuleConfig {
-  mapboxToken: string;
-}
-
-@NgModule({
-  declarations: [],
-  exports: [],
-  imports: [CommonModule, NgxMapboxGLModule],
-})
-export class MyLibMapModule {
-  static forRoot(
-    config: IMyLibMapModuleConfig
-  ): ModuleWithProviders<MyLibMapModule> {
-    return {
-      ngModule: MyLibMapModule,
-      providers: [
-        {
-          provide: MAPBOX_API_KEY,
-          useValue: config.mapboxToken,
-        },
-      ],
-    };
-  }
-}
-```
-
-We basically create a `forRoot` static function in the library module, that will accept a _configuration_ object as a parameter. This _configuration_ will provide the actual token to the `ngx-mapbox-gl` module via providers by providing the value from the _configuration_ to the `MAPBOX_API_KEY` injection token.
-
-Finally, in the application that will use your `MyLibMapModule`, you will import the module in this way:
-
-```ts
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-
-import { MyLibMapModule } from 'my-lib';
-
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    CommonModule,
-    AppRoutingModule,
-
-    MyLibMapModule.forRoot({
-      mapboxToken: environment.mapboxToken,
-    }),
-  ],
-})
-export class AppModule {}
 ```
