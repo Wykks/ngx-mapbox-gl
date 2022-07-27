@@ -1,6 +1,5 @@
 # ngx-mapbox-gl
 
-[![Build Status](https://travis-ci.com/Wykks/ngx-mapbox-gl.svg?branch=master)](https://travis-ci.com/Wykks/ngx-mapbox-gl)
 [![npm version](https://img.shields.io/npm/v/ngx-mapbox-gl.svg?style=flat)](https://www.npmjs.com/package/ngx-mapbox-gl)
 
 Angular wrapper for [mapbox-gl-js](https://www.mapbox.com/mapbox-gl-js/api/). It exposes a bunch of components meant to be simple to use with Angular.
@@ -93,7 +92,6 @@ import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
     ...
     NgxMapboxGLModule.withConfig({
       accessToken: 'TOKEN', // Optional, can also be set per map (accessToken input of mgl-map)
-      geocoderAccessToken: 'TOKEN' // Optional, specify if different from the map access token, can also be set per mgl-geocoder (accessToken input of mgl-geocoder)
     })
   ]
 })
@@ -154,7 +152,6 @@ The part that will generate the error will be this one:
     ...
     NgxMapboxGLModule.withConfig({
       accessToken: 'TOKEN',
-      geocoderAccessToken: 'TOKEN'
     })
   ]
 })

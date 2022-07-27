@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { AttributionControlDirective } from './control/attribution-control.directive';
 import { ControlComponent } from './control/control.component';
 import { FullscreenControlDirective } from './control/fullscreen-control.directive';
@@ -14,8 +14,8 @@ import { MAPBOX_API_KEY } from './map/map.service';
 import { MarkerComponent } from './marker/marker.component';
 import {
   ClusterPointDirective,
-  PointDirective,
   MarkersForClustersComponent,
+  PointDirective,
 } from './markers-for-clusters/markers-for-clusters.component';
 import { PopupComponent } from './popup/popup.component';
 import { CanvasSourceComponent } from './source/canvas-source.component';
@@ -26,8 +26,6 @@ import { RasterDemSourceComponent } from './source/raster-dem-source.component';
 import { RasterSourceComponent } from './source/raster-source.component';
 import { VectorSourceComponent } from './source/vector-source.component';
 import { VideoSourceComponent } from './source/video-source.component';
-
-export const MAPBOX_GEOCODER_API_KEY = new InjectionToken('MapboxApiKey');
 
 @NgModule({
   imports: [CommonModule],
@@ -85,7 +83,6 @@ export const MAPBOX_GEOCODER_API_KEY = new InjectionToken('MapboxApiKey');
 export class NgxMapboxGLModule {
   static withConfig(config: {
     accessToken: string;
-    geocoderAccessToken?: string;
   }): ModuleWithProviders<NgxMapboxGLModule> {
     return {
       ngModule: NgxMapboxGLModule,
@@ -93,10 +90,6 @@ export class NgxMapboxGLModule {
         {
           provide: MAPBOX_API_KEY,
           useValue: config.accessToken,
-        },
-        {
-          provide: MAPBOX_GEOCODER_API_KEY,
-          useValue: config.geocoderAccessToken || config.accessToken,
         },
       ],
     };

@@ -1,6 +1,6 @@
 {
   "name": "ngx-mapbox-gl-srcs",
-  "version": "0.0.0",
+  "version": "9.0.0",
   "license": "MIT",
   "scripts": {
     "start": "nx serve showcase",
@@ -8,7 +8,7 @@
     "test": "nx run-many --target=test --all",
     "release": "standard-version -a",
     "update-version": "./update_version.sh",
-    "commit": "git-cz",
+    "commit": "cz",
     "postinstall": "ngcc --properties es2020 browser module main && husky install"
   },
   "standard-version": {
@@ -22,9 +22,6 @@
       "nx affected:lint --fix --files",
       "nx format:write --files"
     ]
-  },
-  "commitizen": {
-    "path": "cz-conventional-changelog"
   },
   "private": true,
   "devDependencies": {
@@ -51,7 +48,7 @@
     "@types/node": "17.0.42",
     "@typescript-eslint/eslint-plugin": "5.28.0",
     "@typescript-eslint/parser": "5.28.0",
-    "commitizen": "4.2.4",
+    "commitizen": "4.2.5",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "8.18.0",
     "eslint-config-prettier": "8.5.0",
@@ -96,5 +93,10 @@
     "scroll-into-view-if-needed": "2.2.29",
     "tslib": "2.4.0",
     "zone.js": "0.11.6"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
