@@ -40,13 +40,11 @@ git push --follow-tags
 Publish on npm
 
 ```
-npm publish dist/ngx-mapbox-gl
+npm publish dist/libs/ngx-mapbox-gl/
 ```
 
-And finally, update the showcase app on github page (using https://github.com/angular-schule/angular-cli-ghpages)
+And finally, update the showcase app on github page
 
 ```
-yarn build:showcase && yarn publish:showcase
+yarn deploy-showcase
 ```
-
-(This could be updated to the more recent `ng deploy`)

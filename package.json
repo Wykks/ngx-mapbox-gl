@@ -8,6 +8,7 @@
     "test": "nx run-many --target=test --all",
     "release": "standard-version -a",
     "update-version": "./update_version.sh",
+    "deploy-showcase": "nx build showcase --base-href '/ngx-mapbox-gl/' && gh-pages -d dist/apps/showcase",
     "commit": "lint-staged --relative && cz --no-verify",
     "postinstall": "ngcc --properties es2020 browser module main && husky install"
   },
@@ -52,6 +53,7 @@
     "cz-conventional-changelog": "3.3.0",
     "eslint": "8.18.0",
     "eslint-config-prettier": "8.5.0",
+    "gh-pages": "4.0.0",
     "husky": "8.0.0",
     "jest": "28.1.3",
     "jest-environment-jsdom": "28.1.3",
