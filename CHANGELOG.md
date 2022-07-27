@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [9.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v8.0.1...v9.0.0) (2022-07-27)
+
+### ⚠ BREAKING CHANGES
+
+- Remove ngx-mapbox-gl-geocoder
+- Update to Angular 14
+
+- Move to nx & Update to Angular 14 ([301f0bf](https://github.com/Wykks/ngx-mapbox-gl/commit/301f0bf5d559a0ba715a7ac3395ddc3ccf21a22b))
+- remove ngx-mapbox-gl-geocoder (PR welcome) & e2e tests (for now) ([53d2f1c](https://github.com/Wykks/ngx-mapbox-gl/commit/53d2f1c0f8fe28d4c0d2a20df7cd429219dc490f))
+
 ## [8.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v7.1.2...v8.0.0) (2022-06-11)
 
 ### ⚠ BREAKING CHANGES
