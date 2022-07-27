@@ -8,7 +8,7 @@
     "test": "nx run-many --target=test --all",
     "release": "standard-version -a",
     "update-version": "./update_version.sh",
-    "commit": "cz",
+    "commit": "lint-staged --relative && cz --no-verify",
     "postinstall": "ngcc --properties es2020 browser module main && husky install"
   },
   "standard-version": {
