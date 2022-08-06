@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LngLatLike } from 'mapbox-gl';
+import { scan, Subscription, takeWhile, timer } from 'rxjs';
 
 @Component({
   selector: 'showcase-demo',
@@ -10,6 +11,7 @@ import { LngLatLike } from 'mapbox-gl';
       [center]="center"
       [centerWithPanTo]="true"
       [pitch]="[pitch]"
+      (mapLoad)="animate()"
       movingMethod="jumpTo"
     >
       <mgl-geojson-source *ngIf="data" id="trace" [data]="data">
@@ -36,32 +38,39 @@ export class LiveUpdateFeatureComponent implements OnInit, OnDestroy {
   zoom: [number] = [0];
   pitch: number;
 
-  private timer: number;
+  private sub?: Subscription;
+  private originalCoordinates: GeoJSON.Position[] = [];
 
   async ngOnInit() {
     const data: GeoJSON.FeatureCollection<GeoJSON.LineString> = (await import(
       './hike.geo.json'
     )) as any;
-    const coordinates = data.features[0].geometry.coordinates;
-    data.features[0].geometry.coordinates = [coordinates[0]];
+    this.originalCoordinates = data.features[0].geometry.coordinates.slice();
+    data.features[0].geometry.coordinates = [this.originalCoordinates[0]];
     this.data = data;
-    this.center = coordinates[0] as [number, number];
+    this.center = this.originalCoordinates[0] as [number, number];
     this.zoom = [14];
     this.pitch = 30;
-    let i = 0;
-    this.timer = window.setInterval(() => {
-      if (i < coordinates.length) {
-        this.center = coordinates[i] as [number, number];
-        data.features[0].geometry.coordinates.push(coordinates[i]);
+  }
+
+  animate() {
+    this.sub = timer(0, 10)
+      .pipe(
+        scan((idx) => idx + 1, 0),
+        takeWhile((idx) => idx < this.originalCoordinates.length)
+      )
+      .subscribe((idx) => {
+        // Note: For animations, it's probably better to use mapboxgl api directly instead of updating inputs
+        // Also you will be able to make use of the preloadOnly option of mapbox-gl moving methods to have better results
+        this.center = this.originalCoordinates[idx] as [number, number];
+        this.data.features[0].geometry.coordinates.push(
+          this.originalCoordinates[idx]
+        );
         this.data = { ...this.data };
-        i++;
-      } else {
-        window.clearInterval(this.timer);
-      }
-    }, 10);
+      });
   }
 
   ngOnDestroy() {
-    window.clearInterval(this.timer);
+    this.sub?.unsubscribe();
   }
 }
