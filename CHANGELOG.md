@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [9.1.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v8.0.1...v9.1.0) (2022-08-06)
+
+### Features
+
+- Upgrade mapbox-gl support to v2.9.2 ([606a7eb](https://github.com/Wykks/ngx-mapbox-gl/commit/606a7ebccce4ff4496ea565f21c56c8b2e498ab9))
+
 ## [9.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v8.0.1...v9.0.0) (2022-07-27)
 
 ### ⚠ BREAKING CHANGES
