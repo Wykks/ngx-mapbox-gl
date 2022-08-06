@@ -124,7 +124,8 @@ describe('MapService', () => {
       boxZoomCancel: new EventEmitter<MapBoxZoomEvent & EventData>(),
       webGlContextLost: new EventEmitter<MapContextEvent & EventData>(),
       webGlContextRestored: new EventEmitter<MapContextEvent & EventData>(),
-      mapLoad: new EventEmitter<Map>(),
+      mapLoad: new EventEmitter<MapboxEvent & EventData>(),
+      mapCreate: new EventEmitter<Map>(),
       render: new EventEmitter<MapboxEvent & EventData>(),
       mapError: new EventEmitter<ErrorEvent & EventData>(),
       data: new EventEmitter<MapDataEvent & EventData>(),
@@ -189,7 +190,7 @@ describe('MapService', () => {
   it('should fire mapLoad event', () => {
     const mapLoadSpy = subscribeSpyTo(mapEvents.mapLoad);
     setupMap();
-    expect(mapLoadSpy.getValues()).toEqual([service.mapInstance]);
+    expect(mapLoadSpy.getValues()[0].target).toEqual(service.mapInstance);
   });
 
   it('should call setMinZoom', () => {
