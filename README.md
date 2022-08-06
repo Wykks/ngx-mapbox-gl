@@ -65,7 +65,7 @@ For example, with _angular-cli_ add this in `angular.json`:
 ```json
 "styles": [
         ...
-        "./node_modules/mapbox-gl/dist/mapbox-gl.css"
+        "mapbox-gl/dist/mapbox-gl.css"
       ],
 ```
 
@@ -73,12 +73,6 @@ Or in the global CSS file (called `styles.css` for example in _angular-cli_):
 
 ```css
 @import '~mapbox-gl/dist/mapbox-gl.css';
-```
-
-Add this in your polyfill.ts file (https://github.com/Wykks/ngx-mapbox-gl/issues/136#issuecomment-496224634):
-
-```
-(window as any).global = window;
 ```
 
 Then, in your app's main module (or in any other module), import the `NgxMapboxGLModule`:
