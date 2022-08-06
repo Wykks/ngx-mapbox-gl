@@ -10,7 +10,7 @@
     [style]="'mapbox://styles/mapbox/streets-v9'"
     [zoom]="[9]"
     [center]="[-74.50, 40]"
-    (mapLoad)="map = $event"
+    (load)="map = $event"
   ></mgl-map>
   `,
 ...
@@ -62,6 +62,7 @@ Dynamic:
 - **bearing**: `[number]` The initial bearing (rotation) of the map, measured in degrees counter-clockwise from north. If bearing is not specified in the constructor options, Mapbox GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to 0. [ngx] It's an array in order to be able to force changes (by changing the array ref) because this input can be desync after user manipulation on map.
 - **pitch**: `[number]` The initial pitch (tilt) of the map, measured in degrees away from the plane of the screen (0-60). If pitch is not specified in the constructor options, Mapbox GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to 0. [ngx] It's an array in order to be able to force changes (by changing the array ref) because this input can be desync after user manipulation on map.
 - **fitBoundsOptions** https://www.mapbox.com/mapbox-gl-js/api/#map#fitbounds
+- **projection** https://docs.mapbox.com/mapbox-gl-js/api/map/#map#setprojection
 - [ngx] **fitBounds**: [`LngLatBoundsLike`](https://www.mapbox.com/mapbox-gl-js/api/#lnglatboundslike) If set, the map will center on the given coordinates. Dynamic version of **bounds**.
 - [ngx] **fitScreenCoordinates**: `[PointLike, PointLike]` https://www.mapbox.com/mapbox-gl-js/api/#map#fitscreencoordinates (use movingOptions as options)
 - [ngx] **movingMethod**: `'jumpTo' | 'easeTo' | 'flyTo'` _(Default: `'flyTo'`)_ Define the method used when changing the center or zoom position.
@@ -72,29 +73,29 @@ Dynamic:
 
 ### Outputs
 
-- **mapResize**: `void`
-- **mapRemove**: `void`
-- **mapMouseDown**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapMouseUp**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapMouseMove**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapClick**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapDblClick**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapMouseEnter**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapMouseLeave**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapMouseOver**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapMouseOut**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapContextMenu**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapTouchStart**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
-- **mapTouchEnd**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
-- **mapTouchMove**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
-- **mapTouchCancel**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
-- **mapWheel**: [`MapWheelEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapwheelevent)
+- **resize**: `void`
+- **remove**: `void`
+- **mouseDown**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mouseUp**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mouseMove**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **click**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **dblClick**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mouseEnter**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mouseLeave**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mouseOver**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mouseOut**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **contextMenu**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **touchStart**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
+- **touchEnd**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
+- **touchMove**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
+- **touchCancel**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
+- **wheel**: [`MapWheelEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapwheelevent)
 - **moveStart**: [`DragEvent`](https://developer.mozilla.org/fr/docs/Web/API/DragEvent)
 - **move**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
 - **moveEnd**: [`DragEvent`](https://developer.mozilla.org/fr/docs/Web/API/DragEvent)
-- **mapDragStart**: [`DragEvent`](https://developer.mozilla.org/fr/docs/Web/API/DragEvent)
-- **mapDrag**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapDragEnd**: [`DragEvent`](https://developer.mozilla.org/fr/docs/Web/API/DragEvent)
+- **dragStart**: [`DragEvent`](https://developer.mozilla.org/fr/docs/Web/API/DragEvent)
+- **drag**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **dragEnd**: [`DragEvent`](https://developer.mozilla.org/fr/docs/Web/API/DragEvent)
 - **zoomStart**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
 - **zoomEvt**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
 - **zoomEnd**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
@@ -109,9 +110,9 @@ Dynamic:
 - **boxZoomCancel**: [`MapBoxZoomEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapboxzoomevent)
 - **webGlContextLost**: `void`
 - **webGlContextRestored**: `void`
-- **mapLoad**: [`Map`](https://www.mapbox.com/mapbox-gl-js/api#map)
+- **load**: [`Map`](https://www.mapbox.com/mapbox-gl-js/api#map)
 - **render**: `void`
-- **mapError**
+- **error**
 - **data**
 - **styleData**
 - **sourceData**
@@ -143,7 +144,7 @@ Dynamic:
 Init only:
 
 - **id**: `string` _(Required)_
-- **source**: `string |`[`Source`](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources)
+- **source**: `string | `[`Source`](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources)
 - **type**: `'symbol' | 'fill' | 'line' | 'circle' | 'fill-extrusion' | 'raster' | 'background' | 'heatmap'` _(Required)_
 - **metadata**: `any`
 - **sourceLayer**: `string`
@@ -159,19 +160,10 @@ Dynamic:
 
 ### Outputs
 
-- **layerClick**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerDblClick**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerMouseDown**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerMouseUp**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerMouseEnter**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerMouseLeave**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerMouseMove**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerMouseOver**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerMouseOut**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerContextMenu**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerTouchStart**: [`MapLayerTouchEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent)
-- **layerTouchEnd**: [`MapLayerTouchEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent)
-- **layerTouchCancel**: [`MapLayerTouchEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent)
+- **click**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mouseEnter**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mouseLeave**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mouseMove**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
 
 ## mgl-geojson-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-geojson)
 
@@ -307,7 +299,7 @@ Dynamic:
    <mgl-image
      id="image"
      url="https://..."
-     (imageLoaded)="imageLoaded = true"
+     (loaded)="imageLoaded = true"
    >
    ...
    <mgl-image
@@ -337,8 +329,8 @@ Dynamic:
 
 ### Outputs
 
-- [ngx] **imageLoaded**: `void` Only when using `url` input. You should use this to delay the display of a layer.
-- [ngx] **imageError**: `{ status: number }` Only when using `url` input
+- [ngx] **loaded**: `void` Only when using `url` input. You should use this to delay the display of a layer.
+- [ngx] **error**: `{ status: number }` Only when using `url` input
 
 ## mgl-control
 
@@ -360,19 +352,20 @@ Dynamic:
 Init only:
 
 - **position**: `'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'`
-- [**mglAttribution**](https://www.mapbox.com/mapbox-gl-js/api#attributioncontrol) \* **compact**: `boolean`
+- [**mglAttribution**](https://www.mapbox.com/mapbox-gl-js/api#attributioncontrol)
+  - **compact**: `boolean`
 - [**mglFullscreen**](https://www.mapbox.com/mapbox-gl-js/api/#fullscreencontrol)
 - [**mglGeolocate**](https://www.mapbox.com/mapbox-gl-js/api/#geolocatecontrol)
-  _ **positionOptions**: [`PositionOptions`](https://developer.mozilla.org/en-US/docs/Web/API/PositionOptions)
-  _ **fitBoundsOptions**: [`FitBoundsOptions`](https://www.mapbox.com/mapbox-gl-js/api/#map#fitbounds)
-  _ **trackUserLocation**: `boolean`
-  _ **showUserLocation**: `boolean`
+  - **positionOptions**: [`PositionOptions`](https://developer.mozilla.org/en-US/docs/Web/API/PositionOptions)
+  - **fitBoundsOptions**: [`FitBoundsOptions`](https://www.mapbox.com/mapbox-gl-js/api/#map#fitbounds)
+  - **trackUserLocation**: `boolean`
+  - **showUserLocation**: `boolean`
 - [**mglNavigation**](https://www.mapbox.com/mapbox-gl-js/api/#navigationcontrol)
-  _ **showCompass**: `boolean`
-  _ **showZoom**: `boolean`
+  - **showCompass**: `boolean`
+  - **showZoom**: `boolean`
 - [**mglScale**](https://www.mapbox.com/mapbox-gl-js/api/#scalecontrol)
-  _ **maxWidth**: `number`
-  _ **unit**: `'imperial' | 'metric' | 'nautical'` (dynamic input)
+  - **maxWidth**: `number`
+  - **unit**: `'imperial' | 'metric' | 'nautical'` (dynamic input)
 
 ## mgl-marker [Mapbox GL API](https://www.mapbox.com/mapbox-gl-js/api/#marker)
 
@@ -408,9 +401,9 @@ Dynamic:
 
 ### Outputs
 
-- **markerDragStart**: [`Marker`](https://www.mapbox.com/mapbox-gl-js/api/#marker)
-- **markerDrag**: [`Marker`](https://www.mapbox.com/mapbox-gl-js/api/#marker)
-- **markerDragEnd**: [`Marker`](https://www.mapbox.com/mapbox-gl-js/api/#marker)
+- **dragStart**: [`Marker`](https://www.mapbox.com/mapbox-gl-js/api/#marker)
+- **drag**: [`Marker`](https://www.mapbox.com/mapbox-gl-js/api/#marker)
+- **dragEnd**: [`Marker`](https://www.mapbox.com/mapbox-gl-js/api/#marker)
 
 ## mgl-popup [Mapbox GL API](https://www.mapbox.com/mapbox-gl-js/api/#popup)
 
@@ -434,8 +427,10 @@ Init only:
 
 - **closeButton**: `boolean`
 - **closeOnClick**: `boolean`
+- **closeOnMove**: `boolean`
+- **focusAfterOpen**: `boolean`
 - **anchor**: `'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left'`
-- **offset**: [`number |`[`PointLike`](https://www.mapbox.com/mapbox-gl-js/api/#pointlike)`| { [anchor: string]: [number, number] };`
+- **offset**: [`number | `[`PointLike`](https://www.mapbox.com/mapbox-gl-js/api/#pointlike)`| { [anchor: string]: [number, number] };`
 
 Dynamic:
 
@@ -445,12 +440,54 @@ Dynamic:
 
 ### Outputs
 
-- **popupClose**: `void`
-- **popupOpen**: `void`
+- **close**: `void`
+- **open**: `void`
+
+## [ngx] mgl-marker-cluster [Supercluster API](https://github.com/mapbox/supercluster#options)
+
+DEPRECATED, use mgl-markers-for-clusters instead (doc WIP; check examples)
+
+### Example
+
+```html
+...
+<mgl-map ...>
+  <mgl-marker-cluster [data]="somedata" [maxZoom]="14" [radius]="50">
+    <ng-template mglPoint let-feature> Marker! </ng-template>
+    <ng-template mglClusterPoint let-feature> Cluster! </ng-template>
+  </mgl-marker-cluster>
+</mgl-map>
+```
+
+More advanced example: https://wykks.github.io/ngx-mapbox-gl/demo/ngx-marker-cluster
+
+Note: Only use this if you **really** need to use HTML/Angular component to render your symbols. This is **slower** than the native cluster system.
+
+### Inputs
+
+Init only:
+
+- **radius**: `number`
+- **maxZoom**: `number`
+- **minZoom**: `number`
+- **extent**: `number`
+- **nodeSize**: `number`
+- **log**: `boolean`
+- **reduce**: `(accumulated: any, props: any) => void`
+- **initial**: `() => any`
+- **map**: `(props: any) => any`
+
+Dynamic:
+
+- **data**: `GeoJSON.FeatureCollection<GeoJSON.Point>`
+
+### Outputs
+
+- **load**: `Supercluster` The instance of supercluster
 
 ## [ngx] mgl-markers-for-clusters
 
-Requires a geojson source that is clustered - see above.
+Requires a geojson source that is clustered - see above. This replaced mgl-marker-cluster that was used in version 3.x.
 
 ### Example
 
@@ -467,7 +504,7 @@ Requires a geojson source that is clustered - see above.
 </mgl-map>
 ```
 
-Note: Only use this if you **really** need to use HTML/Angular component to render your symbols. This is **slower** than rendering symbols in WebGL.
+Note: Only use this if you **really** need to use HTML/Angular component to render your symbols. This is **slower** than the native cluster system that can be used using a clustered source and styling layers.
 
 ### Inputs
 

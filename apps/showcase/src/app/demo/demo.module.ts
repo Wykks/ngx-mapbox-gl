@@ -44,6 +44,7 @@ import { LanguageSwitchComponent } from './examples/language-switch.component';
 import { LiveUpdateFeatureComponent } from './examples/live-update-feature.component';
 import { LiveUpdateImageSourceComponent } from './examples/live-update-image-srource.component';
 import { LocateUserComponent } from './examples/locate-user.component';
+import { MapProjectionComponent } from './examples/map-projection.component';
 import { MarkerAlignmentComponent } from './examples/marker-alignment.component';
 import { NavigationComponent } from './examples/navigation.component';
 import {
@@ -136,6 +137,7 @@ import { StackblitzEditComponent } from './stackblitz-edit/stackblitz-edit.compo
     CustomAttributionComponent,
     CustomLocaleComponent,
     MarkerAlignmentComponent,
+    MapProjectionComponent,
   ],
   exports: [DemoIndexComponent],
 })

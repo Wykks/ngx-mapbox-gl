@@ -8,8 +8,8 @@ import {
 } from '@angular/core';
 import { FitBoundsOptions, GeolocateControl } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
-import { ControlComponent } from './control.component';
 import { Position } from '../map/map.types';
+import { ControlComponent } from './control.component';
 
 @Directive({
   selector: '[mglGeolocate]',
@@ -20,6 +20,7 @@ export class GeolocateControlDirective implements AfterContentInit {
   @Input() fitBoundsOptions?: FitBoundsOptions;
   @Input() trackUserLocation?: boolean;
   @Input() showUserLocation?: boolean;
+  @Input() showUserHeading?: boolean;
 
   @Output()
   geolocate: EventEmitter<Position> = new EventEmitter<Position>();
@@ -39,6 +40,7 @@ export class GeolocateControlDirective implements AfterContentInit {
         fitBoundsOptions: this.fitBoundsOptions,
         trackUserLocation: this.trackUserLocation,
         showUserLocation: this.showUserLocation,
+        showUserHeading: this.showUserHeading,
       };
 
       Object.keys(options).forEach((key: string) => {

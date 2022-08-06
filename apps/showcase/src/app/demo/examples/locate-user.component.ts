@@ -10,6 +10,7 @@ import { Component } from '@angular/core';
           enableHighAccuracy: true
         }"
         [trackUserLocation]="true"
+        [showUserHeading]="true"
       ></mgl-control>
     </mgl-map>
   `,

@@ -2894,7 +2894,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mapbox/geojson-rewind@npm:^0.5.0":
+"@mapbox/geojson-rewind@npm:^0.5.1":
   version: 0.5.2
   resolution: "@mapbox/geojson-rewind@npm:0.5.2"
   dependencies:
@@ -2986,10 +2986,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mapbox/tiny-sdf@npm:^1.2.5":
-  version: 1.2.5
-  resolution: "@mapbox/tiny-sdf@npm:1.2.5"
-  checksum: d4cfd700c8ccd8b9183da78a943e314cada4184966a52758857cc7141391829a2da31b733046ee0a57e169396314533ffbde8445ce3476a193c6aefcc7bc883a
+"@mapbox/tiny-sdf@npm:^2.0.2":
+  version: 2.0.5
+  resolution: "@mapbox/tiny-sdf@npm:2.0.5"
+  checksum: 23fd158ea795592cf1f825fcac20d48230c54a6985a931f609af8b4e69cd99f1c798dc893baec63f4fd6f42ffc3e7292b39f4126966412edd4606eb3dbf86b54
   languageName: node
   linkType: hard
 
@@ -4087,12 +4087,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mapbox-gl@npm:2.3.0":
-  version: 2.3.0
-  resolution: "@types/mapbox-gl@npm:2.3.0"
+"@types/mapbox-gl@npm:2.7.4":
+  version: 2.7.4
+  resolution: "@types/mapbox-gl@npm:2.7.4"
   dependencies:
     "@types/geojson": "*"
-  checksum: 468af15c05ee13c7b4a4da230955f8a6ae896c66ff3c773f5fa009adae60ef5397a15e22088913b55cc141f99a32110181678703bfbd2da643f695cc36e44841
+  checksum: 13fd2fb546dcd56dc7d66199801a790ea1cba0997ebdd111617e1a7ef08465205ec8e6c4ece286cb273e2aa66f2e4fa8df751ac55851bf95399ca61daa308259
   languageName: node
   linkType: hard
 
@@ -8119,10 +8119,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"earcut@npm:^2.2.2":
-  version: 2.2.3
-  resolution: "earcut@npm:2.2.3"
-  checksum: 4e3bab80366c49e0332a0bb061649a3b9354dcbfa636155c7eee250be0670d7139d53f2aebbcf90788507c71b76ec1713c20e36527f202b9abb79c9e5858ec35
+"earcut@npm:^2.2.3":
+  version: 2.2.4
+  resolution: "earcut@npm:2.2.4"
+  checksum: aea0466cb2f24e0c3c57148d8d28ac9846f53c4f43ee66780826474303ac851b305ef988152d0bdeb31e8f7ca939dc0df737e7505cfb1c1bdf2ff9d7f9ea2faa
   languageName: node
   linkType: hard
 
@@ -12824,21 +12824,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mapbox-gl@npm:2.3.1":
-  version: 2.3.1
-  resolution: "mapbox-gl@npm:2.3.1"
+"mapbox-gl@npm:2.6.0":
+  version: 2.6.0
+  resolution: "mapbox-gl@npm:2.6.0"
   dependencies:
-    "@mapbox/geojson-rewind": ^0.5.0
+    "@mapbox/geojson-rewind": ^0.5.1
     "@mapbox/geojson-types": ^1.0.2
     "@mapbox/jsonlint-lines-primitives": ^2.0.2
     "@mapbox/mapbox-gl-supported": ^2.0.0
     "@mapbox/point-geometry": ^0.1.0
-    "@mapbox/tiny-sdf": ^1.2.5
+    "@mapbox/tiny-sdf": ^2.0.2
     "@mapbox/unitbezier": ^0.0.0
     "@mapbox/vector-tile": ^1.3.1
     "@mapbox/whoots-js": ^3.1.0
     csscolorparser: ~1.0.3
-    earcut: ^2.2.2
+    earcut: ^2.2.3
     geojson-vt: ^3.2.1
     gl-matrix: ^3.3.0
     grid-index: ^1.1.0
@@ -12848,10 +12848,10 @@ __metadata:
     potpack: ^1.0.1
     quickselect: ^2.0.0
     rw: ^1.3.3
-    supercluster: ^7.1.3
+    supercluster: ^7.1.4
     tinyqueue: ^2.0.3
-    vt-pbf: ^3.1.1
-  checksum: ad201505a9f34cf9dd613dbea82cef1df1fd7f407d13579230ec935089bf438b76b7b8ff78efcff13ee555b14301679bf17e16866924904b6b875a9f5a6b34c9
+    vt-pbf: ^3.1.3
+  checksum: 92361503858f8e86d78a95b8431734c2870f173c73ce95cc7cf4c218689d53bc43b6c4f100ab6af7c38a5345e95d0bdb79b1dee00feb96c24e766868213e9014
   languageName: node
   linkType: hard
 
@@ -13496,7 +13496,7 @@ __metadata:
     "@stackblitz/sdk": 1.3.0
     "@types/jest": 28.1.1
     "@types/lodash-es": 4.17.6
-    "@types/mapbox-gl": 2.3.0
+    "@types/mapbox-gl": 2.7.4
     "@types/mapbox__mapbox-gl-geocoder": 4.7.2
     "@types/node": 17.0.42
     "@typescript-eslint/eslint-plugin": 5.28.0
@@ -13512,7 +13512,7 @@ __metadata:
     jest-preset-angular: 12.2.0
     lint-staged: 13.0.3
     lodash-es: 4.17.21
-    mapbox-gl: 2.3.1
+    mapbox-gl: 2.6.0
     ng-packagr: 14.0.2
     ngx-markdown: 14.0.1
     nx: 14.3.6
@@ -17330,7 +17330,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"supercluster@npm:^7.1.3":
+"supercluster@npm:^7.1.4":
   version: 7.1.5
   resolution: "supercluster@npm:7.1.5"
   dependencies:
@@ -18238,7 +18238,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vt-pbf@npm:^3.1.1":
+"vt-pbf@npm:^3.1.3":
   version: 3.1.3
   resolution: "vt-pbf@npm:3.1.3"
   dependencies:

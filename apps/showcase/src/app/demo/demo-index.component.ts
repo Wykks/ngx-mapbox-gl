@@ -41,14 +41,7 @@ export class DemoIndexComponent implements OnInit, AfterViewInit {
     this.originalRoutes = groupBy(DEMO_ROUTES[0].children, (route) =>
       route.data ? route.data['cat'] : null
     ) as unknown as RoutesByCategory;
-    this.categories = [
-      Category.STYLES,
-      Category.LAYERS,
-      Category.SOURCES,
-      Category.USER_INTERACTION,
-      Category.CAMERA,
-      Category.CONTROLS_AND_OVERLAYS,
-    ];
+    this.categories = Object.values(Category);
   }
 
   ngOnInit() {

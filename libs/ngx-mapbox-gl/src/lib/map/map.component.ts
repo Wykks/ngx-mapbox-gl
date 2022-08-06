@@ -29,6 +29,7 @@ import {
   MapWheelEvent,
   PointLike,
 } from 'mapbox-gl';
+import { lastValueFrom } from 'rxjs';
 import { deprecationWarning } from '../utils';
 import { MapService, MovingOptions } from './map.service';
 import { MapEvent } from './map.types';
@@ -81,7 +82,7 @@ export class MapComponent
   @Input() transformRequest?: MapboxOptions['transformRequest'];
   @Input() bounds?: MapboxOptions['bounds']; // Use fitBounds for dynamic input
   @Input() antialias?: MapboxOptions['antialias'];
-  @Input() locale: MapboxOptions['locale'];
+  @Input() locale?: MapboxOptions['locale'];
 
   /* Dynamic inputs */
   @Input() minZoom?: MapboxOptions['minZoom'];
@@ -105,6 +106,7 @@ export class MapComponent
   // First value goes to options.fitBoundsOptions. Subsequents changes are passed to fitBounds
   @Input() fitBoundsOptions?: MapboxOptions['fitBoundsOptions'];
   @Input() renderWorldCopies?: MapboxOptions['renderWorldCopies'];
+  @Input() projection?: MapboxOptions['projection'];
 
   /* Added by ngx-mapbox-gl */
   @Input() movingMethod: 'jumpTo' | 'easeTo' | 'flyTo' = 'flyTo';
@@ -354,6 +356,7 @@ export class MapComponent
         fitBoundsOptions: this.fitBoundsOptions,
         antialias: this.antialias,
         locale: this.locale,
+        projection: this.projection,
       },
       mapEvents: this,
     });
@@ -367,9 +370,12 @@ export class MapComponent
   }
 
   async ngOnChanges(changes: SimpleChanges) {
-    await this.mapService.mapCreated$.toPromise();
+    await lastValueFrom(this.mapService.mapCreated$);
     if (changes['cursorStyle'] && !changes['cursorStyle'].isFirstChange()) {
       this.mapService.changeCanvasCursor(changes['cursorStyle'].currentValue);
+    }
+    if (changes['projection'] && !changes['projection'].isFirstChange()) {
+      this.mapService.updateProjection(changes['projection'].currentValue);
     }
     if (changes['minZoom'] && !changes['minZoom'].isFirstChange()) {
       this.mapService.updateMinZoom(changes['minZoom'].currentValue);

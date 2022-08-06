@@ -129,6 +129,12 @@ export class MapService {
     }
   }
 
+  updateProjection(projection: MapboxGl.MapboxOptions['projection']) {
+    return this.zone.runOutsideAngular(() => {
+      (this.mapInstance as any).setProjection(projection);
+    });
+  }
+
   updateMinZoom(minZoom: number) {
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.setMinZoom(minZoom);

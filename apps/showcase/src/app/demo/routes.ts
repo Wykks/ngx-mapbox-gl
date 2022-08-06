@@ -23,6 +23,7 @@ import { LanguageSwitchComponent } from './examples/language-switch.component';
 import { LiveUpdateFeatureComponent } from './examples/live-update-feature.component';
 import { LiveUpdateImageSourceComponent } from './examples/live-update-image-srource.component';
 import { LocateUserComponent } from './examples/locate-user.component';
+import { MapProjectionComponent } from './examples/map-projection.component';
 import { MarkerAlignmentComponent } from './examples/marker-alignment.component';
 import { NavigationComponent } from './examples/navigation.component';
 import { NgxClusterHtmlComponent } from './examples/ngx-cluster-html.component';
@@ -49,6 +50,7 @@ export enum Category {
   USER_INTERACTION = 'User interaction',
   CAMERA = 'Camera',
   CONTROLS_AND_OVERLAYS = 'Controls and overlays',
+  PROJECTIONS = 'Projections',
 }
 
 export const DEMO_ROUTES: Routes = [
@@ -330,6 +332,14 @@ export const DEMO_ROUTES: Routes = [
         path: 'marker-alignment',
         component: MarkerAlignmentComponent,
         data: { label: 'Marker alignment options', cat: Category.CAMERA },
+      },
+      {
+        path: 'map-projection',
+        component: MapProjectionComponent,
+        data: {
+          label: 'Display a web map using an alternate projection',
+          cat: Category.PROJECTIONS,
+        },
       },
       { path: '**', redirectTo: 'display-map' },
     ],
