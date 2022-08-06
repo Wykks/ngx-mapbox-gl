@@ -22,25 +22,25 @@ v9.X : Angular 14
 
 Include the following components:
 
-- mgl-map
-- mgl-layer
-- mgl-geojson-source
-- mgl-canvas-source
-- mgl-image-source
+- [mgl-map](https://wykks.github.io/ngx-mapbox-gl/doc#mgl-map)
+- [mgl-layer](https://wykks.github.io/ngx-mapbox-gl/#mgl-layer)
+- [mgl-geojson-source](https://wykks.github.io/ngx-mapbox-gl/#mgl-geojson-source)
+- [mgl-canvas-source](https://wykks.github.io/ngx-mapbox-gl/#mgl-canvas-source)
+- [mgl-image-source](https://wykks.github.io/ngx-mapbox-gl/#mgl-image-source)
 - mgl-raster-dem-source
-- mgl-raster-source
-- mgl-vector-source
-- mgl-video-source
-- mgl-image
-- mgl-control with builtin control:
+- [mgl-raster-source](https://wykks.github.io/ngx-mapbox-gl/#mgl-raster-source)
+- [mgl-vector-source](https://wykks.github.io/ngx-mapbox-gl/#mgl-vector-source)
+- [mgl-video-source](https://wykks.github.io/ngx-mapbox-gl/#mgl-video-source)
+- [mgl-image](https://wykks.github.io/ngx-mapbox-gl/#mgl-image)
+- [mgl-control](https://wykks.github.io/ngx-mapbox-gl/#mgl-control) with builtin control:
   - mglScale
   - mglFullscreen
   - mglAttribution
   - mglGeolocate
   - mglNavigation
-- mgl-marker
-- mgl-popup
-- mgl-marker-cluster
+- [mgl-marker](https://wykks.github.io/ngx-mapbox-gl/#mgl-marker)
+- [mgl-popup](https://wykks.github.io/ngx-mapbox-gl/#mgl-popup)
+- [mgl-markers-for-clusters](https://wykks.github.io/ngx-mapbox-gl/#-ngx-mgl-markers-for-clusters)
 
 (Documentation here: https://wykks.github.io/ngx-mapbox-gl/#/doc)
 

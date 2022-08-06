@@ -15,7 +15,7 @@
         "assets": ["apps/showcase/src/favicon.ico", "apps/showcase/src/assets"],
         "styles": [
           "apps/showcase/src/styles.css",
-          "node_modules/prismjs/themes/prism-okaidia.css"
+          "prismjs/themes/prism-okaidia.css"
         ],
         "scripts": [
           "node_modules/marked/marked.min.js",

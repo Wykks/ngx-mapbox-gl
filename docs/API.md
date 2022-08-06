@@ -1,6 +1,6 @@
-## mgl-map [Mapbox GL API](https://www.mapbox.com/mapbox-gl-js/api#map)
+# mgl-map [Mapbox GL API](https://www.mapbox.com/mapbox-gl-js/api#map)
 
-### Example
+## Example
 
 ```typescript
 ...
@@ -21,7 +21,7 @@ export class DisplayMapComponent {
 }
 ```
 
-### Inputs
+## Inputs
 
 Init only:
 
@@ -71,7 +71,7 @@ Dynamic:
 - [ngx] **centerWithPanTo**: `boolean` If set to true, then [panTo](https://www.mapbox.com/mapbox-gl-js/api/#map#panto) is used instead of the specified method in **movingMethod** (if only **center** is changed, see live-update-feature example)
 - [ngx] **cursorStyle**: `string` change the cursor of the map canvas (`canvas.style.cursor`).
 
-### Outputs
+## Outputs
 
 - **mapResize**: `void`
 - **mapRemove**: `void`
@@ -120,9 +120,9 @@ Dynamic:
 - **styleDataLoading**
 - **sourceDataLoading**
 
-## mgl-layer [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers)
+# mgl-layer [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers)
 
-### Example
+## Example
 
 ```html
 ...
@@ -139,7 +139,7 @@ Dynamic:
 </mgl-map>
 ```
 
-### Inputs
+## Inputs
 
 Init only:
 
@@ -158,16 +158,25 @@ Dynamic:
 - **maxzoom**: `number`
 - [ngx] **before**: `string` The ID of an existing layer to insert the new layer before. If this argument is omitted, the layer will be appended to the end of the layers array. https://www.mapbox.com/mapbox-gl-js/api/#map#addlayer
 
-### Outputs
+## Outputs
 
-- **click**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mouseEnter**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mouseLeave**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mouseMove**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **layerClick**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **layerDblClick**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **layerMouseDown**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **layerMouseUp**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **layerMouseEnter**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **layerMouseLeave**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **layerMouseMove**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **layerMouseOver**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **layerMouseOut**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **layerContextMenu**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **layerTouchStart**: [`MapLayerTouchEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent)
+- **layerTouchEnd**: [`MapLayerTouchEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent)
+- **layerTouchCancel**: [`MapLayerTouchEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent)
 
-## mgl-geojson-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-geojson)
+# mgl-geojson-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-geojson)
 
-### Example
+## Example
 
 ```html
 ...
@@ -189,7 +198,7 @@ Dynamic:
 </mgl-map>
 ```
 
-### Inputs
+## Inputs
 
 Init only:
 
@@ -206,7 +215,7 @@ Dynamic:
 - [**clusterRadius**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-geojson-clusterRadius): `number`
 - [**clusterMaxZoom**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-geojson-clusterMaxZoom): `number`
 
-## [ngx] mgl-feature (inside mgl-geojson-source only)
+# [ngx] mgl-feature (inside mgl-geojson-source only)
 
 Init only:
 
@@ -214,9 +223,9 @@ Init only:
 - **geometry**: `GeoJSON.GeometryObject` _(Required)_
 - **properties**: `any`
 
-## mgl-canvas-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-canvas)
+# mgl-canvas-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-canvas)
 
-### Inputs
+## Inputs
 
 Init only:
 
@@ -228,9 +237,9 @@ Dynamic:
 - [**canvas**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-canvas-canvas): `string`
 - [**animate**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-canvas-animate): `boolean`
 
-## mgl-image-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-image)
+# mgl-image-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-image)
 
-### Inputs
+## Inputs
 
 Init only:
 
@@ -241,9 +250,9 @@ Dynamic:
 - [**url**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-image-url): `string`
 - [**coordinates**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-image-coordinates): `number[][]`
 
-## mgl-raster-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-raster)
+# mgl-raster-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-raster)
 
-### Inputs
+## Inputs
 
 Init only:
 
@@ -258,9 +267,9 @@ Dynamic:
 - [**maxzoom**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-raster-maxzoom): `number`
 - [**tileSize**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-raster-tileSize): `number`
 
-## mgl-vector-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-vector)
+# mgl-vector-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-vector)
 
-### Inputs
+## Inputs
 
 Init only:
 
@@ -274,9 +283,9 @@ Dynamic:
 - [**minzoom**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-vector-minzoom): `number`
 - [**maxzoom**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-vector-maxzoom): `number`
 
-## mgl-video-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-video)
+# mgl-video-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-video)
 
-### Inputs
+## Inputs
 
 Init only:
 
@@ -287,9 +296,9 @@ Dynamic:
 - [**urls**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-video-urls): `string[]`
 - [**coordinates**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-video-coordinates): `number[][]`
 
-## mgl-image [Mapbox GL API](https://www.mapbox.com/mapbox-gl-js/api#map#addimage)
+# mgl-image [Mapbox GL API](https://www.mapbox.com/mapbox-gl-js/api#map#addimage)
 
-### Example
+## Example
 
 ```html
 ...
@@ -315,7 +324,7 @@ Dynamic:
 imageData: Uint8Array;
 ```
 
-### Inputs
+## Inputs
 
 Init only:
 
@@ -327,14 +336,14 @@ Dynamic:
 - **options**: `{ pixelRatio: number; sdf: boolean; }`
 - [ngx] **url**: `string` If set, will call [loadImage](https://www.mapbox.com/mapbox-gl-js/api#map#loadimage) and then add the image directly. Don't forget to listen to `loaded`.
 
-### Outputs
+## Outputs
 
-- [ngx] **loaded**: `void` Only when using `url` input. You should use this to delay the display of a layer.
-- [ngx] **error**: `{ status: number }` Only when using `url` input
+- [ngx] **imageLoaded**: `void` Only when using `url` input. You should use this to delay the display of a layer.
+- [ngx] **imageError**: `{ status: number }` Only when using `url` input
 
-## mgl-control
+# mgl-control
 
-### Example
+## Example
 
 ```html
 ...
@@ -347,7 +356,7 @@ Dynamic:
 </mgl-map>
 ```
 
-### Inputs
+## Inputs
 
 Init only:
 
@@ -367,9 +376,9 @@ Init only:
   - **maxWidth**: `number`
   - **unit**: `'imperial' | 'metric' | 'nautical'` (dynamic input)
 
-## mgl-marker [Mapbox GL API](https://www.mapbox.com/mapbox-gl-js/api/#marker)
+# mgl-marker [Mapbox GL API](https://www.mapbox.com/mapbox-gl-js/api/#marker)
 
-### Example
+## Example
 
 ```html
 ...
@@ -382,7 +391,7 @@ Init only:
 
 Note: Only use this if you **really** need to use HTML/Angular component to render your symbol. These markers are slow compared to a `Layer` of symbol because they're not rendered using WebGL.
 
-### Inputs
+## Inputs
 
 Init only:
 
@@ -399,15 +408,15 @@ Dynamic:
 - [ngx] **className** `string` Class name to aply to the container
 - [ngx] **popupShown**: `boolean` Shows if the marker's popup is visible at the moment
 
-### Outputs
+## Outputs
 
-- **dragStart**: [`Marker`](https://www.mapbox.com/mapbox-gl-js/api/#marker)
-- **drag**: [`Marker`](https://www.mapbox.com/mapbox-gl-js/api/#marker)
-- **dragEnd**: [`Marker`](https://www.mapbox.com/mapbox-gl-js/api/#marker)
+- **markerDragStart**: [`Marker`](https://www.mapbox.com/mapbox-gl-js/api/#marker)
+- **markerDrag**: [`Marker`](https://www.mapbox.com/mapbox-gl-js/api/#marker)
+- **markerDragEnd**: [`Marker`](https://www.mapbox.com/mapbox-gl-js/api/#marker)
 
-## mgl-popup [Mapbox GL API](https://www.mapbox.com/mapbox-gl-js/api/#popup)
+# mgl-popup [Mapbox GL API](https://www.mapbox.com/mapbox-gl-js/api/#popup)
 
-### Example
+## Example
 
 ```html
 ...
@@ -421,7 +430,7 @@ Dynamic:
 </mgl-map>
 ```
 
-### Inputs
+## Inputs
 
 Init only:
 
@@ -438,16 +447,16 @@ Dynamic:
 - [ngx] **marker**: `MarkerComponent` The targeted marker (will use https://www.mapbox.com/mapbox-gl-js/api/#marker#setpopup)
 - [ngx] **feature**: `GeoJSON.Feature<GeoJSON.Point>` Mutually exclusive with lngLat
 
-### Outputs
+## Outputs
 
-- **close**: `void`
-- **open**: `void`
+- **popupClose**: `void`
+- **popupOpen**: `void`
 
-## [ngx] mgl-marker-cluster [Supercluster API](https://github.com/mapbox/supercluster#options)
+# [ngx] mgl-marker-cluster [Supercluster API](https://github.com/mapbox/supercluster#options)
 
 DEPRECATED, use mgl-markers-for-clusters instead (doc WIP; check examples)
 
-### Example
+## Example
 
 ```html
 ...
@@ -463,7 +472,7 @@ More advanced example: https://wykks.github.io/ngx-mapbox-gl/demo/ngx-marker-clu
 
 Note: Only use this if you **really** need to use HTML/Angular component to render your symbols. This is **slower** than the native cluster system.
 
-### Inputs
+## Inputs
 
 Init only:
 
@@ -481,15 +490,15 @@ Dynamic:
 
 - **data**: `GeoJSON.FeatureCollection<GeoJSON.Point>`
 
-### Outputs
+## Outputs
 
 - **load**: `Supercluster` The instance of supercluster
 
-## [ngx] mgl-markers-for-clusters
+# [ngx] mgl-markers-for-clusters
 
 Requires a geojson source that is clustered - see above. This replaced mgl-marker-cluster that was used in version 3.x.
 
-### Example
+## Example
 
 ```html
 ...
@@ -506,7 +515,7 @@ Requires a geojson source that is clustered - see above. This replaced mgl-marke
 
 Note: Only use this if you **really** need to use HTML/Angular component to render your symbols. This is **slower** than the native cluster system that can be used using a clustered source and styling layers.
 
-### Inputs
+## Inputs
 
 Init only:
 
