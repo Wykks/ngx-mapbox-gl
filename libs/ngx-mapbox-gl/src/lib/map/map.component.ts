@@ -185,7 +185,8 @@ export class MapComponent
   @Output() webGlContextRestored = new EventEmitter<
     MapContextEvent & EventData
   >();
-  @Output() mapLoad = new EventEmitter<Map>();
+  @Output() mapLoad = new EventEmitter<MapboxEvent & EventData>();
+  @Output() mapCreate = new EventEmitter<Map>();
   @Output() idle = new EventEmitter<MapboxEvent & EventData>();
   @Output() render = new EventEmitter<MapboxEvent & EventData>();
   @Output() mapError = new EventEmitter<ErrorEvent & EventData>();

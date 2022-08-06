@@ -22,25 +22,27 @@ v9.X : Angular 14
 
 Include the following components:
 
-- [mgl-map](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-map-mapbox-gl-api)
-- [mgl-layer](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-layer-mapbox-gl-style-spec)
-- [mgl-geojson-source](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-geojson-source-mapbox-gl-style-spec)
-- [mgl-canvas-source](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-canvas-source-mapbox-gl-style-spec)
-- [mgl-image-source](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-image-source-mapbox-gl-style-spec)
-- [mgl-raster-dem-source](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-raster-dem-source-mapbox-gl-style-spec)
-- [mgl-raster-source](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-raster-source-mapbox-gl-style-spec)
-- [mgl-vector-source](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-vector-source-mapbox-gl-style-spec)
-- [mgl-video-source](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-video-source-mapbox-gl-style-spec)
-- [mgl-image](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-image-mapbox-gl-api)
-- [mgl-control](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-control) with builtin control:
+- mgl-map
+- mgl-layer
+- mgl-geojson-source
+- mgl-canvas-source
+- mgl-image-source
+- mgl-raster-dem-source
+- mgl-raster-source
+- mgl-vector-source
+- mgl-video-source
+- mgl-image
+- mgl-control with builtin control:
   - mglScale
   - mglFullscreen
   - mglAttribution
   - mglGeolocate
   - mglNavigation
-- [mgl-marker](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-marker-mapbox-gl-api)
-- [mgl-popup](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#mgl-popup-mapbox-gl-api)
-- [mgl-marker-cluster](https://github.com/Wykks/ngx-mapbox-gl/wiki/API-Documentation#ngx-mgl-marker-cluster-supercluster-api)
+- mgl-marker
+- mgl-popup
+- mgl-marker-cluster
+
+(Documentation here: https://wykks.github.io/ngx-mapbox-gl/#/doc)
 
 ## How to start
 

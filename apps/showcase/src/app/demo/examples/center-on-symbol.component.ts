@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Map, MapMouseEvent } from 'mapbox-gl';
+import { MapMouseEvent } from 'mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -9,7 +9,6 @@ import { Map, MapMouseEvent } from 'mapbox-gl';
       [zoom]="[8]"
       [center]="center"
       [cursorStyle]="cursorStyle"
-      (mapLoad)="map = $event"
     >
       <mgl-geojson-source id="symbols-source">
         <mgl-feature
@@ -34,7 +33,6 @@ import { Map, MapMouseEvent } from 'mapbox-gl';
   styleUrls: ['./examples.css'],
 })
 export class CenterOnSymbolComponent {
-  map: Map;
   cursorStyle: string;
 
   center: [number, number] = [-90.96, -0.47];

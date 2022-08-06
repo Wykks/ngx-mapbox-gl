@@ -10,7 +10,7 @@
     [style]="'mapbox://styles/mapbox/streets-v9'"
     [zoom]="[9]"
     [center]="[-74.50, 40]"
-    (load)="map = $event"
+    (mapCreate)="map = $event"
   ></mgl-map>
   `,
 ...
@@ -73,29 +73,28 @@ Dynamic:
 
 ### Outputs
 
-- **resize**: `void`
-- **remove**: `void`
-- **mouseDown**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mapResize**: `void`
+- **mapRemove**: `void`
+- **mapMouseDown**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
 - **mouseUp**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mouseMove**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **click**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **dblClick**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mouseEnter**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mouseLeave**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mouseOver**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mouseOut**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **contextMenu**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **touchStart**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
-- **touchEnd**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
-- **touchMove**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
-- **touchCancel**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
-- **wheel**: [`MapWheelEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapwheelevent)
+- **mapMouseMove**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mapClick**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mapDblClick**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mapMouseEnter**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mapMouseOver**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mapMouseOut**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mapContextMenu**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mapTouchStart**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
+- **mapTouchEnd**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
+- **mapTouchMove**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
+- **mapTouchCancel**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
+- **mapWheel**: [`MapWheelEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapwheelevent)
 - **moveStart**: [`DragEvent`](https://developer.mozilla.org/fr/docs/Web/API/DragEvent)
 - **move**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
 - **moveEnd**: [`DragEvent`](https://developer.mozilla.org/fr/docs/Web/API/DragEvent)
-- **dragStart**: [`DragEvent`](https://developer.mozilla.org/fr/docs/Web/API/DragEvent)
-- **drag**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **dragEnd**: [`DragEvent`](https://developer.mozilla.org/fr/docs/Web/API/DragEvent)
+- **mapDragStart**: [`DragEvent`](https://developer.mozilla.org/fr/docs/Web/API/DragEvent)
+- **mapDrag**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mapDragEnd**: [`DragEvent`](https://developer.mozilla.org/fr/docs/Web/API/DragEvent)
 - **zoomStart**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
 - **zoomEvt**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
 - **zoomEnd**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
@@ -110,9 +109,10 @@ Dynamic:
 - **boxZoomCancel**: [`MapBoxZoomEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapboxzoomevent)
 - **webGlContextLost**: `void`
 - **webGlContextRestored**: `void`
-- **load**: [`Map`](https://www.mapbox.com/mapbox-gl-js/api#map)
+- **mapLoad**: [`MapBoxEvent`](https://docs.mapbox.com/mapbox-gl-js/api/map/#map.event:load) Fired immediately after all necessary resources have been downloaded and the first visually complete rendering of the map has occurred.
+- [ngx] **mapCreate**: [`Map`](https://www.mapbox.com/mapbox-gl-js/api#map) Fired after the mapbox gl object is created
 - **render**: `void`
-- **error**
+- **mapError**
 - **data**
 - **styleData**
 - **sourceData**

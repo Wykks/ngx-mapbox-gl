@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
-export const VERSIONS = ['master'];
+export const VERSIONS = ['main'];
 
 @Component({
   template: `
@@ -37,7 +37,7 @@ export const VERSIONS = ['master'];
 })
 export class DocComponent implements OnInit {
   VERSIONS = VERSIONS;
-  currentVersion = 'master';
+  currentVersion = 'main';
   docUrl: string;
 
   ngOnInit() {

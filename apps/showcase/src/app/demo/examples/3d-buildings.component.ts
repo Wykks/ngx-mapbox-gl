@@ -10,7 +10,7 @@ import { AnyLayer, Map } from 'mapbox-gl';
       [center]="[-74.0066, 40.7135]"
       [pitch]="[45]"
       [bearing]="[-17.6]"
-      (mapLoad)="onLoad($event)"
+      (mapLoad)="onLoad($event.target)"
     >
       <mgl-layer
         id="3d-buildings"

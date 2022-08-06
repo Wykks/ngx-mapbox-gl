@@ -119,6 +119,12 @@ export class MapService {
       this.mapEvents = options.mapEvents;
       this.mapCreated.next(undefined);
       this.mapCreated.complete();
+      // Intentionnaly emit mapCreate after internal mapCreated event
+      if (options.mapEvents.mapCreate.observed) {
+        this.zone.run(() => {
+          options.mapEvents.mapCreate.emit(this.mapInstance);
+        });
+      }
     });
   }
 
@@ -807,7 +813,7 @@ export class MapService {
       this.mapLoaded.next(undefined);
       this.mapLoaded.complete();
       this.zone.run(() => {
-        events.mapLoad.emit(evt.target);
+        events.mapLoad.emit(evt);
         events.load.emit(evt.target);
       });
     });

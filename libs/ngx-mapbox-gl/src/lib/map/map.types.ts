@@ -84,7 +84,8 @@ export interface MapEvent {
   boxZoomCancel: EventEmitter<MapBoxZoomEvent & EventData>;
   webGlContextLost: EventEmitter<MapContextEvent & EventData>;
   webGlContextRestored: EventEmitter<MapContextEvent & EventData>;
-  mapLoad: EventEmitter<Map>; // Consider emitting MapboxEvent for consistency (breaking change).
+  mapLoad: EventEmitter<MapboxEvent & EventData>;
+  mapCreate: EventEmitter<Map>;
   render: EventEmitter<MapboxEvent & EventData>;
   mapError: EventEmitter<ErrorEvent & EventData>;
   data: EventEmitter<MapDataEvent & EventData>;
