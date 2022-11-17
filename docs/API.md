@@ -40,6 +40,7 @@ Init only:
 - **renderWorldCopies**: `boolean`
 - **trackResize**: `boolean`
 - **transformRequest**: `Function`
+- **cooperativeGestures**: `boolean`
 - **bounds**: [`LngLatBoundsLike`](https://www.mapbox.com/mapbox-gl-js/api/#lnglatboundslike) Use **fitBounds** if you want the dynamic version. Use **fitBoundsOptions** to specify bounds options.
 - [ngx] **accessToken**: `string` https://www.mapbox.com/mapbox-gl-js/api/#accesstoken
 - [ngx] **customMapboxApiUrl**: `string` Change url of `mapbox://` (set config.API_URL)
