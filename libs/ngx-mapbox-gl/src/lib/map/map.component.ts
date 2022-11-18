@@ -83,7 +83,7 @@ export class MapComponent
   @Input() bounds?: MapboxOptions['bounds']; // Use fitBounds for dynamic input
   @Input() antialias?: MapboxOptions['antialias'];
   @Input() locale?: MapboxOptions['locale'];
-  @Input() cooperativeGestures?: MapOptions['cooperativeGestures'];
+  @Input() cooperativeGestures?: MapboxOptions['cooperativeGestures'];
 
   /* Dynamic inputs */
   @Input() minZoom?: MapboxOptions['minZoom'];
