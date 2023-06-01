@@ -166,6 +166,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
 
   private filterFeature(evt: MapMouseEvent) {
     if (this.featureComponent && this.layer) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const feature: GeoJSON.Feature<any> =
         this.mapService.queryRenderedFeatures(evt.point, {
           layers: [this.layer.id],

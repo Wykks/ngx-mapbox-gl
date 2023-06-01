@@ -20,7 +20,9 @@ export class FeatureComponent
   /* Init inputs */
   @Input() id?: number; // FIXME number only for now https://github.com/mapbox/mapbox-gl-js/issues/2716
   @Input() geometry: GeoJSON.GeometryObject;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() properties: any;
+  // eslint-disable-next-line @typescript-eslint/prefer-as-const
   type: 'Feature' = 'Feature';
 
   private feature: GeoJSON.Feature<GeoJSON.GeometryObject>;

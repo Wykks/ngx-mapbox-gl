@@ -27,6 +27,7 @@ export class ScaleControlDirective implements AfterContentInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['unit'] && !changes['unit'].isFirstChange()) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (this.controlComponent.control as any).setUnit(
         changes['unit'].currentValue
       );
