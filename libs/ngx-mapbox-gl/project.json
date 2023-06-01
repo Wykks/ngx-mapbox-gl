@@ -6,7 +6,7 @@
   "prefix": "ngx-mapbox-gl",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
+      "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/ngx-mapbox-gl"],
       "options": {
         "project": "libs/ngx-mapbox-gl/ng-package.json"
@@ -22,7 +22,7 @@
       "defaultConfiguration": "production"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/ngx-mapbox-gl"],
       "options": {
         "jestConfig": "libs/ngx-mapbox-gl/jest.config.ts",
@@ -30,7 +30,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/ngx-mapbox-gl/**/*.ts",
