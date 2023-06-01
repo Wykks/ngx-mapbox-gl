@@ -1,6 +1,6 @@
 {
   "name": "ngx-mapbox-gl-srcs",
-  "version": "10.0.0",
+  "version": "11.0.0",
   "license": "MIT",
   "scripts": {
     "start": "nx serve showcase",
