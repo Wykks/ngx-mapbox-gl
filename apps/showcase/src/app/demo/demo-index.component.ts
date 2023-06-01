@@ -7,7 +7,7 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatLegacySlideToggleChange as MatSlideToggleChange } from '@angular/material/legacy-slide-toggle';
 import { ActivatedRoute, Router, Routes } from '@angular/router';
 import { cloneDeep, groupBy } from 'lodash-es';
 import { first } from 'rxjs/operators';

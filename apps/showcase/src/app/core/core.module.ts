@@ -17,7 +17,7 @@ import { APP_ROUTES } from './routes';
     RouterModule.forRoot(APP_ROUTES),
     NgxMapboxGLModule.withConfig({
       accessToken:
-        'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA',
+        'pk.eyJ1IjoiaXRyb25zd3AiLCJhIjoiY2t5a3RzYTIyMjY1cDJ2bWxoMWo2aDcyMCJ9.hGts0naoz1crfcvsN1XmZg',
     }),
 
     LayoutModule,

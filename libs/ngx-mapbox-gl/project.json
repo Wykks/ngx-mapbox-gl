@@ -1,4 +1,6 @@
 {
+  "name": "ngx-mapbox-gl",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/ngx-mapbox-gl/src",
   "prefix": "ngx-mapbox-gl",
