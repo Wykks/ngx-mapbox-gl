@@ -410,6 +410,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@angular/localize@npm:15":
+  version: 15.2.9
+  resolution: "@angular/localize@npm:15.2.9"
+  dependencies:
+    "@babel/core": 7.19.3
+    glob: 8.1.0
+    yargs: ^17.2.1
+  peerDependencies:
+    "@angular/compiler": 15.2.9
+    "@angular/compiler-cli": 15.2.9
+  bin:
+    localize-extract: tools/bundles/src/extract/cli.js
+    localize-migrate: tools/bundles/src/migrate/cli.js
+    localize-translate: tools/bundles/src/translate/cli.js
+  checksum: 0945ae77cdc724665a58ff4de67f493cb84556cff1dbd59459cfa51237720423233bd06e2f08ba634c0345569b42d987a78a4223ec1bca7ce391cf4552c06050
+  languageName: node
+  linkType: hard
+
 "@angular/material@npm:15.2.9":
   version: 15.2.9
   resolution: "@angular/material@npm:15.2.9"
@@ -15733,6 +15751,7 @@ __metadata:
     "@angular/core": 15.2.9
     "@angular/forms": 15.2.9
     "@angular/language-service": 15.2.9
+    "@angular/localize": 15
     "@angular/material": 15.2.9
     "@angular/platform-browser": 15.2.9
     "@angular/platform-browser-dynamic": 15.2.9
