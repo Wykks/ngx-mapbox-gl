@@ -9,18 +9,21 @@ on:
 jobs:
   main:
     name: Nx Cloud - Main Job
-    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.6
+    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.13.0
     with:
+      main-branch-name: main
+      number-of-agents: 3
+      init-commands: |
+        yarn exec nx-cloud start-ci-run --stop-agents-after="build" --agent-count=3
       parallel-commands: |
-        yarn nx-cloud record -- yarn nx workspace-lint
-        yarn nx-cloud record -- yarn nx format:check
+        yarn exec nx-cloud record -- yarn exec nx format:check
       parallel-commands-on-agents: |
-        yarn nx affected --target=lint --parallel=3
-        yarn nx affected --target=test --ci
-        yarn nx affected --target=build --parallel=3
+        yarn exec nx affected --target=lint --parallel=3
+        yarn exec nx affected --target=test --parallel=3 --ci --code-coverage
+        yarn exec nx affected --target=build --parallel=3
 
   agents:
     name: Nx Cloud - Agents
-    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.6
+    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.13.0
     with:
       number-of-agents: 3
