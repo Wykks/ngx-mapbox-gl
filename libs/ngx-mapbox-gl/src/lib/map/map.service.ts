@@ -109,7 +109,7 @@ export class MapService {
       //   options.accessToken || this.MAPBOX_API_KEY
       // );
       if (options.customMapboxApiUrl) {
-        this.assign(MapboxGl, 'config.API_URL', options.customMapboxApiUrl);
+        (MapboxGl.baseApiUrl as string) = options.customMapboxApiUrl;
       }
       this.createMap({
         ...(options.mapOptions as MapboxGl.MapboxOptions),
