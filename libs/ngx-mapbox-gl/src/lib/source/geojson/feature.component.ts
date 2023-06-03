@@ -1,11 +1,11 @@
 import {
+  ChangeDetectionStrategy,
   Component,
-  forwardRef,
   Inject,
   Input,
   OnDestroy,
   OnInit,
-  ChangeDetectionStrategy,
+  forwardRef,
 } from '@angular/core';
 import { GeoJSONSourceComponent } from './geojson-source.component';
 
@@ -21,7 +21,7 @@ export class FeatureComponent
   @Input() id?: number; // FIXME number only for now https://github.com/mapbox/mapbox-gl-js/issues/2716
   @Input() geometry: GeoJSON.GeometryObject;
   @Input() properties: any;
-  type: 'Feature' = 'Feature';
+  type = 'Feature' as const;
 
   private feature: GeoJSON.Feature<GeoJSON.GeometryObject>;
 

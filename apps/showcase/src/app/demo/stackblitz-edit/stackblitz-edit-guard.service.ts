@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { DEMO_ROUTES } from '../routes';
 
 @Injectable({ providedIn: 'root' })
-export class StackblitzEditGuard implements CanActivate {
+export class StackblitzEditGuard {
   constructor(private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot) {
