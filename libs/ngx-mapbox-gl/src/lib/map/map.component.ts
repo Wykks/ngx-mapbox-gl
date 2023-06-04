@@ -17,8 +17,6 @@ import {
   EventData,
   LngLatBoundsLike,
   Map,
-  MapboxEvent,
-  MapboxOptions,
   MapBoxZoomEvent,
   MapContextEvent,
   MapDataEvent,
@@ -27,6 +25,8 @@ import {
   MapStyleDataEvent,
   MapTouchEvent,
   MapWheelEvent,
+  MapboxEvent,
+  MapboxOptions,
   PointLike,
 } from 'mapbox-gl';
 import { lastValueFrom } from 'rxjs';
