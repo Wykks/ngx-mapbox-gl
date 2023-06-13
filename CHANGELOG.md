@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [10.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v9.1.0...v10.0.0) (2023-06-13)
+
+### ⚠ BREAKING CHANGES
+
+- Updated to Angular 16
+- **map:** Change mapLoad event to a MapboxEvent for consistency
+
+### Features
+
+- **map:** add mapCreate event ([2bf954f](https://github.com/Wykks/ngx-mapbox-gl/commit/2bf954f352b8a650ecf08f3715bae0ac84157ef9))
+
+### Bug Fixes
+
+- adjust package json compat ([ed3ab67](https://github.com/Wykks/ngx-mapbox-gl/commit/ed3ab677523f97069e3324d76a19cc5c3073ca54))
+- set baseApiUrl rather than assign config.API_URL which is now a getter ([#395](https://github.com/Wykks/ngx-mapbox-gl/issues/395)) ([2078155](https://github.com/Wykks/ngx-mapbox-gl/commit/20781553c932fc366122bfa3472ddc5173999408))
+
 ## [9.1.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v8.0.1...v9.1.0) (2022-08-06)
 
 ### Features
