@@ -20,6 +20,8 @@ v8.X : Angular 13
 
 v9.X : Angular 14
 
+v10.X : Angular 16
+
 Include the following components:
 
 - [mgl-map](https://wykks.github.io/ngx-mapbox-gl/doc#mgl-map)
