@@ -22,7 +22,7 @@
   "peerDependencies": {
     "@angular/core": "^16.0.0 || ^17.0.0",
     "@angular/common": "^16.0.0 || ^17.0.0",
-    "mapbox-gl": ">= 2.9.2 < 4",
+    "mapbox-gl": "^2.0.0 || ^3.0.0",
     "rxjs": "^7.8.0"
   },
   "dependencies": {
