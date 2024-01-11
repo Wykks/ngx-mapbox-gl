@@ -6,7 +6,7 @@ import {
   NgZone,
   Optional,
 } from '@angular/core';
-import MapboxGl from 'mapbox-gl';
+import * as MapboxGl from 'mapbox-gl';
 import { AsyncSubject, Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import {
