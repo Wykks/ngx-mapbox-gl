@@ -20,7 +20,9 @@ v8.X : Angular 13
 
 v9.X : Angular 14
 
-v10.X : Angular 16
+v10.X : Angular 16 - 17
+
+v11.X : Angular 18
 
 Include the following components:
 

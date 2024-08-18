@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -69,29 +72,6 @@ import { StackblitzEditGuard } from './stackblitz-edit/stackblitz-edit-guard.ser
 import { StackblitzEditComponent } from './stackblitz-edit/stackblitz-edit.component';
 
 @NgModule({
-  imports: [
-    RouterModule,
-    HttpClientModule,
-    CommonModule,
-    FormsModule,
-
-    NgxMapboxGLModule,
-
-    LayoutModule,
-
-    MatRadioModule,
-    MatButtonToggleModule,
-    MatButtonModule,
-    MatListModule,
-    MatCardModule,
-    MatProgressSpinnerModule,
-    MatInputModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatPaginatorModule,
-    MatSlideToggleModule,
-  ],
-  providers: [StackblitzEditGuard],
   declarations: [
     DemoIndexComponent,
     MglMapResizeDirective,
@@ -140,5 +120,24 @@ import { StackblitzEditComponent } from './stackblitz-edit/stackblitz-edit.compo
     MapProjectionComponent,
   ],
   exports: [DemoIndexComponent],
+  imports: [
+    RouterModule,
+    CommonModule,
+    FormsModule,
+    NgxMapboxGLModule,
+    LayoutModule,
+    MatRadioModule,
+    MatButtonToggleModule,
+    MatButtonModule,
+    MatListModule,
+    MatCardModule,
+    MatProgressSpinnerModule,
+    MatInputModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatPaginatorModule,
+    MatSlideToggleModule,
+  ],
+  providers: [StackblitzEditGuard, provideHttpClient(withInterceptorsFromDi())],
 })
 export class DemoModule {}

@@ -4,6 +4,7 @@
   "projectType": "library",
   "sourceRoot": "libs/ngx-mapbox-gl/src",
   "prefix": "ngx-mapbox-gl",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
@@ -25,19 +26,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/ngx-mapbox-gl"],
       "options": {
-        "jestConfig": "libs/ngx-mapbox-gl/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/ngx-mapbox-gl/jest.config.ts"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/ngx-mapbox-gl/**/*.ts",
-          "libs/ngx-mapbox-gl/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": []
+  }
 }
