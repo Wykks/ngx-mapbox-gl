@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [11.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v10.0.0...v11.0.0) (2024-08-18)
+
+### ⚠ BREAKING CHANGES
+
+- Updated to Angular 18
+
+### Features
+
+- Upgrade to Angular 18 ([#417](https://github.com/Wykks/ngx-mapbox-gl/issues/417) [#418](https://github.com/Wykks/ngx-mapbox-gl/issues/418)) ([#420](https://github.com/Wykks/ngx-mapbox-gl/issues/420)) ([b659ce8](https://github.com/Wykks/ngx-mapbox-gl/commit/b659ce81d8d3c8ba1530efaf5fabe8a405b2b16e))
+
 ## [10.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v9.1.0...v10.0.0) (2023-06-13)
 
 ### ⚠ BREAKING CHANGES
