@@ -33,7 +33,7 @@ mat-form-field.search {
 
 a.active {
   color: white;
-  background-color: mat.get-color-from-palette(
-    mat.define-palette(mat.$indigo-palette)
+  background-color: mat.m2-get-color-from-palette(
+    mat.m2-define-palette(mat.$m2-indigo-palette)
   ) !important;
 }

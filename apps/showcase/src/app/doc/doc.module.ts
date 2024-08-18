@@ -1,5 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {
+  HttpClient,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { NgModule, SecurityContext } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,20 +22,19 @@ const DOC_ROUTES: Routes = [
 ];
 
 @NgModule({
+  declarations: [DocComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(DOC_ROUTES),
     FormsModule,
-    HttpClientModule,
     MarkdownModule.forRoot({
       loader: HttpClient,
       sanitize: SecurityContext.NONE,
     }),
     MatFormFieldModule,
     MatSelectModule,
-
     LayoutModule,
   ],
-  declarations: [DocComponent],
+  providers: [provideHttpClient(withInterceptorsFromDi())],
 })
 export class DocModule {}
