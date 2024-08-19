@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [11.0.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v11.0.0...v11.0.1) (2024-08-19)
+
+### Bug Fixes
+
+- update package peerDependencies ([b096908](https://github.com/Wykks/ngx-mapbox-gl/commit/b096908717ef7b06d7344670aea875b495d00a83))
+
 ## [11.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v10.0.0...v11.0.0) (2024-08-18)
 
 ### ⚠ BREAKING CHANGES
