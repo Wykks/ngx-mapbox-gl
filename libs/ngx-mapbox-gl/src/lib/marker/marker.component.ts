@@ -19,7 +19,7 @@ import { deprecationWarning } from '../utils';
 
 @Component({
   selector: 'mgl-marker',
-  template: '<div [class]="className" #content><ng-content></ng-content></div>',
+  template: '<div [class]="className" [style.z-index]="zIndex" #content><ng-content></ng-content></div>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -37,6 +37,7 @@ export class MarkerComponent
   @Input() draggable?: MarkerOptions['draggable'];
   @Input() popupShown?: boolean;
   @Input() className: string;
+  @Input() zIndex: number;
   @Input() pitchAlignment?: MarkerOptions['pitchAlignment'];
   @Input() rotationAlignment?: MarkerOptions['rotationAlignment'];
 
