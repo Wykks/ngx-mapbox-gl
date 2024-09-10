@@ -10,8 +10,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import StackBlitzSDK from '@stackblitz/sdk';
-import { VM } from '@stackblitz/sdk/typings/VM';
+import StackBlitzSDK, { VM } from '@stackblitz/sdk';
 import { forkJoin, from, Subscription } from 'rxjs';
 import { finalize, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { createStackblitzProject } from './create-stackblitz-project';

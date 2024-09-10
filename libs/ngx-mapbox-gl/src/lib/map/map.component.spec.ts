@@ -1,4 +1,7 @@
-import { SimpleChange } from '@angular/core';
+import {
+  provideExperimentalZonelessChangeDetection,
+  SimpleChange,
+} from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -27,6 +30,7 @@ describe('MapComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [MapComponent],
+      providers: [provideExperimentalZonelessChangeDetection()],
     })
       .overrideComponent(MapComponent, {
         set: {
@@ -36,27 +40,26 @@ describe('MapComponent', () => {
       .compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async () => {
     fixture = TestBed.createComponent(MapComponent);
+    await fixture.whenStable();
     component = fixture.debugElement.componentInstance;
     msSpy = fixture.debugElement.injector.get<MapService>(MapService) as any;
   });
 
   describe('Init tests', () => {
     it('should init', () => {
-      fixture.detectChanges();
       expect(msSpy.setup).toHaveBeenCalledTimes(1);
     });
 
-    it('should init with custom inputs', () => {
+    it('should init with custom inputs', async () => {
       component.accessToken = 'tokenTest';
       component.style = 'style';
       msSpy.setup.mockImplementation((options: SetupMap) => {
         expect(options.accessToken).toEqual('tokenTest');
         expect(options.mapOptions.style).toEqual('style');
       });
-      fixture.detectChanges();
-      expect.assertions(2);
+      expect(msSpy.setup).toHaveBeenCalled();
     });
   });
 

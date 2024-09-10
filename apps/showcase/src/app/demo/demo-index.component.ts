@@ -1,4 +1,6 @@
 import {
+  afterNextRender,
+  afterRender,
   AfterViewInit,
   Component,
   ElementRef,
@@ -21,7 +23,7 @@ type RoutesByCategory = { [P in Category]: Routes };
   templateUrl: './demo-index.component.html',
   styleUrls: ['./demo-index.component.scss'],
 })
-export class DemoIndexComponent implements OnInit, AfterViewInit {
+export class DemoIndexComponent implements OnInit {
   routes: RoutesByCategory;
   originalRoutes: RoutesByCategory;
   categories: Category[];
@@ -42,14 +44,14 @@ export class DemoIndexComponent implements OnInit, AfterViewInit {
       route.data ? route.data['cat'] : null
     ) as unknown as RoutesByCategory;
     this.categories = Object.values(Category);
+
+    afterNextRender(() => {
+      this.scrollInToActiveExampleLink();
+    });
   }
 
   ngOnInit() {
     this.routes = this.originalRoutes;
-  }
-
-  ngAfterViewInit() {
-    this.scrollInToActiveExampleLink();
   }
 
   toggleSidenav() {
@@ -93,16 +95,14 @@ export class DemoIndexComponent implements OnInit, AfterViewInit {
   }
 
   private scrollInToActiveExampleLink() {
-    this.zone.onStable.pipe(first()).subscribe(() => {
-      const activeLink = this.exampleLinks.find((elm) =>
-        (elm.nativeElement as HTMLElement).classList.contains('active')
-      );
-      if (activeLink) {
-        scrollIntoView(activeLink.nativeElement as HTMLElement, {
-          block: 'center',
-          scrollMode: 'if-needed',
-        });
-      }
-    });
+    const activeLink = this.exampleLinks.find((elm) =>
+      (elm.nativeElement as HTMLElement).classList.contains('active')
+    );
+    if (activeLink) {
+      scrollIntoView(activeLink.nativeElement as HTMLElement, {
+        block: 'center',
+        scrollMode: 'if-needed',
+      });
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Project } from '@stackblitz/sdk/typings/interfaces';
+import { Project } from '@stackblitz/sdk';
 
 export const createStackblitzProject = (
   projectbase: string[],
