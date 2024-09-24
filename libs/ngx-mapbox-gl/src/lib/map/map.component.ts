@@ -1,5 +1,5 @@
 import {
-  AfterViewInit,
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -55,7 +55,6 @@ export class MapComponent
   implements
     OnChanges,
     OnDestroy,
-    AfterViewInit,
     Omit<MapboxOptions, 'bearing' | 'container' | 'pitch' | 'zoom'>,
     MapEvent
 {
@@ -309,63 +308,63 @@ export class MapComponent
 
   @ViewChild('container', { static: true }) mapContainer: ElementRef;
 
-  constructor(private mapService: MapService) {}
-
-  ngAfterViewInit() {
-    this.warnDeprecatedOutputs();
-    this.mapService.setup({
-      accessToken: this.accessToken,
-      customMapboxApiUrl: this.customMapboxApiUrl,
-      mapOptions: {
-        collectResourceTiming: this.collectResourceTiming,
-        container: this.mapContainer.nativeElement,
-        crossSourceCollisions: this.crossSourceCollisions,
-        fadeDuration: this.fadeDuration,
-        minZoom: this.minZoom,
-        maxZoom: this.maxZoom,
-        minPitch: this.minPitch,
-        maxPitch: this.maxPitch,
-        style: this.style,
-        hash: this.hash,
-        interactive: this.interactive,
-        bearingSnap: this.bearingSnap,
-        pitchWithRotate: this.pitchWithRotate,
-        clickTolerance: this.clickTolerance,
-        attributionControl: this.attributionControl,
-        logoPosition: this.logoPosition,
-        failIfMajorPerformanceCaveat: this.failIfMajorPerformanceCaveat,
-        preserveDrawingBuffer: this.preserveDrawingBuffer,
-        refreshExpiredTiles: this.refreshExpiredTiles,
-        maxBounds: this.maxBounds,
-        scrollZoom: this.scrollZoom,
-        boxZoom: this.boxZoom,
-        dragRotate: this.dragRotate,
-        dragPan: this.dragPan,
-        keyboard: this.keyboard,
-        doubleClickZoom: this.doubleClickZoom,
-        touchPitch: this.touchPitch,
-        touchZoomRotate: this.touchZoomRotate,
-        trackResize: this.trackResize,
-        center: this.center,
-        zoom: this.zoom,
-        bearing: this.bearing,
-        pitch: this.pitch,
-        renderWorldCopies: this.renderWorldCopies,
-        maxTileCacheSize: this.maxTileCacheSize,
-        localIdeographFontFamily: this.localIdeographFontFamily,
-        transformRequest: this.transformRequest,
-        bounds: this.bounds ? this.bounds : this.fitBounds,
-        fitBoundsOptions: this.fitBoundsOptions,
-        antialias: this.antialias,
-        locale: this.locale,
-        cooperativeGestures: this.cooperativeGestures,
-        projection: this.projection,
-      },
-      mapEvents: this,
+  constructor(private mapService: MapService) {
+    afterNextRender(() => {
+      this.warnDeprecatedOutputs();
+      this.mapService.setup({
+        accessToken: this.accessToken,
+        customMapboxApiUrl: this.customMapboxApiUrl,
+        mapOptions: {
+          collectResourceTiming: this.collectResourceTiming,
+          container: this.mapContainer.nativeElement,
+          crossSourceCollisions: this.crossSourceCollisions,
+          fadeDuration: this.fadeDuration,
+          minZoom: this.minZoom,
+          maxZoom: this.maxZoom,
+          minPitch: this.minPitch,
+          maxPitch: this.maxPitch,
+          style: this.style,
+          hash: this.hash,
+          interactive: this.interactive,
+          bearingSnap: this.bearingSnap,
+          pitchWithRotate: this.pitchWithRotate,
+          clickTolerance: this.clickTolerance,
+          attributionControl: this.attributionControl,
+          logoPosition: this.logoPosition,
+          failIfMajorPerformanceCaveat: this.failIfMajorPerformanceCaveat,
+          preserveDrawingBuffer: this.preserveDrawingBuffer,
+          refreshExpiredTiles: this.refreshExpiredTiles,
+          maxBounds: this.maxBounds,
+          scrollZoom: this.scrollZoom,
+          boxZoom: this.boxZoom,
+          dragRotate: this.dragRotate,
+          dragPan: this.dragPan,
+          keyboard: this.keyboard,
+          doubleClickZoom: this.doubleClickZoom,
+          touchPitch: this.touchPitch,
+          touchZoomRotate: this.touchZoomRotate,
+          trackResize: this.trackResize,
+          center: this.center,
+          zoom: this.zoom,
+          bearing: this.bearing,
+          pitch: this.pitch,
+          renderWorldCopies: this.renderWorldCopies,
+          maxTileCacheSize: this.maxTileCacheSize,
+          localIdeographFontFamily: this.localIdeographFontFamily,
+          transformRequest: this.transformRequest,
+          bounds: this.bounds ? this.bounds : this.fitBounds,
+          fitBoundsOptions: this.fitBoundsOptions,
+          antialias: this.antialias,
+          locale: this.locale,
+          cooperativeGestures: this.cooperativeGestures,
+          projection: this.projection,
+        },
+        mapEvents: this,
+      });
+      if (this.cursorStyle) {
+        this.mapService.changeCanvasCursor(this.cursorStyle);
+      }
     });
-    if (this.cursorStyle) {
-      this.mapService.changeCanvasCursor(this.cursorStyle);
-    }
   }
 
   ngOnDestroy() {
