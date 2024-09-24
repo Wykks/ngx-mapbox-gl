@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import MapboxGl from 'mapbox-gl';
 import { AsyncSubject, Observable, Subscription } from 'rxjs';
-import { first } from 'rxjs/operators';
 import {
   LayerEvents,
   MapEvent,
@@ -100,32 +99,29 @@ export class MapService {
   }
 
   setup(options: SetupMap) {
-    // Need onStable to wait for a potential @angular/route transition to end
-    this.zone.onStable.pipe(first()).subscribe(() => {
-      // Workaround rollup issue
-      // this.assign(
-      //   MapboxGl,
-      //   'accessToken',
-      //   options.accessToken || this.MAPBOX_API_KEY
-      // );
-      if (options.customMapboxApiUrl) {
-        (MapboxGl.baseApiUrl as string) = options.customMapboxApiUrl;
-      }
-      this.createMap({
-        ...(options.mapOptions as MapboxGl.MapboxOptions),
-        accessToken: options.accessToken || this.MAPBOX_API_KEY || '',
-      });
-      this.hookEvents(options.mapEvents);
-      this.mapEvents = options.mapEvents;
-      this.mapCreated.next(undefined);
-      this.mapCreated.complete();
-      // Intentionnaly emit mapCreate after internal mapCreated event
-      if (options.mapEvents.mapCreate.observed) {
-        this.zone.run(() => {
-          options.mapEvents.mapCreate.emit(this.mapInstance);
-        });
-      }
+    // Workaround rollup issue
+    // this.assign(
+    //   MapboxGl,
+    //   'accessToken',
+    //   options.accessToken || this.MAPBOX_API_KEY
+    // );
+    if (options.customMapboxApiUrl) {
+      (MapboxGl.baseApiUrl as string) = options.customMapboxApiUrl;
+    }
+    this.createMap({
+      ...(options.mapOptions as MapboxGl.MapboxOptions),
+      accessToken: options.accessToken || this.MAPBOX_API_KEY || '',
     });
+    this.hookEvents(options.mapEvents);
+    this.mapEvents = options.mapEvents;
+    this.mapCreated.next(undefined);
+    this.mapCreated.complete();
+    // Intentionnaly emit mapCreate after internal mapCreated event
+    if (options.mapEvents.mapCreate.observed) {
+      this.zone.run(() => {
+        options.mapEvents.mapCreate.emit(this.mapInstance);
+      });
+    }
   }
 
   destroyMap() {
