@@ -1,6 +1,6 @@
 import { SimpleChange } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { BackgroundLayer } from 'mapbox-gl';
+import { BackgroundLayerSpecification } from 'mapbox-gl';
 import { of } from 'rxjs';
 import { MapService, SetupLayer } from '../map/map.service';
 import { mockMapbox } from '../map/mapbox.mock';
@@ -45,7 +45,7 @@ describe('LayerComponent', () => {
       msSpy.addLayer.mockImplementation((options: SetupLayer) => {
         expect(options.layerOptions.id).toEqual(component.id);
         expect(
-          (options.layerOptions as BackgroundLayer).paint!['background-color']
+          (options.layerOptions as BackgroundLayerSpecification).paint!['background-color']
         ).toEqual('green');
       });
       fixture.detectChanges();

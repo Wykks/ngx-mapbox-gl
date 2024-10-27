@@ -55,12 +55,6 @@ npm install ngx-mapbox-gl mapbox-gl
 yarn add ngx-mapbox-gl mapbox-gl
 ```
 
-If using typescript add mapbox-gl types
-
-```
-npm install @types/mapbox-gl --save-dev
-yarn add @types/mapbox-gl --dev
-```
 
 Load the CSS of `mapbox-gl`
 

@@ -8,17 +8,11 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import {
-  AnyLayer,
-  EventData,
-  Layer,
-  MapLayerMouseEvent,
-  MapLayerTouchEvent,
-} from 'mapbox-gl';
+import { Layer, LayerSpecification, MapMouseEvent, MapTouchEvent } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter, mapTo, startWith, switchMap } from 'rxjs/operators';
 import { MapService, SetupLayer } from '../map/map.service';
-import { LayerEvents } from '../map/map.types';
+import { NgxMapboxLayerEvents, EventData } from '../map/map.types';
 import { deprecationWarning } from '../utils';
 
 @Component({
@@ -26,12 +20,12 @@ import { deprecationWarning } from '../utils';
   template: '',
 })
 export class LayerComponent
-  implements OnInit, OnDestroy, OnChanges, Layer, LayerEvents
+  implements OnInit, OnDestroy, OnChanges, Layer, NgxMapboxLayerEvents
 {
   /* Init inputs */
-  @Input() id: AnyLayer['id'];
-  @Input() source?: Layer['source'];
-  @Input() type: AnyLayer['type'];
+  @Input() id: LayerSpecification['id'];
+  @Input() source?: any | Layer['source'];
+  @Input() type: LayerSpecification['type'];
   @Input() metadata?: Layer['metadata'];
   @Input() sourceLayer?: Layer['source-layer'];
 
@@ -43,82 +37,80 @@ export class LayerComponent
   @Input() minzoom?: Layer['minzoom'];
   @Input() maxzoom?: Layer['maxzoom'];
 
-  @Output() layerClick = new EventEmitter<MapLayerMouseEvent & EventData>();
-  @Output() layerDblClick = new EventEmitter<MapLayerMouseEvent & EventData>();
-  @Output() layerMouseDown = new EventEmitter<MapLayerMouseEvent & EventData>();
-  @Output() layerMouseUp = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() layerClick = new EventEmitter<MapMouseEvent & EventData>();
+  @Output() layerDblClick = new EventEmitter<MapMouseEvent & EventData>();
+  @Output() layerMouseDown = new EventEmitter<MapMouseEvent & EventData>();
+  @Output() layerMouseUp = new EventEmitter<MapMouseEvent & EventData>();
   @Output() layerMouseEnter = new EventEmitter<
-    MapLayerMouseEvent & EventData
+    MapMouseEvent
   >();
   @Output() layerMouseLeave = new EventEmitter<
-    MapLayerMouseEvent & EventData
+    MapMouseEvent
   >();
-  @Output() layerMouseMove = new EventEmitter<MapLayerMouseEvent & EventData>();
-  @Output() layerMouseOver = new EventEmitter<MapLayerMouseEvent & EventData>();
-  @Output() layerMouseOut = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() layerMouseMove = new EventEmitter<MapMouseEvent & EventData>();
+  @Output() layerMouseOver = new EventEmitter<MapMouseEvent & EventData>();
+  @Output() layerMouseOut = new EventEmitter<MapMouseEvent & EventData>();
   @Output() layerContextMenu = new EventEmitter<
-    MapLayerMouseEvent & EventData
+    MapMouseEvent
   >();
   @Output() layerTouchStart = new EventEmitter<
-    MapLayerTouchEvent & EventData
+    MapTouchEvent
   >();
-  @Output() layerTouchEnd = new EventEmitter<MapLayerTouchEvent & EventData>();
-  @Output() layerTouchCancel = new EventEmitter<
-    MapLayerTouchEvent & EventData
-  >();
+  @Output() layerTouchEnd = new EventEmitter<MapTouchEvent & EventData>();
+  @Output() layerTouchCancel = new EventEmitter<MapTouchEvent & EventData>();
   /**
    * @deprecated Use layerClick instead
    */
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() click = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() click = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use layerDblClick instead
    */
-  @Output() dblClick = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() dblClick = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use layerMouseDown instead
    */
-  @Output() mouseDown = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() mouseDown = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use layerMouseUp instead
    */
-  @Output() mouseUp = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() mouseUp = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use layerMouseEnter instead
    */
-  @Output() mouseEnter = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() mouseEnter = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use layerMouseLeave instead
    */
-  @Output() mouseLeave = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() mouseLeave = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use layerMouseMove instead
    */
-  @Output() mouseMove = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() mouseMove = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use layerMouseOver instead
    */
-  @Output() mouseOver = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() mouseOver = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use layerMouseOut instead
    */
-  @Output() mouseOut = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() mouseOut = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use layerContextMenu instead
    */
-  @Output() contextMenu = new EventEmitter<MapLayerMouseEvent & EventData>();
+  @Output() contextMenu = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use layerTouchStart instead
    */
-  @Output() touchStart = new EventEmitter<MapLayerTouchEvent & EventData>();
+  @Output() touchStart = new EventEmitter<MapTouchEvent & EventData>();
   /**
    * @deprecated Use layerTouchEnd instead
    */
-  @Output() touchEnd = new EventEmitter<MapLayerTouchEvent & EventData>();
+  @Output() touchEnd = new EventEmitter<MapTouchEvent & EventData>();
   /**
    * @deprecated Use layerTouchCancel instead
    */
-  @Output() touchCancel = new EventEmitter<MapLayerTouchEvent & EventData>();
+  @Output() touchCancel = new EventEmitter<MapTouchEvent & EventData>();
 
   private layerAdded = false;
   private sub: Subscription;

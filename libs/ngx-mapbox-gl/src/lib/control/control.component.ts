@@ -7,7 +7,7 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { IControl } from 'mapbox-gl';
+import { IControl, ControlPosition } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 
 export class CustomControl implements IControl {
@@ -21,7 +21,7 @@ export class CustomControl implements IControl {
     return this.container.parentNode!.removeChild(this.container);
   }
 
-  getDefaultPosition() {
+  getDefaultPosition(): ControlPosition {
     return 'top-right';
   }
 }

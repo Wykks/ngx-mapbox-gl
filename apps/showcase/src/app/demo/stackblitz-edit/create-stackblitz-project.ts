@@ -38,7 +38,6 @@ import 'zone.js';
       url: '*',
       querystring: '*',
       events: '*',
-      '@types/mapbox-gl': '*',
       '@types/supercluster': '*',
       '@types/geojson': '*',
     },
