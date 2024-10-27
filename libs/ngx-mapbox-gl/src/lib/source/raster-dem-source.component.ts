@@ -7,7 +7,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { RasterDemSource } from 'mapbox-gl';
+import { RasterDEMSourceSpecification } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
@@ -18,27 +18,29 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RasterDemSourceComponent
-  implements OnInit, OnDestroy, OnChanges, RasterDemSource
+  implements OnInit, OnDestroy, OnChanges, RasterDEMSourceSpecification
 {
   /* Init inputs */
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() url?: RasterDemSource['url'];
-  @Input() tiles?: RasterDemSource['tiles'];
-  @Input() bounds?: RasterDemSource['bounds'];
-  @Input() minzoom?: RasterDemSource['minzoom'];
-  @Input() maxzoom?: RasterDemSource['maxzoom'];
-  @Input() tileSize?: RasterDemSource['tileSize'];
-  @Input() attribution?: RasterDemSource['attribution'];
-  @Input() encoding?: RasterDemSource['encoding'];
+  @Input() url?: RasterDEMSourceSpecification['url'];
+  @Input() tiles?: RasterDEMSourceSpecification['tiles'];
+  @Input() bounds?: RasterDEMSourceSpecification['bounds'];
+  @Input() minzoom?: RasterDEMSourceSpecification['minzoom'];
+  @Input() maxzoom?: RasterDEMSourceSpecification['maxzoom'];
+  @Input() tileSize?: RasterDEMSourceSpecification['tileSize'];
+  @Input() attribution?: RasterDEMSourceSpecification['attribution'];
+  @Input() encoding?: RasterDEMSourceSpecification['encoding'];
 
-  type: RasterDemSource['type'] = 'raster-dem';
+  type: RasterDEMSourceSpecification['type'] = 'raster-dem';
+  [_: string]: unknown;
 
   private sourceAdded = false;
   private sub = new Subscription();
 
   constructor(private mapService: MapService) {}
+
 
   ngOnInit() {
     const sub1 = this.mapService.mapLoaded$.subscribe(() => {
@@ -81,7 +83,7 @@ export class RasterDemSourceComponent
   }
 
   private init() {
-    const source: RasterDemSource = {
+    const source: RasterDEMSourceSpecification = {
       type: this.type,
       url: this.url,
       tiles: this.tiles,

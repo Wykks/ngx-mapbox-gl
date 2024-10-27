@@ -6,32 +6,34 @@ import {
   NgZone,
   Optional,
 } from '@angular/core';
-import MapboxGl from 'mapbox-gl';
+import * as MapboxGl from 'mapbox-gl';
 import { AsyncSubject, Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import {
-  LayerEvents,
-  MapEvent,
+  NgxMapboxLayerEvents,
+  NgxMapEvent,
   MapImageData,
   MapImageOptions,
 } from './map.types';
+import { LayerSpecification } from 'mapbox-gl';
 
 export const MAPBOX_API_KEY = new InjectionToken('MapboxApiKey');
 
 export interface SetupMap {
   accessToken?: string;
   customMapboxApiUrl?: string;
-  mapOptions: Omit<MapboxGl.MapboxOptions, 'bearing' | 'pitch' | 'zoom'> & {
+  mapOptions: Omit<MapboxGl.MapOptions, 'bearing' | 'pitch' | 'zoom' | 'accessToken'> & {
     bearing?: [number];
     pitch?: [number];
     zoom?: [number];
+    accessToken?: [string];
   };
-  mapEvents: MapEvent;
+  mapEvents: NgxMapEvent;
 }
 
 export interface SetupLayer {
   layerOptions: MapboxGl.Layer;
-  layerEvents: LayerEvents;
+  layerEvents: NgxMapboxLayerEvents;
 }
 
 export interface SetupPopup {
@@ -66,21 +68,14 @@ export interface SetupMarker {
   };
 }
 
-interface MapboxOptionsWithAccessToken extends MapboxGl.MapboxOptions {
-  accessToken: typeof MapboxGl.accessToken;
-}
-
-export type MovingOptions =
-  | MapboxGl.FlyToOptions
-  | (MapboxGl.AnimationOptions & MapboxGl.CameraOptions)
-  | MapboxGl.CameraOptions;
+export type MovingOptions = MapboxGl.EasingOptions
 
 @Injectable()
 export class MapService {
   mapInstance: MapboxGl.Map;
   mapCreated$: Observable<void>;
   mapLoaded$: Observable<void>;
-  mapEvents: MapEvent;
+  mapEvents: NgxMapEvent;
 
   private mapCreated = new AsyncSubject<void>();
   private mapLoaded = new AsyncSubject<void>();
@@ -109,17 +104,17 @@ export class MapService {
       //   options.accessToken || this.MAPBOX_API_KEY
       // );
       if (options.customMapboxApiUrl) {
-        (MapboxGl.baseApiUrl as string) = options.customMapboxApiUrl;
+        MapboxGl.default.baseApiUrl = options.customMapboxApiUrl;
       }
       this.createMap({
-        ...(options.mapOptions as MapboxGl.MapboxOptions),
+        ...(options.mapOptions as MapboxGl.MapOptions),
         accessToken: options.accessToken || this.MAPBOX_API_KEY || '',
       });
       this.hookEvents(options.mapEvents);
       this.mapEvents = options.mapEvents;
       this.mapCreated.next(undefined);
       this.mapCreated.complete();
-      // Intentionnaly emit mapCreate after internal mapCreated event
+      // Intentionally emit mapCreate after internal mapCreated event
       if (options.mapEvents.mapCreate.observed) {
         this.zone.run(() => {
           options.mapEvents.mapCreate.emit(this.mapInstance);
@@ -235,7 +230,7 @@ export class MapService {
     });
   }
 
-  updateStyle(style: MapboxGl.Style) {
+  updateStyle(style: MapboxGl.StyleSpecification) {
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.setStyle(style);
     });
@@ -253,7 +248,7 @@ export class MapService {
   }
 
   queryRenderedFeatures(
-    pointOrBox?: MapboxGl.PointLike | [MapboxGl.PointLike, MapboxGl.PointLike],
+    pointOrBox: MapboxGl.PointLike | [MapboxGl.PointLike, MapboxGl.PointLike],
     parameters?: { layers?: string[]; filter?: any[] }
   ): GeoJSON.Feature<GeoJSON.GeometryObject>[] {
     return this.mapInstance.queryRenderedFeatures(pointOrBox, parameters);
@@ -287,13 +282,13 @@ export class MapService {
   addLayer(layer: SetupLayer, bindEvents: boolean, before?: string) {
     this.zone.runOutsideAngular(() => {
       Object.keys(layer.layerOptions).forEach((key: string) => {
-        const tkey = key as keyof MapboxGl.AnyLayer;
+        const tkey = key as keyof MapboxGl.LayerSpecification;
         if (layer.layerOptions[tkey] === undefined) {
           delete layer.layerOptions[tkey];
         }
       });
       this.mapInstance.addLayer(
-        layer.layerOptions as MapboxGl.AnyLayer,
+        layer.layerOptions as MapboxGl.LayerSpecification,
         before
       );
       if (bindEvents) {
@@ -596,7 +591,7 @@ export class MapService {
   }
 
   addControl(
-    control: MapboxGl.Control | MapboxGl.IControl,
+    control: MapboxGl.IControl,
     position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
   ) {
     return this.zone.runOutsideAngular(() => {
@@ -604,7 +599,7 @@ export class MapService {
     });
   }
 
-  removeControl(control: MapboxGl.Control | MapboxGl.IControl) {
+  removeControl(control: MapboxGl.IControl) {
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.removeControl(control as any);
     });
@@ -640,7 +635,7 @@ export class MapService {
     this.imageIdsToRemove.push(imageId);
   }
 
-  addSource(sourceId: string, source: MapboxGl.AnySourceData) {
+  addSource(sourceId: string, source: MapboxGl.SourceSpecification) {
     return this.zone.runOutsideAngular(() => {
       Object.keys(source).forEach(
         (key) =>
@@ -650,7 +645,7 @@ export class MapService {
     });
   }
 
-  getSource<T extends MapboxGl.AnySourceImpl>(sourceId: string) {
+  getSource<T extends MapboxGl.Source>(sourceId: string) {
     return this.mapInstance.getSource(sourceId) as T;
   }
 
@@ -665,38 +660,24 @@ export class MapService {
 
   setAllLayerPaintProperty(
     layerId: string,
-    paint:
-      | MapboxGl.BackgroundPaint
-      | MapboxGl.FillPaint
-      | MapboxGl.FillExtrusionPaint
-      | MapboxGl.LinePaint
-      | MapboxGl.SymbolPaint
-      | MapboxGl.RasterPaint
-      | MapboxGl.CirclePaint
+    paint: MapboxGl.PaintSpecification
   ) {
     return this.zone.runOutsideAngular(() => {
       Object.keys(paint).forEach((key) => {
         // TODO Check for perf, setPaintProperty only on changed paint props maybe
-        this.mapInstance.setPaintProperty(layerId, key, (paint as any)[key]);
+        this.mapInstance.setPaintProperty(layerId, key as keyof MapboxGl.PaintSpecification, (paint as any)[key]);
       });
     });
   }
 
   setAllLayerLayoutProperty(
     layerId: string,
-    layout:
-      | MapboxGl.BackgroundLayout
-      | MapboxGl.FillLayout
-      | MapboxGl.FillExtrusionLayout
-      | MapboxGl.LineLayout
-      | MapboxGl.SymbolLayout
-      | MapboxGl.RasterLayout
-      | MapboxGl.CircleLayout
+    layout: MapboxGl.LayoutSpecification
   ) {
     return this.zone.runOutsideAngular(() => {
       Object.keys(layout).forEach((key) => {
         // TODO Check for perf, setPaintProperty only on changed paint props maybe
-        this.mapInstance.setLayoutProperty(layerId, key, (layout as any)[key]);
+        this.mapInstance.setLayoutProperty(layerId, key as keyof MapboxGl.LayoutSpecification, (layout as any)[key]);
       });
     });
   }
@@ -755,10 +736,10 @@ export class MapService {
     });
   }
 
-  private createMap(optionsWithAccessToken: MapboxOptionsWithAccessToken) {
+  private createMap(optionsWithAccessToken: MapboxGl.MapOptions) {
     NgZone.assertNotInAngularZone();
     Object.keys(optionsWithAccessToken).forEach((key: string) => {
-      const tkey = key as keyof MapboxGl.MapboxOptions;
+      const tkey = key as keyof MapboxGl.MapOptions;
       if (optionsWithAccessToken[tkey] === undefined) {
         delete optionsWithAccessToken[tkey];
       }
@@ -798,7 +779,7 @@ export class MapService {
   }
 
   private findLayersBySourceId(sourceId: string): MapboxGl.Layer[] {
-    const layers = this.mapInstance.getStyle().layers;
+    const layers = this.mapInstance.getStyle()?.layers;
     if (layers == null) {
       return [];
     }
@@ -808,7 +789,7 @@ export class MapService {
     );
   }
 
-  private hookEvents(events: MapEvent) {
+  private hookEvents(events: NgxMapEvent) {
     this.mapInstance.on('load', (evt) => {
       this.mapLoaded.next(undefined);
       this.mapLoaded.complete();

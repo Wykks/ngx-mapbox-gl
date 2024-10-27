@@ -51,7 +51,7 @@ export class Display3dBuildingsComponent {
   labelLayerId?: string;
 
   onLoad(mapInstance: Map) {
-    const layers = mapInstance.getStyle().layers;
+    const layers = mapInstance.getStyle()?.layers;
     if (!layers) {
       return;
     }

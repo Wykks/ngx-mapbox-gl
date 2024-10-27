@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'showcase-demo',
+  selector: 'custom-style-id',
   template: `
     <mgl-map
       [style]="'mapbox://styles/mapbox/dark-v9'"

@@ -7,10 +7,35 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { CanvasSource, CanvasSourceOptions, CanvasSourceRaw } from 'mapbox-gl';
+import { CanvasSource } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
+
+// TODO: Remove Add CanvasSourceSpecification from mapbox-gl after release 3.8
+type CanvasSourceSpecification = {
+  ["type"]: "canvas";
+  ["coordinates"]: [
+    [
+      number,
+      number
+    ],
+    [
+      number,
+      number
+    ],
+    [
+      number,
+      number
+    ],
+    [
+      number,
+      number
+    ]
+  ];
+  ["animate"]?: boolean;
+  ["canvas"]: string | HTMLCanvasElement;
+}
 
 @Component({
   selector: 'mgl-canvas-source',
@@ -18,15 +43,17 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CanvasSourceComponent
-  implements OnInit, OnDestroy, OnChanges, CanvasSourceOptions
+  implements OnInit, OnDestroy, OnChanges, CanvasSourceSpecification
 {
   /* Init inputs */
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() coordinates: CanvasSourceOptions['coordinates'];
-  @Input() canvas: CanvasSourceOptions['canvas'];
-  @Input() animate?: CanvasSourceOptions['animate'];
+  @Input() coordinates: CanvasSourceSpecification['coordinates'];
+  @Input() canvas: CanvasSourceSpecification['canvas'];
+  @Input() animate?: CanvasSourceSpecification['animate'];
+
+  type: CanvasSourceSpecification['type'] = 'canvas';
 
   private sourceAdded = false;
   private sub = new Subscription();
@@ -77,12 +104,13 @@ export class CanvasSourceComponent
   }
 
   private init() {
-    const source: CanvasSourceRaw = {
+    const source: CanvasSourceSpecification = {
       type: 'canvas',
       coordinates: this.coordinates,
       canvas: this.canvas,
       animate: this.animate,
     };
+    // @ts-ignore TODO: Remove after release 3.8
     this.mapService.addSource(this.id, source);
     this.sourceAdded = true;
   }

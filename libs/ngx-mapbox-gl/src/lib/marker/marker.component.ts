@@ -84,8 +84,8 @@ export class MarkerComponent
     }
     if (changes['popupShown'] && !changes['popupShown'].isFirstChange()) {
       changes['popupShown'].currentValue
-        ? this.markerInstance!.getPopup().addTo(this.mapService.mapInstance)
-        : this.markerInstance!.getPopup().remove();
+        ? this.markerInstance!.getPopup()?.addTo(this.mapService.mapInstance)
+        : this.markerInstance!.getPopup()?.remove();
     }
     if (
       changes['pitchAlignment'] &&

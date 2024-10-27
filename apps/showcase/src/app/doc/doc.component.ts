@@ -57,6 +57,7 @@ export class DocComponent implements OnInit {
   constructor(private markdownService: MarkdownService) {}
 
   ngOnInit() {
+    // @ts-ignore
     this.markdownService.renderer.heading = (text: string, level: number) => {
       if (level !== 1) {
         return `<h${level}>${text}</h${level}>`;

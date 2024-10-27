@@ -7,7 +7,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { RasterSource } from 'mapbox-gl';
+import { RasterSourceSpecification } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
@@ -18,22 +18,23 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RasterSourceComponent
-  implements OnInit, OnDestroy, OnChanges, RasterSource
+  implements OnInit, OnDestroy, OnChanges, RasterSourceSpecification
 {
   /* Init inputs */
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() url?: RasterSource['url'];
-  @Input() tiles?: RasterSource['tiles'];
-  @Input() bounds?: RasterSource['bounds'];
-  @Input() minzoom?: RasterSource['minzoom'];
-  @Input() maxzoom?: RasterSource['maxzoom'];
-  @Input() tileSize?: RasterSource['tileSize'];
-  @Input() scheme?: RasterSource['scheme'];
-  @Input() attribution?: RasterSource['attribution'];
+  @Input() url?: RasterSourceSpecification['url'];
+  @Input() tiles?: RasterSourceSpecification['tiles'];
+  @Input() bounds?: RasterSourceSpecification['bounds'];
+  @Input() minzoom?: RasterSourceSpecification['minzoom'];
+  @Input() maxzoom?: RasterSourceSpecification['maxzoom'];
+  @Input() tileSize?: RasterSourceSpecification['tileSize'];
+  @Input() scheme?: RasterSourceSpecification['scheme'];
+  @Input() attribution?: RasterSourceSpecification['attribution'];
 
-  type: RasterSource['type'] = 'raster';
+  type: RasterSourceSpecification['type'] = 'raster';
+  [_: string]: unknown;
 
   private sourceAdded = false;
   private sub = new Subscription();
@@ -81,7 +82,7 @@ export class RasterSourceComponent
   }
 
   private init() {
-    const source: RasterSource = {
+    const source: RasterSourceSpecification = {
       type: this.type,
       url: this.url,
       tiles: this.tiles,
