@@ -7,10 +7,11 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { VectorSource, VectorSourceImpl } from 'mapbox-gl';
+import { VectorTileSource } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
+import { VectorSource } from '../map/map.types';
 
 @Component({
   selector: 'mgl-vector-source',
@@ -18,8 +19,7 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VectorSourceComponent
-  implements OnInit, OnDestroy, OnChanges, VectorSource
-{
+  implements OnInit, OnDestroy, OnChanges, VectorSource {
   /* Init inputs */
   @Input() id: string;
 
@@ -33,12 +33,12 @@ export class VectorSourceComponent
   @Input() attribution?: VectorSource['attribution'];
   @Input() promoteId?: VectorSource['promoteId'];
 
-  type: VectorSource['type'] = 'vector';
+  readonly type: VectorSource['type'] = 'vector';
 
   private sourceAdded = false;
   private sub = new Subscription();
 
-  constructor(private mapService: MapService) {}
+  constructor(private mapService: MapService) { }
 
   ngOnInit() {
     const sub1 = this.mapService.mapLoaded$.subscribe(() => {
@@ -72,7 +72,7 @@ export class VectorSourceComponent
       (changes['url'] && !changes['url'].isFirstChange()) ||
       (changes['tiles'] && !changes['tiles'].isFirstChange())
     ) {
-      const source = this.mapService.getSource<VectorSourceImpl>(this.id);
+      const source = this.mapService.getSource<VectorTileSource>(this.id);
       if (source === undefined) {
         return;
       }
@@ -106,6 +106,7 @@ export class VectorSourceComponent
       attribution: this.attribution,
       promoteId: this.promoteId,
     };
+
     this.mapService.addSource(this.id, source);
     this.sourceAdded = true;
   }

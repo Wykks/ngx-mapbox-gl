@@ -7,9 +7,10 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { ImageSource, ImageSourceOptions, ImageSourceRaw } from 'mapbox-gl';
+import { ImageSource, ImageSourceSpecification } from 'mapbox-gl';
 import { Subscription } from 'rxjs';
 import { MapService } from '../map/map.service';
+import { ImageSourceOptions } from '../map/map.types';
 
 @Component({
   selector: 'mgl-image-source',
@@ -17,8 +18,7 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImageSourceComponent
-  implements OnInit, OnDestroy, OnChanges, ImageSourceOptions
-{
+  implements OnInit, OnDestroy, OnChanges, ImageSourceOptions {
   /* Init inputs */
   @Input() id: string;
 
@@ -29,7 +29,7 @@ export class ImageSourceComponent
   private sub: Subscription;
   private sourceId?: string;
 
-  constructor(private mapService: MapService) {}
+  constructor(private mapService: MapService) { }
 
   ngOnInit() {
     this.sub = this.mapService.mapLoaded$.subscribe(() => this.init());
@@ -41,14 +41,19 @@ export class ImageSourceComponent
     }
 
     const source = this.mapService.getSource<ImageSource>(this.sourceId);
+
     if (source === undefined) {
       return;
     }
-    source.updateImage({
-      url: changes['url'] === undefined ? undefined : this.url,
-      coordinates:
-        changes['coordinates'] === undefined ? undefined : this.coordinates,
-    });
+
+    const url = ((changes['url'] === undefined ? undefined : this.url) ?? source.url) as string;
+
+    if (url !== null) {
+      source.updateImage({
+        url,
+        coordinates: changes['coordinates'] === undefined ? undefined : this.coordinates,
+      });
+    }
   }
 
   ngOnDestroy() {
@@ -63,11 +68,12 @@ export class ImageSourceComponent
   }
 
   private init() {
-    const imageSource: ImageSourceRaw = {
+    const imageSource: ImageSourceSpecification = {
       type: 'image',
       url: this.url,
       coordinates: this.coordinates,
     };
+
     this.mapService.addSource(this.id, imageSource);
     this.sourceId = this.id;
   }

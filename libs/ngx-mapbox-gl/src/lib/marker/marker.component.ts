@@ -24,8 +24,7 @@ import { deprecationWarning } from '../utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MarkerComponent
-  implements OnChanges, OnDestroy, AfterViewInit, OnInit
-{
+  implements OnChanges, OnDestroy, AfterViewInit, OnInit {
   /* Init input */
   @Input() offset?: MarkerOptions['offset'];
   @Input() anchor?: MarkerOptions['anchor'];
@@ -43,25 +42,12 @@ export class MarkerComponent
   @Output() markerDragStart = new EventEmitter<Marker>();
   @Output() markerDragEnd = new EventEmitter<Marker>();
   @Output() markerDrag = new EventEmitter<Marker>();
-  /**
-   * @deprecated Use markerDragStart instead
-   */
-  @Output() dragStart = new EventEmitter<Marker>();
-  /**
-   * @deprecated Use markerDragEnd instead
-   */
-  @Output() dragEnd = new EventEmitter<Marker>();
-  /**
-   * @deprecated Use markerDrag instead
-   */
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() drag = new EventEmitter<Marker>();
 
   @ViewChild('content', { static: true }) content: ElementRef;
 
   markerInstance?: Marker;
 
-  constructor(private mapService: MapService) {}
+  constructor(private mapService: MapService) { }
 
   ngOnInit() {
     this.warnDeprecatedOutputs();
@@ -82,10 +68,11 @@ export class MarkerComponent
     if (changes['draggable'] && !changes['draggable'].isFirstChange()) {
       this.markerInstance!.setDraggable(!!this.draggable);
     }
+
     if (changes['popupShown'] && !changes['popupShown'].isFirstChange()) {
       changes['popupShown'].currentValue
-        ? this.markerInstance!.getPopup().addTo(this.mapService.mapInstance)
-        : this.markerInstance!.getPopup().remove();
+        ? this.markerInstance?.getPopup()?.addTo(this.mapService.mapInstance)
+        : this.markerInstance?.getPopup()?.remove();
     }
     if (
       changes['pitchAlignment'] &&
@@ -122,10 +109,7 @@ export class MarkerComponent
         markersEvents: {
           markerDragStart: this.markerDragStart,
           markerDrag: this.markerDrag,
-          markerDragEnd: this.markerDragEnd,
-          dragStart: this.markerDragStart,
-          drag: this.markerDrag,
-          dragEnd: this.markerDragEnd,
+          markerDragEnd: this.markerDragEnd
         },
       });
     });

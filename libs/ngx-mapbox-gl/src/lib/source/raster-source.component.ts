@@ -7,10 +7,10 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { RasterSource } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
+import { RasterSource } from '../map/map.types';
 
 @Component({
   selector: 'mgl-raster-source',
@@ -18,8 +18,7 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RasterSourceComponent
-  implements OnInit, OnDestroy, OnChanges, RasterSource
-{
+  implements OnInit, OnDestroy, OnChanges, RasterSource {
   /* Init inputs */
   @Input() id: string;
 
@@ -33,12 +32,12 @@ export class RasterSourceComponent
   @Input() scheme?: RasterSource['scheme'];
   @Input() attribution?: RasterSource['attribution'];
 
-  type: RasterSource['type'] = 'raster';
+  readonly type: RasterSource['type'] = 'raster';
 
   private sourceAdded = false;
   private sub = new Subscription();
 
-  constructor(private mapService: MapService) {}
+  constructor(private mapService: MapService) { }
 
   ngOnInit() {
     const sub1 = this.mapService.mapLoaded$.subscribe(() => {

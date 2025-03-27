@@ -10,12 +10,12 @@ import {
 } from '@angular/core';
 import {
   GeoJSONSource,
-  GeoJSONSourceOptions,
-  GeoJSONSourceRaw,
+  GeoJSONSourceSpecification
 } from 'mapbox-gl';
 import { fromEvent, Subject, Subscription } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
 import { MapService } from '../../map/map.service';
+import { GeoJSONSourceOptions } from '../../map/map.types';
 
 @Component({
   selector: 'mgl-geojson-source',
@@ -23,8 +23,7 @@ import { MapService } from '../../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GeoJSONSourceComponent
-  implements OnInit, OnDestroy, OnChanges, GeoJSONSourceOptions
-{
+  implements OnInit, OnDestroy, OnChanges, GeoJSONSourceOptions {
   /* Init inputs */
   @Input() id: string;
 
@@ -50,7 +49,7 @@ export class GeoJSONSourceComponent
   private sourceAdded = false;
   private featureIdCounter = 0;
 
-  constructor(private mapService: MapService, private zone: NgZone) {}
+  constructor(private mapService: MapService, private zone: NgZone) { }
 
   ngOnInit() {
     if (!this.data) {
@@ -127,7 +126,7 @@ export class GeoJSONSourceComponent
             if (error) {
               reject(error);
             } else {
-              resolve(zoom);
+              resolve(zoom!);
             }
           });
         })
@@ -148,7 +147,7 @@ export class GeoJSONSourceComponent
             if (error) {
               reject(error);
             } else {
-              resolve(features);
+              resolve(features!);
             }
           });
         })
@@ -175,7 +174,7 @@ export class GeoJSONSourceComponent
               if (error) {
                 reject(error);
               } else {
-                resolve(features);
+                resolve(features!);
               }
             }
           );
@@ -205,7 +204,7 @@ export class GeoJSONSourceComponent
   }
 
   private init() {
-    const source: GeoJSONSourceRaw = {
+    const source: GeoJSONSourceSpecification = {
       type: 'geojson',
       data: this.data,
       maxzoom: this.maxzoom,

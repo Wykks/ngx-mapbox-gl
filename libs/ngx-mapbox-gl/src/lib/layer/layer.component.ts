@@ -10,15 +10,16 @@ import {
 } from '@angular/core';
 import {
   AnyLayer,
-  EventData,
   Layer,
   MapLayerMouseEvent,
   MapLayerTouchEvent,
+  MapMouseEvent,
+  MapTouchEvent,
 } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter, mapTo, startWith, switchMap } from 'rxjs/operators';
 import { MapService, SetupLayer } from '../map/map.service';
-import { LayerEvents } from '../map/map.types';
+import { EventData, LayerEvents } from '../map/map.types';
 import { deprecationWarning } from '../utils';
 
 @Component({
@@ -26,8 +27,7 @@ import { deprecationWarning } from '../utils';
   template: '',
 })
 export class LayerComponent
-  implements OnInit, OnDestroy, OnChanges, Layer, LayerEvents
-{
+  implements OnInit, OnDestroy, OnChanges, Layer, LayerEvents {
   /* Init inputs */
   @Input() id: AnyLayer['id'];
   @Input() source?: Layer['source'];
@@ -43,90 +43,26 @@ export class LayerComponent
   @Input() minzoom?: Layer['minzoom'];
   @Input() maxzoom?: Layer['maxzoom'];
 
-  @Output() layerClick = new EventEmitter<MapLayerMouseEvent & EventData>();
-  @Output() layerDblClick = new EventEmitter<MapLayerMouseEvent & EventData>();
-  @Output() layerMouseDown = new EventEmitter<MapLayerMouseEvent & EventData>();
-  @Output() layerMouseUp = new EventEmitter<MapLayerMouseEvent & EventData>();
-  @Output() layerMouseEnter = new EventEmitter<
-    MapLayerMouseEvent & EventData
-  >();
-  @Output() layerMouseLeave = new EventEmitter<
-    MapLayerMouseEvent & EventData
-  >();
-  @Output() layerMouseMove = new EventEmitter<MapLayerMouseEvent & EventData>();
-  @Output() layerMouseOver = new EventEmitter<MapLayerMouseEvent & EventData>();
-  @Output() layerMouseOut = new EventEmitter<MapLayerMouseEvent & EventData>();
-  @Output() layerContextMenu = new EventEmitter<
-    MapLayerMouseEvent & EventData
-  >();
-  @Output() layerTouchStart = new EventEmitter<
-    MapLayerTouchEvent & EventData
-  >();
-  @Output() layerTouchEnd = new EventEmitter<MapLayerTouchEvent & EventData>();
-  @Output() layerTouchCancel = new EventEmitter<
-    MapLayerTouchEvent & EventData
-  >();
-  /**
-   * @deprecated Use layerClick instead
-   */
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() click = new EventEmitter<MapLayerMouseEvent & EventData>();
-  /**
-   * @deprecated Use layerDblClick instead
-   */
-  @Output() dblClick = new EventEmitter<MapLayerMouseEvent & EventData>();
-  /**
-   * @deprecated Use layerMouseDown instead
-   */
-  @Output() mouseDown = new EventEmitter<MapLayerMouseEvent & EventData>();
-  /**
-   * @deprecated Use layerMouseUp instead
-   */
-  @Output() mouseUp = new EventEmitter<MapLayerMouseEvent & EventData>();
-  /**
-   * @deprecated Use layerMouseEnter instead
-   */
-  @Output() mouseEnter = new EventEmitter<MapLayerMouseEvent & EventData>();
-  /**
-   * @deprecated Use layerMouseLeave instead
-   */
-  @Output() mouseLeave = new EventEmitter<MapLayerMouseEvent & EventData>();
-  /**
-   * @deprecated Use layerMouseMove instead
-   */
-  @Output() mouseMove = new EventEmitter<MapLayerMouseEvent & EventData>();
-  /**
-   * @deprecated Use layerMouseOver instead
-   */
-  @Output() mouseOver = new EventEmitter<MapLayerMouseEvent & EventData>();
-  /**
-   * @deprecated Use layerMouseOut instead
-   */
-  @Output() mouseOut = new EventEmitter<MapLayerMouseEvent & EventData>();
-  /**
-   * @deprecated Use layerContextMenu instead
-   */
-  @Output() contextMenu = new EventEmitter<MapLayerMouseEvent & EventData>();
-  /**
-   * @deprecated Use layerTouchStart instead
-   */
-  @Output() touchStart = new EventEmitter<MapLayerTouchEvent & EventData>();
-  /**
-   * @deprecated Use layerTouchEnd instead
-   */
-  @Output() touchEnd = new EventEmitter<MapLayerTouchEvent & EventData>();
-  /**
-   * @deprecated Use layerTouchCancel instead
-   */
-  @Output() touchCancel = new EventEmitter<MapLayerTouchEvent & EventData>();
+  @Output() layerClick = new EventEmitter<MapMouseEvent>();
+  @Output() layerDblClick = new EventEmitter<MapMouseEvent>();
+  @Output() layerMouseDown = new EventEmitter<MapMouseEvent>();
+  @Output() layerMouseUp = new EventEmitter<MapMouseEvent>();
+  @Output() layerMouseEnter = new EventEmitter<MapMouseEvent>();
+  @Output() layerMouseLeave = new EventEmitter<MapMouseEvent>();
+  @Output() layerMouseMove = new EventEmitter<MapMouseEvent>();
+  @Output() layerMouseOver = new EventEmitter<MapMouseEvent>();
+  @Output() layerMouseOut = new EventEmitter<MapMouseEvent>();
+  @Output() layerContextMenu = new EventEmitter<MapMouseEvent>();
+  @Output() layerTouchStart = new EventEmitter<MapTouchEvent>();
+  @Output() layerTouchEnd = new EventEmitter<MapTouchEvent>();
+  @Output() layerTouchCancel = new EventEmitter<MapTouchEvent>();
 
   private layerAdded = false;
   private sub: Subscription;
 
-  constructor(private mapService: MapService) {}
+  constructor(private mapService: MapService) { }
 
   ngOnInit() {
-    this.warnDeprecatedOutputs();
     this.sub = this.mapService.mapLoaded$
       .pipe(
         switchMap(() =>
@@ -206,66 +142,11 @@ export class LayerComponent
         layerContextMenu: this.layerContextMenu,
         layerTouchStart: this.layerTouchStart,
         layerTouchEnd: this.layerTouchEnd,
-        layerTouchCancel: this.layerTouchCancel,
-        click: this.click,
-        dblClick: this.dblClick,
-        mouseDown: this.mouseDown,
-        mouseUp: this.mouseUp,
-        mouseEnter: this.mouseEnter,
-        mouseLeave: this.mouseLeave,
-        mouseMove: this.mouseMove,
-        mouseOver: this.mouseOver,
-        mouseOut: this.mouseOut,
-        contextMenu: this.contextMenu,
-        touchStart: this.touchStart,
-        touchEnd: this.touchEnd,
-        touchCancel: this.touchCancel,
+        layerTouchCancel: this.layerTouchCancel
       },
     };
     this.mapService.addLayer(layer, bindEvents, this.before);
     this.layerAdded = true;
   }
 
-  private warnDeprecatedOutputs() {
-    const dw = deprecationWarning.bind(undefined, LayerComponent.name);
-    if (this.click.observed) {
-      dw('click', 'layerClick');
-    }
-    if (this.dblClick.observed) {
-      dw('dblClick', 'layerDblClick');
-    }
-    if (this.mouseDown.observed) {
-      dw('mouseDown', 'layerMouseDown');
-    }
-    if (this.mouseUp.observed) {
-      dw('mouseUp', 'layerMouseUp');
-    }
-    if (this.mouseEnter.observed) {
-      dw('mouseEnter', 'layerMouseEnter');
-    }
-    if (this.mouseLeave.observed) {
-      dw('mouseLeave', 'layerMouseLeave');
-    }
-    if (this.mouseMove.observed) {
-      dw('mouseMove', 'layerMouseMove');
-    }
-    if (this.mouseOver.observed) {
-      dw('mouseOver', 'layerMouseOver');
-    }
-    if (this.mouseOut.observed) {
-      dw('mouseOut', 'layerMouseOut');
-    }
-    if (this.contextMenu.observed) {
-      dw('contextMenu', 'layerContextMenu');
-    }
-    if (this.touchStart.observed) {
-      dw('touchStart', 'layerTouchStart');
-    }
-    if (this.touchEnd.observed) {
-      dw('touchEnd', 'layerTouchEnd');
-    }
-    if (this.touchCancel.observed) {
-      dw('touchCancel', 'layerTouchCancel');
-    }
-  }
 }

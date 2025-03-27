@@ -7,10 +7,11 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { CanvasSource, CanvasSourceOptions, CanvasSourceRaw } from 'mapbox-gl';
+import { CanvasSource } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
+import { CanvasSourceOptions } from '../map/map.types';
 
 @Component({
   selector: 'mgl-canvas-source',
@@ -18,8 +19,8 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CanvasSourceComponent
-  implements OnInit, OnDestroy, OnChanges, CanvasSourceOptions
-{
+
+  implements OnInit, OnDestroy, OnChanges, CanvasSourceOptions {
   /* Init inputs */
   @Input() id: string;
 
@@ -31,7 +32,9 @@ export class CanvasSourceComponent
   private sourceAdded = false;
   private sub = new Subscription();
 
-  constructor(private mapService: MapService) {}
+  constructor(private mapService: MapService) {
+    throw new Error('mgl-canvas-source is not implemented, as CanvasSource does not appear to be supported by mapbox-gl v3');
+  }
 
   ngOnInit() {
     const sub1 = this.mapService.mapLoaded$.subscribe(() => {
@@ -77,6 +80,7 @@ export class CanvasSourceComponent
   }
 
   private init() {
+    /*
     const source: CanvasSourceRaw = {
       type: 'canvas',
       coordinates: this.coordinates,
@@ -85,5 +89,6 @@ export class CanvasSourceComponent
     };
     this.mapService.addSource(this.id, source);
     this.sourceAdded = true;
+    */
   }
 }

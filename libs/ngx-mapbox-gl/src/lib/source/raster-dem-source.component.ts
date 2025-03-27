@@ -7,10 +7,11 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { RasterDemSource } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
+import { RasterDEMSource, RasterDEMSourceOptions } from '../map/map.types';
+import { RasterDEMSourceSpecification } from 'mapbox-gl';
 
 @Component({
   selector: 'mgl-raster-dem-source',
@@ -18,27 +19,26 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RasterDemSourceComponent
-  implements OnInit, OnDestroy, OnChanges, RasterDemSource
-{
+  implements OnInit, OnDestroy, OnChanges, RasterDEMSource {
   /* Init inputs */
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() url?: RasterDemSource['url'];
-  @Input() tiles?: RasterDemSource['tiles'];
-  @Input() bounds?: RasterDemSource['bounds'];
-  @Input() minzoom?: RasterDemSource['minzoom'];
-  @Input() maxzoom?: RasterDemSource['maxzoom'];
-  @Input() tileSize?: RasterDemSource['tileSize'];
-  @Input() attribution?: RasterDemSource['attribution'];
-  @Input() encoding?: RasterDemSource['encoding'];
+  @Input() url?: RasterDEMSourceOptions['url'];
+  @Input() tiles?: RasterDEMSourceOptions['tiles'];
+  @Input() bounds?: RasterDEMSourceOptions['bounds'];
+  @Input() minzoom?: RasterDEMSourceOptions['minzoom'];
+  @Input() maxzoom?: RasterDEMSourceOptions['maxzoom'];
+  @Input() tileSize?: RasterDEMSourceOptions['tileSize'];
+  @Input() attribution?: RasterDEMSourceOptions['attribution'];
+  @Input() encoding?: RasterDEMSourceOptions['encoding'];
 
-  type: RasterDemSource['type'] = 'raster-dem';
+  readonly type: RasterDEMSource['type'] = 'raster-dem';
 
   private sourceAdded = false;
   private sub = new Subscription();
 
-  constructor(private mapService: MapService) {}
+  constructor(private mapService: MapService) { }
 
   ngOnInit() {
     const sub1 = this.mapService.mapLoaded$.subscribe(() => {
@@ -74,6 +74,7 @@ export class RasterDemSourceComponent
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+
     if (this.sourceAdded) {
       this.mapService.removeSource(this.id);
       this.sourceAdded = false;
@@ -81,8 +82,8 @@ export class RasterDemSourceComponent
   }
 
   private init() {
-    const source: RasterDemSource = {
-      type: this.type,
+    const source: RasterDEMSourceSpecification = {
+      type: 'raster-dem',
       url: this.url,
       tiles: this.tiles,
       bounds: this.bounds,
@@ -92,6 +93,7 @@ export class RasterDemSourceComponent
       attribution: this.attribution,
       encoding: this.encoding,
     };
+
     this.mapService.addSource(this.id, source);
     this.sourceAdded = true;
   }

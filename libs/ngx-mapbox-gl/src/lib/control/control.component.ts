@@ -7,11 +7,12 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { IControl } from 'mapbox-gl';
+import { ControlPosition, IControl } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 
 export class CustomControl implements IControl {
-  constructor(private container: HTMLElement) {}
+
+  constructor(private container: HTMLElement) { }
 
   onAdd() {
     return this.container;
@@ -21,7 +22,7 @@ export class CustomControl implements IControl {
     return this.container.parentNode!.removeChild(this.container);
   }
 
-  getDefaultPosition() {
+  getDefaultPosition(): ControlPosition {
     return 'top-right';
   }
 }
@@ -33,10 +34,9 @@ export class CustomControl implements IControl {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ControlComponent<T extends IControl>
-  implements OnDestroy, AfterContentInit
-{
+  implements OnDestroy, AfterContentInit {
   /* Init inputs */
-  @Input() position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  @Input() position?: ControlPosition;
 
   @ViewChild('content', { static: true }) content: ElementRef;
 
@@ -44,7 +44,7 @@ export class ControlComponent<T extends IControl>
 
   private controlAdded = false;
 
-  constructor(private mapService: MapService) {}
+  constructor(private mapService: MapService) { }
 
   ngAfterContentInit() {
     if (this.content.nativeElement.childNodes.length) {
