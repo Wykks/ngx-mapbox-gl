@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/ngx-mapbox-gl"],
       "options": {
-        "project": "libs/ngx-mapbox-gl/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/ngx-mapbox-gl/ng-package.json"
       },
       "configurations": {
         "production": {
