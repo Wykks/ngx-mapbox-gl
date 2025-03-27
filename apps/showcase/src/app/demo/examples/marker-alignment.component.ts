@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
       [interactive]="false"
       movingMethod="jumpTo"
       [style]="'mapbox://styles/mapbox/streets-v9'"
-      [pitch]="[pitch]"
-      [bearing]="[bearing]"
-      [zoom]="[17]"
+      [pitch]="pitch"
+      [bearing]="bearing"
+      [zoom]="7"
       [center]="[4.577979, 51.038189]"
     >
       <mgl-marker

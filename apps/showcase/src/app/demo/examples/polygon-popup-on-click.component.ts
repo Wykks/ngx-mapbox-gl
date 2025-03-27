@@ -7,7 +7,7 @@ import { LngLat, MapLayerMouseEvent } from 'mapbox-gl';
   template: `
     <mgl-map
       [style]="'mapbox://styles/mapbox/streets-v9'"
-      [zoom]="[3]"
+      [zoom]="3"
       [center]="[-100.04, 38.907]"
       [cursorStyle]="cursorStyle"
     >

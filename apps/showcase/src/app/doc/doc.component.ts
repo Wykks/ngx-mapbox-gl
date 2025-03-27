@@ -54,13 +54,15 @@ export class DocComponent implements OnInit {
   currentVersion = 'main';
   docUrl: string;
 
-  constructor(private markdownService: MarkdownService) {}
+  constructor(private markdownService: MarkdownService) { }
 
   ngOnInit() {
-    this.markdownService.renderer.heading = (text: string, level: number) => {
+    this.markdownService.renderer.heading = ({ text, tokens, depth: level }) => {
+
       if (level !== 1) {
         return `<h${level}>${text}</h${level}>`;
       }
+
       const escapedText = text
         .toLowerCase()
         .match(/^(.*?[^<]+).*$/)?.[1]
@@ -68,6 +70,7 @@ export class DocComponent implements OnInit {
         .replace(/[^\w]+/g, '-');
       return `<h${level} id="${escapedText}"><a href="doc#${escapedText}" class="anchor"><span class="material-icons">link</span></a>${text}</h${level}>`;
     };
+
     this.updateDocUrl();
   }
 

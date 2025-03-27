@@ -27,11 +27,12 @@ import { deprecationWarning } from '../utils';
   template: '',
 })
 export class LayerComponent
-  implements OnInit, OnDestroy, OnChanges, Layer, LayerEvents {
+  implements OnInit, OnDestroy, OnChanges, Omit<Layer, 'source'>, LayerEvents {
+
   /* Init inputs */
-  @Input() id: AnyLayer['id'];
-  @Input() source?: Layer['source'];
-  @Input() type: AnyLayer['type'];
+  @Input() id: Layer['id'];
+  @Input() source?: object | Layer['source'];
+  @Input() type: Layer['type'];
   @Input() metadata?: Layer['metadata'];
   @Input() sourceLayer?: Layer['source-layer'];
 
@@ -116,11 +117,14 @@ export class LayerComponent
   }
 
   private init(bindEvents: boolean) {
+
+    const source = typeof this.source === 'object' ? JSON.stringify(this.source) : this.source;
+
     const layer: SetupLayer = {
       layerOptions: {
         id: this.id,
         type: this.type as any,
-        source: this.source,
+        source,
         metadata: this.metadata,
         'source-layer': this.sourceLayer,
         minzoom: this.minzoom,
@@ -145,6 +149,7 @@ export class LayerComponent
         layerTouchCancel: this.layerTouchCancel
       },
     };
+    
     this.mapService.addLayer(layer, bindEvents, this.before);
     this.layerAdded = true;
   }

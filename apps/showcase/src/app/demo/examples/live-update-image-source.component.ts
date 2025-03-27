@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ImageSourceSpecification } from 'mapbox-gl';
 import { interval, Subscription } from 'rxjs';
 
 @Component({
@@ -7,7 +8,7 @@ import { interval, Subscription } from 'rxjs';
     <mgl-map
       [style]="'mapbox://styles/mapbox/satellite-v9'"
       [center]="center"
-      [zoom]="[14]"
+      [zoom]="14"
       movingMethod="jumpTo"
     >
       <mgl-image-source
@@ -34,7 +35,7 @@ export class LiveUpdateImageSourceComponent implements OnInit, OnDestroy {
   center: [number, number];
 
   url = 'assets/red.png';
-  coordinates: number[][];
+  coordinates: ImageSourceSpecification['coordinates'];
 
   async ngOnInit() {
     const data: GeoJSON.FeatureCollection<GeoJSON.LineString> = (await import(
@@ -44,13 +45,13 @@ export class LiveUpdateImageSourceComponent implements OnInit, OnDestroy {
     const coordinates = points.map((c) => this.makeRectangle(c));
 
     this.center = points[0] as [number, number];
-    this.coordinates = coordinates[0];
+    this.coordinates = coordinates[0] as ImageSourceSpecification['coordinates'];
 
     let i = 0;
 
     this.sub = interval(250).subscribe(() => {
       this.url = Math.random() < 0.5 ? 'assets/red.png' : 'assets/blue.png';
-      this.coordinates = coordinates[i];
+      this.coordinates = coordinates[i] as ImageSourceSpecification['coordinates'];
       i = (i + 1) % coordinates.length;
     });
   }

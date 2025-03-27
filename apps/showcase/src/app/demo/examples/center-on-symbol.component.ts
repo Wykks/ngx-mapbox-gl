@@ -6,7 +6,7 @@ import { MapMouseEvent } from 'mapbox-gl';
   template: `
     <mgl-map
       [style]="'mapbox://styles/mapbox/light-v9'"
-      [zoom]="[8]"
+      [zoom]="8"
       [center]="center"
       [cursorStyle]="cursorStyle"
     >

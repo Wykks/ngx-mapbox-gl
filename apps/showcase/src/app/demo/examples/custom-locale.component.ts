@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     <mgl-map
       [style]="'mapbox://styles/mapbox/light-v9'"
       [center]="[36.235656, 50.00387]"
-      [zoom]="[11.15]"
+      [zoom]="11.15"
       [locale]="locale"
     >
       <mgl-control mglFullscreen position="top-left"></mgl-control>

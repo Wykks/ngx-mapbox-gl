@@ -10,7 +10,7 @@ import { scan, Subscription, takeWhile, timer } from 'rxjs';
       [zoom]="zoom"
       [center]="center"
       [centerWithPanTo]="true"
-      [pitch]="[pitch]"
+      [pitch]="pitch"
       (mapLoad)="animate()"
       movingMethod="jumpTo"
     >
@@ -35,7 +35,7 @@ import { scan, Subscription, takeWhile, timer } from 'rxjs';
 export class LiveUpdateFeatureComponent implements OnInit, OnDestroy {
   data: GeoJSON.FeatureCollection<GeoJSON.LineString>;
   center: LngLatLike;
-  zoom: [number] = [0];
+  zoom: number = 0;
   pitch: number;
 
   private sub?: Subscription;
@@ -49,7 +49,7 @@ export class LiveUpdateFeatureComponent implements OnInit, OnDestroy {
     data.features[0].geometry.coordinates = [this.originalCoordinates[0]];
     this.data = data;
     this.center = this.originalCoordinates[0] as [number, number];
-    this.zoom = [14];
+    this.zoom = 14;
     this.pitch = 30;
   }
 

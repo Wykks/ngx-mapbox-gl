@@ -6,7 +6,7 @@ import { LngLatBounds } from 'mapbox-gl';
   template: `
     <mgl-map
       [style]="'mapbox://styles/mapbox/light-v9'"
-      [zoom]="[12]"
+      [zoom]="12"
       [center]="[-77.0214, 38.897]"
       [fitBounds]="bounds"
       [fitBoundsOptions]="{

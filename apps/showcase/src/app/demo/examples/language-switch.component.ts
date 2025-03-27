@@ -6,7 +6,7 @@ import { Map } from 'mapbox-gl';
   template: `
     <mgl-map
       [style]="'mapbox://styles/mapbox/light-v9'"
-      [zoom]="[2.9]"
+      [zoom]="2.9"
       [center]="[16.05, 48]"
       (mapCreate)="map = $event"
     >

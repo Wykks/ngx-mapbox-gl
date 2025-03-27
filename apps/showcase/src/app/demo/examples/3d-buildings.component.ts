@@ -6,10 +6,10 @@ import { AnyLayer, Map } from 'mapbox-gl';
   template: `
     <mgl-map
       [style]="'mapbox://styles/mapbox/light-v9'"
-      [zoom]="[15.5]"
+      [zoom]="15.5"
       [center]="[-74.0066, 40.7135]"
-      [pitch]="[45]"
-      [bearing]="[-17.6]"
+      [pitch]="45"
+      [bearing]="-17.6"
       (mapLoad)="onLoad($event.target)"
     >
       <mgl-layer
@@ -51,10 +51,12 @@ export class Display3dBuildingsComponent {
   labelLayerId?: string;
 
   onLoad(mapInstance: Map) {
-    const layers = mapInstance.getStyle().layers;
+    const layers = mapInstance.getStyle()?.layers;
+
     if (!layers) {
       return;
     }
+    
     this.labelLayerId = this.getLabelLayerId(layers);
   }
 

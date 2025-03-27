@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   template: `
     <mgl-map
       [style]="'mapbox://styles/mapbox/streets-v9'"
-      [zoom]="[5]"
+      [zoom]="5"
       [center]="[-65.017, -16.457]"
     >
       <mgl-marker [lngLat]="[-66.324462890625, -16.024695711685304]">

@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   template: `
     <mgl-map
       [style]="'mapbox://styles/mapbox/streets-v9'"
-      [zoom]="[15]"
+      [zoom]="15"
       [center]="[-122.486052, 37.830348]"
     >
       <mgl-geojson-source id="oneline">

@@ -6,7 +6,7 @@ import { AnyLayout } from 'mapbox-gl';
   template: `
     <mgl-map
       [style]="'mapbox://styles/mapbox/streets-v9'"
-      [zoom]="[15]"
+      [zoom]="15"
       [center]="[-71.97722138410576, -13.517379300798098]"
     >
       <mgl-vector-source id="museums" url="mapbox://mapbox.2opop9hr">

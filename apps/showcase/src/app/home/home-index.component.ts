@@ -5,7 +5,7 @@ import { AnimationOptions } from 'mapbox-gl';
   template: `
     <mgl-map
       [style]="'mapbox://styles/mapbox/streets-v9'"
-      [zoom]="[2]"
+      [zoom]="2"
       [center]="center"
       [centerWithPanTo]="true"
       [panToOptions]="panToOptions"

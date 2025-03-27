@@ -17,7 +17,7 @@ const COLORS = ['#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c'];
   template: `
     <mgl-map
       [style]="'mapbox://styles/mapbox/light-v10'"
-      [zoom]="[0.3]"
+      [zoom]="0.3"
       [center]="[0, 20]"
     >
       <mgl-geojson-source
