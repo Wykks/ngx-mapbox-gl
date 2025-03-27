@@ -280,10 +280,12 @@ export class MapService {
           delete layer.layerOptions[tkey];
         }
       });
+
       this.mapInstance.addLayer(
-        layer.layerOptions as AnyLayer,
+        layer.layerOptions,
         before
       );
+
       if (bindEvents) {
         if (layer.layerEvents.layerClick.observed) {
           this.mapInstance.on('click', layer.layerOptions.id, (evt) => {

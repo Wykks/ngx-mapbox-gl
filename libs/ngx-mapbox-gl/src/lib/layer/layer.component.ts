@@ -9,18 +9,15 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {
-  AnyLayer,
   Layer,
-  MapLayerMouseEvent,
-  MapLayerTouchEvent,
   MapMouseEvent,
   MapTouchEvent,
+  SourceSpecification,
 } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter, mapTo, startWith, switchMap } from 'rxjs/operators';
 import { MapService, SetupLayer } from '../map/map.service';
-import { EventData, LayerEvents } from '../map/map.types';
-import { deprecationWarning } from '../utils';
+import { LayerEvents } from '../map/map.types';
 
 @Component({
   selector: 'mgl-layer',
@@ -31,7 +28,7 @@ export class LayerComponent
 
   /* Init inputs */
   @Input() id: Layer['id'];
-  @Input() source?: object | Layer['source'];
+  @Input() source?: SourceSpecification | Layer['source'];
   @Input() type: Layer['type'];
   @Input() metadata?: Layer['metadata'];
   @Input() sourceLayer?: Layer['source-layer'];
@@ -110,15 +107,33 @@ export class LayerComponent
   ngOnDestroy() {
     if (this.layerAdded) {
       this.mapService.removeLayer(this.id);
+
+      const inlineLayerSourceId = `${this.id}___source___`;
+      const inlineLayerSource = this.mapService.getSource(inlineLayerSourceId);
+
+      if (inlineLayerSource) {
+        this.mapService.removeSource(inlineLayerSourceId);
+      }
     }
     if (this.sub) {
       this.sub.unsubscribe();
     }
   }
 
-  private init(bindEvents: boolean) {
+  get inlineLayerSourceId() {
+    return `${this.id}___source___`;
+  }
 
-    const source = typeof this.source === 'object' ? JSON.stringify(this.source) : this.source;
+  private init(bindEvents: boolean) {
+    let source: Layer['source'];
+
+    if (typeof this.source === 'object') {
+      const tempSourceId = `${this.id}___source___`;
+      this.mapService.addSource(tempSourceId, this.source);
+      source = tempSourceId;
+    } else {
+      source = this.source!;
+    }
 
     const layer: SetupLayer = {
       layerOptions: {
@@ -149,7 +164,7 @@ export class LayerComponent
         layerTouchCancel: this.layerTouchCancel
       },
     };
-    
+
     this.mapService.addLayer(layer, bindEvents, this.before);
     this.layerAdded = true;
   }
