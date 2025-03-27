@@ -49,3 +49,6 @@ Thumbs.db
 !.yarn/versions
 
 .angular
+
+.nx/cache
+.nx
