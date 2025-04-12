@@ -15,10 +15,14 @@ import { fromEvent, merge, Subscription } from 'rxjs';
 import { filter, startWith, switchMap } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
 
-@Directive({ selector: 'ng-template[mglPoint]' })
+@Directive({
+  selector: 'ng-template[mglPoint]',
+})
 export class PointDirective {}
 
-@Directive({ selector: 'ng-template[mglClusterPoint]' })
+@Directive({
+  selector: 'ng-template[mglClusterPoint]',
+})
 export class ClusterPointDirective {}
 
 let uniqId = 0;

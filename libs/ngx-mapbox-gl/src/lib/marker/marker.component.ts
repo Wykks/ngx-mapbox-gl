@@ -19,7 +19,8 @@ import { deprecationWarning } from '../utils';
 
 @Component({
   selector: 'mgl-marker',
-  template: '<div [class]="className" [style.z-index]="zIndex" #content><ng-content></ng-content></div>',
+  template:
+    '<div [class]="className" [style.z-index]="zIndex" #content><ng-content></ng-content></div>',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
