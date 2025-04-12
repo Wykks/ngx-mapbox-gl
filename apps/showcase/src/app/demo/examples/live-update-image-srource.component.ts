@@ -1,5 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import {
+  MapComponent,
+  ImageSourceComponent,
+  LayerComponent,
+} from 'ngx-mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -14,18 +20,22 @@ import { interval, Subscription } from 'rxjs';
         id="test_source"
         [url]="url"
         [coordinates]="coordinates"
-      >
-      </mgl-image-source>
+      />
 
       <mgl-layer
         id="test_layer"
         source="test_source"
         type="raster"
         [paint]="{ 'raster-fade-duration': 0 }"
-      >
-      </mgl-layer>
+      />
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    ImageSourceComponent,
+    LayerComponent,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class LiveUpdateImageSourceComponent implements OnInit, OnDestroy {

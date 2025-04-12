@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
+import { NgIf } from '@angular/common';
 import { MapLayerMouseEvent } from 'mapbox-gl';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import {
+  MapComponent,
+  GeoJSONSourceComponent,
+  LayerComponent,
+  PopupComponent,
+} from 'ngx-mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -10,7 +18,7 @@ import { MapLayerMouseEvent } from 'mapbox-gl';
       [center]="[-77.04, 38.907]"
       [cursorStyle]="cursorStyle"
     >
-      <mgl-geojson-source id="points" [data]="points"></mgl-geojson-source>
+      <mgl-geojson-source id="points" [data]="points" />
       <mgl-layer
         id="points"
         source="points"
@@ -22,12 +30,20 @@ import { MapLayerMouseEvent } from 'mapbox-gl';
         (layerClick)="onClick($event)"
         (layerMouseEnter)="cursorStyle = 'pointer'"
         (layerMouseLeave)="cursorStyle = ''"
-      ></mgl-layer>
+      />
       <mgl-popup *ngIf="selectedPoint" [feature]="selectedPoint">
         <span [innerHTML]="selectedPoint.properties?.['description']"></span>
       </mgl-popup>
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    GeoJSONSourceComponent,
+    LayerComponent,
+    PopupComponent,
+    NgIf,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class PopupOnClickComponent {
@@ -122,7 +138,7 @@ export class PopupOnClickComponent {
           properties: {
             description:
               // eslint-disable-next-line max-len
-              '<strong>Muhsinah</strong><p>Jazz-influenced hip hop artist <a href="http://www.muhsinah.com" target="_blank" title="Opens in a new window">Muhsinah</a> plays the <a href="http://www.blackcatdc.com">Black Cat</a> (1811 14th Street NW) tonight with <a href="http://www.exitclov.com" target="_blank" title="Opens in a new window">Exit Clov</a> and <a href="http://godsilla.bandcamp.com" target="_blank" title="Opens in a new window">Gods’illa</a>. 9:00 p.m. $12.</p>',
+              '<strong>Muhsinah</strong><p>Jazz-influenced hip hop artist <a href="http://www.muhsinah.com" target="_blank" title="Opens in a new window">Muhsinah</a> plays the <a href="http://www.blackcatdc.com">Black Cat</a> (1811 14th Street NW) tonight with <a href="http://www.exitclov.com" target="_blank" title="Opens in a new window">Exit Clov</a> and <a href="http://godsilla.bandcamp.com" target="_blank" title="Opens in a new window">Gods\'illa</a>. 9:00 p.m. $12.</p>',
             icon: 'music',
           },
           geometry: {

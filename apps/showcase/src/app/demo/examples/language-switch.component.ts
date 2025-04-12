@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Map } from 'mapbox-gl';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MapComponent, ControlComponent } from 'ngx-mapbox-gl';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'showcase-demo',
@@ -42,6 +45,12 @@ import { Map } from 'mapbox-gl';
       </mgl-control>
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    ControlComponent,
+    MatButtonModule,
+  ],
   styleUrls: ['./examples.css'],
   preserveWhitespaces: false,
 })

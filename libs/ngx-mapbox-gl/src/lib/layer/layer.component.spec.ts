@@ -21,8 +21,8 @@ describe('LayerComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [LayerComponent],
-    })
+    imports: [LayerComponent],
+})
       .overrideComponent(LayerComponent, {
         set: {
           providers: [{ provide: MapService, useClass: MapServiceSpy }],

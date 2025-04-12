@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { NgIf, NgForOf } from '@angular/common';
 import { Layer } from 'mapbox-gl';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import {
+  MapComponent,
+  GeoJSONSourceComponent,
+  LayerComponent,
+} from 'ngx-mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -16,7 +23,7 @@ import { Layer } from 'mapbox-gl';
           [cluster]="true"
           [clusterMaxZoom]="15"
           [clusterRadius]="20"
-        ></mgl-geojson-source>
+        />
         <mgl-layer
           *ngFor="let layer of clusterLayers"
           [id]="layer.id"
@@ -25,7 +32,7 @@ import { Layer } from 'mapbox-gl';
           [filter]="layer.filter"
           [paint]="layer.paint"
           before="waterway-label"
-        ></mgl-layer>
+        />
         <mgl-layer
           id="unclustered-point"
           type="circle"
@@ -37,10 +44,18 @@ import { Layer } from 'mapbox-gl';
             'circle-blur': 1
           }"
           before="waterway-label"
-        ></mgl-layer>
+        />
       </ng-container>
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    GeoJSONSourceComponent,
+    LayerComponent,
+    NgIf,
+    NgForOf,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class HeatMapComponent implements OnInit {

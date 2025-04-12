@@ -15,7 +15,12 @@
         "main": "apps/showcase/src/main.ts",
         "polyfills": "apps/showcase/src/polyfills.ts",
         "tsConfig": "apps/showcase/tsconfig.app.json",
-        "assets": ["apps/showcase/src/favicon.ico", "apps/showcase/src/assets"],
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/showcase/public"
+          }
+        ],
         "styles": [
           "apps/showcase/src/styles.css",
           "prismjs/themes/prism-okaidia.css"

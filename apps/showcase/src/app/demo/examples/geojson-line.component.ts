@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MapComponent, LayerComponent } from 'ngx-mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -52,10 +54,10 @@ import { Component } from '@angular/core';
           'line-color': '#888',
           'line-width': 8
         }"
-      >
-      </mgl-layer>
+      />
     </mgl-map>
   `,
+  imports: [MapComponent, MglMapResizeDirective, LayerComponent],
   styleUrls: ['./examples.css'],
 })
 export class GeoJSONLineComponent {}

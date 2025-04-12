@@ -1,4 +1,11 @@
 import { Component } from '@angular/core';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import {
+  MapComponent,
+  GeoJSONSourceComponent,
+  FeatureComponent,
+  LayerComponent,
+} from 'ngx-mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -9,7 +16,7 @@ import { Component } from '@angular/core';
       [center]="[-122.486052, 37.830348]"
     >
       <mgl-geojson-source id="oneline">
-        <mgl-feature [geometry]="geometry"> </mgl-feature>
+        <mgl-feature [geometry]="geometry" />
       </mgl-geojson-source>
       <mgl-layer
         id="route"
@@ -23,10 +30,16 @@ import { Component } from '@angular/core';
           'line-color': '#888',
           'line-width': 8
         }"
-      >
-      </mgl-layer>
+      />
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    GeoJSONSourceComponent,
+    FeatureComponent,
+    LayerComponent,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class NgxGeoJSONLineComponent {

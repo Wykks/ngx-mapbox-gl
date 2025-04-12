@@ -1,5 +1,15 @@
 import { Component } from '@angular/core';
 import { MapMouseEvent } from 'mapbox-gl';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import {
+  MapComponent,
+  GeoJSONSourceComponent,
+  FeatureComponent,
+  LayerComponent,
+  ControlComponent,
+  DraggableDirective,
+} from 'ngx-mapbox-gl';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'showcase-demo',
@@ -20,7 +30,7 @@ import { MapMouseEvent } from 'mapbox-gl';
           (featureDragStart)="onDragStart($event)"
           (featureDragEnd)="onDragEnd($event)"
           (featureDrag)="onDrag($event)"
-        ></mgl-feature>
+        />
       </mgl-geojson-source>
       <mgl-layer
         #targetLayer
@@ -30,7 +40,7 @@ import { MapMouseEvent } from 'mapbox-gl';
         [paint]="layerPaint"
         (layerMouseEnter)="changeColor('#3bb2d0')"
         (layerMouseLeave)="changeColor('#3887be')"
-      ></mgl-layer>
+      />
       <mgl-control position="bottom-left">
         <mat-card>
           <div>Longitude:&nbsp;{{ coordinates[0] }}</div>
@@ -39,6 +49,16 @@ import { MapMouseEvent } from 'mapbox-gl';
       </mgl-control>
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    GeoJSONSourceComponent,
+    FeatureComponent,
+    LayerComponent,
+    ControlComponent,
+    DraggableDirective,
+    MatCardModule,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class NgxDragAPointComponent {

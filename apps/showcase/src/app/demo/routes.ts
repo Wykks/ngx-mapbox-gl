@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Router, Routes, type ActivatedRouteSnapshot } from '@angular/router';
 import { DemoIndexComponent } from './demo-index.component';
 import { Display3dBuildingsComponent } from './examples/3d-buildings.component';
 import { AddImageGeneratedComponent } from './examples/add-image-generated.component';
@@ -40,8 +40,8 @@ import { SetPopupComponent } from './examples/set-popup.component';
 import { SetStyleComponent } from './examples/set-style.component';
 import { ToggleLayersComponent } from './examples/toggle-layers.component';
 import { ZoomtoLinestringComponent } from './examples/zoomto-linestring.component';
-import { StackblitzEditGuard } from './stackblitz-edit/stackblitz-edit-guard.service';
 import { StackblitzEditComponent } from './stackblitz-edit/stackblitz-edit.component';
+import { inject } from '@angular/core';
 
 export enum Category {
   STYLES = 'Styles',
@@ -61,7 +61,18 @@ export const DEMO_ROUTES: Routes = [
       {
         path: 'edit/:demoUrl',
         component: StackblitzEditComponent,
-        canActivate: [StackblitzEditGuard],
+        canActivate: [
+          (route: ActivatedRouteSnapshot) => {
+            if (
+              DEMO_ROUTES[0].children?.some(
+                (r) => r.path === route.params['demoUrl']
+              )
+            ) {
+              return true;
+            }
+            return inject(Router).createUrlTree(['/demo']);
+          },
+        ],
       },
       {
         path: 'display-map',

@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
+import { NgForOf } from '@angular/common';
 import { MapMouseEvent } from 'mapbox-gl';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import {
+  MapComponent,
+  GeoJSONSourceComponent,
+  FeatureComponent,
+  LayerComponent,
+} from 'ngx-mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -14,7 +22,7 @@ import { MapMouseEvent } from 'mapbox-gl';
         <mgl-feature
           *ngFor="let geometry of geometries"
           [geometry]="geometry"
-        ></mgl-feature>
+        />
       </mgl-geojson-source>
       <mgl-layer
         id="symbols"
@@ -26,10 +34,17 @@ import { MapMouseEvent } from 'mapbox-gl';
         (layerClick)="centerMapTo($event)"
         (layerMouseEnter)="cursorStyle = 'pointer'"
         (layerMouseLeave)="cursorStyle = ''"
-      >
-      </mgl-layer>
+      />
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    GeoJSONSourceComponent,
+    FeatureComponent,
+    LayerComponent,
+    NgForOf,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class CenterOnSymbolComponent {

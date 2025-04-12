@@ -2,6 +2,7 @@
  * Public API Surface of ngx-mapbox-gl
  */
 
+export * from './lib/provide-mapbox-gl';
 // Expose NgxMapboxGlModule and GeocoderControlDirective provided injection tokens
 export * from './lib/control/attribution-control.directive';
 // Expose control component to allow custom directives
@@ -19,7 +20,6 @@ export * from './lib/map/map.service';
 export * from './lib/map/map.types';
 export * from './lib/marker/marker.component';
 export * from './lib/markers-for-clusters/markers-for-clusters.component';
-export * from './lib/ngx-mapbox-gl.module';
 export * from './lib/popup/popup.component';
 export * from './lib/source/canvas-source.component';
 export * from './lib/source/geojson/feature.component';
@@ -30,5 +30,3 @@ export * from './lib/source/raster-dem-source.component';
 export * from './lib/source/raster-source.component';
 export * from './lib/source/vector-source.component';
 export * from './lib/source/video-source.component';
-// Expose deprecation warning
-export * from './lib/utils';

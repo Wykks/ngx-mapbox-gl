@@ -19,7 +19,7 @@ import { deprecationWarning } from '../utils';
 
 @Component({
   selector: 'mgl-popup',
-  template: '<div #content><ng-content></ng-content></div>',
+  template: '<div #content><ng-content/></div>',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PopupComponent

@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
 import { AnyLayout } from 'mapbox-gl';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import {
+  MapComponent,
+  VectorSourceComponent,
+  LayerComponent,
+} from 'ngx-mapbox-gl';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'showcase-demo',
@@ -9,10 +16,8 @@ import { AnyLayout } from 'mapbox-gl';
       [zoom]="[15]"
       [center]="[-71.97722138410576, -13.517379300798098]"
     >
-      <mgl-vector-source id="museums" url="mapbox://mapbox.2opop9hr">
-      </mgl-vector-source>
-      <mgl-vector-source id="contours" url="mapbox://mapbox.mapbox-terrain-v2">
-      </mgl-vector-source>
+      <mgl-vector-source id="museums" url="mapbox://mapbox.2opop9hr" />
+      <mgl-vector-source id="contours" url="mapbox://mapbox.mapbox-terrain-v2" />
       <mgl-layer
         id="museums"
         type="circle"
@@ -23,8 +28,7 @@ import { AnyLayout } from 'mapbox-gl';
           'circle-color': 'rgba(55,148,179,1)'
         }"
         sourceLayer="museum-cusco"
-      >
-      </mgl-layer>
+      />
       <mgl-layer
         id="contours"
         type="line"
@@ -35,8 +39,7 @@ import { AnyLayout } from 'mapbox-gl';
           'line-width': 1
         }"
         sourceLayer="contour"
-      >
-      </mgl-layer>
+      />
     </mgl-map>
     <div class="menu">
       <mat-button-toggle
@@ -53,6 +56,13 @@ import { AnyLayout } from 'mapbox-gl';
       >
     </div>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    VectorSourceComponent,
+    LayerComponent,
+    MatButtonToggleModule,
+  ],
   styleUrls: ['./examples.css', './toggle-layers.component.css'],
 })
 export class ToggleLayersComponent {

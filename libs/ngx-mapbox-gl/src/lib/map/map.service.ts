@@ -99,12 +99,6 @@ export class MapService {
   }
 
   setup(options: SetupMap) {
-    // Workaround rollup issue
-    // this.assign(
-    //   MapboxGl,
-    //   'accessToken',
-    //   options.accessToken || this.MAPBOX_API_KEY
-    // );
     if (options.customMapboxApiUrl) {
       (MapboxGl.baseApiUrl as string) = options.customMapboxApiUrl;
     }

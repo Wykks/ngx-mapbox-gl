@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import {
+  MapComponent,
+  ControlComponent,
+  FullscreenControlDirective,
+} from 'ngx-mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -8,9 +14,15 @@ import { Component } from '@angular/core';
       [zoom]="[13]"
       [center]="[11.255, 43.77]"
     >
-      <mgl-control mglFullscreen></mgl-control>
+      <mgl-control mglFullscreen />
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    ControlComponent,
+    FullscreenControlDirective,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class FullscreenComponent {}

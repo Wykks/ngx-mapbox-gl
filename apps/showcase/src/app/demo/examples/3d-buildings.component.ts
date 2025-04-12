@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { LayerComponent, MapComponent } from 'ngx-mapbox-gl';
 import { AnyLayer, Map } from 'mapbox-gl';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
 
 @Component({
   selector: 'showcase-demo',
@@ -42,9 +44,10 @@ import { AnyLayer, Map } from 'mapbox-gl';
           'fill-extrusion-opacity': 0.6
         }"
         [before]="labelLayerId"
-      ></mgl-layer>
+      />
     </mgl-map>
   `,
+  imports: [MapComponent, MglMapResizeDirective, LayerComponent],
   styleUrls: ['./examples.css'],
 })
 export class Display3dBuildingsComponent {

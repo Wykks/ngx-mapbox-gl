@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MapComponent } from 'ngx-mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -8,8 +9,9 @@ import { Component } from '@angular/core';
       [zoom]="[0.6]"
       [center]="[0, 0]"
       [projection]="{ name: 'naturalEarth' }"
-    ></mgl-map>
+    />
   `,
+  imports: [MapComponent],
   styleUrls: ['./examples.css'],
 })
 export class MapProjectionComponent {}

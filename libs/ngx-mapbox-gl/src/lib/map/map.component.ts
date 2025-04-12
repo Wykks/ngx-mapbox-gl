@@ -49,6 +49,7 @@ import { MapEvent } from './map.types';
     `,
   ],
   providers: [MapService],
+  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapComponent

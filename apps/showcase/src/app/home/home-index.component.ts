@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MapComponent } from 'ngx-mapbox-gl';
 import { AnimationOptions } from 'mapbox-gl';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   template: `
@@ -12,13 +14,14 @@ import { AnimationOptions } from 'mapbox-gl';
       [interactive]="false"
       (mapLoad)="moveCenter()"
       (moveEnd)="moveCenter()"
-    ></mgl-map>
+    />
     <div class="main">
       <mat-icon class="logo" svgIcon="ngx-mapbox-gl-red"></mat-icon>
       <h1>Angular binding of mapbox-gl-js</h1>
     </div>
   `,
   styleUrls: ['./home-index.component.scss'],
+  imports: [MapComponent, MatIconModule],
 })
 export class HomeIndexComponent {
   center: [number, number] = [0, 0];

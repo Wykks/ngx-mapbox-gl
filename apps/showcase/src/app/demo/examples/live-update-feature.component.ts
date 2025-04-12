@@ -1,6 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NgIf } from '@angular/common';
 import { LngLatLike } from 'mapbox-gl';
 import { scan, Subscription, takeWhile, timer } from 'rxjs';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import {
+  MapComponent,
+  GeoJSONSourceComponent,
+  LayerComponent,
+} from 'ngx-mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -14,8 +21,7 @@ import { scan, Subscription, takeWhile, timer } from 'rxjs';
       (mapLoad)="animate()"
       movingMethod="jumpTo"
     >
-      <mgl-geojson-source *ngIf="data" id="trace" [data]="data">
-      </mgl-geojson-source>
+      <mgl-geojson-source *ngIf="data" id="trace" [data]="data" />
       <mgl-layer
         *ngIf="data"
         id="trace"
@@ -26,10 +32,16 @@ import { scan, Subscription, takeWhile, timer } from 'rxjs';
           'line-opacity': 0.75,
           'line-width': 5
         }"
-      >
-      </mgl-layer>
+      />
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    GeoJSONSourceComponent,
+    LayerComponent,
+    NgIf,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class LiveUpdateFeatureComponent implements OnInit, OnDestroy {

@@ -1,29 +1,30 @@
-import { CdkPortal, DomPortalOutlet } from '@angular/cdk/portal';
+import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import {
   AfterViewInit,
-  ApplicationRef,
   Component,
-  Injector,
+  inject,
   Input,
   OnDestroy,
-  ViewChild,
+  viewChild,
+  ViewContainerRef,
+  type TemplateRef,
 } from '@angular/core';
 
 @Component({
   selector: 'showcase-layout-toolbar-menu',
   template: `
-    <ng-template cdk-portal>
-      <ng-content></ng-content>
+    <ng-template #tpl>
+      <ng-content />
     </ng-template>
   `,
 })
 export class LayoutToolbarMenuComponent implements AfterViewInit, OnDestroy {
+  private readonly vcf = inject(ViewContainerRef);
+
   @Input() position: 'left' | 'right';
 
   private portalOutlet: DomPortalOutlet;
-  @ViewChild(CdkPortal) portal: CdkPortal;
-
-  constructor(private injector: Injector, private appRef: ApplicationRef) {}
+  private tpl = viewChild.required<TemplateRef<unknown>>('tpl');
 
   ngAfterViewInit() {
     const target = document.querySelector(
@@ -34,13 +35,8 @@ export class LayoutToolbarMenuComponent implements AfterViewInit, OnDestroy {
     if (!target) {
       throw new Error('LayoutToolbarMenuComponent: No target found');
     }
-    this.portalOutlet = new DomPortalOutlet(
-      target,
-      undefined,
-      this.appRef,
-      this.injector
-    );
-    this.portalOutlet.attach(this.portal);
+    this.portalOutlet = new DomPortalOutlet(target);
+    this.portalOutlet.attach(new TemplatePortal(this.tpl(), this.vcf));
   }
 
   ngOnDestroy() {

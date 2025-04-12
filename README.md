@@ -24,6 +24,8 @@ v10.X : Angular 16 - 17
 
 v11.X : Angular 18
 
+(UNRELEASED) v12.X : Angular 19
+
 Include the following components:
 
 - [mgl-map](https://wykks.github.io/ngx-mapbox-gl/doc#mgl-map)
@@ -79,21 +81,22 @@ Or in the global CSS file (called `styles.css` for example in _angular-cli_):
 @import '~mapbox-gl/dist/mapbox-gl.css';
 ```
 
-Then, in your app's main module (or in any other module), import the `NgxMapboxGLModule`:
+Then, you can configure the access token this way:
+NOTE: This is optional, you can also set the access tokenper map (accessToken input of mgl-map)
 
 ```ts
 ...
-import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { ApplicationConfig } from '@angular/core';
+import { provideMapboxGL } from 'ngx-mapbox-gl';
 
-@NgModule({
-  imports: [
-    ...
-    NgxMapboxGLModule.withConfig({
-      accessToken: 'TOKEN', // Optional, can also be set per map (accessToken input of mgl-map)
-    })
-  ]
-})
-export class AppModule {}
+export const appConfig: ApplicationConfig = {
+    providers: [
+      provideMapboxGL({
+          accessToken: 'TOKEN'
+      }),
+      [...]
+    ]
+}
 ```
 
 How to get a Mapbox token: https://www.mapbox.com/help/how-access-tokens-work/
@@ -112,8 +115,7 @@ import { Component } from '@angular/core';
       [style]="'mapbox://styles/mapbox/streets-v9'"
       [zoom]="[9]"
       [center]="[-74.5, 40]"
-    >
-    </mgl-map>
+    />
   `,
   styles: [
     `
