@@ -6,7 +6,7 @@ import { MapService } from '../map/map.service';
 import { MarkerComponent } from './marker.component';
 
 @Component({
-  template: `
+    template: `
     <mgl-marker [offset]="offset" [lngLat]="lngLat" [className]="className">
       ...
     </mgl-marker>
@@ -31,8 +31,8 @@ describe('MarkerComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [MarkerTestComponent, MarkerComponent],
-    })
+    imports: [MarkerTestComponent, MarkerComponent],
+})
       .overrideComponent(MarkerTestComponent, {
         set: {
           providers: [{ provide: MapService, useClass: MapServiceSpy }],

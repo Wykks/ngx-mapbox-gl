@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import {
+  MapComponent,
+  AttributionControlDirective,
+  ControlComponent,
+} from 'ngx-mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -16,9 +22,15 @@ import { Component } from '@angular/core';
           '<a href=&quot;https://github.com/Wykks/ngx-mapbox-gl&quot; target=&quot;_blank&quot;>Maps made awesome in Angular</a>',
           'Hello World'
         ]"
-      ></mgl-control>
+      />
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    AttributionControlDirective,
+    ControlComponent,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class CustomAttributionComponent {}

@@ -1,29 +1,35 @@
-import { Directive, OnDestroy, OnInit } from '@angular/core';
+import {
+  Directive,
+  effect,
+  inject,
+  InjectionToken,
+  signal,
+  type WritableSignal,
+} from '@angular/core';
 import { MapComponent } from 'ngx-mapbox-gl';
-import { Subscription } from 'rxjs';
-import { MapResizeService } from './map-resize.service';
+
+export const MapResizeSignal = new InjectionToken<WritableSignal<void>>(
+  'Map Resize Signal',
+  {
+    providedIn: 'root',
+    factory: () =>
+      signal(undefined, {
+        equal: () => false,
+      }),
+  }
+);
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'mgl-map',
 })
-export class MglMapResizeDirective implements OnInit, OnDestroy {
-  private sub = new Subscription();
+export class MglMapResizeDirective {
+  private readonly mapComponent = inject(MapComponent);
+  private readonly mapResizeSignal = inject(MapResizeSignal);
 
-  constructor(
-    private mapResizeService: MapResizeService,
-    private map: MapComponent
-  ) {}
-
-  ngOnInit() {
-    this.sub.add(
-      this.mapResizeService.resize$.subscribe(() => {
-        this.map.mapInstance.resize();
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
+  constructor() {
+    effect(() => {
+      this.mapResizeSignal();
+      this.mapComponent.mapInstance.resize();
+    });
   }
 }

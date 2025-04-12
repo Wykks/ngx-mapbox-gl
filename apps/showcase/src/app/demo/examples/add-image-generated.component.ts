@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MapComponent, LayerComponent, ImageComponent } from 'ngx-mapbox-gl';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
 
 @Component({
   selector: 'showcase-demo',
@@ -11,8 +13,7 @@ import { Component, OnInit } from '@angular/core';
           height: 64,
           data: imageData
         }"
-      >
-      </mgl-image>
+      />
       <mgl-layer
         id="points"
         type="symbol"
@@ -33,10 +34,15 @@ import { Component, OnInit } from '@angular/core';
           }
         }"
         [layout]="{ 'icon-image': 'gradient' }"
-      >
-      </mgl-layer>
+      />
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    LayerComponent,
+    ImageComponent,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class AddImageGeneratedComponent implements OnInit {

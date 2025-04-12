@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import {
+  MapComponent,
+  PopupComponent as MapboxPopupComponent,
+} from 'ngx-mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -17,6 +22,7 @@ import { Component } from '@angular/core';
       </mgl-popup>
     </mgl-map>
   `,
+  imports: [MapComponent, MglMapResizeDirective, MapboxPopupComponent],
   styleUrls: ['./examples.css', './popup.component.css'],
 })
 export class PopupComponent {}

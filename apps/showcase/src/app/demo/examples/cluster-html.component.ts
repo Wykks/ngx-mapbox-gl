@@ -1,5 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgForOf, NgStyle } from '@angular/common';
 import { CirclePaint, SymbolLayout, SymbolPaint } from 'mapbox-gl';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import {
+  MapComponent,
+  GeoJSONSourceComponent,
+  MarkersForClustersComponent,
+  ClusterPointDirective,
+  LayerComponent,
+} from 'ngx-mapbox-gl';
 
 /**
  * Remember: mgl-layer are way faster than html markers
@@ -11,101 +20,6 @@ import { CirclePaint, SymbolLayout, SymbolPaint } from 'mapbox-gl';
 
 // colors to use for the categories
 const COLORS = ['#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c'];
-
-@Component({
-  selector: 'showcase-demo',
-  template: `
-    <mgl-map
-      [style]="'mapbox://styles/mapbox/light-v10'"
-      [zoom]="[0.3]"
-      [center]="[0, 20]"
-    >
-      <mgl-geojson-source
-        id="earthquakes"
-        data="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"
-        [cluster]="true"
-        [clusterRadius]="80"
-        [clusterProperties]="clusterProperties"
-      ></mgl-geojson-source>
-      <mgl-markers-for-clusters source="earthquakes">
-        <ng-template mglClusterPoint let-feature>
-          <showcase-cluster-point
-            [properties]="feature.properties"
-          ></showcase-cluster-point>
-        </ng-template>
-      </mgl-markers-for-clusters>
-      <mgl-layer
-        id="earthquake_circle"
-        type="circle"
-        source="earthquakes"
-        [filter]="['!=', 'cluster', true]"
-        [paint]="circlePaint"
-      ></mgl-layer>
-      <mgl-layer
-        id="earthquake_label"
-        type="symbol"
-        source="earthquakes"
-        [filter]="['!=', 'cluster', true]"
-        [layout]="labelLayout"
-        [paint]="labelPaint"
-      ></mgl-layer>
-    </mgl-map>
-  `,
-  styleUrls: ['./examples.css'],
-})
-export class ClusterHtmlComponent {
-  clusterProperties: any;
-  circlePaint: CirclePaint;
-  labelLayout: SymbolLayout;
-  labelPaint: SymbolPaint;
-
-  constructor() {
-    // filters for classifying earthquakes into five categories based on magnitude
-    const mag1 = ['<', ['get', 'mag'], 2];
-    const mag2 = ['all', ['>=', ['get', 'mag'], 2], ['<', ['get', 'mag'], 3]];
-    const mag3 = ['all', ['>=', ['get', 'mag'], 3], ['<', ['get', 'mag'], 4]];
-    const mag4 = ['all', ['>=', ['get', 'mag'], 4], ['<', ['get', 'mag'], 5]];
-    const mag5 = ['>=', ['get', 'mag'], 5];
-
-    this.clusterProperties = {
-      // keep separate counts for each magnitude category in a cluster
-      mag1: ['+', ['case', mag1, 1, 0]],
-      mag2: ['+', ['case', mag2, 1, 0]],
-      mag3: ['+', ['case', mag3, 1, 0]],
-      mag4: ['+', ['case', mag4, 1, 0]],
-      mag5: ['+', ['case', mag5, 1, 0]],
-    };
-    this.circlePaint = {
-      'circle-color': [
-        'case',
-        mag1,
-        COLORS[0],
-        mag2,
-        COLORS[1],
-        mag3,
-        COLORS[2],
-        mag4,
-        COLORS[3],
-        COLORS[4],
-      ],
-      'circle-opacity': 0.6,
-      'circle-radius': 12,
-    };
-    this.labelLayout = {
-      // typings issue
-      'text-field': [
-        'number-format',
-        ['get', 'mag'],
-        { 'min-fraction-digits': 1, 'max-fraction-digits': 1 },
-      ] as any,
-      'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-      'text-size': 10,
-    };
-    this.labelPaint = {
-      'text-color': ['case', ['<', ['get', 'mag'], 3], 'black', 'white'],
-    };
-  }
-}
 
 @Component({
   selector: 'showcase-cluster-point',
@@ -128,6 +42,7 @@ export class ClusterHtmlComponent {
       </text>
     </svg>
   `,
+  imports: [NgForOf, NgStyle],
 })
 export class ClusterPointComponent implements OnInit {
   @Input() properties: any;
@@ -199,6 +114,110 @@ export class ClusterPointComponent implements OnInit {
         this.r + this.r0 * y0
       }`,
       fill: color,
+    };
+  }
+}
+
+@Component({
+  selector: 'showcase-demo',
+  template: `
+    <mgl-map
+      [style]="'mapbox://styles/mapbox/light-v10'"
+      [zoom]="[0.3]"
+      [center]="[0, 20]"
+    >
+      <mgl-geojson-source
+        id="earthquakes"
+        data="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"
+        [cluster]="true"
+        [clusterRadius]="80"
+        [clusterProperties]="clusterProperties"
+      />
+      <mgl-markers-for-clusters source="earthquakes">
+        <ng-template mglClusterPoint let-feature>
+          <showcase-cluster-point
+            [properties]="feature.properties"
+          />
+        </ng-template>
+      </mgl-markers-for-clusters>
+      <mgl-layer
+        id="earthquake_circle"
+        type="circle"
+        source="earthquakes"
+        [filter]="['!=', 'cluster', true]"
+        [paint]="circlePaint"
+      />
+      <mgl-layer
+        id="earthquake_label"
+        type="symbol"
+        source="earthquakes"
+        [filter]="['!=', 'cluster', true]"
+        [layout]="labelLayout"
+        [paint]="labelPaint"
+      />
+    </mgl-map>
+  `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    GeoJSONSourceComponent,
+    MarkersForClustersComponent,
+    ClusterPointDirective,
+    LayerComponent,
+    ClusterPointComponent,
+  ],
+  styleUrls: ['./examples.css'],
+})
+export class ClusterHtmlComponent {
+  clusterProperties: any;
+  circlePaint: CirclePaint;
+  labelLayout: SymbolLayout;
+  labelPaint: SymbolPaint;
+
+  constructor() {
+    // filters for classifying earthquakes into five categories based on magnitude
+    const mag1 = ['<', ['get', 'mag'], 2];
+    const mag2 = ['all', ['>=', ['get', 'mag'], 2], ['<', ['get', 'mag'], 3]];
+    const mag3 = ['all', ['>=', ['get', 'mag'], 3], ['<', ['get', 'mag'], 4]];
+    const mag4 = ['all', ['>=', ['get', 'mag'], 4], ['<', ['get', 'mag'], 5]];
+    const mag5 = ['>=', ['get', 'mag'], 5];
+
+    this.clusterProperties = {
+      // keep separate counts for each magnitude category in a cluster
+      mag1: ['+', ['case', mag1, 1, 0]],
+      mag2: ['+', ['case', mag2, 1, 0]],
+      mag3: ['+', ['case', mag3, 1, 0]],
+      mag4: ['+', ['case', mag4, 1, 0]],
+      mag5: ['+', ['case', mag5, 1, 0]],
+    };
+    this.circlePaint = {
+      'circle-color': [
+        'case',
+        mag1,
+        COLORS[0],
+        mag2,
+        COLORS[1],
+        mag3,
+        COLORS[2],
+        mag4,
+        COLORS[3],
+        COLORS[4],
+      ],
+      'circle-opacity': 0.6,
+      'circle-radius': 12,
+    };
+    this.labelLayout = {
+      // typings issue
+      'text-field': [
+        'number-format',
+        ['get', 'mag'],
+        { 'min-fraction-digits': 1, 'max-fraction-digits': 1 },
+      ] as any,
+      'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+      'text-size': 10,
+    };
+    this.labelPaint = {
+      'text-color': ['case', ['<', ['get', 'mag'], 3], 'black', 'white'],
     };
   }
 }

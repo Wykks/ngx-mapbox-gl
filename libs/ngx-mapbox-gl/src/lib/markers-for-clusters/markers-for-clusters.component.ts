@@ -14,6 +14,9 @@ import { MapboxGeoJSONFeature, MapSourceDataEvent } from 'mapbox-gl';
 import { fromEvent, merge, Subscription } from 'rxjs';
 import { filter, startWith, switchMap } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
+import { MarkerComponent } from '../marker/marker.component';
+import { LayerComponent } from '../layer/layer.component';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Directive({
   selector: 'ng-template[mglPoint]',
@@ -35,28 +38,31 @@ let uniqId = 0;
       [source]="source"
       type="circle"
       [paint]="{ 'circle-radius': 0 }"
-    ></mgl-layer>
-    <ng-container
-      *ngFor="let feature of clusterPoints; trackBy: trackByClusterPoint"
-    >
-      <ng-container *ngIf="feature.properties!['cluster']">
+    />
+    @for (feature of clusterPoints; track feature.id) {
+      @if (feature.properties!['cluster']) {
         <mgl-marker [feature]="$any(feature)">
-          <ng-container
-            *ngTemplateOutlet="clusterPointTpl; context: { $implicit: feature }"
-          ></ng-container>
+          @if (clusterPointTpl) {
+            <ng-template
+              [ngTemplateOutlet]="clusterPointTpl"
+              [ngTemplateOutletContext]="{ $implicit: feature }"
+            />
+          }
         </mgl-marker>
-      </ng-container>
-      <ng-container *ngIf="!feature.properties!['cluster']">
+      } @else {
         <mgl-marker [feature]="$any(feature)">
-          <ng-container
-            *ngTemplateOutlet="pointTpl!; context: { $implicit: feature }"
-          ></ng-container>
+          @if (pointTpl) {
+            <ng-template
+              [ngTemplateOutlet]="pointTpl"
+              [ngTemplateOutletContext]="{ $implicit: feature }"
+            />
+          }
         </mgl-marker>
-      </ng-container>
-    </ng-container>
+      }
+    }
   `,
+  imports: [MarkerComponent, LayerComponent, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  preserveWhitespaces: false,
 })
 export class MarkersForClustersComponent
   implements OnDestroy, AfterContentInit

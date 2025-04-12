@@ -11,7 +11,7 @@
     [zoom]="[9]"
     [center]="[-74.50, 40]"
     (mapCreate)="map = $event"
-  ></mgl-map>
+  />
   `,
 ...
 })
@@ -136,7 +136,7 @@ Dynamic:
       'line-color': '#627BC1',
       'line-width': 2
     }"
-  ></mgl-layer>
+  />
 </mgl-map>
 ```
 
@@ -186,7 +186,7 @@ Dynamic:
     <mgl-feature
       *ngFor="let geometry of geometries"
       [geometry]="geometry"
-    ></mgl-feature>
+    />
   </mgl-geojson-source>
   ...
   <mgl-geojson-source
@@ -195,7 +195,7 @@ Dynamic:
     [cluster]="true"
     [clusterMaxZoom]="14"
     [clusterRadius]="50"
-  ></mgl-geojson-source>
+  />
 </mgl-map>
 ```
 
@@ -303,23 +303,21 @@ Dynamic:
 
 ```html
 ...
-<mgl-map
+<mgl-map ...>
+  <mgl-image
+    id="image"
+    url="https://..."
+    (loaded)="imageLoaded = true"
+  />
   ...
->
-   <mgl-image
-     id="image"
-     url="https://..."
-     (loaded)="imageLoaded = true"
-   >
-   ...
-   <mgl-image
-     id="image2"
-     [data]="{
-       width: 64,
-       height: 64,
-       data: imageData
-     }"
-   >
+  <mgl-image
+    id="image2"
+    [data]="{
+      width: 64,
+      height: 64,
+      data: imageData
+    }"
+  />
 </mgl-map>
 ...
 imageData: Uint8Array;
@@ -349,11 +347,11 @@ Dynamic:
 ```html
 ...
 <mgl-map ...>
-  <mgl-control> Hello </mgl-control>
+  <mgl-control>Hello</mgl-control>
   ...
-  <mgl-control mglNavigation></mgl-control>
+  <mgl-control mglNavigation />
   ...
-  <mgl-control mglScale unit="imperial" position="top-right"></mgl-control>
+  <mgl-control mglScale unit="imperial" position="top-right" />
 </mgl-map>
 ```
 

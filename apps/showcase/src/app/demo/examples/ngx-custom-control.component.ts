@@ -1,5 +1,16 @@
 import { Component } from '@angular/core';
-import { Position } from 'ngx-mapbox-gl';
+import {
+  Position,
+  MapComponent,
+  ControlComponent,
+  AttributionControlDirective,
+  FullscreenControlDirective,
+  GeolocateControlDirective,
+  NavigationControlDirective,
+  ScaleControlDirective,
+} from 'ngx-mapbox-gl';
+import { MatButtonModule } from '@angular/material/button';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
 
 @Component({
   selector: 'showcase-demo',
@@ -16,18 +27,24 @@ import { Position } from 'ngx-mapbox-gl';
         </button>
       </mgl-control>
 
-      <mgl-control mglAttribution position="top-right"></mgl-control>
-      <mgl-control mglFullscreen position="top-right"></mgl-control>
-      <mgl-control mglGeocoder position="top-right"></mgl-control>
-      <mgl-control
-        mglGeolocate
-        position="top-right"
-        (geolocate)="onGeolocate($event)"
-      ></mgl-control>
-      <mgl-control mglNavigation position="top-right"></mgl-control>
-      <mgl-control mglScale position="top-right"></mgl-control>
+      <mgl-control mglAttribution position="top-right" />
+      <mgl-control mglFullscreen position="top-right" />
+      <mgl-control mglGeolocate position="top-right" (geolocate)="onGeolocate($event)" />
+      <mgl-control mglNavigation position="top-right" />
+      <mgl-control mglScale position="top-right" />
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    ControlComponent,
+    AttributionControlDirective,
+    FullscreenControlDirective,
+    GeolocateControlDirective,
+    NavigationControlDirective,
+    ScaleControlDirective,
+    MatButtonModule,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class NgxCustomControlComponent {

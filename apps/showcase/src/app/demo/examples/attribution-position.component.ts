@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import {
+  MapComponent,
+  AttributionControlDirective,
+  ControlComponent,
+} from 'ngx-mapbox-gl';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
 
 @Component({
   selector: 'showcase-demo',
@@ -9,9 +15,15 @@ import { Component } from '@angular/core';
       [zoom]="[11.15]"
       [attributionControl]="false"
     >
-      <mgl-control mglAttribution position="top-left"></mgl-control>
+      <mgl-control mglAttribution position="top-left" />
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    AttributionControlDirective,
+    ControlComponent,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class AttributionPositionComponent {}

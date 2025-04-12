@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import {
+  MapComponent,
+  GeoJSONSourceComponent,
+  LayerComponent,
+} from 'ngx-mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -15,8 +22,7 @@ import { Component, OnInit } from '@angular/core';
           [cluster]="true"
           [clusterMaxZoom]="14"
           [clusterRadius]="50"
-        >
-        </mgl-geojson-source>
+        />
         <mgl-layer
           id="clusters"
           type="circle"
@@ -42,8 +48,7 @@ import { Component, OnInit } from '@angular/core';
               ]
             }
           }"
-        >
-        </mgl-layer>
+        />
         <mgl-layer
           id="cluster-count"
           type="symbol"
@@ -54,8 +59,7 @@ import { Component, OnInit } from '@angular/core';
             'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
             'text-size': 12
           }"
-        >
-        </mgl-layer>
+        />
         <mgl-layer
           id="unclustered-point"
           type="circle"
@@ -67,11 +71,17 @@ import { Component, OnInit } from '@angular/core';
             'circle-stroke-width': 1,
             'circle-stroke-color': '#fff'
           }"
-        >
-        </mgl-layer>
+        />
       </ng-container>
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    GeoJSONSourceComponent,
+    LayerComponent,
+    NgIf,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class ClusterComponent implements OnInit {

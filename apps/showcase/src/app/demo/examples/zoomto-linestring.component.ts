@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { LngLatBounds } from 'mapbox-gl';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MapComponent, LayerComponent, ControlComponent } from 'ngx-mapbox-gl';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'showcase-demo',
@@ -30,11 +33,17 @@ import { LngLatBounds } from 'mapbox-gl';
           'line-join': 'round',
           'line-cap': 'round'
         }"
-      ></mgl-layer>
+      />
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    LayerComponent,
+    ControlComponent,
+    MatButtonModule,
+  ],
   styleUrls: ['./examples.css'],
-  preserveWhitespaces: false,
 })
 export class ZoomtoLinestringComponent {
   bounds: LngLatBounds;

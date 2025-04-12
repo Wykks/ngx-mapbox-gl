@@ -12,3 +12,7 @@ body {
   margin: 0;
   flex-grow: 1;
 }
+
+.mat-icon {
+  display: inline-flex !important;
+}

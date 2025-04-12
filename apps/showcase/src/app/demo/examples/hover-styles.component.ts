@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import {
+  MapComponent,
+  GeoJSONSourceComponent,
+  LayerComponent,
+} from 'ngx-mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -11,8 +17,7 @@ import { Component } from '@angular/core';
       <mgl-geojson-source
         id="states"
         data="https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson"
-      >
-      </mgl-geojson-source>
+      />
       <mgl-layer
         id="state-fills"
         type="fill"
@@ -23,8 +28,7 @@ import { Component } from '@angular/core';
         }"
         (layerMouseMove)="activateHoverOn($event)"
         (layerMouseLeave)="disableHover()"
-      >
-      </mgl-layer>
+      />
       <mgl-layer
         id="state-borders"
         type="line"
@@ -33,8 +37,7 @@ import { Component } from '@angular/core';
           'line-color': '#627BC1',
           'line-width': 2
         }"
-      >
-      </mgl-layer>
+      />
       <mgl-layer
         id="state-fills-hover"
         type="fill"
@@ -44,10 +47,15 @@ import { Component } from '@angular/core';
           'fill-opacity': 1
         }"
         [filter]="hoverFilter"
-      >
-      </mgl-layer>
+      />
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    GeoJSONSourceComponent,
+    LayerComponent,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class HoverStylesComponent {

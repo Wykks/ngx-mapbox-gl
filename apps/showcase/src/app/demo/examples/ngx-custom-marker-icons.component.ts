@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MapComponent, MarkerComponent } from 'ngx-mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -31,6 +33,7 @@ import { Component } from '@angular/core';
       </mgl-marker>
     </mgl-map>
   `,
+  imports: [MapComponent, MglMapResizeDirective, MarkerComponent],
   styleUrls: ['./examples.css', './custom-marker-icons.component.css'],
 })
 export class NgxCustomMarkerIconsComponent {

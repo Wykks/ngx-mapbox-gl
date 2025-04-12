@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { MapComponent, LayerComponent, ImageComponent } from 'ngx-mapbox-gl';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
 
 @Component({
   selector: 'showcase-demo',
@@ -8,8 +11,7 @@ import { Component } from '@angular/core';
         id="cat"
         url="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png"
         (imageLoaded)="imageLoaded = true"
-      >
-      </mgl-image>
+      />
       <mgl-layer
         *ngIf="imageLoaded"
         id="points"
@@ -31,10 +33,16 @@ import { Component } from '@angular/core';
           }
         }"
         [layout]="{ 'icon-image': 'cat', 'icon-size': 0.25 }"
-      >
-      </mgl-layer>
+      />
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    LayerComponent,
+    ImageComponent,
+    NgIf,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class AddImageComponent {

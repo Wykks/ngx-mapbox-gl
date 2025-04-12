@@ -1,4 +1,13 @@
 import { Component } from '@angular/core';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import {
+  MapComponent,
+  ControlComponent,
+  FullscreenControlDirective,
+  GeolocateControlDirective,
+  NavigationControlDirective,
+  ScaleControlDirective,
+} from 'ngx-mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -9,12 +18,21 @@ import { Component } from '@angular/core';
       [zoom]="[11.15]"
       [locale]="locale"
     >
-      <mgl-control mglFullscreen position="top-left"></mgl-control>
-      <mgl-control mglGeolocate position="top-left"></mgl-control>
-      <mgl-control mglNavigation position="top-left"></mgl-control>
-      <mgl-control mglScale></mgl-control>
+      <mgl-control mglFullscreen position="top-left" />
+      <mgl-control mglGeolocate position="top-left" />
+      <mgl-control mglNavigation position="top-left" />
+      <mgl-control mglScale />
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    ControlComponent,
+    FullscreenControlDirective,
+    GeolocateControlDirective,
+    NavigationControlDirective,
+    ScaleControlDirective,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class CustomLocaleComponent {

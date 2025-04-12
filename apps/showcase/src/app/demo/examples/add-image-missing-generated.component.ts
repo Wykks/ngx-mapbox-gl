@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
-import { MapImageData } from 'ngx-mapbox-gl';
+import { NgForOf } from '@angular/common';
+import {
+  MapImageData,
+  MapComponent,
+  LayerComponent,
+  ImageComponent,
+} from 'ngx-mapbox-gl';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
 
 @Component({
   selector: 'showcase-demo',
@@ -12,7 +19,7 @@ import { MapImageData } from 'ngx-mapbox-gl';
         *ngFor="let imageData of imagesData; trackBy: trackByImage"
         [id]="imageData.id"
         [data]="imageData"
-      ></mgl-image>
+      />
       <mgl-layer
         id="points"
         type="symbol"
@@ -57,10 +64,16 @@ import { MapImageData } from 'ngx-mapbox-gl';
         [layout]="{
           'icon-image': ['concat', 'square-rgb-', ['get', 'color']]
         }"
-      >
-      </mgl-layer>
+      />
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    LayerComponent,
+    ImageComponent,
+    NgForOf,
+  ],
   styleUrls: ['./examples.css'],
 })
 export class AddImageMissingGeneratedComponent {

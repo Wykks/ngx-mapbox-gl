@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { NgForOf, NgStyle } from '@angular/common';
+import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MapComponent, MarkerComponent } from 'ngx-mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -8,7 +11,10 @@ import { Component } from '@angular/core';
       [zoom]="[5]"
       [center]="[-65.017, -16.457]"
     >
-      <mgl-marker *ngFor="let feature of geojson.features" [feature]="feature">
+      <mgl-marker
+        *ngFor="let feature of geojson.features; let i = index"
+        [feature]="feature"
+      >
         <div
           (click)="alert(feature.properties.message)"
           class="marker"
@@ -24,6 +30,13 @@ import { Component } from '@angular/core';
       </mgl-marker>
     </mgl-map>
   `,
+  imports: [
+    MapComponent,
+    MglMapResizeDirective,
+    MarkerComponent,
+    NgForOf,
+    NgStyle,
+  ],
   styleUrls: ['./examples.css', './custom-marker-icons.component.css'],
 })
 export class CustomMarkerIconsComponent {
