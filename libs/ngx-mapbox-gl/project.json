@@ -1,14 +1,14 @@
 {
   "name": "ngx-mapbox-gl",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "library",
   "sourceRoot": "libs/ngx-mapbox-gl/src",
-  "prefix": "ngx-mapbox-gl",
+  "prefix": "mgl",
+  "projectType": "library",
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nx/angular:package",
-      "outputs": ["{workspaceRoot}/dist/libs/ngx-mapbox-gl"],
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
         "project": "libs/ngx-mapbox-gl/ng-package.json"
       },
@@ -24,7 +24,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/ngx-mapbox-gl"],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/ngx-mapbox-gl/jest.config.ts"
       }

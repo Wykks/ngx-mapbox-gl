@@ -48,9 +48,8 @@
     "@types/mapbox-gl": "2.7.5",
     "@types/mapbox__mapbox-gl-geocoder": "4.7.2",
     "@types/node": "20.17.30",
-    "@typescript-eslint/eslint-plugin": "8.29.1",
-    "@typescript-eslint/parser": "8.29.1",
     "@typescript-eslint/utils": "8.29.1",
+    "angular-eslint": "19.3.0",
     "autoprefixer": "10.4.21",
     "commitizen": "4.3.1",
     "cz-conventional-changelog": "3.3.0",
@@ -72,7 +71,9 @@
     "standard-version": "9.5.0",
     "ts-jest": "29.3.2",
     "ts-node": "10.9.2",
-    "typescript": "5.8.3"
+    "tslib": "2.8.1",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.29.1"
   },
   "packageManager": "yarn@4.9.1",
   "dependencies": {
@@ -97,8 +98,7 @@
     "ngx-markdown": "19.1.1",
     "prismjs": "1.30.0",
     "rxjs": "7.8.2",
-    "scroll-into-view-if-needed": "3.1.0",
-    "tslib": "2.8.1"
+    "scroll-into-view-if-needed": "3.1.0"
   },
   "config": {
     "commitizen": {

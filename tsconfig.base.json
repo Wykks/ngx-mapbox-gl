@@ -10,13 +10,12 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "strictPropertyInitialization": false,
     "baseUrl": ".",
     "paths": {
-      "@ngx-mapbox-gl/ngx-mapbox-gl": ["libs/ngx-mapbox-gl/src/index.ts"],
       "ngx-mapbox-gl": ["libs/ngx-mapbox-gl/src/index.ts"]
     }
   },
