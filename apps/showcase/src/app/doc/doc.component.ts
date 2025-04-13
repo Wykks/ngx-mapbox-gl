@@ -3,7 +3,6 @@ import {
   Component,
   computed,
   signal,
-  inject,
 } from '@angular/core';
 import {
   MarkdownComponent,

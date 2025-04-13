@@ -68,6 +68,7 @@ export class CenterOnSymbolComponent {
   ];
 
   centerMapTo(evt: MapMouseEvent) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.center = (evt as any).features[0].geometry.coordinates;
   }
 }

@@ -104,6 +104,8 @@ export class ClusterPopupComponent implements OnChanges {
             <div
               class="marker-cluster"
               (click)="selectCluster($event, feature)"
+              (keydown)="selectCluster($event, feature)"
+              tabindex="0"
             >
               {{ feature.properties?.point_count }}
             </div>
@@ -147,7 +149,7 @@ export class NgxClusterHtmlComponent implements OnInit {
     }, 500);
   }
 
-  selectCluster(event: MouseEvent, feature: any) {
+  selectCluster(event: Event, feature: GeoJSON.Feature<GeoJSON.Point>) {
     event.stopPropagation(); // This is needed, otherwise the popup will close immediately
     // Change the ref, to trigger mgl-popup onChanges (when the user click on the same cluster)
     this.selectedCluster = feature;

@@ -45,6 +45,7 @@ const COLORS = ['#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c'];
   imports: [NgForOf, NgStyle],
 })
 export class ClusterPointComponent implements OnInit {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() properties: any;
 
   w: number;
@@ -103,7 +104,6 @@ export class ClusterPointComponent implements OnInit {
     const y1 = Math.sin(a1);
     const largeArc = end - start > 0.5 ? 1 : 0;
     return {
-      // eslint-disable-next-line max-len
       d: `M ${this.r + this.r0 * x0} ${this.r + this.r0 * y0} L ${
         this.r + this.r * x0
       } ${this.r + this.r * y0} A ${this.r} ${this.r} 0 ${largeArc} 1 ${
@@ -167,6 +167,7 @@ export class ClusterPointComponent implements OnInit {
   styleUrls: ['./examples.css'],
 })
 export class ClusterHtmlComponent {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   clusterProperties: any;
   circlePaint: CirclePaint;
   labelLayout: SymbolLayout;
@@ -205,12 +206,11 @@ export class ClusterHtmlComponent {
       'circle-radius': 12,
     };
     this.labelLayout = {
-      // typings issue
       'text-field': [
         'number-format',
         ['get', 'mag'],
         { 'min-fraction-digits': 1, 'max-fraction-digits': 1 },
-      ] as any,
+      ],
       'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
       'text-size': 10,
     };

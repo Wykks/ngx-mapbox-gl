@@ -211,22 +211,22 @@ export class MapComponent
   /**
    * @deprecated Use mapRemove instead
    */
-  // eslint-disable-next-line @angular-eslint/no-output-native
+
   @Output() remove = new EventEmitter<MapboxEvent & EventData>();
   /**
    * @deprecated Use mapMouseDown instead
    */
-  // eslint-disable-next-line @angular-eslint/no-output-native
+
   @Output() mouseDown = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use mapMouseUp instead
    */
-  // eslint-disable-next-line @angular-eslint/no-output-native
+
   @Output() mouseUp = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use mapMouseMove instead
    */
-  // eslint-disable-next-line @angular-eslint/no-output-native
+
   @Output() mouseMove = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use mapClick instead
@@ -236,17 +236,17 @@ export class MapComponent
   /**
    * @deprecated Use mapDblClick instead
    */
-  // eslint-disable-next-line @angular-eslint/no-output-native
+
   @Output() dblClick = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use mapMouseOver instead
    */
-  // eslint-disable-next-line @angular-eslint/no-output-native
+
   @Output() mouseOver = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use mapMouseOut instead
    */
-  // eslint-disable-next-line @angular-eslint/no-output-native
+
   @Output() mouseOut = new EventEmitter<MapMouseEvent & EventData>();
   /**
    * @deprecated Use mapContextMenu instead

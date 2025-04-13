@@ -42,7 +42,9 @@ describe('MapComponent', () => {
     fixture = TestBed.createComponent(MapComponent);
     component = fixture.debugElement.componentInstance;
     await fixture.whenStable();
-    msSpy = fixture.debugElement.injector.get<MapService>(MapService) as any;
+    msSpy = fixture.debugElement.injector.get<MapService>(
+      MapService,
+    ) as unknown as MapServiceSpy;
   });
 
   describe('Init tests', () => {
@@ -56,7 +58,7 @@ describe('MapComponent', () => {
       component.style = 'style';
       msSpy.setup.mockImplementation((options: SetupMap) => {
         expect(options.accessToken).toEqual('tokenTest');
-        expect(options.mapOptions.style).toEqual('style');
+        expect(options.mapOptions['style']).toEqual('style');
       });
       fixture.detectChanges();
       expect.assertions(2);

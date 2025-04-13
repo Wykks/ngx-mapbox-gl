@@ -361,6 +361,7 @@ export const DEMO_ROUTES: Routes = [
 export type RoutesByCategory = { [P in Category]: Routes };
 
 export const ROUTES_BY_CATEGORY: RoutesByCategory =
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   DEMO_ROUTES[0].children!.reduce<RoutesByCategory>((acc, route) => {
     if (!route.data) {
       return acc;

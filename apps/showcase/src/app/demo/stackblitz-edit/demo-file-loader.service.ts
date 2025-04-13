@@ -46,7 +46,6 @@ export class DemoFileLoaderService {
     }
     if (files.length) {
       return forkJoin(files).pipe(
-        // eslint-disable-next-line arrow-body-style
         map((files) => {
           return {
             ...Object.assign({}, ...files),

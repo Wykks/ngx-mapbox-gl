@@ -27,7 +27,7 @@ export class ScaleControlDirective implements AfterContentInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['unit'] && !changes['unit'].isFirstChange()) {
-      (this.controlComponent.control as any).setUnit(
+      (this.controlComponent.control as ScaleControl).setUnit(
         changes['unit'].currentValue,
       );
     }

@@ -50,7 +50,7 @@ export class PopupComponent
   /**
    * @deprecated Use popupOpen instead
    */
-  // eslint-disable-next-line @angular-eslint/no-output-native
+
   @Output() open = new EventEmitter<void>();
 
   @ViewChild('content', { static: true }) content: ElementRef;

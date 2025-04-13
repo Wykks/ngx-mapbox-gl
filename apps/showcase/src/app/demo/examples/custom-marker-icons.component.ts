@@ -17,6 +17,8 @@ import { MapComponent, MarkerComponent } from 'ngx-mapbox-gl';
       >
         <div
           (click)="alert(feature.properties.message)"
+          (keydown)="alert(feature.properties.message)"
+          tabindex="0"
           class="marker"
           [ngStyle]="{
             'background-image':
