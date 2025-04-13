@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { GeoJsonProperties } from 'geojson';
 import { LngLat, MapLayerMouseEvent } from 'mapbox-gl';
-import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import { MapComponent, LayerComponent, PopupComponent } from 'ngx-mapbox-gl';
 
 @Component({

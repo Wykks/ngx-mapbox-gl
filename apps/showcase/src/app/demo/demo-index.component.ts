@@ -1,11 +1,11 @@
 import {
   afterNextRender,
   Component,
+  computed,
   ElementRef,
-  inject,
-  OnInit,
-  QueryList,
-  ViewChildren,
+  inject, QueryList,
+  signal,
+  ViewChildren
 } from '@angular/core';
 import {
   MatSlideToggleChange,
@@ -16,12 +16,10 @@ import {
   Router,
   RouterLink,
   RouterLinkActive,
-  RouterOutlet,
-  Routes,
+  RouterOutlet
 } from '@angular/router';
-import { cloneDeep, groupBy } from 'lodash-es';
 import scrollIntoView from 'scroll-into-view-if-needed';
-import { Category, DEMO_ROUTES } from './routes';
+import { Category, ROUTES_BY_CATEGORY } from './routes';
 import { LayoutToolbarMenuComponent } from '../shared/layout/layout-toolbar-menu.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -30,10 +28,8 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-import { CommonModule } from '@angular/common';
-import { MapResizeSignal } from './mgl-map-resize.directive';
-
-type RoutesByCategory = { [P in Category]: Routes };
+import { MapResizeSignal } from './examples/mgl-map-resize.directive';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   templateUrl: './demo-index.component.html',
@@ -42,6 +38,7 @@ type RoutesByCategory = { [P in Category]: Routes };
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
     LayoutToolbarMenuComponent,
     MatIconModule,
     RouterOutlet,
@@ -51,18 +48,30 @@ type RoutesByCategory = { [P in Category]: Routes };
     RouterLink,
     RouterLinkActive,
     MatListModule,
-    CommonModule,
   ],
 })
-export class DemoIndexComponent implements OnInit {
+export class DemoIndexComponent {
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly mapResizeSignal = inject(MapResizeSignal);
 
-  routes: RoutesByCategory;
-  originalRoutes: RoutesByCategory;
   categories: Category[];
-  searchTerm: string;
+  searchTerm = signal('');
+  routesByCategory = computed(() => {
+    const searchTerm = this.searchTerm();
+    if (!searchTerm.trim()) {
+      return ROUTES_BY_CATEGORY;
+    }
+    const search = searchTerm.trim().toLowerCase();
+    return Object.fromEntries(
+      Object.entries(ROUTES_BY_CATEGORY).map(([category, routes]) => [
+        category,
+        routes.filter((route) =>
+          route.data!['label'].toLowerCase().includes(search)
+        ),
+      ])
+    );
+  });
   sidenavIsOpen = true;
   isEditMode = !!this.activatedRoute.snapshot.firstChild?.params['demoUrl'];
 
@@ -70,18 +79,11 @@ export class DemoIndexComponent implements OnInit {
   exampleLinks: QueryList<ElementRef>;
 
   constructor() {
-    this.originalRoutes = groupBy(DEMO_ROUTES[0].children, (route) =>
-      route.data ? route.data['cat'] : null
-    ) as unknown as RoutesByCategory;
     this.categories = Object.values(Category);
 
     afterNextRender(() => {
       this.scrollInToActiveExampleLink();
     });
-  }
-
-  ngOnInit() {
-    this.routes = this.originalRoutes;
   }
 
   toggleSidenav() {
@@ -100,28 +102,6 @@ export class DemoIndexComponent implements OnInit {
 
   onSidenavChange() {
     this.mapResizeSignal.set(undefined);
-  }
-
-  search() {
-    // Quick and dirty
-    this.routes = cloneDeep(this.originalRoutes);
-    Object.values(this.routes).forEach((category) => {
-      category.forEach((route, index) => {
-        if (
-          route.data &&
-          !(route.data['label'] as string)
-            .toLowerCase()
-            .includes(this.searchTerm.toLowerCase())
-        ) {
-          delete category[index];
-        }
-      });
-    });
-  }
-
-  clearSearch() {
-    this.searchTerm = '';
-    this.routes = this.originalRoutes;
   }
 
   private scrollInToActiveExampleLink() {

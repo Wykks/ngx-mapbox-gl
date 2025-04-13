@@ -7,16 +7,23 @@
   flex-direction: row;
 }
 
-mat-sidenav {
+.sidenav-content {
   width: 345px;
   display: flex;
   flex-direction: column;
   flex: 1;
-}
-
-mat-nav-list {
   overflow-y: auto;
 }
+
+.list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+// mat-nav-list {
+//   overflow-y: auto;
+// }
 
 mat-sidenav-container {
   flex: 1;
@@ -28,7 +35,6 @@ mat-sidenav-container {
 
 mat-form-field.search {
   width: 100%;
-  margin-bottom: -1.25em;
 }
 
 a.active {
@@ -36,4 +42,11 @@ a.active {
   background-color: mat.m2-get-color-from-palette(
     mat.m2-define-palette(mat.$m2-indigo-palette)
   ) !important;
+}
+
+h3 {
+  padding-top: 8px;
+  margin-bottom: 4px;
+  padding-inline-start: 8px;
+  font-weight: bold;
 }
