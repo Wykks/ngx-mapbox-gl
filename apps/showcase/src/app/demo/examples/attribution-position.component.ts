@@ -4,7 +4,7 @@ import {
   AttributionControlDirective,
   ControlComponent,
 } from 'ngx-mapbox-gl';
-import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MglMapResizeDirective } from './mgl-map-resize.directive';
 
 @Component({
   selector: 'showcase-demo',

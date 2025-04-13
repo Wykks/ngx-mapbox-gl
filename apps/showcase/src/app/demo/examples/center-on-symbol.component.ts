@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForOf } from '@angular/common';
 import { MapMouseEvent } from 'mapbox-gl';
-import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import {
   MapComponent,
   GeoJSONSourceComponent,

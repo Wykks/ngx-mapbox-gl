@@ -10,7 +10,7 @@ import {
   ScaleControlDirective,
 } from 'ngx-mapbox-gl';
 import { MatButtonModule } from '@angular/material/button';
-import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MglMapResizeDirective } from './mgl-map-resize.directive';
 
 @Component({
   selector: 'showcase-demo',

@@ -1,33 +1,30 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map, shareReplay, switchMap } from 'rxjs/operators';
 
-const FILES_PATH = 'app/demo/examples/';
+const FILES_PATH = '';
 
 @Injectable({ providedIn: 'root' })
 export class DemoFileLoaderService {
-  private fileCache = new Map<string, Observable<Record<string, string>>>();
+  private readonly httpClient = inject(HttpClient);
 
-  constructor(private http: HttpClient) {
-    // Preload this file since it's used in every demos
-    this.loadFile('example.css');
-  }
+  private fileCache = new Map<string, Observable<Record<string, string>>>();
 
   getDemoFiles(exampleName: string) {
     let req$ = this.fileCache.get(exampleName);
     if (req$) {
       return req$;
     }
-    req$ = this.http
+    req$ = this.httpClient
       .get(`${FILES_PATH}${exampleName}.component.ts`, {
         responseType: 'text',
       })
       .pipe(
         switchMap((fileContent) =>
-          this.loadAdditionnalFilesIfNecessary(fileContent)
+          this.loadAdditionnalFilesIfNecessary(fileContent),
         ),
-        shareReplay(1)
+        shareReplay(1),
       );
     this.fileCache.set(exampleName, req$);
     return req$;
@@ -41,7 +38,11 @@ export class DemoFileLoaderService {
       'src/demo.ts': fileContent,
     };
     while ((match = r.exec(fileContent))) {
-      files.push(this.loadFile(match[1]));
+      let file = match[1];
+      if (!/^.+\.(css|json)$/.test(file)) {
+        file += '.ts';
+      }
+      files.push(this.loadFile(file));
     }
     if (files.length) {
       return forkJoin(files).pipe(
@@ -51,7 +52,7 @@ export class DemoFileLoaderService {
             ...Object.assign({}, ...files),
             ...result,
           };
-        })
+        }),
       );
     }
     return of(result);
@@ -62,7 +63,7 @@ export class DemoFileLoaderService {
     if (req$) {
       return req$;
     }
-    req$ = this.http
+    req$ = this.httpClient
       .get(`${FILES_PATH}${fileName}`, {
         responseType: 'text',
       })
@@ -70,7 +71,7 @@ export class DemoFileLoaderService {
         map((fileContent) => ({
           [`src/${fileName}`]: fileContent,
         })),
-        shareReplay(1)
+        shareReplay(1),
       );
     this.fileCache.set(fileName, req$);
     return req$;

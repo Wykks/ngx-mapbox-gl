@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgIf, NgForOf } from '@angular/common';
 import { Layer } from 'mapbox-gl';
-import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import {
   MapComponent,
   GeoJSONSourceComponent,

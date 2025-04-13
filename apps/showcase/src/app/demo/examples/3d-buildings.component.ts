@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LayerComponent, MapComponent } from 'ngx-mapbox-gl';
 import { AnyLayer, Map } from 'mapbox-gl';
-import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MglMapResizeDirective } from './mgl-map-resize.directive';
 
 @Component({
   selector: 'showcase-demo',

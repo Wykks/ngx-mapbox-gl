@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import {
   MapComponent,
   GeoJSONSourceComponent,

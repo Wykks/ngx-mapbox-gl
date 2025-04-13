@@ -10,8 +10,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import StackBlitzSDK from '@stackblitz/sdk';
-import { VM } from '@stackblitz/sdk/typings/VM';
+import StackBlitzSDK, { type VM } from '@stackblitz/sdk';
 import { forkJoin, from, Subscription } from 'rxjs';
 import { finalize, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { createStackblitzProject } from './create-stackblitz-project';
@@ -59,10 +58,7 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
   private sub: Subscription;
   private vm: VM;
   private projectbase$ = forkJoin([
-    this.http.get('assets/stackblitz/main.notts', {
-      responseType: 'text',
-    }),
-    this.http.get('assets/stackblitz/angular.json', {
+    this.http.get('stackblitz/angular.json', {
       responseType: 'text',
     }),
   ]).pipe(shareReplay(1));

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForOf, NgStyle } from '@angular/common';
 import { CirclePaint, SymbolLayout, SymbolPaint } from 'mapbox-gl';
-import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import {
   MapComponent,
   GeoJSONSourceComponent,

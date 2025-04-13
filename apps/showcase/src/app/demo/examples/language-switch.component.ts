@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Map } from 'mapbox-gl';
-import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import { MapComponent, ControlComponent } from 'ngx-mapbox-gl';
 import { MatButtonModule } from '@angular/material/button';
 

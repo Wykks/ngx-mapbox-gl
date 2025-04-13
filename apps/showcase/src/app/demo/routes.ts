@@ -21,7 +21,7 @@ import { HoverStylesComponent } from './examples/hover-styles.component';
 import { InteractiveFalseComponent } from './examples/interactive-false.component';
 import { LanguageSwitchComponent } from './examples/language-switch.component';
 import { LiveUpdateFeatureComponent } from './examples/live-update-feature.component';
-import { LiveUpdateImageSourceComponent } from './examples/live-update-image-srource.component';
+import { LiveUpdateImageSourceComponent } from './examples/live-update-image-source.component';
 import { LocateUserComponent } from './examples/locate-user.component';
 import { MapProjectionComponent } from './examples/map-projection.component';
 import { MarkerAlignmentComponent } from './examples/marker-alignment.component';
@@ -43,15 +43,16 @@ import { ZoomtoLinestringComponent } from './examples/zoomto-linestring.componen
 import { StackblitzEditComponent } from './stackblitz-edit/stackblitz-edit.component';
 import { inject } from '@angular/core';
 
-export enum Category {
-  STYLES = 'Styles',
-  LAYERS = 'Layers',
-  SOURCES = 'Sources',
-  USER_INTERACTION = 'User interaction',
-  CAMERA = 'Camera',
-  CONTROLS_AND_OVERLAYS = 'Controls and overlays',
-  PROJECTIONS = 'Projections',
-}
+export const Category = {
+  STYLES: 'Styles',
+  LAYERS: 'Layers',
+  SOURCES: 'Sources',
+  USER_INTERACTION: 'User interaction',
+  CAMERA: 'Camera',
+  CONTROLS_AND_OVERLAYS: 'Controls and overlays',
+  PROJECTIONS: 'Projections',
+} as const;
+export type Category = typeof Category[keyof typeof Category];
 
 export const DEMO_ROUTES: Routes = [
   {
@@ -356,3 +357,18 @@ export const DEMO_ROUTES: Routes = [
     ],
   },
 ];
+
+export type RoutesByCategory = { [P in Category]: Routes };
+
+export const ROUTES_BY_CATEGORY: RoutesByCategory =
+  DEMO_ROUTES[0].children!.reduce<RoutesByCategory>((acc, route) => {
+    if (!route.data) {
+      return acc;
+    }
+    const category = route.data['cat'] as Category;
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(route);
+    return acc;
+  }, {} as RoutesByCategory);

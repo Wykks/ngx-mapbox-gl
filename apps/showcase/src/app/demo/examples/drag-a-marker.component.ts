@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { Marker } from 'mapbox-gl';
-import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import { MapComponent, MarkerComponent, ControlComponent } from 'ngx-mapbox-gl';
 import { MatCardModule } from '@angular/material/card';
 

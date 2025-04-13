@@ -16,3 +16,11 @@ body {
 .mat-icon {
   display: inline-flex !important;
 }
+
+.mat-drawer-inner-container {
+  display: flex;
+}
+
+.mdc-list {
+  padding: 0px !important;
+}

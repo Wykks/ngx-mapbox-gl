@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import { MapComponent, MarkerComponent } from 'ngx-mapbox-gl';
 
 @Component({

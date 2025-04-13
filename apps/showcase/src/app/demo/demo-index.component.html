@@ -19,31 +19,31 @@
     [opened]="sidenavIsOpen"
     (openedChange)="onSidenavChange()"
   >
-    <mat-form-field class="search">
+  <div class="sidenav-content">
+    <mat-form-field class="search" subscriptSizing="dynamic">
       <input
         matInput
         type="text"
         placeholder="Search"
         [(ngModel)]="searchTerm"
-        (ngModelChange)="search()"
       />
-      <button
-        mat-button
-        *ngIf="searchTerm"
-        matSuffix
-        mat-icon-button
-        aria-label="Clear"
-        (click)="clearSearch()"
-      >
-        <mat-icon>close</mat-icon>
-      </button>
+      @if (searchTerm()) {
+        <button
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="searchTerm.set('')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      }
     </mat-form-field>
+    <div class="list">
     <mat-nav-list>
-      <ng-container *ngFor="let cat of categories">
+      @for (cat of categories; track cat) {
         <h3 matSubheader>{{ cat }}</h3>
-        <ng-container *ngFor="let route of $any(routes)[cat]">
-          <a
-            *ngIf="route"
+        @for (route of routesByCategory()[cat]; track route) {
+            <a
             mat-list-item
             [routerLink]="'/demo/' + (isEditMode ? '/edit/' : '') + route.path"
             routerLinkActive="active"
@@ -54,12 +54,14 @@
             "
             #exampleLink
           >
-            {{ route.data.label }}
+            {{ route.data?.['label'] }}
           </a>
-        </ng-container>
+        }
         <mat-divider />
-      </ng-container>
+      }
     </mat-nav-list>
+  </div>
+</div>
   </mat-sidenav>
   <mat-sidenav-content>
     <section class="content">

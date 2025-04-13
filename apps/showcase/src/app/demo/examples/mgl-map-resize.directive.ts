@@ -27,8 +27,13 @@ export class MglMapResizeDirective {
   private readonly mapResizeSignal = inject(MapResizeSignal);
 
   constructor() {
+    let skipFirst = true;
     effect(() => {
       this.mapResizeSignal();
+      if (skipFirst) {
+        skipFirst = false;
+        return;
+      }
       this.mapComponent.mapInstance.resize();
     });
   }

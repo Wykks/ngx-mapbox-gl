@@ -21,7 +21,7 @@ import {
   PointDirective,
   PopupComponent,
 } from 'ngx-mapbox-gl';
-import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MglMapResizeDirective } from './mgl-map-resize.directive';
 
 /**
  * Remember: mgl-layer are way faster than html markers

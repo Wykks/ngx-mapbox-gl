@@ -19,6 +19,10 @@
           {
             "glob": "**/*",
             "input": "apps/showcase/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/showcase/src/app/demo/examples"
           }
         ],
         "styles": [

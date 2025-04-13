@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AnyLayout } from 'mapbox-gl';
-import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import {
   MapComponent,
   VectorSourceComponent,

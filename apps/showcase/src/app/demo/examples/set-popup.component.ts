@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgStyle } from '@angular/common';
-import { MglMapResizeDirective } from '../mgl-map-resize.directive';
+import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import { MapComponent, MarkerComponent, PopupComponent } from 'ngx-mapbox-gl';
 
 @Component({
