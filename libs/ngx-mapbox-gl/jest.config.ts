@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'ngx-mapbox-gl',
   preset: '../../jest.preset.js',
