@@ -13,7 +13,7 @@ export class NavigationControlDirective implements AfterContentInit {
 
   constructor(
     private mapService: MapService,
-    @Host() private controlComponent: ControlComponent<NavigationControl>
+    @Host() private controlComponent: ControlComponent<NavigationControl>,
   ) {}
 
   ngAfterContentInit() {
@@ -31,7 +31,7 @@ export class NavigationControlDirective implements AfterContentInit {
       this.controlComponent.control = new NavigationControl(options);
       this.mapService.addControl(
         this.controlComponent.control,
-        this.controlComponent.position
+        this.controlComponent.position,
       );
     });
   }

@@ -20,7 +20,7 @@ import {
         position="bottom-right"
         [customAttribution]="[
           '<a href=&quot;https://github.com/Wykks/ngx-mapbox-gl&quot; target=&quot;_blank&quot;>Maps made awesome in Angular</a>',
-          'Hello World'
+          'Hello World',
         ]"
       />
     </mgl-map>

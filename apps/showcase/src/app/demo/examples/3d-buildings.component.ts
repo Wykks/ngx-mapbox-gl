@@ -30,7 +30,7 @@ import { MglMapResizeDirective } from './mgl-map-resize.directive';
             15,
             0,
             15.05,
-            ['get', 'height']
+            ['get', 'height'],
           ],
           'fill-extrusion-base': [
             'interpolate',
@@ -39,9 +39,9 @@ import { MglMapResizeDirective } from './mgl-map-resize.directive';
             15,
             0,
             15.05,
-            ['get', 'min_height']
+            ['get', 'min_height'],
           ],
-          'fill-extrusion-opacity': 0.6
+          'fill-extrusion-opacity': 0.6,
         }"
         [before]="labelLayerId"
       />

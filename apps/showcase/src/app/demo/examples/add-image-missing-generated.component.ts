@@ -32,37 +32,37 @@ import { MglMapResizeDirective } from './mgl-map-resize.directive';
                 type: 'Feature',
                 geometry: {
                   type: 'Point',
-                  coordinates: [0, 0]
+                  coordinates: [0, 0],
                 },
                 properties: {
-                  color: '255,0,0'
-                }
+                  color: '255,0,0',
+                },
               },
               {
                 type: 'Feature',
                 geometry: {
                   type: 'Point',
-                  coordinates: [50, 0]
+                  coordinates: [50, 0],
                 },
                 properties: {
-                  color: '255,209,28'
-                }
+                  color: '255,209,28',
+                },
               },
               {
                 type: 'Feature',
                 geometry: {
                   type: 'Point',
-                  coordinates: [-50, 0]
+                  coordinates: [-50, 0],
                 },
                 properties: {
-                  color: '242,127,32'
-                }
-              }
-            ]
-          }
+                  color: '242,127,32',
+                },
+              },
+            ],
+          },
         }"
         [layout]="{
-          'icon-image': ['concat', 'square-rgb-', ['get', 'color']]
+          'icon-image': ['concat', 'square-rgb-', ['get', 'color']],
         }"
       />
     </mgl-map>

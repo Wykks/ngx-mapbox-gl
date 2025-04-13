@@ -13,7 +13,7 @@ import {
       <mgl-control
         mglGeolocate
         [positionOptions]="{
-          enableHighAccuracy: true
+          enableHighAccuracy: true,
         }"
         [trackUserLocation]="true"
         [showUserHeading]="true"

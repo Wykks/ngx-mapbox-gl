@@ -24,11 +24,11 @@ import {
         source="oneline"
         [layout]="{
           'line-join': 'round',
-          'line-cap': 'round'
+          'line-cap': 'round',
         }"
         [paint]="{
           'line-color': '#888',
-          'line-width': 8
+          'line-width': 8,
         }"
       />
     </mgl-map>

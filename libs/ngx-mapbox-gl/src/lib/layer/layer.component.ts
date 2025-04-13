@@ -133,9 +133,9 @@ export class LayerComponent
           fromEvent(this.mapService.mapInstance, 'styledata').pipe(
             mapTo(false),
             filter(() => !this.mapService.mapInstance.getLayer(this.id)),
-            startWith(true)
-          )
-        )
+            startWith(true),
+          ),
+        ),
       )
       .subscribe((bindEvents: boolean) => this.init(bindEvents));
   }
@@ -147,13 +147,13 @@ export class LayerComponent
     if (changes['paint'] && !changes['paint'].isFirstChange()) {
       this.mapService.setAllLayerPaintProperty(
         this.id,
-        changes['paint'].currentValue!
+        changes['paint'].currentValue!,
       );
     }
     if (changes['layout'] && !changes['layout'].isFirstChange()) {
       this.mapService.setAllLayerLayoutProperty(
         this.id,
-        changes['layout'].currentValue!
+        changes['layout'].currentValue!,
       );
     }
     if (changes['filter'] && !changes['filter'].isFirstChange()) {

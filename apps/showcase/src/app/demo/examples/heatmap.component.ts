@@ -41,7 +41,7 @@ import {
           [paint]="{
             'circle-color': 'rgba(0,255,0,0.5)',
             'circle-radius': 20,
-            'circle-blur': 1
+            'circle-blur': 1,
           }"
           before="waterway-label"
         />

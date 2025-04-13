@@ -15,15 +15,15 @@ export class AppComponent {
   constructor() {
     this.iconRegistry.addSvgIcon(
       'ngx-mapbox-gl',
-      this.sanitizer.bypassSecurityTrustResourceUrl('ngx-mapbox-gl.svg')
+      this.sanitizer.bypassSecurityTrustResourceUrl('ngx-mapbox-gl.svg'),
     );
     this.iconRegistry.addSvgIcon(
       'ngx-mapbox-gl-red',
-      this.sanitizer.bypassSecurityTrustResourceUrl('ngx-mapbox-gl-red.svg')
+      this.sanitizer.bypassSecurityTrustResourceUrl('ngx-mapbox-gl-red.svg'),
     );
     this.iconRegistry.addSvgIcon(
       'github',
-      this.sanitizer.bypassSecurityTrustResourceUrl('github.svg')
+      this.sanitizer.bypassSecurityTrustResourceUrl('github.svg'),
     );
   }
 }

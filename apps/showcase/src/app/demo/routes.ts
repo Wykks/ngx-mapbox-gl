@@ -52,7 +52,7 @@ export const Category = {
   CONTROLS_AND_OVERLAYS: 'Controls and overlays',
   PROJECTIONS: 'Projections',
 } as const;
-export type Category = typeof Category[keyof typeof Category];
+export type Category = (typeof Category)[keyof typeof Category];
 
 export const DEMO_ROUTES: Routes = [
   {
@@ -66,7 +66,7 @@ export const DEMO_ROUTES: Routes = [
           (route: ActivatedRouteSnapshot) => {
             if (
               DEMO_ROUTES[0].children?.some(
-                (r) => r.path === route.params['demoUrl']
+                (r) => r.path === route.params['demoUrl'],
               )
             ) {
               return true;

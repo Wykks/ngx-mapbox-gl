@@ -16,7 +16,7 @@ export const MapResizeSignal = new InjectionToken<WritableSignal<void>>(
       signal(undefined, {
         equal: () => false,
       }),
-  }
+  },
 );
 
 @Directive({

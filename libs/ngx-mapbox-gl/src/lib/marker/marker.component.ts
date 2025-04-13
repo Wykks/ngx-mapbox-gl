@@ -19,7 +19,9 @@ import { deprecationWarning } from '../utils';
 
 @Component({
   selector: 'mgl-marker',
-  template: `<div [class]="className" [style.z-index]="zIndex" #content><ng-content/></div>`,
+  template: `<div [class]="className" [style.z-index]="zIndex" #content>
+    <ng-content />
+  </div>`,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -77,7 +79,7 @@ export class MarkerComponent
     }
     if (changes['feature'] && !changes['feature'].isFirstChange()) {
       this.markerInstance!.setLngLat(
-        this.feature!.geometry!.coordinates as [number, number]
+        this.feature!.geometry!.coordinates as [number, number],
       );
     }
     if (changes['draggable'] && !changes['draggable'].isFirstChange()) {
@@ -93,7 +95,7 @@ export class MarkerComponent
       !changes['pitchAlignment'].isFirstChange()
     ) {
       this.markerInstance!.setPitchAlignment(
-        changes['pitchAlignment'].currentValue
+        changes['pitchAlignment'].currentValue,
       );
     }
     if (
@@ -101,7 +103,7 @@ export class MarkerComponent
       !changes['rotationAlignment'].isFirstChange()
     ) {
       this.markerInstance!.setRotationAlignment(
-        changes['rotationAlignment'].currentValue
+        changes['rotationAlignment'].currentValue,
       );
     }
   }

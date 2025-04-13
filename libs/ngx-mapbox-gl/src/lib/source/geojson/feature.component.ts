@@ -27,7 +27,7 @@ export class FeatureComponent
 
   constructor(
     @Inject(forwardRef(() => GeoJSONSourceComponent))
-    private GeoJSONSourceComponent: GeoJSONSourceComponent
+    private GeoJSONSourceComponent: GeoJSONSourceComponent,
   ) {}
 
   ngOnInit() {

@@ -397,7 +397,7 @@ export class MapComponent
       !changes['renderWorldCopies'].isFirstChange()
     ) {
       this.mapService.updateRenderWorldCopies(
-        changes['renderWorldCopies'].currentValue
+        changes['renderWorldCopies'].currentValue,
       );
     }
     if (changes['scrollZoom'] && !changes['scrollZoom'].isFirstChange()) {
@@ -414,7 +414,7 @@ export class MapComponent
       !changes['touchZoomRotate'].isFirstChange()
     ) {
       this.mapService.updateTouchZoomRotate(
-        changes['touchZoomRotate'].currentValue
+        changes['touchZoomRotate'].currentValue,
       );
     }
     if (
@@ -422,7 +422,7 @@ export class MapComponent
       !changes['doubleClickZoom'].isFirstChange()
     ) {
       this.mapService.updateDoubleClickZoom(
-        changes['doubleClickZoom'].currentValue
+        changes['doubleClickZoom'].currentValue,
       );
     }
     if (changes['keyboard'] && !changes['keyboard'].isFirstChange()) {
@@ -447,7 +447,7 @@ export class MapComponent
     ) {
       this.mapService.fitBounds(
         changes['fitBounds'].currentValue,
-        this.fitBoundsOptions
+        this.fitBoundsOptions,
       );
     }
     if (
@@ -459,13 +459,13 @@ export class MapComponent
         changes['fitScreenCoordinates'].isFirstChange()
       ) {
         console.warn(
-          '[ngx-mapbox-gl] center / zoom / pitch / fitBounds inputs are being overridden by fitScreenCoordinates input'
+          '[ngx-mapbox-gl] center / zoom / pitch / fitBounds inputs are being overridden by fitScreenCoordinates input',
         );
       }
       this.mapService.fitScreenCoordinates(
         changes['fitScreenCoordinates'].currentValue,
         this.bearing ? this.bearing[0] : 0,
-        this.movingOptions
+        this.movingOptions,
       );
     }
     if (
@@ -491,7 +491,7 @@ export class MapComponent
         changes['zoom'] && this.zoom ? this.zoom[0] : undefined,
         changes['center'] ? this.center : undefined,
         changes['bearing'] && this.bearing ? this.bearing[0] : undefined,
-        changes['pitch'] && this.pitch ? this.pitch[0] : undefined
+        changes['pitch'] && this.pitch ? this.pitch[0] : undefined,
       );
     }
   }

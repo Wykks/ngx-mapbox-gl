@@ -27,7 +27,7 @@ export class GeolocateControlDirective implements AfterContentInit {
 
   constructor(
     private mapService: MapService,
-    @Host() private controlComponent: ControlComponent<GeolocateControl>
+    @Host() private controlComponent: ControlComponent<GeolocateControl>,
   ) {}
 
   ngAfterContentInit() {
@@ -55,7 +55,7 @@ export class GeolocateControlDirective implements AfterContentInit {
       });
       this.mapService.addControl(
         this.controlComponent.control,
-        this.controlComponent.position
+        this.controlComponent.position,
       );
     });
   }

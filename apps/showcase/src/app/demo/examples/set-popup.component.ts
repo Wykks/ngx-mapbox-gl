@@ -20,7 +20,7 @@ import { MapComponent, MarkerComponent, PopupComponent } from 'ngx-mapbox-gl';
             width: '50px',
             height: '50px',
             'border-radius': '50%',
-            cursor: 'pointer'
+            cursor: 'pointer',
           }"
         ></div>
       </mgl-marker>

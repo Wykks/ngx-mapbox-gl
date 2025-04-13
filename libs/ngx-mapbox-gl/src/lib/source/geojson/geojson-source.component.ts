@@ -50,7 +50,10 @@ export class GeoJSONSourceComponent
   private sourceAdded = false;
   private featureIdCounter = 0;
 
-  constructor(private mapService: MapService, private zone: NgZone) {}
+  constructor(
+    private mapService: MapService,
+    private zone: NgZone,
+  ) {}
 
   ngOnInit() {
     if (!this.data) {
@@ -130,7 +133,7 @@ export class GeoJSONSourceComponent
               resolve(zoom);
             }
           });
-        })
+        }),
     );
   }
 
@@ -151,7 +154,7 @@ export class GeoJSONSourceComponent
               resolve(features);
             }
           });
-        })
+        }),
     );
   }
 
@@ -177,9 +180,9 @@ export class GeoJSONSourceComponent
               } else {
                 resolve(features);
               }
-            }
+            },
           );
-        })
+        }),
     );
   }
 

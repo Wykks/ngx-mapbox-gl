@@ -83,7 +83,7 @@ export class MarkersForClustersComponent
   constructor(
     private mapService: MapService,
     private ChangeDetectorRef: ChangeDetectorRef,
-    private zone: NgZone
+    private zone: NgZone,
   ) {}
 
   ngAfterContentInit() {
@@ -93,8 +93,8 @@ export class MarkersForClustersComponent
           (e) =>
             e.sourceId === this.source &&
             e.sourceDataType !== 'metadata' &&
-            this.mapService.mapInstance.isSourceLoaded(this.source)
-        )
+            this.mapService.mapInstance.isSourceLoaded(this.source),
+        ),
       );
     const sub = this.mapService.mapCreated$
       .pipe(
@@ -102,9 +102,9 @@ export class MarkersForClustersComponent
         switchMap(() =>
           merge(
             fromEvent(this.mapService.mapInstance, 'move'),
-            fromEvent(this.mapService.mapInstance, 'moveend')
-          ).pipe(startWith(undefined))
-        )
+            fromEvent(this.mapService.mapInstance, 'moveend'),
+          ).pipe(startWith(undefined)),
+        ),
       )
       .subscribe(() => {
         this.zone.run(() => {

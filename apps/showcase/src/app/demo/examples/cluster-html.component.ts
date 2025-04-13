@@ -84,8 +84,8 @@ export class ClusterPointComponent implements OnInit {
         this.donutSegment(
           offsets[i] / total,
           (offsets[i] + counts[i]) / total,
-          COLORS[i]
-        )
+          COLORS[i],
+        ),
       );
     }
     this.totalString = total.toLocaleString();
@@ -135,9 +135,7 @@ export class ClusterPointComponent implements OnInit {
       />
       <mgl-markers-for-clusters source="earthquakes">
         <ng-template mglClusterPoint let-feature>
-          <showcase-cluster-point
-            [properties]="feature.properties"
-          />
+          <showcase-cluster-point [properties]="feature.properties" />
         </ng-template>
       </mgl-markers-for-clusters>
       <mgl-layer

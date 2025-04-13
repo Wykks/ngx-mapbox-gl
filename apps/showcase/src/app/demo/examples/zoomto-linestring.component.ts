@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
       [center]="[-77.0214, 38.897]"
       [fitBounds]="bounds"
       [fitBoundsOptions]="{
-        padding: 20
+        padding: 20,
       }"
     >
       <mgl-control>
@@ -27,11 +27,11 @@ import { MatButtonModule } from '@angular/material/button';
         [source]="source"
         [paint]="{
           'line-color': '#BF93E4',
-          'line-width': 5
+          'line-width': 5,
         }"
         [layout]="{
           'line-join': 'round',
-          'line-cap': 'round'
+          'line-cap': 'round',
         }"
       />
     </mgl-map>
@@ -83,7 +83,7 @@ export class ZoomtoLinestringComponent {
 
     this.bounds = coordinates.reduce(
       (bounds, coord) => bounds.extend(coord as any),
-      new LngLatBounds(coordinates[0], coordinates[0])
+      new LngLatBounds(coordinates[0], coordinates[0]),
     );
   }
 }

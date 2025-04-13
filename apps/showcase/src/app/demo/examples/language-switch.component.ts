@@ -61,7 +61,7 @@ export class LanguageSwitchComponent {
     this.map.setLayoutProperty(
       'country-label-lg',
       'text-field',
-      '{name_' + language + '}'
+      '{name_' + language + '}',
     );
   }
 }

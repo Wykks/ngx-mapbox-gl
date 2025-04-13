@@ -19,8 +19,8 @@ describe('ImageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [ImageComponent],
-})
+      imports: [ImageComponent],
+    })
       .overrideComponent(ImageComponent, {
         set: {
           providers: [{ provide: MapService, useClass: MapServiceSpy }],

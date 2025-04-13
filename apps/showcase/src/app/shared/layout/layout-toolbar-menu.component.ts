@@ -30,7 +30,7 @@ export class LayoutToolbarMenuComponent implements AfterViewInit, OnDestroy {
     const target = document.querySelector(
       this.position === 'left'
         ? '#layout-left-custom-items'
-        : '#layout-right-custom-items'
+        : '#layout-right-custom-items',
     );
     if (!target) {
       throw new Error('LayoutToolbarMenuComponent: No target found');

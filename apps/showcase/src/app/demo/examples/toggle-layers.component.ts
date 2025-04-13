@@ -17,7 +17,10 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
       [center]="[-71.97722138410576, -13.517379300798098]"
     >
       <mgl-vector-source id="museums" url="mapbox://mapbox.2opop9hr" />
-      <mgl-vector-source id="contours" url="mapbox://mapbox.mapbox-terrain-v2" />
+      <mgl-vector-source
+        id="contours"
+        url="mapbox://mapbox.mapbox-terrain-v2"
+      />
       <mgl-layer
         id="museums"
         type="circle"
@@ -25,7 +28,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
         [layout]="layouts['museums']"
         [paint]="{
           'circle-radius': 8,
-          'circle-color': 'rgba(55,148,179,1)'
+          'circle-color': 'rgba(55,148,179,1)',
         }"
         sourceLayer="museum-cusco"
       />
@@ -36,7 +39,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
         [layout]="layouts['contours']"
         [paint]="{
           'line-color': '#877b59',
-          'line-width': 1
+          'line-width': 1,
         }"
         sourceLayer="contour"
       />
