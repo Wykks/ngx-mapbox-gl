@@ -26,11 +26,11 @@ import { MglMapResizeDirective } from './mgl-map-resize.directive';
                 properties: {},
                 geometry: {
                   type: 'Point',
-                  coordinates: [0, 0]
-                }
-              }
-            ]
-          }
+                  coordinates: [0, 0],
+                },
+              },
+            ],
+          },
         }"
         [layout]="{ 'icon-image': 'cat', 'icon-size': 0.25 }"
       />

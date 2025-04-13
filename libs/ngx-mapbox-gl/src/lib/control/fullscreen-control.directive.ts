@@ -18,7 +18,7 @@ export class FullscreenControlDirective implements AfterContentInit {
 
   constructor(
     private mapService: MapService,
-    @Host() private controlComponent: ControlComponent<FullscreenControl>
+    @Host() private controlComponent: ControlComponent<FullscreenControl>,
   ) {}
 
   @HostListener('window:webkitfullscreenchange', ['$event.target'])
@@ -36,7 +36,7 @@ export class FullscreenControlDirective implements AfterContentInit {
       });
       this.mapService.addControl(
         this.controlComponent.control,
-        this.controlComponent.position
+        this.controlComponent.position,
       );
     });
   }

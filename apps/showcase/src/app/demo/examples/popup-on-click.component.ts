@@ -25,7 +25,7 @@ import {
         type="symbol"
         [layout]="{
           'icon-image': '{icon}-15',
-          'icon-allow-overlap': true
+          'icon-allow-overlap': true,
         }"
         (layerClick)="onClick($event)"
         (layerMouseEnter)="cursorStyle = 'pointer'"

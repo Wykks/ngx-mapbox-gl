@@ -24,7 +24,7 @@ import {
         source="states"
         [paint]="{
           'fill-color': '#627BC1',
-          'fill-opacity': 0.5
+          'fill-opacity': 0.5,
         }"
         (layerMouseMove)="activateHoverOn($event)"
         (layerMouseLeave)="disableHover()"
@@ -35,7 +35,7 @@ import {
         source="states"
         [paint]="{
           'line-color': '#627BC1',
-          'line-width': 2
+          'line-width': 2,
         }"
       />
       <mgl-layer
@@ -44,7 +44,7 @@ import {
         source="states"
         [paint]="{
           'fill-color': '#627BC1',
-          'fill-opacity': 1
+          'fill-opacity': 1,
         }"
         [filter]="hoverFilter"
       />

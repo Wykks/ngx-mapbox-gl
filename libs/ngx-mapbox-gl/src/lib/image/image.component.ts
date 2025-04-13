@@ -44,7 +44,10 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   private isAdding = false;
   private sub: Subscription;
 
-  constructor(private mapService: MapService, private zone: NgZone) {}
+  constructor(
+    private mapService: MapService,
+    private zone: NgZone,
+  ) {}
 
   ngOnInit() {
     this.warnDeprecatedOutputs();
@@ -55,10 +58,11 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
             startWith(undefined),
             filter(
               () =>
-                !this.isAdding && !this.mapService.mapInstance.hasImage(this.id)
-            )
-          )
-        )
+                !this.isAdding &&
+                !this.mapService.mapInstance.hasImage(this.id),
+            ),
+          ),
+        ),
       )
       .subscribe(() => this.init());
   }

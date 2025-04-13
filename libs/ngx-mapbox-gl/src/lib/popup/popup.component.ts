@@ -83,7 +83,7 @@ export class PopupComponent
       this.mapService.addPopupToMap(
         popupInstanceTmp,
         newlngLat,
-        this.popupInstance!.isOpen()
+        this.popupInstance!.isOpen(),
       );
       this.popupInstance = popupInstanceTmp;
     }
@@ -95,7 +95,7 @@ export class PopupComponent
       if (this.marker && this.marker.markerInstance && this.popupInstance) {
         this.mapService.addPopupToMarker(
           this.marker.markerInstance,
-          this.popupInstance
+          this.popupInstance,
         );
       }
     }
@@ -144,7 +144,7 @@ export class PopupComponent
           popupClose: this.popupClose,
         },
       },
-      this.content.nativeElement
+      this.content.nativeElement,
     );
   }
 
@@ -155,13 +155,13 @@ export class PopupComponent
           popup,
           this.lngLat
             ? this.lngLat
-            : (this.feature!.geometry!.coordinates! as [number, number])
+            : (this.feature!.geometry!.coordinates! as [number, number]),
         );
       } else if (this.marker && this.marker.markerInstance) {
         this.mapService.addPopupToMarker(this.marker.markerInstance, popup);
       } else {
         throw new Error(
-          'mgl-popup need either lngLat/marker/feature to be set'
+          'mgl-popup need either lngLat/marker/feature to be set',
         );
       }
     });

@@ -19,49 +19,51 @@
     [opened]="sidenavIsOpen"
     (openedChange)="onSidenavChange()"
   >
-  <div class="sidenav-content">
-    <mat-form-field class="search" subscriptSizing="dynamic">
-      <input
-        matInput
-        type="text"
-        placeholder="Search"
-        [(ngModel)]="searchTerm"
-      />
-      @if (searchTerm()) {
-        <button
-          matSuffix
-          mat-icon-button
-          aria-label="Clear"
-          (click)="searchTerm.set('')"
-        >
-          <mat-icon>close</mat-icon>
-        </button>
-      }
-    </mat-form-field>
-    <div class="list">
-    <mat-nav-list>
-      @for (cat of categories; track cat) {
-        <h3 matSubheader>{{ cat }}</h3>
-        @for (route of routesByCategory()[cat]; track route) {
-            <a
-            mat-list-item
-            [routerLink]="'/demo/' + (isEditMode ? '/edit/' : '') + route.path"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="
-              $any({
-                _routerLinkActiveWakeUpHack_: isEditMode
-              })
-            "
-            #exampleLink
+    <div class="sidenav-content">
+      <mat-form-field class="search" subscriptSizing="dynamic">
+        <input
+          matInput
+          type="text"
+          placeholder="Search"
+          [(ngModel)]="searchTerm"
+        />
+        @if (searchTerm()) {
+          <button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="searchTerm.set('')"
           >
-            {{ route.data?.['label'] }}
-          </a>
+            <mat-icon>close</mat-icon>
+          </button>
         }
-        <mat-divider />
-      }
-    </mat-nav-list>
-  </div>
-</div>
+      </mat-form-field>
+      <div class="list">
+        <mat-nav-list>
+          @for (cat of categories; track cat) {
+            <h3 matSubheader>{{ cat }}</h3>
+            @for (route of routesByCategory()[cat]; track route) {
+              <a
+                mat-list-item
+                [routerLink]="
+                  '/demo/' + (isEditMode ? '/edit/' : '') + route.path
+                "
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="
+                  $any({
+                    _routerLinkActiveWakeUpHack_: isEditMode,
+                  })
+                "
+                #exampleLink
+              >
+                {{ route.data?.['label'] }}
+              </a>
+            }
+            <mat-divider />
+          }
+        </mat-nav-list>
+      </div>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <section class="content">

@@ -10,7 +10,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
       <div>
         <div id="layout-left-custom-items"></div>
         <a mat-button routerLink="/">
-          <mat-icon svgIcon="ngx-mapbox-gl"/>
+          <mat-icon svgIcon="ngx-mapbox-gl" />
           ngx-mapbox-gl
         </a>
         <a mat-button routerLink="/demo"> Demo </a>
@@ -19,7 +19,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
       <div>
         <div id="layout-right-custom-items"></div>
         <a mat-button href="https://github.com/Wykks/ngx-mapbox-gl">
-          <mat-icon svgIcon="github"/>
+          <mat-icon svgIcon="github" />
           GitHub
         </a>
       </div>

@@ -27,9 +27,9 @@ describe('MapComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [MapComponent],
-    providers: [provideExperimentalZonelessChangeDetection()],
-})
+      imports: [MapComponent],
+      providers: [provideExperimentalZonelessChangeDetection()],
+    })
       .overrideComponent(MapComponent, {
         set: {
           providers: [{ provide: MapService, useClass: MapServiceSpy }],

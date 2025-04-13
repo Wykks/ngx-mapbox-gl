@@ -46,13 +46,11 @@ export function markedOptionsFactory(): MarkedOptions {
   template: `
     <showcase-layout-toolbar-menu position="right">
       <mat-form-field subscriptSizing="dynamic">
-        <mat-select
-          [(ngModel)]="currentVersion"
-        >
+        <mat-select [(ngModel)]="currentVersion">
           @for (version of versions(); track version) {
             <mat-option [value]="version">
-            {{ version }}
-          </mat-option>
+              {{ version }}
+            </mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -106,7 +104,7 @@ export function markedOptionsFactory(): MarkedOptions {
 })
 export class DocComponent {
   private tagsResource = httpResource<{ name: string }[]>(
-    'https://api.github.com/repos/Wykks/ngx-mapbox-gl/tags'
+    'https://api.github.com/repos/Wykks/ngx-mapbox-gl/tags',
   );
 
   versions = computed(() => {
@@ -134,7 +132,7 @@ export class DocComponent {
 
   docUrl = computed(
     () =>
-      `https://raw.githubusercontent.com/Wykks/ngx-mapbox-gl/${this.currentVersion()}/docs/API.md`
+      `https://raw.githubusercontent.com/Wykks/ngx-mapbox-gl/${this.currentVersion()}/docs/API.md`,
   );
 
   scrollToId() {

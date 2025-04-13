@@ -30,7 +30,7 @@ import {
         [paint]="{
           'line-color': 'yellow',
           'line-opacity': 0.75,
-          'line-width': 5
+          'line-width': 5,
         }"
       />
     </mgl-map>
@@ -69,14 +69,14 @@ export class LiveUpdateFeatureComponent implements OnInit, OnDestroy {
     this.sub = timer(0, 10)
       .pipe(
         scan((idx) => idx + 1, 0),
-        takeWhile((idx) => idx < this.originalCoordinates.length)
+        takeWhile((idx) => idx < this.originalCoordinates.length),
       )
       .subscribe((idx) => {
         // Note: For animations, it's probably better to use mapboxgl api directly instead of updating inputs
         // Also you will be able to make use of the preloadOnly option of mapbox-gl moving methods to have better results
         this.center = this.originalCoordinates[idx] as [number, number];
         this.data.features[0].geometry.coordinates.push(
-          this.originalCoordinates[idx]
+          this.originalCoordinates[idx],
         );
         this.data = { ...this.data };
       });

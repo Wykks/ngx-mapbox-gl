@@ -29,7 +29,7 @@ import {
         type="symbol"
         source="symbols-source"
         [layout]="{
-          'icon-image': 'rocket-15'
+          'icon-image': 'rocket-15',
         }"
         (layerClick)="centerMapTo($event)"
         (layerMouseEnter)="cursorStyle = 'pointer'"

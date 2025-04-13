@@ -3,9 +3,10 @@ import {
   Component,
   computed,
   ElementRef,
-  inject, QueryList,
+  inject,
+  QueryList,
   signal,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
 import {
   MatSlideToggleChange,
@@ -16,7 +17,7 @@ import {
   Router,
   RouterLink,
   RouterLinkActive,
-  RouterOutlet
+  RouterOutlet,
 } from '@angular/router';
 import scrollIntoView from 'scroll-into-view-if-needed';
 import { Category, ROUTES_BY_CATEGORY } from './routes';
@@ -67,9 +68,9 @@ export class DemoIndexComponent {
       Object.entries(ROUTES_BY_CATEGORY).map(([category, routes]) => [
         category,
         routes.filter((route) =>
-          route.data!['label'].toLowerCase().includes(search)
+          route.data!['label'].toLowerCase().includes(search),
         ),
-      ])
+      ]),
     );
   });
   sidenavIsOpen = true;
@@ -106,7 +107,7 @@ export class DemoIndexComponent {
 
   private scrollInToActiveExampleLink() {
     const activeLink = this.exampleLinks.find((elm) =>
-      (elm.nativeElement as HTMLElement).classList.contains('active')
+      (elm.nativeElement as HTMLElement).classList.contains('active'),
     );
     if (activeLink) {
       scrollIntoView(activeLink.nativeElement as HTMLElement, {

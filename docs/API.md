@@ -183,19 +183,10 @@ Dynamic:
 ...
 <mgl-map ...>
   <mgl-geojson-source id="symbols-source">
-    <mgl-feature
-      *ngFor="let geometry of geometries"
-      [geometry]="geometry"
-    />
+    <mgl-feature *ngFor="let geometry of geometries" [geometry]="geometry" />
   </mgl-geojson-source>
   ...
-  <mgl-geojson-source
-    id="earthquakes"
-    [data]="earthquakes"
-    [cluster]="true"
-    [clusterMaxZoom]="14"
-    [clusterRadius]="50"
-  />
+  <mgl-geojson-source id="earthquakes" [data]="earthquakes" [cluster]="true" [clusterMaxZoom]="14" [clusterRadius]="50" />
 </mgl-map>
 ```
 
@@ -304,11 +295,7 @@ Dynamic:
 ```html
 ...
 <mgl-map ...>
-  <mgl-image
-    id="image"
-    url="https://..."
-    (loaded)="imageLoaded = true"
-  />
+  <mgl-image id="image" url="https://..." (loaded)="imageLoaded = true" />
   ...
   <mgl-image
     id="image2"
@@ -319,8 +306,7 @@ Dynamic:
     }"
   />
 </mgl-map>
-...
-imageData: Uint8Array;
+... imageData: Uint8Array;
 ```
 
 ## Inputs
@@ -504,10 +490,7 @@ Requires a geojson source that is clustered - see above. This replaced mgl-marke
 <mgl-map ...>
   <mgl-markers-for-cluster [source]="myGeoJsonclusteredSource">
     <ng-template mglPoint let-feature> Marker! </ng-template>
-    <ng-template mglClusterPoint let-feature>
-      ClusterId: {{feature.properties?.cluster_id}}, Points:
-      {{feature.properties?.point_count}}
-    </ng-template>
+    <ng-template mglClusterPoint let-feature> ClusterId: {{feature.properties?.cluster_id}}, Points: {{feature.properties?.point_count}} </ng-template>
   </mgl-markers-for-cluster>
 </mgl-map>
 ```

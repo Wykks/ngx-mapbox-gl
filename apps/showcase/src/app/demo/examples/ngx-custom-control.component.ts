@@ -29,7 +29,11 @@ import { MglMapResizeDirective } from './mgl-map-resize.directive';
 
       <mgl-control mglAttribution position="top-right" />
       <mgl-control mglFullscreen position="top-right" />
-      <mgl-control mglGeolocate position="top-right" (geolocate)="onGeolocate($event)" />
+      <mgl-control
+        mglGeolocate
+        position="top-right"
+        (geolocate)="onGeolocate($event)"
+      />
       <mgl-control mglNavigation position="top-right" />
       <mgl-control mglScale position="top-right" />
     </mgl-map>

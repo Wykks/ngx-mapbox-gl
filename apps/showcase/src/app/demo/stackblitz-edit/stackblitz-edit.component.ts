@@ -68,7 +68,7 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private demoFileLoaderService: DemoFileLoaderService,
     private http: HttpClient,
-    private ChangeDetectorRef: ChangeDetectorRef
+    private ChangeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnDestroy() {
@@ -88,23 +88,23 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
           forkJoin([
             this.projectbase$,
             this.demoFileLoaderService.getDemoFiles(params['demoUrl']),
-          ])
+          ]),
         ),
         switchMap(([projectbase, demoFiles]) =>
           from(this.openExample(projectbase, demoFiles)).pipe(
             finalize(() => {
               this.loading = false;
               this.ChangeDetectorRef.markForCheck();
-            })
-          )
-        )
+            }),
+          ),
+        ),
       )
       .subscribe();
   }
 
   private async openExample(
     projectbase: string[],
-    demoFiles: Record<string, string>
+    demoFiles: Record<string, string>,
   ) {
     if (this.vm) {
       await this.vm.applyFsDiff({
@@ -123,7 +123,7 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
           hideNavigation: true,
           forceEmbedLayout: true,
           openFile: 'src/demo.ts',
-        }
+        },
       );
     });
   }

@@ -24,7 +24,7 @@ import { MapComponent, MarkerComponent } from 'ngx-mapbox-gl';
               feature.properties.iconSize.join('/') +
               '/)',
             width: feature.properties.iconSize[0] + 'px',
-            height: feature.properties.iconSize[1] + 'px'
+            height: feature.properties.iconSize[1] + 'px',
           }"
         ></div>
       </mgl-marker>

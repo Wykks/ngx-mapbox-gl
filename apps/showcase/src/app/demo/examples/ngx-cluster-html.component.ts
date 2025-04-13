@@ -72,7 +72,7 @@ export class ClusterPopupComponent implements OnChanges {
     this.leaves = await this.clusterComponent.getClusterLeaves(
       this.selectedCluster.properties?.['cluster_id'] ?? 0,
       5,
-      offset
+      offset,
     );
   }
 }

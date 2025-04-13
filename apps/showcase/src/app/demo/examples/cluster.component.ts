@@ -35,8 +35,8 @@ import {
               stops: [
                 [0, '#51bbd6'],
                 [100, '#f1f075'],
-                [750, '#f28cb1']
-              ]
+                [750, '#f28cb1'],
+              ],
             },
             'circle-radius': {
               property: 'point_count',
@@ -44,9 +44,9 @@ import {
               stops: [
                 [0, 20],
                 [100, 30],
-                [750, 40]
-              ]
-            }
+                [750, 40],
+              ],
+            },
           }"
         />
         <mgl-layer
@@ -57,7 +57,7 @@ import {
           [layout]="{
             'text-field': '{point_count_abbreviated}',
             'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-            'text-size': 12
+            'text-size': 12,
           }"
         />
         <mgl-layer
@@ -69,7 +69,7 @@ import {
             'circle-color': '#11b4da',
             'circle-radius': 4,
             'circle-stroke-width': 1,
-            'circle-stroke-color': '#fff'
+            'circle-stroke-color': '#fff',
           }"
         />
       </ng-container>

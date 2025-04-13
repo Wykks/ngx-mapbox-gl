@@ -24,7 +24,7 @@ import { MatCardModule } from '@angular/material/card';
           [properties]=""
           [geometry]="{
             type: 'Point',
-            coordinates: [0, 0]
+            coordinates: [0, 0],
           }"
           [mglDraggable]="targetLayer"
           (featureDragStart)="onDragStart($event)"

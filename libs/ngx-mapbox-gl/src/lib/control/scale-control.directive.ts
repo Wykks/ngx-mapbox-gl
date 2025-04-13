@@ -22,13 +22,13 @@ export class ScaleControlDirective implements AfterContentInit, OnChanges {
 
   constructor(
     private mapService: MapService,
-    @Host() private controlComponent: ControlComponent<ScaleControl>
+    @Host() private controlComponent: ControlComponent<ScaleControl>,
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['unit'] && !changes['unit'].isFirstChange()) {
       (this.controlComponent.control as any).setUnit(
-        changes['unit'].currentValue
+        changes['unit'].currentValue,
       );
     }
   }
@@ -48,7 +48,7 @@ export class ScaleControlDirective implements AfterContentInit, OnChanges {
       this.controlComponent.control = new ScaleControl(options);
       this.mapService.addControl(
         this.controlComponent.control,
-        this.controlComponent.position
+        this.controlComponent.position,
       );
     });
   }

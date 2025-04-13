@@ -21,8 +21,8 @@ describe('LayerComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [LayerComponent],
-})
+      imports: [LayerComponent],
+    })
       .overrideComponent(LayerComponent, {
         set: {
           providers: [{ provide: MapService, useClass: MapServiceSpy }],
@@ -45,7 +45,7 @@ describe('LayerComponent', () => {
       msSpy.addLayer.mockImplementation((options: SetupLayer) => {
         expect(options.layerOptions.id).toEqual(component.id);
         expect(
-          (options.layerOptions as BackgroundLayer).paint!['background-color']
+          (options.layerOptions as BackgroundLayer).paint!['background-color'],
         ).toEqual('green');
       });
       fixture.detectChanges();
@@ -78,7 +78,7 @@ describe('LayerComponent', () => {
       });
       expect(msSpy.setAllLayerPaintProperty).toHaveBeenCalledWith(
         component.id,
-        component.paint
+        component.paint,
       );
     });
   });

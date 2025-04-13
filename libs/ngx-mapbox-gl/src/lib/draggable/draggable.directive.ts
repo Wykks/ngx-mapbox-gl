@@ -46,7 +46,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
   constructor(
     private mapService: MapService,
     private ngZone: NgZone,
-    @Optional() @Host() private featureComponent?: FeatureComponent
+    @Optional() @Host() private featureComponent?: FeatureComponent,
   ) {}
 
   ngOnInit() {
@@ -58,14 +58,14 @@ export class DraggableDirective implements OnInit, OnDestroy {
       enter$ = this.layer.layerMouseEnter;
       leave$ = this.layer.layerMouseLeave;
       updateCoords = this.featureComponent.updateCoordinates.bind(
-        this.featureComponent
+        this.featureComponent,
       );
       if (this.featureComponent.geometry.type !== 'Point') {
         throw new Error('mglDraggable only support point feature');
       }
     } else {
       throw new Error(
-        'mglDraggable can only be used on Feature (with a layer as input) or Marker'
+        'mglDraggable can only be used on Feature (with a layer as input) or Marker',
       );
     }
 
@@ -79,14 +79,14 @@ export class DraggableDirective implements OnInit, OnDestroy {
   private handleDraggable(
     enter$: Observable<MapMouseEvent>,
     leave$: Observable<MapMouseEvent>,
-    updateCoords: (coord: number[]) => void
+    updateCoords: (coord: number[]) => void,
   ) {
     let moving = false;
     let inside = false;
     this.mapService.mapCreated$.subscribe(() => {
       const mouseUp$ = fromEvent<MapMouseEvent>(
         this.mapService.mapInstance,
-        'mouseup'
+        'mouseup',
       );
       const dragStart$ = enter$.pipe(
         filter(() => !moving),
@@ -99,17 +99,17 @@ export class DraggableDirective implements OnInit, OnDestroy {
         switchMap(() =>
           fromEvent<MapMouseEvent>(
             this.mapService.mapInstance,
-            'mousedown'
-          ).pipe(takeUntil(leave$))
-        )
+            'mousedown',
+          ).pipe(takeUntil(leave$)),
+        ),
       );
       const dragging$ = dragStart$.pipe(
         switchMap(() =>
           fromEvent<MapMouseEvent>(
             this.mapService.mapInstance,
-            'mousemove'
-          ).pipe(takeUntil(mouseUp$))
-        )
+            'mousemove',
+          ).pipe(takeUntil(mouseUp$)),
+        ),
       );
       const dragEnd$ = dragStart$.pipe(switchMap(() => mouseUp$.pipe(take(1))));
       this.sub.add(
@@ -121,7 +121,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
               this.dragStart.emit(evt);
             });
           }
-        })
+        }),
       );
       this.sub.add(
         dragging$.subscribe((evt) => {
@@ -132,7 +132,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
               this.drag.emit(evt);
             });
           }
-        })
+        }),
       );
       this.sub.add(
         dragEnd$.subscribe((evt) => {
@@ -148,18 +148,18 @@ export class DraggableDirective implements OnInit, OnDestroy {
             this.mapService.changeCanvasCursor('');
             this.mapService.updateDragPan(true);
           }
-        })
+        }),
       );
       this.sub.add(
         leave$
           .pipe(
             tap(() => (inside = false)),
-            filter(() => !moving)
+            filter(() => !moving),
           )
           .subscribe(() => {
             this.mapService.changeCanvasCursor('');
             this.mapService.updateDragPan(true);
-          })
+          }),
       );
     });
   }
