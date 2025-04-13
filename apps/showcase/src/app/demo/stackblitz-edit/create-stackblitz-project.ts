@@ -1,4 +1,5 @@
 import type { Project } from '@stackblitz/sdk';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import projectJson from '../../../../../../package.json';
 
 const deps = projectJson.dependencies;
@@ -7,7 +8,6 @@ const devDeps = projectJson.devDependencies;
 export const createStackblitzProject = (
   projectbase: string[],
   demoFiles: Record<string, string>,
-  // eslint-disable-next-line arrow-body-style
 ): Project => {
   return {
     files: {

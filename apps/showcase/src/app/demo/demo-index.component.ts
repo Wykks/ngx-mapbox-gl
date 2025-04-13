@@ -68,7 +68,7 @@ export class DemoIndexComponent {
       Object.entries(ROUTES_BY_CATEGORY).map(([category, routes]) => [
         category,
         routes.filter((route) =>
-          route.data!['label'].toLowerCase().includes(search),
+          route.data?.['label'].toLowerCase().includes(search),
         ),
       ]),
     );

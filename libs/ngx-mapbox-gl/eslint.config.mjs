@@ -9,7 +9,11 @@ export default [
       '@nx/dependency-checks': [
         'error',
         {
-          ignoredFiles: ['{projectRoot}/eslint.config.{js,cjs,mjs}'],
+          ignoredFiles: [
+            '{projectRoot}/eslint.config.{js,cjs,mjs}',
+            '{projectRoot}/**/*.spec.ts',
+            '{projectRoot}/src/test-setup.ts',
+          ],
         },
       ],
     },
@@ -38,6 +42,8 @@ export default [
           style: 'kebab-case',
         },
       ],
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/no-unused-expressions': 'off',
     },
   },
   {

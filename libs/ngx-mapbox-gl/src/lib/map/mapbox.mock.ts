@@ -22,6 +22,7 @@ export function mockMapbox() {
     }
     return mockMapInstance;
   });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mockMapInstance.on = on as any;
   MockedMap.mockReturnValue(mockMapInstance);
   return mockMapInstance;

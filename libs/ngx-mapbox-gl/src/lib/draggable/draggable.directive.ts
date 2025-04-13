@@ -21,7 +21,6 @@ import { deprecationWarning } from '../utils';
   selector: '[mglDraggable]',
 })
 export class DraggableDirective implements OnInit, OnDestroy {
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('mglDraggable') layer?: LayerComponent;
 
   @Output() featureDragStart = new EventEmitter<MapMouseEvent>();
@@ -166,7 +165,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
 
   private filterFeature(evt: MapMouseEvent) {
     if (this.featureComponent && this.layer) {
-      const feature: GeoJSON.Feature<any> =
+      const feature: GeoJSON.Feature<GeoJSON.GeometryObject> =
         this.mapService.queryRenderedFeatures(evt.point, {
           layers: [this.layer.id],
           filter: [

@@ -14,12 +14,12 @@ export class MockNgZone extends NgZone {
     super({ enableLongStackTrace: false });
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   override run(fn: Function): any {
     return fn();
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   override runOutsideAngular(fn: Function): any {
     return fn();
   }

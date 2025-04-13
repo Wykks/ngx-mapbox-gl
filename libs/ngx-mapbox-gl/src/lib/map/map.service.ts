@@ -590,13 +590,13 @@ export class MapService {
     position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left',
   ) {
     return this.zone.runOutsideAngular(() => {
-      this.mapInstance.addControl(control as any, position);
+      this.mapInstance.addControl(control, position);
     });
   }
 
   removeControl(control: MapboxGl.Control | MapboxGl.IControl) {
     return this.zone.runOutsideAngular(() => {
-      this.mapInstance.removeControl(control as any);
+      this.mapInstance.removeControl(control);
     });
   }
 
@@ -622,7 +622,7 @@ export class MapService {
 
   addImage(imageId: string, data: MapImageData, options?: MapImageOptions) {
     return this.zone.runOutsideAngular(() => {
-      this.mapInstance.addImage(imageId, data as any, options);
+      this.mapInstance.addImage(imageId, data, options);
     });
   }
 
@@ -667,6 +667,7 @@ export class MapService {
     return this.zone.runOutsideAngular(() => {
       Object.keys(paint).forEach((key) => {
         // TODO Check for perf, setPaintProperty only on changed paint props maybe
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this.mapInstance.setPaintProperty(layerId, key, (paint as any)[key]);
       });
     });
@@ -686,12 +687,13 @@ export class MapService {
     return this.zone.runOutsideAngular(() => {
       Object.keys(layout).forEach((key) => {
         // TODO Check for perf, setPaintProperty only on changed paint props maybe
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this.mapInstance.setLayoutProperty(layerId, key, (layout as any)[key]);
       });
     });
   }
 
-  setLayerFilter(layerId: string, filter: any[]) {
+  setLayerFilter(layerId: string, filter: MapboxGl.FilterOptions[]) {
     return this.zone.runOutsideAngular(() => {
       this.mapInstance.setFilter(layerId, filter);
     });
@@ -1088,27 +1090,6 @@ export class MapService {
       this.mapInstance.on('idle', (evt) =>
         this.zone.run(() => events.idle.emit(evt)),
       );
-    }
-  }
-
-  // TODO move this elsewhere
-  private assign(obj: any, prop: any, value: any) {
-    if (typeof prop === 'string') {
-      // eslint-disable-next-line no-param-reassign
-      prop = prop.split('.');
-    }
-    if (prop.length > 1) {
-      const e = prop.shift();
-      this.assign(
-        (obj[e] =
-          Object.prototype.toString.call(obj[e]) === '[object Object]'
-            ? obj[e]
-            : {}),
-        prop,
-        value,
-      );
-    } else {
-      obj[prop[0]] = value;
     }
   }
 }
