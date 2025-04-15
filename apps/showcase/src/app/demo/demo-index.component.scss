@@ -38,7 +38,9 @@ mat-form-field.search {
 }
 
 a.active {
-  color: white;
+  --mdc-list-list-item-label-text-color: white;
+  --mdc-list-list-item-hover-label-text-color: white;
+  --mdc-list-list-item-focus-label-text-color: white;
   background-color: mat.m2-get-color-from-palette(
     mat.m2-define-palette(mat.$m2-indigo-palette)
   ) !important;
@@ -49,4 +51,16 @@ h3 {
   margin-bottom: 4px;
   padding-inline-start: 8px;
   font-weight: bold;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-inline: 6px;
+  padding-bottom: 4px;
+}
+
+.mapbox-icon {
+  color: black;
 }

@@ -60,6 +60,7 @@
     "jest-preset-angular": "14.5.4",
     "lint-staged": "15.5.1",
     "ng-packagr": "19.2.2",
+    "ngxtension-plugin": "5.0.0",
     "nx": "20.7.2",
     "postcss": "8.5.3",
     "postcss-import": "16.1.0",

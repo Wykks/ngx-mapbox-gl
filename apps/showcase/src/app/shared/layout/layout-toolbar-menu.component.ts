@@ -3,11 +3,11 @@ import {
   AfterViewInit,
   Component,
   inject,
-  Input,
   OnDestroy,
   viewChild,
   ViewContainerRef,
   type TemplateRef,
+  input,
 } from '@angular/core';
 
 @Component({
@@ -21,14 +21,14 @@ import {
 export class LayoutToolbarMenuComponent implements AfterViewInit, OnDestroy {
   private readonly vcf = inject(ViewContainerRef);
 
-  @Input() position: 'left' | 'right';
+  position = input.required<'left' | 'right'>();
 
   private portalOutlet: DomPortalOutlet;
   private tpl = viewChild.required<TemplateRef<unknown>>('tpl');
 
   ngAfterViewInit() {
     const target = document.querySelector(
-      this.position === 'left'
+      this.position() === 'left'
         ? '#layout-left-custom-items'
         : '#layout-right-custom-items',
     );

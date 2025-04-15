@@ -2,9 +2,9 @@ import {
   AfterContentInit,
   Directive,
   EventEmitter,
-  Host,
-  Input,
   Output,
+  inject,
+  input,
 } from '@angular/core';
 import { GeolocateControl, type MapOptions } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
@@ -14,21 +14,22 @@ import { ControlComponent } from './control.component';
   selector: '[mglGeolocate]',
 })
 export class GeolocateControlDirective implements AfterContentInit {
+  private mapService = inject(MapService);
+  private controlComponent = inject<ControlComponent<GeolocateControl>>(
+    ControlComponent<GeolocateControl>,
+    { host: true },
+  );
+
   /* Init inputs */
-  @Input() positionOptions?: PositionOptions;
-  @Input() fitBoundsOptions?: MapOptions['fitBoundsOptions'];
-  @Input() trackUserLocation?: boolean;
-  @Input() showUserLocation?: boolean;
-  @Input() showUserHeading?: boolean;
+  positionOptions = input<PositionOptions>();
+  fitBoundsOptions = input<MapOptions['fitBoundsOptions']>();
+  trackUserLocation = input<boolean>();
+  showUserLocation = input<boolean>();
+  showUserHeading = input<boolean>();
 
   @Output()
   geolocate: EventEmitter<GeolocationPosition> =
     new EventEmitter<GeolocationPosition>();
-
-  constructor(
-    private mapService: MapService,
-    @Host() private controlComponent: ControlComponent<GeolocateControl>,
-  ) {}
 
   ngAfterContentInit() {
     this.mapService.mapCreated$.subscribe(() => {
@@ -36,11 +37,11 @@ export class GeolocateControlDirective implements AfterContentInit {
         throw new Error('Another control is already set for this control');
       }
       const options = {
-        positionOptions: this.positionOptions,
-        fitBoundsOptions: this.fitBoundsOptions,
-        trackUserLocation: this.trackUserLocation,
-        showUserLocation: this.showUserLocation,
-        showUserHeading: this.showUserHeading,
+        positionOptions: this.positionOptions(),
+        fitBoundsOptions: this.fitBoundsOptions(),
+        trackUserLocation: this.trackUserLocation(),
+        showUserLocation: this.showUserLocation(),
+        showUserHeading: this.showUserHeading(),
       };
 
       Object.keys(options).forEach((key: string) => {
@@ -55,7 +56,7 @@ export class GeolocateControlDirective implements AfterContentInit {
       });
       this.mapService.addControl(
         this.controlComponent.control,
-        this.controlComponent.position,
+        this.controlComponent.position(),
       );
     });
   }

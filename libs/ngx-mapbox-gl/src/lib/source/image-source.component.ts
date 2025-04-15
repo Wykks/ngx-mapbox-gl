@@ -1,15 +1,23 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   OnChanges,
   OnDestroy,
   OnInit,
   SimpleChanges,
+  inject,
+  input,
 } from '@angular/core';
 import type { ImageSource, ImageSourceSpecification } from 'mapbox-gl';
 import { Subscription } from 'rxjs';
 import { MapService } from '../map/map.service';
+import type { InputSignal } from '@angular/core';
+
+type ImageSourceInputs = {
+  [K in keyof Omit<ImageSourceSpecification, 'type'>]: InputSignal<
+    Omit<ImageSourceSpecification, 'type'>[K]
+  >;
+};
 
 @Component({
   selector: 'mgl-image-source',
@@ -17,23 +25,18 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImageSourceComponent
-  implements
-    OnInit,
-    OnDestroy,
-    OnChanges,
-    Omit<ImageSourceSpecification, 'type'>
+  implements OnInit, OnDestroy, OnChanges, ImageSourceInputs
 {
+  private mapService = inject(MapService);
   /* Init inputs */
-  @Input() id: string;
+  id = input.required<string>();
 
   /* Dynamic inputs */
-  @Input() url: string;
-  @Input() coordinates: ImageSourceSpecification['coordinates'];
+  url = input<string>();
+  coordinates = input.required<ImageSourceSpecification['coordinates']>();
 
   private sub: Subscription;
   private sourceId?: string;
-
-  constructor(private mapService: MapService) {}
 
   ngOnInit() {
     this.sub = this.mapService.mapLoaded$.subscribe(() => this.init());
@@ -43,15 +46,14 @@ export class ImageSourceComponent
     if (this.sourceId === undefined) {
       return;
     }
-
     const source = this.mapService.getSource<ImageSource>(this.sourceId);
     if (source === undefined) {
       return;
     }
     source.updateImage({
-      url: this.url,
+      url: this.url()!,
       coordinates:
-        changes['coordinates'] === undefined ? undefined : this.coordinates,
+        changes['coordinates'] === undefined ? undefined : this.coordinates(),
     });
   }
 
@@ -69,10 +71,10 @@ export class ImageSourceComponent
   private init() {
     const imageSource: ImageSourceSpecification = {
       type: 'image',
-      url: this.url,
-      coordinates: this.coordinates,
+      url: this.url(),
+      coordinates: this.coordinates(),
     };
-    this.mapService.addSource(this.id, imageSource);
-    this.sourceId = this.id;
+    this.mapService.addSource(this.id(), imageSource);
+    this.sourceId = this.id();
   }
 }

@@ -8,6 +8,7 @@ import {
   NgZone,
   OnDestroy,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import StackBlitzSDK, { type VM } from '@stackblitz/sdk';
@@ -51,6 +52,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
+  private zone = inject(NgZone);
+  private activatedRoute = inject(ActivatedRoute);
+  private demoFileLoaderService = inject(DemoFileLoaderService);
+  private http = inject(HttpClient);
+  private ChangeDetectorRef = inject(ChangeDetectorRef);
   @ViewChild('container') stackblitzContainer: ElementRef;
 
   loading = true;
@@ -62,14 +68,6 @@ export class StackblitzEditComponent implements AfterViewInit, OnDestroy {
       responseType: 'text',
     }),
   ]).pipe(shareReplay(1));
-
-  constructor(
-    private zone: NgZone,
-    private activatedRoute: ActivatedRoute,
-    private demoFileLoaderService: DemoFileLoaderService,
-    private http: HttpClient,
-    private ChangeDetectorRef: ChangeDetectorRef,
-  ) {}
 
   ngOnDestroy() {
     if (this.sub) {

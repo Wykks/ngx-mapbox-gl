@@ -1,11 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   OnChanges,
   OnDestroy,
   OnInit,
   SimpleChanges,
+  inject,
+  input,
 } from '@angular/core';
 import type { RasterSourceSpecification } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
@@ -17,39 +18,30 @@ import { MapService } from '../map/map.service';
   template: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RasterSourceComponent
-  implements
-    OnInit,
-    OnDestroy,
-    OnChanges,
-    Omit<RasterSourceSpecification, 'type'>
-{
+export class RasterSourceComponent implements OnInit, OnDestroy, OnChanges {
+  private mapService = inject(MapService);
   /* Init inputs */
-  @Input() id: string;
+  id = input.required<string>();
 
   /* Dynamic inputs */
-  @Input() url?: RasterSourceSpecification['url'];
-  @Input() tiles?: RasterSourceSpecification['tiles'];
-  @Input() bounds?: RasterSourceSpecification['bounds'];
-  @Input() minzoom?: RasterSourceSpecification['minzoom'];
-  @Input() maxzoom?: RasterSourceSpecification['maxzoom'];
-  @Input() tileSize?: RasterSourceSpecification['tileSize'];
-  @Input() scheme?: RasterSourceSpecification['scheme'];
-  @Input() attribution?: RasterSourceSpecification['attribution'];
-  @Input() volatile?: RasterSourceSpecification['volatile'];
+  url = input<RasterSourceSpecification['url']>();
+  tiles = input<RasterSourceSpecification['tiles']>();
+  bounds = input<RasterSourceSpecification['bounds']>();
+  minzoom = input<RasterSourceSpecification['minzoom']>();
+  maxzoom = input<RasterSourceSpecification['maxzoom']>();
+  tileSize = input<RasterSourceSpecification['tileSize']>();
+  scheme = input<RasterSourceSpecification['scheme']>();
+  attribution = input<RasterSourceSpecification['attribution']>();
+  volatile = input<RasterSourceSpecification['volatile']>();
 
   private sourceAdded = false;
   private sub = new Subscription();
-
-  constructor(private mapService: MapService) {}
-
-  [x: string]: unknown;
 
   ngOnInit() {
     const sub1 = this.mapService.mapLoaded$.subscribe(() => {
       this.init();
       const sub = fromEvent(this.mapService.mapInstance, 'styledata')
-        .pipe(filter(() => !this.mapService.mapInstance.getSource(this.id)))
+        .pipe(filter(() => !this.mapService.mapInstance.getSource(this.id())))
         .subscribe(() => {
           this.init();
         });
@@ -81,7 +73,7 @@ export class RasterSourceComponent
   ngOnDestroy() {
     this.sub.unsubscribe();
     if (this.sourceAdded) {
-      this.mapService.removeSource(this.id);
+      this.mapService.removeSource(this.id());
       this.sourceAdded = false;
     }
   }
@@ -89,17 +81,17 @@ export class RasterSourceComponent
   private init() {
     const source: RasterSourceSpecification = {
       type: 'raster',
-      url: this.url,
-      tiles: this.tiles,
-      bounds: this.bounds,
-      minzoom: this.minzoom,
-      maxzoom: this.maxzoom,
-      tileSize: this.tileSize,
-      scheme: this.scheme,
-      attribution: this.attribution,
-      volatile: this.volatile,
+      url: this.url(),
+      tiles: this.tiles(),
+      bounds: this.bounds(),
+      minzoom: this.minzoom(),
+      maxzoom: this.maxzoom(),
+      tileSize: this.tileSize(),
+      scheme: this.scheme(),
+      attribution: this.attribution(),
+      volatile: this.volatile(),
     };
-    this.mapService.addSource(this.id, source);
+    this.mapService.addSource(this.id(), source);
     this.sourceAdded = true;
   }
 }

@@ -1,11 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   OnChanges,
   OnDestroy,
   OnInit,
   SimpleChanges,
+  inject,
+  input,
+  type InputSignal,
 } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -13,6 +15,11 @@ import { MapService } from '../map/map.service';
 import type { CanvasSource } from 'mapbox-gl';
 
 type CanvasSourceSpecification = CanvasSource['options'];
+type CanvasSourceInputs = {
+  [K in keyof Omit<CanvasSourceSpecification, 'type'>]: InputSignal<
+    Omit<CanvasSourceSpecification, 'type'>[K]
+  >;
+};
 
 @Component({
   selector: 'mgl-canvas-source',
@@ -20,30 +27,26 @@ type CanvasSourceSpecification = CanvasSource['options'];
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CanvasSourceComponent
-  implements
-    OnInit,
-    OnDestroy,
-    OnChanges,
-    Omit<CanvasSourceSpecification, 'type'>
+  implements OnInit, OnDestroy, OnChanges, CanvasSourceInputs
 {
+  private mapService = inject(MapService);
+
   /* Init inputs */
-  @Input() id: string;
+  id = input.required<string>();
 
   /* Dynamic inputs */
-  @Input() coordinates: CanvasSource['options']['coordinates'];
-  @Input() canvas: CanvasSource['options']['canvas'];
-  @Input() animate?: CanvasSource['options']['animate'];
+  coordinates = input.required<CanvasSource['options']['coordinates']>();
+  canvas = input.required<CanvasSource['options']['canvas']>();
+  animate = input<CanvasSource['options']['animate']>();
 
   private sourceAdded = false;
   private sub = new Subscription();
-
-  constructor(private mapService: MapService) {}
 
   ngOnInit() {
     const sub1 = this.mapService.mapLoaded$.subscribe(() => {
       this.init();
       const sub = fromEvent(this.mapService.mapInstance, 'styledata')
-        .pipe(filter(() => !this.mapService.mapInstance.getSource(this.id)))
+        .pipe(filter(() => !this.mapService.mapInstance.getSource(this.id())))
         .subscribe(() => {
           this.init();
         });
@@ -66,18 +69,18 @@ export class CanvasSourceComponent
       changes['coordinates'] &&
       !changes['coordinates'].isFirstChange()
     ) {
-      const source = this.mapService.getSource<CanvasSource>(this.id);
+      const source = this.mapService.getSource<CanvasSource>(this.id());
       if (source === undefined) {
         return;
       }
-      source.setCoordinates(this.coordinates);
+      source.setCoordinates(this.coordinates());
     }
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
     if (this.sourceAdded) {
-      this.mapService.removeSource(this.id);
+      this.mapService.removeSource(this.id());
       this.sourceAdded = false;
     }
   }
@@ -85,11 +88,11 @@ export class CanvasSourceComponent
   private init() {
     const source: CanvasSource['options'] = {
       type: 'canvas',
-      coordinates: this.coordinates,
-      canvas: this.canvas,
-      animate: this.animate,
+      coordinates: this.coordinates(),
+      canvas: this.canvas(),
+      animate: this.animate(),
     };
-    this.mapService.addSource(this.id, source);
+    this.mapService.addSource(this.id(), source);
     this.sourceAdded = true;
   }
 }

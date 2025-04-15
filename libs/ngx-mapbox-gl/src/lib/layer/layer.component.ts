@@ -1,12 +1,13 @@
 import {
   Component,
   EventEmitter,
-  Input,
   OnChanges,
   OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
+  inject,
+  input,
 } from '@angular/core';
 import type {
   Layer,
@@ -30,20 +31,22 @@ type AnyLayerSource = LayerSpecification['source'] | SourceSpecification;
 export class LayerComponent
   implements OnInit, OnDestroy, OnChanges, LayerEvents
 {
+  private mapService = inject(MapService);
+
   /* Init inputs */
-  @Input() id: Layer['id'];
-  @Input() source?: AnyLayerSource;
-  @Input() type: Layer['type'];
-  @Input() metadata?: Layer['metadata'];
-  @Input() sourceLayer?: Layer['source-layer'];
+  id = input.required<Layer['id']>();
+  source = input<AnyLayerSource>();
+  type = input.required<Layer['type']>();
+  metadata = input<Layer['metadata']>();
+  sourceLayer = input<Layer['source-layer']>();
 
   /* Dynamic inputs */
-  @Input() filter?: Layer['filter'];
-  @Input() layout?: Layer['layout'];
-  @Input() paint?: Layer['paint'];
-  @Input() before?: Parameters<Map['moveLayer']>[1];
-  @Input() minzoom?: Layer['minzoom'];
-  @Input() maxzoom?: Layer['maxzoom'];
+  filter = input<Layer['filter']>();
+  layout = input<Layer['layout']>();
+  paint = input<Layer['paint']>();
+  before = input<Parameters<Map['moveLayer']>[1]>();
+  minzoom = input<Layer['minzoom']>();
+  maxzoom = input<Layer['maxzoom']>();
 
   @Output() layerClick = new EventEmitter<MapMouseEvent>();
   @Output() layerDblClick = new EventEmitter<MapMouseEvent>();
@@ -62,15 +65,13 @@ export class LayerComponent
   private layerAdded = false;
   private sub: Subscription;
 
-  constructor(private mapService: MapService) {}
-
   ngOnInit() {
     this.sub = this.mapService.mapLoaded$
       .pipe(
         switchMap(() =>
           fromEvent(this.mapService.mapInstance, 'styledata').pipe(
             map(() => false),
-            filter(() => !this.mapService.mapInstance.getLayer(this.id)),
+            filter(() => !this.mapService.mapInstance.getLayer(this.id())),
             startWith(true),
           ),
         ),
@@ -84,33 +85,43 @@ export class LayerComponent
     }
     if (changes['paint'] && !changes['paint'].isFirstChange()) {
       this.mapService.setLayerAllPaintProperty(
-        this.id,
+        this.id(),
         changes['paint'].currentValue!,
       );
     }
     if (changes['layout'] && !changes['layout'].isFirstChange()) {
       this.mapService.setLayerAllLayoutProperty(
-        this.id,
+        this.id(),
         changes['layout'].currentValue!,
       );
     }
     if (changes['filter'] && !changes['filter'].isFirstChange()) {
-      this.mapService.setLayerFilter(this.id, changes['filter'].currentValue!);
+      this.mapService.setLayerFilter(
+        this.id(),
+        changes['filter'].currentValue!,
+      );
     }
     if (changes['before'] && !changes['before'].isFirstChange()) {
-      this.mapService.setLayerBefore(this.id, changes['before'].currentValue!);
+      this.mapService.setLayerBefore(
+        this.id(),
+        changes['before'].currentValue!,
+      );
     }
     if (
       (changes['minzoom'] && !changes['minzoom'].isFirstChange()) ||
       (changes['maxzoom'] && !changes['maxzoom'].isFirstChange())
     ) {
-      this.mapService.setLayerZoomRange(this.id, this.minzoom, this.maxzoom);
+      this.mapService.setLayerZoomRange(
+        this.id(),
+        this.minzoom(),
+        this.maxzoom(),
+      );
     }
   }
 
   ngOnDestroy() {
     if (this.layerAdded) {
-      this.mapService.removeLayer(this.id);
+      this.mapService.removeLayer(this.id());
     }
     if (this.sub) {
       this.sub.unsubscribe();
@@ -120,16 +131,16 @@ export class LayerComponent
   private init(bindEvents: boolean) {
     const layer: SetupLayer = {
       layerOptions: {
-        id: this.id,
-        type: this.type,
-        source: this.source,
-        metadata: this.metadata,
-        'source-layer': this.sourceLayer,
-        minzoom: this.minzoom,
-        maxzoom: this.maxzoom,
-        filter: this.filter,
-        layout: this.layout,
-        paint: this.paint,
+        id: this.id(),
+        type: this.type(),
+        source: this.source(),
+        metadata: this.metadata(),
+        'source-layer': this.sourceLayer(),
+        minzoom: this.minzoom(),
+        maxzoom: this.maxzoom(),
+        filter: this.filter(),
+        layout: this.layout(),
+        paint: this.paint(),
       },
       layerEvents: {
         layerClick: this.layerClick,
@@ -147,7 +158,7 @@ export class LayerComponent
         layerTouchCancel: this.layerTouchCancel,
       },
     };
-    this.mapService.addLayer(layer, bindEvents, this.before);
+    this.mapService.addLayer(layer, bindEvents, this.before());
     this.layerAdded = true;
   }
 }

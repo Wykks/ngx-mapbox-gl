@@ -49,6 +49,7 @@ import { MatButtonModule } from '@angular/material/button';
     RouterLink,
     RouterLinkActive,
     MatListModule,
+    MatButtonModule,
   ],
 })
 export class DemoIndexComponent {
