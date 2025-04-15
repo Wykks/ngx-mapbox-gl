@@ -7,10 +7,12 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { CanvasSource, CanvasSourceOptions, CanvasSourceRaw } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
+import type { CanvasSource } from 'mapbox-gl';
+
+type CanvasSourceSpecification = CanvasSource['options'];
 
 @Component({
   selector: 'mgl-canvas-source',
@@ -18,15 +20,19 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CanvasSourceComponent
-  implements OnInit, OnDestroy, OnChanges, CanvasSourceOptions
+  implements
+    OnInit,
+    OnDestroy,
+    OnChanges,
+    Omit<CanvasSourceSpecification, 'type'>
 {
   /* Init inputs */
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() coordinates: CanvasSourceOptions['coordinates'];
-  @Input() canvas: CanvasSourceOptions['canvas'];
-  @Input() animate?: CanvasSourceOptions['animate'];
+  @Input() coordinates: CanvasSource['options']['coordinates'];
+  @Input() canvas: CanvasSource['options']['canvas'];
+  @Input() animate?: CanvasSource['options']['animate'];
 
   private sourceAdded = false;
   private sub = new Subscription();
@@ -77,7 +83,7 @@ export class CanvasSourceComponent
   }
 
   private init() {
-    const source: CanvasSourceRaw = {
+    const source: CanvasSource['options'] = {
       type: 'canvas',
       coordinates: this.coordinates,
       canvas: this.canvas,

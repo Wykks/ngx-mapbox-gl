@@ -57,7 +57,6 @@ html, body {
       '@angular/compiler': deps['@angular/compiler'],
       '@angular/core': deps['@angular/core'],
       '@angular/platform-browser': deps['@angular/platform-browser'],
-      '@types/mapbox-gl': devDeps['@types/mapbox-gl'],
       '@angular-devkit/build-angular': devDeps['@angular-devkit/build-angular'],
       '@angular/cli': devDeps['@angular/cli'],
       '@angular/compiler-cli': devDeps['@angular/compiler-cli'],

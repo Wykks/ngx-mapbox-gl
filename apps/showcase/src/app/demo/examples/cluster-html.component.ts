@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForOf, NgStyle } from '@angular/common';
-import { CirclePaint, SymbolLayout, SymbolPaint } from 'mapbox-gl';
+import {
+  type CircleLayerSpecification,
+  type SymbolLayerSpecification,
+} from 'mapbox-gl';
 import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import {
   MapComponent,
@@ -169,9 +172,19 @@ export class ClusterPointComponent implements OnInit {
 export class ClusterHtmlComponent {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   clusterProperties: any;
-  circlePaint: CirclePaint;
-  labelLayout: SymbolLayout;
-  labelPaint: SymbolPaint;
+  circlePaint: CircleLayerSpecification['paint'];
+  labelLayout: SymbolLayerSpecification['layout'] = {
+    'text-field': [
+      'number-format',
+      ['get', 'mag'],
+      { 'min-fraction-digits': 1, 'max-fraction-digits': 1 },
+    ],
+    'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+    'text-size': 10,
+  };
+  labelPaint: SymbolLayerSpecification['paint'] = {
+    'text-color': ['case', ['<', ['get', 'mag'], 3], 'black', 'white'],
+  };
 
   constructor() {
     // filters for classifying earthquakes into five categories based on magnitude
@@ -204,18 +217,6 @@ export class ClusterHtmlComponent {
       ],
       'circle-opacity': 0.6,
       'circle-radius': 12,
-    };
-    this.labelLayout = {
-      'text-field': [
-        'number-format',
-        ['get', 'mag'],
-        { 'min-fraction-digits': 1, 'max-fraction-digits': 1 },
-      ],
-      'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-      'text-size': 10,
-    };
-    this.labelPaint = {
-      'text-color': ['case', ['<', ['get', 'mag'], 3], 'black', 'white'],
     };
   }
 }

@@ -12,8 +12,7 @@ import {
 import { fromEvent, Subscription } from 'rxjs';
 import { filter, startWith, switchMap } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
-import { MapImageData, MapImageOptions } from '../map/map.types';
-import { deprecationWarning } from '../utils';
+import type { Map } from 'mapbox-gl';
 
 @Component({
   selector: 'mgl-image',
@@ -24,21 +23,12 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() data?: MapImageData;
-  @Input() options?: MapImageOptions;
+  @Input() data?: Parameters<Map['addImage']>[1];
+  @Input() options?: Parameters<Map['addImage']>[2];
   @Input() url?: string;
 
-  @Output() imageError = new EventEmitter<{ status: number }>();
+  @Output() imageError = new EventEmitter<Error>();
   @Output() imageLoaded = new EventEmitter<void>();
-  /**
-   * @deprecated Use imageError instead
-   */
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() error = new EventEmitter<{ status: number }>();
-  /**
-   * @deprecated Use imageLoaded instead
-   */
-  @Output() loaded = new EventEmitter<void>();
 
   private isAdded = false;
   private isAdding = false;
@@ -50,7 +40,6 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
   ) {}
 
   ngOnInit() {
-    this.warnDeprecatedOutputs();
     this.sub = this.mapService.mapLoaded$
       .pipe(
         switchMap(() =>
@@ -100,24 +89,12 @@ export class ImageComponent implements OnInit, OnDestroy, OnChanges {
         this.isAdding = false;
         this.zone.run(() => {
           this.imageLoaded.emit();
-          this.loaded.emit();
         });
-      } catch (error: any) {
+      } catch (error) {
         this.zone.run(() => {
-          this.imageError.emit(error);
-          this.error.emit(error);
+          this.imageError.emit(error as Error);
         });
       }
-    }
-  }
-
-  private warnDeprecatedOutputs() {
-    const dw = deprecationWarning.bind(undefined, ImageComponent.name);
-    if (this.error.observed) {
-      dw('error', 'imageError');
-    }
-    if (this.loaded.observed) {
-      dw('loaded', 'imageLoaded');
     }
   }
 }

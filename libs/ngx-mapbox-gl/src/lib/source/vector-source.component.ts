@@ -7,7 +7,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { VectorSource, VectorSourceImpl } from 'mapbox-gl';
+import type { VectorSourceSpecification, VectorTileSource } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
@@ -18,27 +18,32 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VectorSourceComponent
-  implements OnInit, OnDestroy, OnChanges, VectorSource
+  implements
+    OnInit,
+    OnDestroy,
+    OnChanges,
+    Omit<VectorSourceSpecification, 'type'>
 {
   /* Init inputs */
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() url?: VectorSource['url'];
-  @Input() tiles?: VectorSource['tiles'];
-  @Input() bounds?: VectorSource['bounds'];
-  @Input() scheme?: VectorSource['scheme'];
-  @Input() minzoom?: VectorSource['minzoom'];
-  @Input() maxzoom?: VectorSource['maxzoom'];
-  @Input() attribution?: VectorSource['attribution'];
-  @Input() promoteId?: VectorSource['promoteId'];
-
-  type: VectorSource['type'] = 'vector';
+  @Input() url?: VectorSourceSpecification['url'];
+  @Input() tiles?: VectorSourceSpecification['tiles'];
+  @Input() bounds?: VectorSourceSpecification['bounds'];
+  @Input() scheme?: VectorSourceSpecification['scheme'];
+  @Input() minzoom?: VectorSourceSpecification['minzoom'];
+  @Input() maxzoom?: VectorSourceSpecification['maxzoom'];
+  @Input() attribution?: VectorSourceSpecification['attribution'];
+  @Input() promoteId?: VectorSourceSpecification['promoteId'];
+  @Input() volatile?: VectorSourceSpecification['volatile'];
 
   private sourceAdded = false;
   private sub = new Subscription();
 
   constructor(private mapService: MapService) {}
+
+  [x: string]: unknown;
 
   ngOnInit() {
     const sub1 = this.mapService.mapLoaded$.subscribe(() => {
@@ -64,7 +69,8 @@ export class VectorSourceComponent
       (changes['minzoom'] && !changes['minzoom'].isFirstChange()) ||
       (changes['maxzoom'] && !changes['maxzoom'].isFirstChange()) ||
       (changes['attribution'] && !changes['attribution'].isFirstChange()) ||
-      (changes['promoteId'] && !changes['promoteId'].isFirstChange())
+      (changes['promoteId'] && !changes['promoteId'].isFirstChange()) ||
+      (changes['volatile'] && !changes['volatile'].isFirstChange())
     ) {
       this.ngOnDestroy();
       this.ngOnInit();
@@ -72,7 +78,7 @@ export class VectorSourceComponent
       (changes['url'] && !changes['url'].isFirstChange()) ||
       (changes['tiles'] && !changes['tiles'].isFirstChange())
     ) {
-      const source = this.mapService.getSource<VectorSourceImpl>(this.id);
+      const source = this.mapService.getSource<VectorTileSource>(this.id);
       if (source === undefined) {
         return;
       }
@@ -94,9 +100,13 @@ export class VectorSourceComponent
     }
   }
 
+  reload() {
+    this.mapService.getSource<VectorTileSource>(this.id)?.reload();
+  }
+
   private init() {
-    const source: VectorSource = {
-      type: this.type,
+    const source: VectorSourceSpecification = {
+      type: 'vector',
       url: this.url,
       tiles: this.tiles,
       bounds: this.bounds,
@@ -105,6 +115,7 @@ export class VectorSourceComponent
       maxzoom: this.maxzoom,
       attribution: this.attribution,
       promoteId: this.promoteId,
+      volatile: this.volatile,
     };
     this.mapService.addSource(this.id, source);
     this.sourceAdded = true;

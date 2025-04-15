@@ -5,7 +5,7 @@ import {
   GeoJSONSourceComponent,
   LayerComponent,
 } from 'ngx-mapbox-gl';
-import type { EventData, MapLayerMouseEvent } from 'mapbox-gl';
+import type { MapMouseEvent } from 'mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -62,7 +62,7 @@ import type { EventData, MapLayerMouseEvent } from 'mapbox-gl';
 export class HoverStylesComponent {
   hoverFilter = ['==', 'name', ''];
 
-  activateHoverOn(evt: MapLayerMouseEvent & EventData) {
+  activateHoverOn(evt: MapMouseEvent) {
     this.hoverFilter = ['==', 'name', evt.features?.[0]?.properties?.['name']];
   }
 

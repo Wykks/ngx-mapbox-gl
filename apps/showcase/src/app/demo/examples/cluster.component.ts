@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { Component } from '@angular/core';
+import { signal } from '@angular/core';
 import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import {
   MapComponent,
@@ -15,10 +15,11 @@ import {
       [zoom]="[3]"
       [center]="[-103.59179687498357, 40.66995747013945]"
     >
-      <ng-container *ngIf="earthquakes">
+      @let _earthquakes = earthquakes();
+      @if (_earthquakes) {
         <mgl-geojson-source
           id="earthquakes"
-          [data]="earthquakes"
+          [data]="_earthquakes"
           [cluster]="true"
           [clusterMaxZoom]="14"
           [clusterRadius]="50"
@@ -72,7 +73,7 @@ import {
             'circle-stroke-color': '#fff',
           }"
         />
-      </ng-container>
+      }
     </mgl-map>
   `,
   imports: [
@@ -80,16 +81,22 @@ import {
     MglMapResizeDirective,
     GeoJSONSourceComponent,
     LayerComponent,
-    NgIf,
   ],
   styleUrls: ['./examples.css'],
 })
-export class ClusterComponent implements OnInit {
-  earthquakes: GeoJSON.FeatureCollection<GeoJSON.Geometry>;
+export class ClusterComponent {
+  earthquakes = signal<GeoJSON.FeatureCollection<GeoJSON.Geometry> | null>(
+    null,
+  );
 
-  async ngOnInit() {
-    this.earthquakes = (await import(
+  constructor() {
+    this.loadSource();
+  }
+
+  private async loadSource() {
+    const earthquakes = (await import(
       './earthquakes.geo.json'
     )) as unknown as GeoJSON.FeatureCollection<GeoJSON.Geometry>;
+    this.earthquakes.set(earthquakes);
   }
 }

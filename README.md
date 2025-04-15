@@ -24,7 +24,7 @@ v10.X : Angular 16 - 17
 
 v11.X : Angular 18
 
-(UNRELEASED) v12.X : Angular 19
+(UNRELEASED) v12.X : Angular 19 & 20, Mapbox-gl >= 3.5
 
 Include the following components:
 
@@ -55,13 +55,6 @@ Include the following components:
 ```
 npm install ngx-mapbox-gl mapbox-gl
 yarn add ngx-mapbox-gl mapbox-gl
-```
-
-If using typescript add mapbox-gl types
-
-```
-npm install @types/mapbox-gl --save-dev
-yarn add @types/mapbox-gl --dev
 ```
 
 Load the CSS of `mapbox-gl`
@@ -110,13 +103,7 @@ Display a map:
 import { Component } from '@angular/core';
 
 @Component({
-  template: `
-    <mgl-map
-      [style]="'mapbox://styles/mapbox/streets-v9'"
-      [zoom]="[9]"
-      [center]="[-74.5, 40]"
-    />
-  `,
+  template: `<mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="[-74.5, 40]" />`,
   styles: [
     `
       mgl-map {

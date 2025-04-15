@@ -7,7 +7,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { RasterDemSource } from 'mapbox-gl';
+import type { RasterDEMSourceSpecification } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
@@ -18,27 +18,32 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RasterDemSourceComponent
-  implements OnInit, OnDestroy, OnChanges, RasterDemSource
+  implements
+    OnInit,
+    OnDestroy,
+    OnChanges,
+    Omit<RasterDEMSourceSpecification, 'type'>
 {
   /* Init inputs */
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() url?: RasterDemSource['url'];
-  @Input() tiles?: RasterDemSource['tiles'];
-  @Input() bounds?: RasterDemSource['bounds'];
-  @Input() minzoom?: RasterDemSource['minzoom'];
-  @Input() maxzoom?: RasterDemSource['maxzoom'];
-  @Input() tileSize?: RasterDemSource['tileSize'];
-  @Input() attribution?: RasterDemSource['attribution'];
-  @Input() encoding?: RasterDemSource['encoding'];
-
-  type: RasterDemSource['type'] = 'raster-dem';
+  @Input() url?: RasterDEMSourceSpecification['url'];
+  @Input() tiles?: RasterDEMSourceSpecification['tiles'];
+  @Input() bounds?: RasterDEMSourceSpecification['bounds'];
+  @Input() minzoom?: RasterDEMSourceSpecification['minzoom'];
+  @Input() maxzoom?: RasterDEMSourceSpecification['maxzoom'];
+  @Input() tileSize?: RasterDEMSourceSpecification['tileSize'];
+  @Input() attribution?: RasterDEMSourceSpecification['attribution'];
+  @Input() encoding?: RasterDEMSourceSpecification['encoding'];
+  @Input() volatile?: RasterDEMSourceSpecification['volatile'];
 
   private sourceAdded = false;
   private sub = new Subscription();
 
   constructor(private mapService: MapService) {}
+
+  [x: string]: unknown;
 
   ngOnInit() {
     const sub1 = this.mapService.mapLoaded$.subscribe(() => {
@@ -65,7 +70,8 @@ export class RasterDemSourceComponent
       (changes['maxzoom'] && !changes['maxzoom'].isFirstChange()) ||
       (changes['tileSize'] && !changes['tileSize'].isFirstChange()) ||
       (changes['attribution'] && !changes['attribution'].isFirstChange()) ||
-      (changes['encoding'] && !changes['encoding'].isFirstChange())
+      (changes['encoding'] && !changes['encoding'].isFirstChange()) ||
+      (changes['volatile'] && !changes['volatile'].isFirstChange())
     ) {
       this.ngOnDestroy();
       this.ngOnInit();
@@ -81,8 +87,8 @@ export class RasterDemSourceComponent
   }
 
   private init() {
-    const source: RasterDemSource = {
-      type: this.type,
+    const source: RasterDEMSourceSpecification = {
+      type: 'raster-dem',
       url: this.url,
       tiles: this.tiles,
       bounds: this.bounds,
@@ -91,6 +97,7 @@ export class RasterDemSourceComponent
       tileSize: this.tileSize,
       attribution: this.attribution,
       encoding: this.encoding,
+      volatile: this.volatile,
     };
     this.mapService.addSource(this.id, source);
     this.sourceAdded = true;

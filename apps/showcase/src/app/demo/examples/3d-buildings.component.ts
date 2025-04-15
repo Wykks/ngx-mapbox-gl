@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LayerComponent, MapComponent } from 'ngx-mapbox-gl';
-import { AnyLayer, Map } from 'mapbox-gl';
+import { LayerSpecification, Map } from 'mapbox-gl';
 import { MglMapResizeDirective } from './mgl-map-resize.directive';
 
 @Component({
@@ -61,7 +61,7 @@ export class Display3dBuildingsComponent {
     this.labelLayerId = this.getLabelLayerId(layers);
   }
 
-  private getLabelLayerId(layers: AnyLayer[]) {
+  private getLabelLayerId(layers: LayerSpecification[]) {
     for (const layer of layers) {
       if (layer.type === 'symbol' && layer.layout?.['text-field']) {
         return layer.id;
