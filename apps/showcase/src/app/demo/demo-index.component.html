@@ -43,21 +43,35 @@
           @for (cat of categories; track cat) {
             <h3 matSubheader>{{ cat }}</h3>
             @for (route of routesByCategory()[cat]; track route) {
-              <a
-                mat-list-item
-                [routerLink]="
-                  '/demo/' + (isEditMode ? '/edit/' : '') + route.path
-                "
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="
-                  $any({
-                    _routerLinkActiveWakeUpHack_: isEditMode,
-                  })
-                "
-                #exampleLink
-              >
-                {{ route.data?.['label'] }}
-              </a>
+              <div class="link">
+                <a
+                  mat-list-item
+                  [routerLink]="
+                    '/demo/' + (isEditMode ? '/edit/' : '') + route.path
+                  "
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="
+                    $any({
+                      _routerLinkActiveWakeUpHack_: isEditMode,
+                    })
+                  "
+                  #exampleLink
+                >
+                  {{ route.data?.['label'] }}
+                </a>
+                @if (!route.data?.['label'].startsWith('[NGX]')) {
+                  <a
+                    mat-icon-button
+                    href="https://docs.mapbox.com/mapbox-gl-js/example/{{
+                      route.path
+                    }}"
+                    target="_blank"
+                    class="mapbox-icon"
+                  >
+                    <mat-icon svgIcon="mapbox" />
+                  </a>
+                }
+              </div>
             }
             <mat-divider />
           }

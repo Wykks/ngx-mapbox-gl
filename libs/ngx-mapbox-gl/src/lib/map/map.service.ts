@@ -1,10 +1,9 @@
 import {
   EventEmitter,
-  Inject,
   Injectable,
   InjectionToken,
   NgZone,
-  Optional,
+  inject,
 } from '@angular/core';
 import {
   Map,
@@ -52,8 +51,6 @@ export interface SetupLayer {
 export interface SetupPopup {
   popupOptions: PopupOptions;
   popupEvents: {
-    open: EventEmitter<void>;
-    close: EventEmitter<void>;
     popupOpen: EventEmitter<void>;
     popupClose: EventEmitter<void>;
   };
@@ -85,6 +82,10 @@ export type MovingOptions =
 
 @Injectable()
 export class MapService {
+  private zone = inject(NgZone);
+  private readonly MAPBOX_API_KEY = inject<string | null>(MAPBOX_API_KEY, {
+    optional: true,
+  });
   mapInstance: Map;
   mapCreated$: Observable<void>;
   mapLoaded$: Observable<void>;
@@ -97,12 +98,7 @@ export class MapService {
   private imageIdsToRemove: string[] = [];
   private subscription = new Subscription();
 
-  constructor(
-    private zone: NgZone,
-    @Optional()
-    @Inject(MAPBOX_API_KEY)
-    private readonly MAPBOX_API_KEY: string | null,
-  ) {
+  constructor() {
     this.mapCreated$ = this.mapCreated.asObservable();
     this.mapLoaded$ = this.mapLoaded.asObservable();
   }
@@ -475,25 +471,17 @@ export class MapService {
       });
       const popupInstance = new Popup(popup.popupOptions);
       popupInstance.setDOMContent(element);
-      if (
-        popup.popupEvents.popupClose.observed ||
-        popup.popupEvents.close.observed
-      ) {
+      if (popup.popupEvents.popupClose.observed) {
         popupInstance.on('close', () => {
           this.zone.run(() => {
             popup.popupEvents.popupClose.emit();
-            popup.popupEvents.close.emit();
           });
         });
       }
-      if (
-        popup.popupEvents.popupOpen.observed ||
-        popup.popupEvents.open.observed
-      ) {
+      if (popup.popupEvents.popupOpen.observed) {
         popupInstance.on('open', () => {
           this.zone.run(() => {
             popup.popupEvents.popupOpen.emit();
-            popup.popupEvents.open.emit();
           });
         });
       }

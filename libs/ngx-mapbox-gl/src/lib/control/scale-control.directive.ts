@@ -1,10 +1,10 @@
 import {
   AfterContentInit,
   Directive,
-  Host,
-  Input,
   OnChanges,
   SimpleChanges,
+  inject,
+  input,
 } from '@angular/core';
 import { ScaleControl, type ScaleControlOptions } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
@@ -14,16 +14,17 @@ import { ControlComponent } from './control.component';
   selector: '[mglScale]',
 })
 export class ScaleControlDirective implements AfterContentInit, OnChanges {
+  private mapService = inject(MapService);
+  private controlComponent = inject<ControlComponent<ScaleControl>>(
+    ControlComponent<ScaleControl>,
+    { host: true },
+  );
+
   /* Init inputs */
-  @Input() maxWidth?: number;
+  maxWidth = input<number>();
 
   /* Dynamic inputs */
-  @Input() unit?: 'imperial' | 'metric' | 'nautical';
-
-  constructor(
-    private mapService: MapService,
-    @Host() private controlComponent: ControlComponent<ScaleControl>,
-  ) {}
+  unit = input<'imperial' | 'metric' | 'nautical'>();
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['unit'] && !changes['unit'].isFirstChange()) {
@@ -39,16 +40,18 @@ export class ScaleControlDirective implements AfterContentInit, OnChanges {
         throw new Error('Another control is already set for this control');
       }
       const options: ScaleControlOptions = {};
-      if (this.maxWidth !== undefined) {
-        options.maxWidth = this.maxWidth;
+      const maxWidth = this.maxWidth();
+      const unit = this.unit();
+      if (maxWidth !== undefined) {
+        options.maxWidth = maxWidth;
       }
-      if (this.unit !== undefined) {
-        options.unit = this.unit;
+      if (unit !== undefined) {
+        options.unit = unit;
       }
       this.controlComponent.control = new ScaleControl(options);
       this.mapService.addControl(
         this.controlComponent.control,
-        this.controlComponent.position,
+        this.controlComponent.position(),
       );
     });
   }

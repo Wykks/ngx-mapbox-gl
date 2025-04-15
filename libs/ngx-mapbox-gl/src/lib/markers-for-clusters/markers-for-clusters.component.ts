@@ -5,16 +5,13 @@ import {
   Component,
   ContentChild,
   Directive,
-  Input,
   NgZone,
   OnDestroy,
   TemplateRef,
+  inject,
+  input,
 } from '@angular/core';
-import {
-  MapboxGeoJSONFeature,
-  MapSourceDataEvent,
-  type GeoJSONFeature,
-} from 'mapbox-gl';
+import type { MapSourceDataEvent, GeoJSONFeature } from 'mapbox-gl';
 import { fromEvent, merge, Subscription } from 'rxjs';
 import { filter, startWith, switchMap } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
@@ -36,10 +33,11 @@ let uniqId = 0;
 
 @Component({
   selector: 'mgl-markers-for-clusters',
+
   template: `
     <mgl-layer
       [id]="layerId"
-      [source]="source"
+      [source]="source()"
       type="circle"
       [paint]="{ 'circle-radius': 0 }"
     />
@@ -71,8 +69,12 @@ let uniqId = 0;
 export class MarkersForClustersComponent
   implements OnDestroy, AfterContentInit
 {
+  private mapService = inject(MapService);
+  private ChangeDetectorRef = inject(ChangeDetectorRef);
+  private zone = inject(NgZone);
+
   /* Init input */
-  @Input() source: string;
+  source = input.required<string>();
 
   @ContentChild(PointDirective, { read: TemplateRef, static: false })
   pointTpl?: TemplateRef<unknown>;
@@ -84,31 +86,20 @@ export class MarkersForClustersComponent
 
   private sub = new Subscription();
 
-  constructor(
-    private mapService: MapService,
-    private ChangeDetectorRef: ChangeDetectorRef,
-    private zone: NgZone,
-  ) {}
-
   ngAfterContentInit() {
     const clusterDataUpdate = () =>
       fromEvent<MapSourceDataEvent>(this.mapService.mapInstance, 'data').pipe(
         filter(
           (e) =>
-            e.sourceId === this.source &&
+            e.sourceId === this.source() &&
             e.sourceDataType !== 'metadata' &&
-            this.mapService.mapInstance.isSourceLoaded(this.source),
+            this.mapService.mapInstance.isSourceLoaded(this.source()),
         ),
       );
     const sub = this.mapService.mapCreated$
       .pipe(
         switchMap(clusterDataUpdate),
-        switchMap(() =>
-          merge(
-            fromEvent(this.mapService.mapInstance, 'move'),
-            fromEvent(this.mapService.mapInstance, 'moveend'),
-          ).pipe(startWith(undefined)),
-        ),
+        switchMap(() => fromEvent(this.mapService.mapInstance, 'render')),
       )
       .subscribe(() => {
         this.zone.run(() => {
@@ -122,7 +113,7 @@ export class MarkersForClustersComponent
     this.sub.unsubscribe();
   }
 
-  trackByClusterPoint(_index: number, clusterPoint: MapboxGeoJSONFeature) {
+  trackByClusterPoint(_index: number, clusterPoint: GeoJSONFeature) {
     return clusterPoint.id;
   }
 

@@ -1,16 +1,24 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   OnChanges,
   OnDestroy,
   OnInit,
   SimpleChanges,
+  inject,
+  input,
+  type InputSignal,
 } from '@angular/core';
 import type { VideoSource, VideoSourceSpecification } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
+
+type VideoSourceInputs = {
+  [K in keyof Omit<VideoSourceSpecification, 'type'>]: InputSignal<
+    Omit<VideoSourceSpecification, 'type'>[K]
+  >;
+};
 
 @Component({
   selector: 'mgl-video-source',
@@ -18,29 +26,25 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideoSourceComponent
-  implements
-    OnInit,
-    OnDestroy,
-    OnChanges,
-    Omit<VideoSourceSpecification, 'type'>
+  implements OnInit, OnDestroy, OnChanges, VideoSourceInputs
 {
+  private mapService = inject(MapService);
+
   /* Init inputs */
-  @Input() id: string;
+  id = input.required<string>();
 
   /* Dynamic inputs */
-  @Input() urls: VideoSourceSpecification['urls'];
-  @Input() coordinates: VideoSourceSpecification['coordinates'];
+  urls = input.required<VideoSourceSpecification['urls']>();
+  coordinates = input.required<VideoSourceSpecification['coordinates']>();
 
   private sourceAdded = false;
   private sub = new Subscription();
-
-  constructor(private mapService: MapService) {}
 
   ngOnInit() {
     const sub1 = this.mapService.mapLoaded$.subscribe(() => {
       this.init();
       const sub = fromEvent(this.mapService.mapInstance, 'styledata')
-        .pipe(filter(() => !this.mapService.mapInstance.getSource(this.id)))
+        .pipe(filter(() => !this.mapService.mapInstance.getSource(this.id())))
         .subscribe(() => {
           this.init();
         });
@@ -61,41 +65,41 @@ export class VideoSourceComponent
       changes['coordinates'] &&
       !changes['coordinates'].isFirstChange()
     ) {
-      const source = this.mapService.getSource<VideoSource>(this.id);
+      const source = this.mapService.getSource<VideoSource>(this.id());
       if (source === undefined) {
         return;
       }
-      source.setCoordinates(this.coordinates!);
+      source.setCoordinates(this.coordinates()!);
     }
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
     if (this.sourceAdded) {
-      this.mapService.removeSource(this.id);
+      this.mapService.removeSource(this.id());
       this.sourceAdded = false;
     }
   }
 
   pause() {
-    this.mapService.getSource<VideoSource>(this.id)?.pause();
+    this.mapService.getSource<VideoSource>(this.id())?.pause();
   }
 
   play() {
-    this.mapService.getSource<VideoSource>(this.id)?.play();
+    this.mapService.getSource<VideoSource>(this.id())?.play();
   }
 
   getVideo() {
-    return this.mapService.getSource<VideoSource>(this.id)?.getVideo();
+    return this.mapService.getSource<VideoSource>(this.id())?.getVideo();
   }
 
   private init() {
     const source: VideoSourceSpecification = {
       type: 'video',
-      urls: this.urls,
-      coordinates: this.coordinates,
+      urls: this.urls(),
+      coordinates: this.coordinates(),
     };
-    this.mapService.addSource(this.id, source);
+    this.mapService.addSource(this.id(), source);
     this.sourceAdded = true;
   }
 }

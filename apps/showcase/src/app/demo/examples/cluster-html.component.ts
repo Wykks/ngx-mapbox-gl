@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 import { NgForOf, NgStyle } from '@angular/common';
 import {
   type CircleLayerSpecification,
@@ -34,22 +34,20 @@ const COLORS = ['#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c'];
       text-anchor="middle"
       [ngStyle]="{ font: font }"
     >
-      <path
-        *ngFor="let segment of segments"
-        [attr.d]="segment.d"
-        [ngStyle]="{ fill: segment.fill }"
-      />
+      @for (segment of segments; track segment) {
+        <path [attr.d]="segment.d" [ngStyle]="{ fill: segment.fill }" />
+      }
       <circle [attr.cx]="r" [attr.cy]="r" [attr.r]="r0" fill="white" />
       <text dominant-baseline="central" [attr.transform]="textTransform">
         {{ totalString }}
       </text>
     </svg>
   `,
-  imports: [NgForOf, NgStyle],
+  imports: [NgStyle],
 })
 export class ClusterPointComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Input() properties: any;
+  properties = input.required<any>();
 
   w: number;
   r: number;
@@ -63,11 +61,11 @@ export class ClusterPointComponent implements OnInit {
   ngOnInit() {
     const offsets = [];
     const counts = [
-      this.properties.mag1,
-      this.properties.mag2,
-      this.properties.mag3,
-      this.properties.mag4,
-      this.properties.mag5,
+      this.properties().mag1,
+      this.properties().mag2,
+      this.properties().mag3,
+      this.properties().mag4,
+      this.properties().mag5,
     ];
     let total = 0;
     for (const count of counts) {
@@ -125,9 +123,10 @@ export class ClusterPointComponent implements OnInit {
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/light-v10'"
+      [style]="'mapbox://styles/mapbox/light-v11'"
       [zoom]="[0.3]"
       [center]="[0, 20]"
+      projection="mercator"
     >
       <mgl-geojson-source
         id="earthquakes"

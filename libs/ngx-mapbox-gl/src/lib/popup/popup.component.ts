@@ -4,13 +4,14 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input,
   OnChanges,
   OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
   ViewChild,
+  inject,
+  input,
 } from '@angular/core';
 import { LngLatLike, PointLike, Popup, PopupOptions } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
@@ -25,46 +26,41 @@ import { deprecationWarning } from '../utils';
 export class PopupComponent
   implements OnChanges, OnDestroy, AfterViewInit, OnInit
 {
+  private mapService = inject(MapService);
+
   /* Init input */
-  @Input() closeButton?: PopupOptions['closeButton'];
-  @Input() closeOnClick?: PopupOptions['closeOnClick'];
-  @Input() closeOnMove?: PopupOptions['closeOnMove'];
-  @Input() focusAfterOpen?: PopupOptions['focusAfterOpen'];
-  @Input() anchor?: PopupOptions['anchor'];
-  @Input() className?: PopupOptions['className'];
-  @Input() maxWidth?: PopupOptions['maxWidth'];
+  closeButton = input<PopupOptions['closeButton']>();
+  closeOnClick = input<PopupOptions['closeOnClick']>();
+  closeOnMove = input<PopupOptions['closeOnMove']>();
+  focusAfterOpen = input<PopupOptions['focusAfterOpen']>();
+  anchor = input<PopupOptions['anchor']>();
+  className = input<PopupOptions['className']>();
+  maxWidth = input<PopupOptions['maxWidth']>();
 
   /* Dynamic input */
-  @Input() feature?: GeoJSON.Feature<GeoJSON.Point>;
-  @Input() lngLat?: LngLatLike;
-  @Input() marker?: MarkerComponent;
-  @Input() offset?: number | PointLike | { [anchor: string]: [number, number] };
+  feature = input<GeoJSON.Feature<GeoJSON.Point>>();
+  lngLat = input<LngLatLike>();
+  marker = input<MarkerComponent>();
+  offset = input<
+    | number
+    | PointLike
+    | {
+        [anchor: string]: [number, number];
+      }
+  >();
 
   @Output() popupClose = new EventEmitter<void>();
   @Output() popupOpen = new EventEmitter<void>();
-  /**
-   * @deprecated Use popupClose instead
-   */
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() close = new EventEmitter<void>();
-  /**
-   * @deprecated Use popupOpen instead
-   */
-
-  @Output() open = new EventEmitter<void>();
 
   @ViewChild('content', { static: true }) content: ElementRef;
 
   popupInstance?: Popup;
 
-  constructor(private mapService: MapService) {}
-
   ngOnInit() {
-    this.warnDeprecatedOutputs();
     if (
-      (this.lngLat && this.marker) ||
-      (this.feature && this.lngLat) ||
-      (this.feature && this.marker)
+      (this.lngLat() && this.marker()) ||
+      (this.feature() && this.lngLat()) ||
+      (this.feature() && this.marker())
     ) {
       throw new Error('marker, lngLat, feature input are mutually exclusive');
     }
@@ -76,8 +72,8 @@ export class PopupComponent
       (changes['feature'] && !changes['feature'].isFirstChange())
     ) {
       const newlngLat = changes['lngLat']
-        ? this.lngLat!
-        : (this.feature!.geometry!.coordinates! as [number, number]);
+        ? this.lngLat()!
+        : (this.feature()!.geometry!.coordinates! as [number, number]);
       this.mapService.removePopupFromMap(this.popupInstance!, true);
       const popupInstanceTmp = this.createPopup();
       this.mapService.addPopupToMap(
@@ -92,9 +88,13 @@ export class PopupComponent
       if (previousMarker.markerInstance) {
         this.mapService.removePopupFromMarker(previousMarker.markerInstance);
       }
-      if (this.marker && this.marker.markerInstance && this.popupInstance) {
+      if (
+        this.marker() &&
+        this.marker()!.markerInstance &&
+        this.popupInstance
+      ) {
         this.mapService.addPopupToMarker(
-          this.marker.markerInstance,
+          this.marker()!.markerInstance!,
           this.popupInstance,
         );
       }
@@ -104,7 +104,7 @@ export class PopupComponent
       !changes['offset'].isFirstChange() &&
       this.popupInstance
     ) {
-      this.popupInstance.setOffset(this.offset);
+      this.popupInstance.setOffset(this.offset());
     }
   }
 
@@ -115,10 +115,10 @@ export class PopupComponent
 
   ngOnDestroy() {
     if (this.popupInstance) {
-      if (this.lngLat || this.feature) {
+      if (this.lngLat() || this.feature()) {
         this.mapService.removePopupFromMap(this.popupInstance);
-      } else if (this.marker && this.marker.markerInstance) {
-        this.mapService.removePopupFromMarker(this.marker.markerInstance);
+      } else if (this.marker() && this.marker()!.markerInstance) {
+        this.mapService.removePopupFromMarker(this.marker()!.markerInstance!);
       }
     }
     this.popupInstance = undefined;
@@ -128,18 +128,16 @@ export class PopupComponent
     return this.mapService.createPopup(
       {
         popupOptions: {
-          closeButton: this.closeButton,
-          closeOnClick: this.closeOnClick,
-          closeOnMove: this.closeOnMove,
-          focusAfterOpen: this.focusAfterOpen,
-          anchor: this.anchor,
-          offset: this.offset,
-          className: this.className,
-          maxWidth: this.maxWidth,
+          closeButton: this.closeButton(),
+          closeOnClick: this.closeOnClick(),
+          closeOnMove: this.closeOnMove(),
+          focusAfterOpen: this.focusAfterOpen(),
+          anchor: this.anchor(),
+          offset: this.offset(),
+          className: this.className(),
+          maxWidth: this.maxWidth(),
         },
         popupEvents: {
-          open: this.open,
-          close: this.close,
           popupOpen: this.popupOpen,
           popupClose: this.popupClose,
         },
@@ -150,30 +148,20 @@ export class PopupComponent
 
   private addPopup(popup: Popup) {
     this.mapService.mapCreated$.subscribe(() => {
-      if (this.lngLat || this.feature) {
+      if (this.lngLat() || this.feature()) {
         this.mapService.addPopupToMap(
           popup,
-          this.lngLat
-            ? this.lngLat
-            : (this.feature!.geometry!.coordinates! as [number, number]),
+          this.lngLat()
+            ? this.lngLat()!
+            : (this.feature()!.geometry!.coordinates! as [number, number]),
         );
-      } else if (this.marker && this.marker.markerInstance) {
-        this.mapService.addPopupToMarker(this.marker.markerInstance, popup);
+      } else if (this.marker() && this.marker()!.markerInstance) {
+        this.mapService.addPopupToMarker(this.marker()!.markerInstance!, popup);
       } else {
         throw new Error(
           'mgl-popup need either lngLat/marker/feature to be set',
         );
       }
     });
-  }
-
-  private warnDeprecatedOutputs() {
-    const dw = deprecationWarning.bind(undefined, PopupComponent.name);
-    if (this.close.observed) {
-      dw('close', 'popupClose');
-    }
-    if (this.open.observed) {
-      dw('open', 'popupOpen');
-    }
   }
 }

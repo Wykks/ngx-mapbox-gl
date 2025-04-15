@@ -4,7 +4,6 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -12,6 +11,8 @@ import {
   SimpleChanges,
   ViewChild,
   ViewEncapsulation,
+  inject,
+  input,
 } from '@angular/core';
 import type { LngLatLike, Marker, MarkerOptions } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
@@ -19,8 +20,9 @@ import { deprecationWarning } from '../utils';
 
 @Component({
   selector: 'mgl-marker',
+
   template: `
-    <div [class]="className" [style.z-index]="zIndex" #content>
+    <div [class]="className()" [style.z-index]="zIndex()" #content>
       <ng-content />
     </div>
   `,
@@ -30,20 +32,22 @@ import { deprecationWarning } from '../utils';
 export class MarkerComponent
   implements OnChanges, OnDestroy, AfterViewInit, OnInit
 {
+  private mapService = inject(MapService);
+
   /* Init input */
-  @Input() offset?: MarkerOptions['offset'];
-  @Input() anchor?: MarkerOptions['anchor'];
-  @Input() clickTolerance?: MarkerOptions['clickTolerance'];
+  offset = input<MarkerOptions['offset']>();
+  anchor = input<MarkerOptions['anchor']>();
+  clickTolerance = input<MarkerOptions['clickTolerance']>();
 
   /* Dynamic input */
-  @Input() feature?: GeoJSON.Feature<GeoJSON.Point>;
-  @Input() lngLat?: LngLatLike;
-  @Input() draggable?: MarkerOptions['draggable'];
-  @Input() popupShown?: boolean;
-  @Input() className: string;
-  @Input() zIndex: number;
-  @Input() pitchAlignment?: MarkerOptions['pitchAlignment'];
-  @Input() rotationAlignment?: MarkerOptions['rotationAlignment'];
+  feature = input<GeoJSON.Feature<GeoJSON.Point>>();
+  lngLat = input<LngLatLike>();
+  draggable = input<MarkerOptions['draggable']>();
+  popupShown = input<boolean>();
+  className = input<string>();
+  zIndex = input<number>();
+  pitchAlignment = input<MarkerOptions['pitchAlignment']>();
+  rotationAlignment = input<MarkerOptions['rotationAlignment']>();
 
   @Output() markerDragStart = new EventEmitter<Marker>();
   @Output() markerDragEnd = new EventEmitter<Marker>();
@@ -53,26 +57,24 @@ export class MarkerComponent
 
   markerInstance?: Marker;
 
-  constructor(private mapService: MapService) {}
-
   ngOnInit() {
     this.warnDeprecatedOutputs();
-    if (this.feature && this.lngLat) {
+    if (this.feature() && this.lngLat()) {
       throw new Error('feature and lngLat input are mutually exclusive');
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['lngLat'] && !changes['lngLat'].isFirstChange()) {
-      this.markerInstance!.setLngLat(this.lngLat!);
+      this.markerInstance!.setLngLat(this.lngLat()!);
     }
     if (changes['feature'] && !changes['feature'].isFirstChange()) {
       this.markerInstance!.setLngLat(
-        this.feature!.geometry!.coordinates as [number, number],
+        this.feature()!.geometry!.coordinates as [number, number],
       );
     }
     if (changes['draggable'] && !changes['draggable'].isFirstChange()) {
-      this.markerInstance!.setDraggable(!!this.draggable);
+      this.markerInstance!.setDraggable(!!this.draggable());
     }
     if (changes['popupShown'] && !changes['popupShown'].isFirstChange()) {
       changes['popupShown'].currentValue
@@ -101,15 +103,15 @@ export class MarkerComponent
     this.mapService.mapCreated$.subscribe(() => {
       this.markerInstance = this.mapService.addMarker({
         markersOptions: {
-          offset: this.offset,
-          anchor: this.anchor,
-          pitchAlignment: this.pitchAlignment,
-          rotationAlignment: this.rotationAlignment,
-          draggable: !!this.draggable,
+          offset: this.offset(),
+          anchor: this.anchor(),
+          pitchAlignment: this.pitchAlignment(),
+          rotationAlignment: this.rotationAlignment(),
+          draggable: !!this.draggable(),
           element: this.content.nativeElement,
-          feature: this.feature,
-          lngLat: this.lngLat,
-          clickTolerance: this.clickTolerance,
+          feature: this.feature(),
+          lngLat: this.lngLat(),
+          clickTolerance: this.clickTolerance(),
         },
         markersEvents: {
           markerDragStart: this.markerDragStart,

@@ -1,4 +1,4 @@
-import { AfterContentInit, Directive, Host, Input } from '@angular/core';
+import { AfterContentInit, Directive, inject, input } from '@angular/core';
 import { AttributionControl } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import { ControlComponent } from './control.component';
@@ -7,14 +7,15 @@ import { ControlComponent } from './control.component';
   selector: '[mglAttribution]',
 })
 export class AttributionControlDirective implements AfterContentInit {
-  /* Init inputs */
-  @Input() compact?: boolean;
-  @Input() customAttribution?: string | string[];
+  private mapService = inject(MapService);
+  private controlComponent = inject<ControlComponent<AttributionControl>>(
+    ControlComponent<AttributionControl>,
+    { host: true },
+  );
 
-  constructor(
-    private mapService: MapService,
-    @Host() private controlComponent: ControlComponent<AttributionControl>,
-  ) {}
+  /* Init inputs */
+  compact = input<boolean>();
+  customAttribution = input<string | string[]>();
 
   ngAfterContentInit() {
     this.mapService.mapCreated$.subscribe(() => {
@@ -25,16 +26,18 @@ export class AttributionControlDirective implements AfterContentInit {
         compact?: boolean;
         customAttribution?: string | string[];
       } = {};
-      if (this.compact !== undefined) {
-        options.compact = this.compact;
+      const compact = this.compact();
+      const customAttribution = this.customAttribution();
+      if (compact !== undefined) {
+        options.compact = compact;
       }
-      if (this.customAttribution !== undefined) {
-        options.customAttribution = this.customAttribution;
+      if (customAttribution !== undefined) {
+        options.customAttribution = customAttribution;
       }
       this.controlComponent.control = new AttributionControl(options);
       this.mapService.addControl(
         this.controlComponent.control,
-        this.controlComponent.position,
+        this.controlComponent.position(),
       );
     });
   }

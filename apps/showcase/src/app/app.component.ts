@@ -25,5 +25,9 @@ export class AppComponent {
       'github',
       this.sanitizer.bypassSecurityTrustResourceUrl('github.svg'),
     );
+    this.iconRegistry.addSvgIcon(
+      'mapbox',
+      this.sanitizer.bypassSecurityTrustResourceUrl('mapbox.svg'),
+    );
   }
 }

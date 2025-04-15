@@ -1,13 +1,12 @@
 import {
   Directive,
   EventEmitter,
-  Host,
-  Input,
   NgZone,
   OnDestroy,
   OnInit,
-  Optional,
   Output,
+  inject,
+  input,
 } from '@angular/core';
 import { MapMouseEvent } from 'mapbox-gl';
 import { fromEvent, Observable, Subscription } from 'rxjs';
@@ -15,51 +14,38 @@ import { filter, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { LayerComponent } from '../layer/layer.component';
 import { MapService } from '../map/map.service';
 import { FeatureComponent } from '../source/geojson/feature.component';
-import { deprecationWarning } from '../utils';
 
 @Directive({
   selector: '[mglDraggable]',
 })
 export class DraggableDirective implements OnInit, OnDestroy {
-  @Input('mglDraggable') layer?: LayerComponent;
+  private mapService = inject(MapService);
+  private ngZone = inject(NgZone);
+  private featureComponent = inject(FeatureComponent, {
+    optional: true,
+    host: true,
+  });
+
+  layer = input<LayerComponent>(undefined, { alias: 'mglDraggable' });
 
   @Output() featureDragStart = new EventEmitter<MapMouseEvent>();
   @Output() featureDragEnd = new EventEmitter<MapMouseEvent>();
   @Output() featureDrag = new EventEmitter<MapMouseEvent>();
-  /**
-   * @deprecated Use featureDragStart instead
-   */
-  @Output() dragStart = new EventEmitter<MapMouseEvent>();
-  /**
-   * @deprecated Use featureDragEnd instead
-   */
-  @Output() dragEnd = new EventEmitter<MapMouseEvent>();
-  /**
-   * @deprecated Use featureDrag instead
-   */
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() drag = new EventEmitter<MapMouseEvent>();
 
   private sub = new Subscription();
 
-  constructor(
-    private mapService: MapService,
-    private ngZone: NgZone,
-    @Optional() @Host() private featureComponent?: FeatureComponent,
-  ) {}
-
   ngOnInit() {
-    this.warnDeprecatedOutputs();
     let enter$;
     let leave$;
     let updateCoords;
-    if (this.featureComponent && this.layer) {
-      enter$ = this.layer.layerMouseEnter;
-      leave$ = this.layer.layerMouseLeave;
+    const layer = this.layer();
+    if (this.featureComponent && layer) {
+      enter$ = layer.layerMouseEnter;
+      leave$ = layer.layerMouseLeave;
       updateCoords = this.featureComponent.updateCoordinates.bind(
         this.featureComponent,
       );
-      if (this.featureComponent.geometry.type !== 'Point') {
+      if (this.featureComponent.geometry().type !== 'Point') {
         throw new Error('mglDraggable only support point feature');
       }
     } else {
@@ -114,10 +100,9 @@ export class DraggableDirective implements OnInit, OnDestroy {
       this.sub.add(
         dragStart$.subscribe((evt) => {
           moving = true;
-          if (this.featureDragStart.observed || this.dragStart.observed) {
+          if (this.featureDragStart.observed) {
             this.ngZone.run(() => {
               this.featureDragStart.emit(evt);
-              this.dragStart.emit(evt);
             });
           }
         }),
@@ -125,10 +110,9 @@ export class DraggableDirective implements OnInit, OnDestroy {
       this.sub.add(
         dragging$.subscribe((evt) => {
           updateCoords([evt.lngLat.lng, evt.lngLat.lat]);
-          if (this.featureDrag.observed || this.drag.observed) {
+          if (this.featureDrag.observed) {
             this.ngZone.run(() => {
               this.featureDrag.emit(evt);
-              this.drag.emit(evt);
             });
           }
         }),
@@ -136,10 +120,9 @@ export class DraggableDirective implements OnInit, OnDestroy {
       this.sub.add(
         dragEnd$.subscribe((evt) => {
           moving = false;
-          if (this.featureDragEnd.observed || this.dragEnd.observed) {
+          if (this.featureDragEnd.observed) {
             this.ngZone.run(() => {
               this.featureDragEnd.emit(evt);
-              this.dragEnd.emit(evt);
             });
           }
           if (!inside) {
@@ -164,14 +147,15 @@ export class DraggableDirective implements OnInit, OnDestroy {
   }
 
   private filterFeature(evt: MapMouseEvent) {
-    if (this.featureComponent && this.layer) {
+    const layer = this.layer();
+    if (this.featureComponent && layer) {
       const feature: GeoJSON.Feature<GeoJSON.GeometryObject> =
         this.mapService.queryRenderedFeatures(evt.point, {
-          layers: [this.layer.id],
+          layers: [layer.id()],
           filter: [
             'all',
             ['==', '$type', 'Point'],
-            ['==', '$id', this.featureComponent.id],
+            ['==', '$id', this.featureComponent.id()],
           ],
         })[0];
       if (!feature) {
@@ -179,18 +163,5 @@ export class DraggableDirective implements OnInit, OnDestroy {
       }
     }
     return true;
-  }
-
-  private warnDeprecatedOutputs() {
-    const dw = deprecationWarning.bind(undefined, DraggableDirective.name);
-    if (this.dragStart.observed) {
-      dw('dragStart', 'featureDragStart');
-    }
-    if (this.dragEnd.observed) {
-      dw('dragEnd', 'featureDragEnd');
-    }
-    if (this.drag.observed) {
-      dw('drag', 'featureDrag');
-    }
   }
 }

@@ -3,9 +3,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Input,
   OnDestroy,
   ViewChild,
+  inject,
+  input,
 } from '@angular/core';
 import { IControl, type ControlPosition } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
@@ -28,15 +29,20 @@ export class CustomControl implements IControl {
 
 @Component({
   selector: 'mgl-control',
-  template:
-    '<div class="mapboxgl-ctrl" #content><ng-content></ng-content></div>',
+  template: `
+    <div class="mapboxgl-ctrl" #content>
+      <ng-content />
+    </div>
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ControlComponent<T extends IControl>
   implements OnDestroy, AfterContentInit
 {
+  private mapService = inject(MapService);
+
   /* Init inputs */
-  @Input() position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  position = input<'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'>();
 
   @ViewChild('content', { static: true }) content: ElementRef;
 
@@ -44,13 +50,11 @@ export class ControlComponent<T extends IControl>
 
   private controlAdded = false;
 
-  constructor(private mapService: MapService) {}
-
   ngAfterContentInit() {
     if (this.content.nativeElement.childNodes.length) {
       this.control = new CustomControl(this.content.nativeElement);
       this.mapService.mapCreated$.subscribe(() => {
-        this.mapService.addControl(this.control!, this.position);
+        this.mapService.addControl(this.control!, this.position());
         this.controlAdded = true;
       });
     }
