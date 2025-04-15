@@ -7,7 +7,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { VideoSource, VideoSourceOptions, VideoSourceRaw } from 'mapbox-gl';
+import type { VideoSource, VideoSourceSpecification } from 'mapbox-gl';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
@@ -18,14 +18,18 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideoSourceComponent
-  implements OnInit, OnDestroy, OnChanges, VideoSourceOptions
+  implements
+    OnInit,
+    OnDestroy,
+    OnChanges,
+    Omit<VideoSourceSpecification, 'type'>
 {
   /* Init inputs */
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() urls: VideoSourceOptions['urls'];
-  @Input() coordinates: VideoSourceOptions['coordinates'];
+  @Input() urls: VideoSourceSpecification['urls'];
+  @Input() coordinates: VideoSourceSpecification['coordinates'];
 
   private sourceAdded = false;
   private sub = new Subscription();
@@ -73,8 +77,20 @@ export class VideoSourceComponent
     }
   }
 
+  pause() {
+    this.mapService.getSource<VideoSource>(this.id)?.pause();
+  }
+
+  play() {
+    this.mapService.getSource<VideoSource>(this.id)?.play();
+  }
+
+  getVideo() {
+    return this.mapService.getSource<VideoSource>(this.id)?.getVideo();
+  }
+
   private init() {
-    const source: VideoSourceRaw = {
+    const source: VideoSourceSpecification = {
       type: 'video',
       urls: this.urls,
       coordinates: this.coordinates,

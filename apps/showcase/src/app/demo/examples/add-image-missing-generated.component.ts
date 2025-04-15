@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForOf } from '@angular/common';
-import {
-  MapImageData,
-  MapComponent,
-  LayerComponent,
-  ImageComponent,
-} from 'ngx-mapbox-gl';
+import { MapComponent, LayerComponent, ImageComponent } from 'ngx-mapbox-gl';
 import { MglMapResizeDirective } from './mgl-map-resize.directive';
 
 @Component({
@@ -77,7 +72,12 @@ import { MglMapResizeDirective } from './mgl-map-resize.directive';
   styleUrls: ['./examples.css'],
 })
 export class AddImageMissingGeneratedComponent {
-  imagesData: (MapImageData & { id: string })[] = [];
+  imagesData: {
+    id: string;
+    width: number;
+    height: number;
+    data: Uint8Array;
+  }[] = [];
 
   generateImage({ id }: { id: string }) {
     // check if this missing icon is one this function can generate

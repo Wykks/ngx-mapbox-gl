@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {
-  Position,
   MapComponent,
   ControlComponent,
   AttributionControlDirective,
@@ -55,7 +54,7 @@ export class NgxCustomControlComponent {
   alert(message: string) {
     alert(message);
   }
-  onGeolocate(position: Position) {
+  onGeolocate(position: GeolocationPosition) {
     console.log('geolocate', position);
   }
 }

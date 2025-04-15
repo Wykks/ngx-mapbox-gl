@@ -6,6 +6,7 @@ import {
   ImageSourceComponent,
   LayerComponent,
 } from 'ngx-mapbox-gl';
+import type { ImageSourceSpecification, LngLatLike } from 'mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
@@ -41,10 +42,15 @@ import {
 export class LiveUpdateImageSourceComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   private readonly size = 0.001;
-  center: [number, number];
+  center: LngLatLike;
 
   url = 'assets/red.png';
-  coordinates: number[][];
+  coordinates: [
+    [number, number],
+    [number, number],
+    [number, number],
+    [number, number],
+  ];
 
   async ngOnInit() {
     const data = (await import(
@@ -53,7 +59,7 @@ export class LiveUpdateImageSourceComponent implements OnInit, OnDestroy {
     const points = data.features[0].geometry?.coordinates;
     const coordinates = points.map((c) => this.makeRectangle(c));
 
-    this.center = points[0] as [number, number];
+    this.center = [points[0][0], points[0][1]];
     this.coordinates = coordinates[0];
 
     let i = 0;
@@ -71,7 +77,10 @@ export class LiveUpdateImageSourceComponent implements OnInit, OnDestroy {
     }
   }
 
-  private makeRectangle([long, lat]: number[]): number[][] {
+  private makeRectangle([
+    long,
+    lat,
+  ]: number[]): ImageSourceSpecification['coordinates'] {
     return [
       [long, lat],
       [long + this.size, lat],

@@ -7,7 +7,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { ImageSource, ImageSourceOptions, ImageSourceRaw } from 'mapbox-gl';
+import type { ImageSource, ImageSourceSpecification } from 'mapbox-gl';
 import { Subscription } from 'rxjs';
 import { MapService } from '../map/map.service';
 
@@ -17,14 +17,18 @@ import { MapService } from '../map/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ImageSourceComponent
-  implements OnInit, OnDestroy, OnChanges, ImageSourceOptions
+  implements
+    OnInit,
+    OnDestroy,
+    OnChanges,
+    Omit<ImageSourceSpecification, 'type'>
 {
   /* Init inputs */
   @Input() id: string;
 
   /* Dynamic inputs */
-  @Input() url: ImageSourceOptions['url'];
-  @Input() coordinates: ImageSourceOptions['coordinates'];
+  @Input() url: string;
+  @Input() coordinates: ImageSourceSpecification['coordinates'];
 
   private sub: Subscription;
   private sourceId?: string;
@@ -45,7 +49,7 @@ export class ImageSourceComponent
       return;
     }
     source.updateImage({
-      url: changes['url'] === undefined ? undefined : this.url,
+      url: this.url,
       coordinates:
         changes['coordinates'] === undefined ? undefined : this.coordinates,
     });
@@ -63,7 +67,7 @@ export class ImageSourceComponent
   }
 
   private init() {
-    const imageSource: ImageSourceRaw = {
+    const imageSource: ImageSourceSpecification = {
       type: 'image',
       url: this.url,
       coordinates: this.coordinates,
