@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.0.0-beta.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v11.0.1...v12.0.0-beta.0) (2025-04-18)
+
+### ⚠ BREAKING CHANGES
+
+- Remove deprecated inputs
+- Now support only mapbox >3.5
+- Now support only Angular >19
+
+### Features
+
+- Support Zoneless mode
+- **markers-for-cluster:** add failbackPointIdKey ([4ef70e3](https://github.com/Wykks/ngx-mapbox-gl/commit/4ef70e3f8534e28e7ddb4fa9e70849aece5f7320))
+- move to mapbox-gl v3.11 ([5753307](https://github.com/Wykks/ngx-mapbox-gl/commit/5753307f4a05ff4db1f8dd45d2e07663cd301c9d))
+
+### Bug Fixes
+
+- fix some eslint issues ([fa7ed23](https://github.com/Wykks/ngx-mapbox-gl/commit/fa7ed23ba939571d2802b5f3456d16f53bc97ba2))
+- **showcase:** clean/refactor and maybe fix edit mode ([1b21d7b](https://github.com/Wykks/ngx-mapbox-gl/commit/1b21d7b5547f776191adebdffc55ec256b48369d))
+- switch to standalone ([42300b7](https://github.com/Wykks/ngx-mapbox-gl/commit/42300b7d50c828001405e10c1f815666c6a5495a))
+
+- Move to input() ([407a6ee](https://github.com/Wykks/ngx-mapbox-gl/commit/407a6ee5ce0a7beedf5b66578969b52b0586ff03))
+
 ### [11.0.1](https://github.com/Wykks/ngx-mapbox-gl/compare/v11.0.0...v11.0.1) (2024-08-19)
 
 ### Bug Fixes
