@@ -1,7 +1,6 @@
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ContentChild,
   Directive,
@@ -10,8 +9,13 @@ import {
   TemplateRef,
   inject,
   input,
+  signal,
 } from '@angular/core';
-import type { MapSourceDataEvent, GeoJSONFeature } from 'mapbox-gl';
+import type {
+  MapSourceDataEvent,
+  GeoJSONFeature,
+  FilterSpecification,
+} from 'mapbox-gl';
 import { fromEvent, merge, Subscription } from 'rxjs';
 import { filter, startWith, switchMap } from 'rxjs/operators';
 import { MapService } from '../map/map.service';
@@ -41,7 +45,7 @@ let uniqId = 0;
       type="circle"
       [paint]="{ 'circle-radius': 0 }"
     />
-    @for (feature of clusterPoints; track feature.id) {
+    @for (feature of clusterPoints(); track trackByFeature(feature)) {
       @if (feature.properties!['cluster']) {
         <mgl-marker [feature]="$any(feature)">
           @if (clusterPointTpl) {
@@ -70,18 +74,23 @@ export class MarkersForClustersComponent
   implements OnDestroy, AfterContentInit
 {
   private mapService = inject(MapService);
-  private ChangeDetectorRef = inject(ChangeDetectorRef);
   private zone = inject(NgZone);
 
   /* Init input */
   source = input.required<string>();
+
+  /* Dynamic input */
+  /**
+   * Track unique points by feature.id, but fallback to provided key if id is not available
+   */
+  failbackPointIdKey = input<string>();
 
   @ContentChild(PointDirective, { read: TemplateRef, static: false })
   pointTpl?: TemplateRef<unknown>;
   @ContentChild(ClusterPointDirective, { read: TemplateRef, static: false })
   clusterPointTpl: TemplateRef<unknown>;
 
-  clusterPoints!: GeoJSONFeature[];
+  clusterPoints = signal<GeoJSONFeature[]>([]);
   layerId = `mgl-markers-for-clusters-${uniqId++}`;
 
   private sub = new Subscription();
@@ -99,7 +108,12 @@ export class MarkersForClustersComponent
     const sub = this.mapService.mapCreated$
       .pipe(
         switchMap(clusterDataUpdate),
-        switchMap(() => fromEvent(this.mapService.mapInstance, 'render')),
+        switchMap(() =>
+          merge(
+            fromEvent(this.mapService.mapInstance, 'move'),
+            fromEvent(this.mapService.mapInstance, 'moveend'),
+          ).pipe(startWith(undefined)),
+        ),
       )
       .subscribe(() => {
         this.zone.run(() => {
@@ -113,19 +127,47 @@ export class MarkersForClustersComponent
     this.sub.unsubscribe();
   }
 
-  trackByClusterPoint(_index: number, clusterPoint: GeoJSONFeature) {
-    return clusterPoint.id;
+  trackByFeature(feature: GeoJSONFeature) {
+    if (feature.id) {
+      return feature.id;
+    }
+    const fallbackKey = this.failbackPointIdKey();
+    if (!fallbackKey) {
+      console.warn(
+        '[mgl-markers-for-clusters] feature.id is falsy, please provide a fallback key',
+      );
+      return '';
+    }
+    const id = feature.properties?.[fallbackKey];
+    if (!id) {
+      console.warn(
+        `[mgl-markers-for-clusters] Fallback key [${fallbackKey}], resolve to falsy for`,
+        feature,
+      );
+      return '';
+    }
+    return id;
   }
 
   private updateCluster() {
-    // Invalid queryRenderedFeatures typing
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const params: any = { layers: [this.layerId] };
+    const params: { layers?: string[]; filter?: FilterSpecification } = {
+      layers: [this.layerId],
+    };
     if (!this.pointTpl) {
       params.filter = ['==', 'cluster', true];
     }
-    this.clusterPoints =
+    const clusterPoints =
       this.mapService.mapInstance.queryRenderedFeatures(params);
-    this.ChangeDetectorRef.markForCheck();
+    // Remove duplicates, because it seems that queryRenderedFeatures can return duplicates
+    const seen = new Set();
+    const unique = [];
+    for (const feature of clusterPoints) {
+      const id = this.trackByFeature(feature);
+      if (!seen.has(id)) {
+        seen.add(id);
+        unique.push(feature);
+      }
+    }
+    this.clusterPoints.set(unique);
   }
 }

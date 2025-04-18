@@ -2,7 +2,10 @@ import {
   EventEmitter,
   Injectable,
   InjectionToken,
+  Injector,
   NgZone,
+  afterNextRender,
+  afterRender,
   inject,
 } from '@angular/core';
 import {
@@ -82,10 +85,12 @@ export type MovingOptions =
 
 @Injectable()
 export class MapService {
-  private zone = inject(NgZone);
+  private readonly zone = inject(NgZone);
   private readonly MAPBOX_API_KEY = inject<string | null>(MAPBOX_API_KEY, {
     optional: true,
   });
+  private readonly injector = inject(Injector);
+
   mapInstance: Map;
   mapCreated$: Observable<void>;
   mapLoaded$: Observable<void>;
@@ -406,6 +411,12 @@ export class MapService {
       pitchAlignment: marker.markersOptions.pitchAlignment,
       clickTolerance: marker.markersOptions.clickTolerance,
     };
+    Object.keys(options).forEach((key: string) => {
+      const tkey = key as keyof MarkerOptions;
+      if (options[tkey] === undefined) {
+        delete options[tkey];
+      }
+    });
     if (marker.markersOptions.element.childNodes.length > 0) {
       options.element = marker.markersOptions.element;
     }
@@ -680,10 +691,13 @@ export class MapService {
       }
     });
     this.mapInstance = new Map(options);
-
-    this.subscription.add(
-      // TODO: [V12]: CHANGE THIS
-      this.zone.onMicrotaskEmpty.subscribe(() => this.applyChanges()),
+    afterRender(
+      {
+        write: () => {
+          this.applyChanges();
+        },
+      },
+      { injector: this.injector },
     );
   }
 

@@ -16,7 +16,6 @@ import {
 } from '@angular/core';
 import type { LngLatLike, Marker, MarkerOptions } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
-import { deprecationWarning } from '../utils';
 
 @Component({
   selector: 'mgl-marker',
@@ -58,7 +57,6 @@ export class MarkerComponent
   markerInstance?: Marker;
 
   ngOnInit() {
-    this.warnDeprecatedOutputs();
     if (this.feature() && this.lngLat()) {
       throw new Error('feature and lngLat input are mutually exclusive');
     }
@@ -133,18 +131,5 @@ export class MarkerComponent
 
   updateCoordinates(coordinates: number[]) {
     this.markerInstance!.setLngLat(coordinates as [number, number]);
-  }
-
-  private warnDeprecatedOutputs() {
-    const dw = deprecationWarning.bind(undefined, MarkerComponent.name);
-    if (this.markerDragStart.observed) {
-      dw('dragStart', 'markerDragStart');
-    }
-    if (this.markerDragEnd.observed) {
-      dw('dragEnd', 'markerDragEnd');
-    }
-    if (this.markerDrag.observed) {
-      dw('drag', 'markerDrag');
-    }
   }
 }
