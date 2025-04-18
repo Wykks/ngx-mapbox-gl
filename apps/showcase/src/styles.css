@@ -1,6 +1,6 @@
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
-@import '~mapbox-gl/dist/mapbox-gl.css';
-@import '~prismjs/themes/prism-okaidia.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'mapbox-gl/dist/mapbox-gl.css';
+@import 'prismjs/themes/prism-okaidia.css';
 
 html {
   min-height: 100%;
