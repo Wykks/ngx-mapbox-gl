@@ -1,12 +1,12 @@
 import {
   Component,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
   ViewChild,
+  computed,
+  effect,
   input,
+  resource,
+  signal,
 } from '@angular/core';
-import { NgIf, NgForOf } from '@angular/common';
 import {
   MatPaginator,
   PageEvent,
@@ -32,49 +32,65 @@ import { MglMapResizeDirective } from './mgl-map-resize.directive';
 
 @Component({
   selector: 'showcase-cluster-popup',
-
   template: `
     <mat-list>
-      <mat-list-item *ngFor="let leaf of leaves">
-        {{ leaf.properties?.['Primary ID'] }}
-      </mat-list-item>
+      @if (leaves.hasValue()) {
+        @for (leaf of leaves.value(); track $index) {
+          <mat-list-item>
+            {{ leaf.properties?.['Primary ID'] }}
+          </mat-list-item>
+        }
+      } @else {
+        @for (i of placeholders(); track $index) {
+          <mat-list-item />
+        }
+      }
     </mat-list>
     <mat-paginator
-      [length]="selectedCluster().properties?.['point_count']"
+      [length]="pointCount()"
       [pageSize]="5"
+      [hidePageSize]="true"
       (page)="changePage($event)"
     />
   `,
-  imports: [MatListModule, MatPaginatorModule, NgForOf],
+  imports: [MatListModule, MatPaginatorModule],
 })
-export class ClusterPopupComponent implements OnChanges {
+export class ClusterPopupComponent {
   selectedCluster = input.required<GeoJSON.Feature<GeoJSON.Point>>();
   clusterComponent = input.required<GeoJSONSourceComponent>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  leaves: GeoJSON.Feature<GeoJSON.Geometry>[];
+  offset = signal(0);
+  pointCount = computed(
+    () => this.selectedCluster().properties?.['point_count'] ?? 0,
+  );
+  placeholders = computed(() =>
+    Array.from({ length: Math.min(this.pointCount(), 5) }),
+  );
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.changePage();
-    if (
-      changes['selectedCluster'] &&
-      !changes['selectedCluster'].isFirstChange()
-    ) {
+  leaves = resource({
+    request: () => ({
+      offset: this.offset(),
+      selectedCluster: this.selectedCluster(),
+    }),
+    loader: () =>
+      this.clusterComponent().getClusterLeaves(
+        this.selectedCluster().properties?.['cluster_id'] ?? 0,
+        5,
+        this.offset(),
+      ),
+  });
+
+  constructor() {
+    effect(() => {
+      this.selectedCluster();
       this.paginator.firstPage();
-    }
+    });
   }
 
-  async changePage(pageEvent?: PageEvent) {
-    let offset = 0;
-    if (pageEvent) {
-      offset = pageEvent.pageIndex * 5;
-    }
-    this.leaves = await this.clusterComponent().getClusterLeaves(
-      this.selectedCluster().properties?.['cluster_id'] ?? 0,
-      5,
-      offset,
-    );
+  changePage(pageEvent: PageEvent) {
+    this.offset.set(pageEvent.pageIndex * 5);
   }
 }
 
@@ -86,16 +102,20 @@ export class ClusterPopupComponent implements OnChanges {
       [zoom]="[3]"
       [center]="[-103.59179687498357, 40.66995747013945]"
     >
-      <ng-container *ngIf="earthquakes">
+      @let _earthquakes = earthquakes();
+      @if (_earthquakes) {
         <mgl-geojson-source
           #clusterComponent
           id="earthquakes"
-          [data]="earthquakes"
+          [data]="_earthquakes"
           [cluster]="true"
           [clusterRadius]="50"
           [clusterMaxZoom]="14"
         />
-        <mgl-markers-for-clusters source="earthquakes">
+        <mgl-markers-for-clusters
+          source="earthquakes"
+          failbackPointIdKey="Primary ID"
+        >
           <ng-template mglPoint let-feature>
             <div class="marker" [title]="feature.properties['Secondary ID']">
               {{ feature.properties['Primary ID'] }}
@@ -104,21 +124,28 @@ export class ClusterPopupComponent implements OnChanges {
           <ng-template mglClusterPoint let-feature>
             <div
               class="marker-cluster"
-              (click)="selectCluster($event, feature)"
-              (keydown)="selectCluster($event, feature)"
+              (click)="selectCluster(feature)"
+              (keydown.enter)="selectCluster(feature)"
               tabindex="0"
             >
               {{ feature.properties?.point_count }}
             </div>
           </ng-template>
         </mgl-markers-for-clusters>
-        <mgl-popup *ngIf="selectedCluster" [feature]="selectedCluster">
-          <showcase-cluster-popup
-            [clusterComponent]="clusterComponent"
-            [selectedCluster]="selectedCluster"
-          />
-        </mgl-popup>
-      </ng-container>
+        @let _selectedCluster = selectedCluster();
+        @if (_selectedCluster) {
+          <mgl-popup
+            [feature]="_selectedCluster"
+            maxWidth="300px"
+            (popupClose)="selectedCluster.set(null)"
+          >
+            <showcase-cluster-popup
+              [clusterComponent]="clusterComponent"
+              [selectedCluster]="_selectedCluster"
+            />
+          </mgl-popup>
+        }
+      }
     </mgl-map>
   `,
   imports: [
@@ -130,29 +157,27 @@ export class ClusterPopupComponent implements OnChanges {
     PointDirective,
     PopupComponent,
     ClusterPopupComponent,
-    NgIf,
   ],
   styleUrls: ['./examples.css', './ngx-cluster-html.component.css'],
 })
-export class NgxClusterHtmlComponent implements OnInit {
-  earthquakes: GeoJSON.FeatureCollection;
-  selectedCluster: GeoJSON.Feature<GeoJSON.Point>;
+export class NgxClusterHtmlComponent {
+  selectedCluster = signal<GeoJSON.Feature<GeoJSON.Point> | null>(null);
+  earthquakes = signal<GeoJSON.FeatureCollection<GeoJSON.Geometry> | null>(
+    null,
+  );
 
-  async ngOnInit() {
-    const earthquakes: GeoJSON.FeatureCollection = (await import(
-      './earthquakes.geo.json'
-    )) as unknown as GeoJSON.FeatureCollection<GeoJSON.Geometry>;
-    setInterval(() => {
-      if (earthquakes.features.length) {
-        earthquakes.features.pop();
-      }
-      this.earthquakes = { ...earthquakes };
-    }, 500);
+  constructor() {
+    this.loadSource();
   }
 
-  selectCluster(event: Event, feature: GeoJSON.Feature<GeoJSON.Point>) {
-    event.stopPropagation(); // This is needed, otherwise the popup will close immediately
-    // Change the ref, to trigger mgl-popup onChanges (when the user click on the same cluster)
-    this.selectedCluster = feature;
+  selectCluster(feature: GeoJSON.Feature<GeoJSON.Point>) {
+    this.selectedCluster.set(feature);
+  }
+
+  private async loadSource() {
+    const earthquakes = (await import(
+      './earthquakes.geo.json'
+    )) as unknown as GeoJSON.FeatureCollection<GeoJSON.Geometry>;
+    this.earthquakes.set(earthquakes);
   }
 }

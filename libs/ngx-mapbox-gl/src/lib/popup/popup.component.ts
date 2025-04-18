@@ -16,7 +16,6 @@ import {
 import { LngLatLike, PointLike, Popup, PopupOptions } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import { MarkerComponent } from '../marker/marker.component';
-import { deprecationWarning } from '../utils';
 
 @Component({
   selector: 'mgl-popup',
