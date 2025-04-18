@@ -1,0 +1,8 @@
+::ng-deep .custom-popup-class1 {
+  color: purple;
+  text-align: center;
+}
+
+::ng-deep .custom-popup-class2 {
+  width: 300px;
+}
