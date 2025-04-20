@@ -1,4 +1,4 @@
-# mgl-map [Mapbox GL API](https://www.mapbox.com/mapbox-gl-js/api#map)
+# mgl-map [Mapbox GL API](https://docs.mapbox.com/mapbox-gl-js/api/map/)
 
 ## Example
 
@@ -41,9 +41,8 @@ Init only:
 - **trackResize**: `boolean`
 - **transformRequest**: `Function`
 - **cooperativeGestures**: `boolean`
-- **bounds**: [`LngLatBoundsLike`](https://www.mapbox.com/mapbox-gl-js/api/#lnglatboundslike) Use **fitBounds** if you want the dynamic version. Use **fitBoundsOptions** to specify bounds options.
-- [ngx] **accessToken**: `string` https://www.mapbox.com/mapbox-gl-js/api/#accesstoken
-- [ngx] **customMapboxApiUrl**: `string` Change url of `mapbox://` (set config.API_URL)
+- **bounds**: [`LngLatBoundsLike`](https://docs.mapbox.com/mapbox-gl-js/api/geography/#lnglatboundslike) Use **fitBounds** if you want the dynamic version. Use **fitBoundsOptions** to specify bounds options.
+- [ngx] **accessToken**: `string` https://docs.mapbox.com/mapbox-gl-js/api/properties/#accesstoken
 
 Dynamic:
 
@@ -58,60 +57,60 @@ Dynamic:
 - **boxZoom**: `boolean`
 - **style**: `Style | string`
 - **center**: `LngLatLike`
-- **maxBounds**: [`LngLatBoundsLike`](https://www.mapbox.com/mapbox-gl-js/api/#lnglatboundslike)
+- **maxBounds**: [`LngLatBoundsLike`](https://docs.mapbox.com/mapbox-gl-js/api/geography/#lnglatboundslike)
 - **zoom**: `[number]` The initial zoom level of the map. If zoom is not specified in the constructor options, Mapbox GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to 0. [ngx] It's an array in order to be able to force changes (by changing the array ref) because this input can be desync after user manipulation on map.
 - **bearing**: `[number]` The initial bearing (rotation) of the map, measured in degrees counter-clockwise from north. If bearing is not specified in the constructor options, Mapbox GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to 0. [ngx] It's an array in order to be able to force changes (by changing the array ref) because this input can be desync after user manipulation on map.
 - **pitch**: `[number]` The initial pitch (tilt) of the map, measured in degrees away from the plane of the screen (0-60). If pitch is not specified in the constructor options, Mapbox GL JS will look for it in the map's style object. If it is not specified in the style, either, it will default to 0. [ngx] It's an array in order to be able to force changes (by changing the array ref) because this input can be desync after user manipulation on map.
-- **fitBoundsOptions** https://www.mapbox.com/mapbox-gl-js/api/#map#fitbounds
+- **fitBoundsOptions** https://docs.mapbox.com/mapbox-gl-js/api/map/#map#fitbounds
 - **projection** https://docs.mapbox.com/mapbox-gl-js/api/map/#map#setprojection
-- [ngx] **fitBounds**: [`LngLatBoundsLike`](https://www.mapbox.com/mapbox-gl-js/api/#lnglatboundslike) If set, the map will center on the given coordinates. Dynamic version of **bounds**.
-- [ngx] **fitScreenCoordinates**: `[PointLike, PointLike]` https://www.mapbox.com/mapbox-gl-js/api/#map#fitscreencoordinates (use movingOptions as options)
+- [ngx] **fitBounds**: [`LngLatBoundsLike`](https://docs.mapbox.com/mapbox-gl-js/api/geography/#lnglatboundslike) If set, the map will center on the given coordinates. Dynamic version of **bounds**.
+- [ngx] **fitScreenCoordinates**: `[PointLike, PointLike]` https://docs.mapbox.com/mapbox-gl-js/api/map/#map#fitscreencoordinates (use movingOptions as options)
 - [ngx] **movingMethod**: `'jumpTo' | 'easeTo' | 'flyTo'` _(Default: `'flyTo'`)_ Define the method used when changing the center or zoom position.
-- [ngx] **movingOptions** Options passed to the moving method (https://www.mapbox.com/mapbox-gl-js/api/#map#flyto https://www.mapbox.com/mapbox-gl-js/api/#map#easeto https://www.mapbox.com/mapbox-gl-js/api/#map#jumpto)
-- [ngx] **panToOptions** Options passed to panTo (https://www.mapbox.com/mapbox-gl-js/api/#map#panto)
-- [ngx] **centerWithPanTo**: `boolean` If set to true, then [panTo](https://www.mapbox.com/mapbox-gl-js/api/#map#panto) is used instead of the specified method in **movingMethod** (if only **center** is changed, see live-update-feature example)
+- [ngx] **movingOptions** Options passed to the moving method (https://docs.mapbox.com/mapbox-gl-js/api/map/#map#flyto https://docs.mapbox.com/mapbox-gl-js/api/map/#map#easeto https://docs.mapbox.com/mapbox-gl-js/api/map/#map#jumpto)
+- [ngx] **panToOptions** Options passed to panTo (https://docs.mapbox.com/mapbox-gl-js/api/map/#map#panto)
+- [ngx] **centerWithPanTo**: `boolean` If set to true, then [panTo](https://docs.mapbox.com/mapbox-gl-js/api/map/#map#panto) is used instead of the specified method in **movingMethod** (if only **center** is changed, see live-update-feature example)
 - [ngx] **cursorStyle**: `string` change the cursor of the map canvas (`canvas.style.cursor`).
 
 ## Outputs
 
 - **mapResize**: `void`
 - **mapRemove**: `void`
-- **mapMouseDown**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mouseUp**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapMouseMove**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapClick**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapDblClick**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapMouseEnter**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapMouseOver**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapMouseOut**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapContextMenu**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **mapTouchStart**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
-- **mapTouchEnd**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
-- **mapTouchMove**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
-- **mapTouchCancel**: [`MapTouchEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent)
-- **mapWheel**: [`MapWheelEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapwheelevent)
+- **mapMouseDown**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **mouseUp**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **mapMouseMove**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **mapClick**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **mapDblClick**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **mapMouseEnter**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **mapMouseOver**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **mapMouseOut**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **mapContextMenu**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **mapTouchStart**: [`MapTouchEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent)
+- **mapTouchEnd**: [`MapTouchEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent)
+- **mapTouchMove**: [`MapTouchEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent)
+- **mapTouchCancel**: [`MapTouchEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent)
+- **mapWheel**: [`MapWheelEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapwheelevent)
 - **moveStart**: [`DragEvent`](https://developer.mozilla.org/fr/docs/Web/API/DragEvent)
-- **move**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **move**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent) `|` [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
 - **moveEnd**: [`DragEvent`](https://developer.mozilla.org/fr/docs/Web/API/DragEvent)
 - **mapDragStart**: [`DragEvent`](https://developer.mozilla.org/fr/docs/Web/API/DragEvent)
-- **mapDrag**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **mapDrag**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent) `|` [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
 - **mapDragEnd**: [`DragEvent`](https://developer.mozilla.org/fr/docs/Web/API/DragEvent)
-- **zoomStart**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **zoomEvt**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **zoomEnd**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **rotateStart**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **rotate**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **rotateEnd**: [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#maptouchevent) `|` [`MapMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **zoomStart**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent) `|` [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **zoomEvt**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent) `|` [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **zoomEnd**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent) `|` [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **rotateStart**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent) `|` [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **rotate**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent) `|` [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **rotateEnd**: [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent) `|` [`MapMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
 - **pitchStart**
 - **pitchEvt**
 - **pitchEnd**
-- **boxZoomStart**: [`MapBoxZoomEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapboxzoomevent)
-- **boxZoomEnd**: [`MapBoxZoomEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapboxzoomevent)
-- **boxZoomCancel**: [`MapBoxZoomEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapboxzoomevent)
+- **boxZoomStart**: [`MapBoxZoomEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapboxzoomevent)
+- **boxZoomEnd**: [`MapBoxZoomEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapboxzoomevent)
+- **boxZoomCancel**: [`MapBoxZoomEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapboxzoomevent)
 - **webGlContextLost**: `void`
 - **webGlContextRestored**: `void`
 - **mapLoad**: [`MapBoxEvent`](https://docs.mapbox.com/mapbox-gl-js/api/map/#map.event:load) Fired immediately after all necessary resources have been downloaded and the first visually complete rendering of the map has occurred.
-- [ngx] **mapCreate**: [`Map`](https://www.mapbox.com/mapbox-gl-js/api#map) Fired after the mapbox gl object is created
+- [ngx] **mapCreate**: [`Map`](https://docs.mapbox.com/mapbox-gl-js/api/map/) Fired after the mapbox gl object is created
 - **render**: `void`
 - **mapError**
 - **data**
@@ -121,7 +120,7 @@ Dynamic:
 - **styleDataLoading**
 - **sourceDataLoading**
 
-# mgl-layer [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#layers)
+# mgl-layer [Mapbox GL style spec](https://docs.mapbox.com/style-spec/reference/layers/)
 
 ## Example
 
@@ -145,7 +144,7 @@ Dynamic:
 Init only:
 
 - **id**: `string` _(Required)_
-- **source**: `string | `[`Source`](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources)
+- **source**: `string | `[`Source`](https://docs.mapbox.com/style-spec/reference/sources/)
 - **type**: `'symbol' | 'fill' | 'line' | 'circle' | 'fill-extrusion' | 'raster' | 'background' | 'heatmap'` _(Required)_
 - **metadata**: `any`
 - **sourceLayer**: `string`
@@ -153,29 +152,29 @@ Init only:
 Dynamic:
 
 - **filter**: `any[]`
-- **layout**: [`Layout`](https://www.mapbox.com/mapbox-gl-js/style-spec/#layout-property)
-- **paint**: [`Paint`](https://www.mapbox.com/mapbox-gl-js/style-spec/#paint-property)
+- **layout**: [`Layout`](https://docs.mapbox.com/mapbox-gl-js/style-spec/#layout-property)
+- **paint**: [`Paint`](https://docs.mapbox.com/mapbox-gl-js/style-spec/#paint-property)
 - **minzoom**: `number`
 - **maxzoom**: `number`
-- [ngx] **before**: `string` The ID of an existing layer to insert the new layer before. If this argument is omitted, the layer will be appended to the end of the layers array. https://www.mapbox.com/mapbox-gl-js/api/#map#addlayer
+- [ngx] **before**: `string` The ID of an existing layer to insert the new layer before. If this argument is omitted, the layer will be appended to the end of the layers array. https://docs.mapbox.com/mapbox-gl-js/api/map/#map#addlayer
 
 ## Outputs
 
-- **layerClick**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerDblClick**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerMouseDown**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerMouseUp**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerMouseEnter**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerMouseLeave**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerMouseMove**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerMouseOver**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerMouseOut**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
-- **layerContextMenu**: [`MapLayerMouseEvent`](https://www.mapbox.com/mapbox-gl-js/api/#mapmouseevent)
+- **layerClick**: [`MapLayerMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maplayermouseevent)
+- **layerDblClick**: [`MapLayerMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maplayermouseevent)
+- **layerMouseDown**: [`MapLayerMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maplayermouseevent)
+- **layerMouseUp**: [`MapLayerMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maplayermouseevent)
+- **layerMouseEnter**: [`MapLayerMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maplayermouseevent)
+- **layerMouseLeave**: [`MapLayerMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maplayermouseevent)
+- **layerMouseMove**: [`MapLayerMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **layerMouseOver**: [`MapLayerMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **layerMouseOut**: [`MapLayerMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
+- **layerContextMenu**: [`MapLayerMouseEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent)
 - **layerTouchStart**: [`MapLayerTouchEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent)
 - **layerTouchEnd**: [`MapLayerTouchEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent)
 - **layerTouchCancel**: [`MapLayerTouchEvent`](https://docs.mapbox.com/mapbox-gl-js/api/events/#maptouchevent)
 
-# mgl-geojson-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-geojson)
+# mgl-geojson-source [Mapbox GL style spec](https://docs.mapbox.com/style-spec/reference/sources/#geojson)
 
 ## Example
 
@@ -198,14 +197,14 @@ Init only:
 
 Dynamic:
 
-- [**data**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-geojson-data): `GeoJSON.Feature | GeoJSON.FeatureCollection | string` A URL to a GeoJSON file (fastest, because mapbox-gl will download and parse the geojson in a web worker), or inline GeoJSON.
-- [**maxzoom**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-geojson-maxzoom): `number`
-- [**buffer**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-geojson-buffer): `number`
-- [**tolerance**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-geojson-tolerance): `number`
-- [**generateId**](https://docs.mapbox.com/mapbox-gl-js/style-spec/sources/#geojson-generateId): `boolean`
-- [**cluster**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-geojson-cluster): `boolean`
-- [**clusterRadius**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-geojson-clusterRadius): `number`
-- [**clusterMaxZoom**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-geojson-clusterMaxZoom): `number`
+- [**data**](https://docs.mapbox.com/style-spec/reference/sources/#geojson-data): `GeoJSON.Feature | GeoJSON.FeatureCollection | string` A URL to a GeoJSON file (fastest, because mapbox-gl will download and parse the geojson in a web worker), or inline GeoJSON.
+- [**maxzoom**](https://docs.mapbox.com/style-spec/reference/sources/#geojson-maxzoom): `number`
+- [**buffer**](https://docs.mapbox.com/style-spec/reference/sources/#geojson-buffer): `number`
+- [**tolerance**](https://docs.mapbox.com/style-spec/reference/sources/#geojson-tolerance): `number`
+- [**generateId**](https://docs.mapbox.com/style-spec/reference/sources/#geojson-generateId): `boolean`
+- [**cluster**](https://docs.mapbox.com/style-spec/reference/sources/#geojson-cluster): `boolean`
+- [**clusterRadius**](https://docs.mapbox.com/style-spec/reference/sources/#geojson-clusterRadius): `number`
+- [**clusterMaxZoom**](https://docs.mapbox.com/style-spec/reference/sources/#geojson-clusterMaxZoom): `number`
 
 # [ngx] mgl-feature (inside mgl-geojson-source only)
 
@@ -215,7 +214,7 @@ Init only:
 - **geometry**: `GeoJSON.GeometryObject` _(Required)_
 - **properties**: `any`
 
-# mgl-canvas-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-canvas)
+# mgl-canvas-source [Mapbox GL api](https://docs.mapbox.com/mapbox-gl-js/api/sources/#canvassource)
 
 ## Inputs
 
@@ -225,24 +224,11 @@ Init only:
 
 Dynamic:
 
-- [**coordinates**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-canvas-coordinates): `number[][]`
-- [**canvas**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-canvas-canvas): `string`
-- [**animate**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-canvas-animate): `boolean`
+- [**coordinates**](https://docs.mapbox.com/style-spec/reference/sources/#canvas-coordinates): `number[][]`
+- [**canvas**](https://docs.mapbox.com/style-spec/reference/sources/#canvas-canvas): `string`
+- [**animate**](https://docs.mapbox.com/style-spec/reference/sources/#canvas-animate): `boolean`
 
-# mgl-image-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-image)
-
-## Inputs
-
-Init only:
-
-- **id**: `string` _(Required)_
-
-Dynamic:
-
-- [**url**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-image-url): `string`
-- [**coordinates**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-image-coordinates): `number[][]`
-
-# mgl-raster-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-raster)
+# mgl-image-source [Mapbox GL style spec](https://docs.mapbox.com/style-spec/reference/sources/#image)
 
 ## Inputs
 
@@ -252,14 +238,10 @@ Init only:
 
 Dynamic:
 
-- [**url**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-raster-url): `string`
-- [**tiles**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-raster-tiles): `string[]`
-- [**bounds**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-raster-bounds): `number[]`
-- [**minzoom**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-raster-minzoom): `number`
-- [**maxzoom**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-raster-maxzoom): `number`
-- [**tileSize**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-raster-tileSize): `number`
+- [**url**](https://docs.mapbox.com/style-spec/reference/sources/#image-url): `string`
+- [**coordinates**](https://docs.mapbox.com/style-spec/reference/sources/#image-coordinates): `number[][]`
 
-# mgl-vector-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-vector)
+# mgl-raster-source [Mapbox GL style spec](https://docs.mapbox.com/style-spec/reference/sources/#raster)
 
 ## Inputs
 
@@ -269,13 +251,17 @@ Init only:
 
 Dynamic:
 
-- [**url**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-vector-url): `string`
-- [**tiles**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-vector-tiles): `string[][]`
-- [**bounds**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-vector-bounds): `number[]`
-- [**minzoom**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-vector-minzoom): `number`
-- [**maxzoom**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-vector-maxzoom): `number`
+- [**url**](https://docs.mapbox.com/style-spec/reference/sources/#raster-url): `string`
+- [**tiles**](https://docs.mapbox.com/style-spec/reference/sources/#raster-tiles): `string[]`
+- [**bounds**](https://docs.mapbox.com/style-spec/reference/sources/#raster-bounds): `number[]`
+- [**minzoom**](https://docs.mapbox.com/style-spec/reference/sources/#raster-minzoom): `number`
+- [**maxzoom**](https://docs.mapbox.com/style-spec/reference/sources/#raster-maxzoom): `number`
+- [**tileSize**](https://docs.mapbox.com/style-spec/reference/sources/#raster-tileSize): `number`
+- [**scheme**](https://docs.mapbox.com/style-spec/reference/sources/#raster-scheme): `'xyz' | 'tms'`
+- [**attribution**](https://docs.mapbox.com/style-spec/reference/sources/#raster-attribution): `string`
+- [**volatile**](https://docs.mapbox.com/style-spec/reference/sources/#raster-volatile): `boolean`
 
-# mgl-video-source [Mapbox GL style spec](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-video)
+# mgl-vector-source [Mapbox GL style spec](https://docs.mapbox.com/style-spec/reference/sources/#vector)
 
 ## Inputs
 
@@ -285,10 +271,26 @@ Init only:
 
 Dynamic:
 
-- [**urls**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-video-urls): `string[]`
-- [**coordinates**](https://www.mapbox.com/mapbox-gl-js/style-spec/#sources-video-coordinates): `number[][]`
+- [**url**](https://docs.mapbox.com/style-spec/reference/sources/#vector-url): `string`
+- [**tiles**](https://docs.mapbox.com/style-spec/reference/sources/#vector-tiles): `string[][]`
+- [**bounds**](https://docs.mapbox.com/style-spec/reference/sources/#vector-bounds): `number[]`
+- [**minzoom**](https://docs.mapbox.com/style-spec/reference/sources/#vector-minzoom): `number`
+- [**maxzoom**](https://docs.mapbox.com/style-spec/reference/sources/#vector-maxzoom): `number`
 
-# mgl-image [Mapbox GL API](https://www.mapbox.com/mapbox-gl-js/api#map#addimage)
+# mgl-video-source [Mapbox GL style spec](https://docs.mapbox.com/style-spec/reference/sources/#video)
+
+## Inputs
+
+Init only:
+
+- **id**: `string` _(Required)_
+
+Dynamic:
+
+- [**urls**](https://docs.mapbox.com/style-spec/reference/sources/#video-urls): `string[]`
+- [**coordinates**](https://docs.mapbox.com/style-spec/reference/sources/#video-coordinates): `number[][]`
+
+# mgl-image [Mapbox GL API](https://docs.mapbox.com/mapbox-gl-js/api/map/#map#addimage)
 
 ## Example
 
@@ -319,7 +321,7 @@ Dynamic:
 
 - **data**: `HTMLImageElement | ImageData | { width: number, height: number, data: Uint8Array | Uint8ClampedArray }`
 - **options**: `{ pixelRatio: number; sdf: boolean; }`
-- [ngx] **url**: `string` If set, will call [loadImage](https://www.mapbox.com/mapbox-gl-js/api#map#loadimage) and then add the image directly. Don't forget to listen to `loaded`.
+- [ngx] **url**: `string` If set, will call [loadImage](https://docs.mapbox.com/mapbox-gl-js/api/map/#map#loadimage) and then add the image directly. Don't forget to listen to `loaded`.
 
 ## Outputs
 
@@ -346,22 +348,22 @@ Dynamic:
 Init only:
 
 - **position**: `'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'`
-- [**mglAttribution**](https://www.mapbox.com/mapbox-gl-js/api#attributioncontrol)
+- [**mglAttribution**](https://docs.mapbox.com/mapbox-gl-js/api/markers/#attributioncontrol)
   - **compact**: `boolean`
-- [**mglFullscreen**](https://www.mapbox.com/mapbox-gl-js/api/#fullscreencontrol)
-- [**mglGeolocate**](https://www.mapbox.com/mapbox-gl-js/api/#geolocatecontrol)
+- [**mglFullscreen**](https://docs.mapbox.com/mapbox-gl-js/api/markers/#fullscreencontrol)
+- [**mglGeolocate**](https://docs.mapbox.com/mapbox-gl-js/api/markers/#geolocatecontrol)
   - **positionOptions**: [`PositionOptions`](https://developer.mozilla.org/en-US/docs/Web/API/PositionOptions)
-  - **fitBoundsOptions**: [`FitBoundsOptions`](https://www.mapbox.com/mapbox-gl-js/api/#map#fitbounds)
+  - **fitBoundsOptions**: [`FitBoundsOptions`](https://docs.mapbox.com/mapbox-gl-js/api/map/#map#fitbounds)
   - **trackUserLocation**: `boolean`
   - **showUserLocation**: `boolean`
-- [**mglNavigation**](https://www.mapbox.com/mapbox-gl-js/api/#navigationcontrol)
+- [**mglNavigation**](https://docs.mapbox.com/mapbox-gl-js/api/markers/#navigationcontrol)
   - **showCompass**: `boolean`
   - **showZoom**: `boolean`
-- [**mglScale**](https://www.mapbox.com/mapbox-gl-js/api/#scalecontrol)
+- [**mglScale**](https://docs.mapbox.com/mapbox-gl-js/api/markers/#scalecontrol)
   - **maxWidth**: `number`
   - **unit**: `'imperial' | 'metric' | 'nautical'` (dynamic input)
 
-# mgl-marker [Mapbox GL API](https://www.mapbox.com/mapbox-gl-js/api/#marker)
+# mgl-marker [Mapbox GL API](https://docs.mapbox.com/mapbox-gl-js/api/markers/#marker)
 
 ## Example
 
@@ -380,14 +382,14 @@ Note: Only use this if you **really** need to use HTML/Angular component to rend
 
 Init only:
 
-- **offset**: [`PointLike`](https://www.mapbox.com/mapbox-gl-js/api/#pointlike)
+- **offset**: [`PointLike`](https://docs.mapbox.com/mapbox-gl-js/api/geography/#pointlike)
 - **anchor**: `'center' | 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'`
 - **pitchAlignment**: `map` | `viewport` | `auto`
 - **rotationAlignment**: `map` | `viewport` | `auto`
 
 Dynamic:
 
-- **lngLat**: [`LngLatLike`](https://www.mapbox.com/mapbox-gl-js/api/#lnglatlike)
+- **lngLat**: [`LngLatLike`](https://docs.mapbox.com/mapbox-gl-js/api/geography/#lnglatlike)
 - **draggable**: `boolean`
 - [ngx] **feature**: `GeoJSON.Feature<GeoJSON.Point>` Mutually exclusive with lngLat
 - [ngx] **className** `string` Class name to aply to the container
@@ -395,11 +397,11 @@ Dynamic:
 
 ## Outputs
 
-- **markerDragStart**: [`Marker`](https://www.mapbox.com/mapbox-gl-js/api/#marker)
-- **markerDrag**: [`Marker`](https://www.mapbox.com/mapbox-gl-js/api/#marker)
-- **markerDragEnd**: [`Marker`](https://www.mapbox.com/mapbox-gl-js/api/#marker)
+- **markerDragStart**: [`Marker`](https://docs.mapbox.com/mapbox-gl-js/api/markers/#marker)
+- **markerDrag**: [`Marker`](https://docs.mapbox.com/mapbox-gl-js/api/markers/#marker)
+- **markerDragEnd**: [`Marker`](https://docs.mapbox.com/mapbox-gl-js/api/markers/#marker)
 
-# mgl-popup [Mapbox GL API](https://www.mapbox.com/mapbox-gl-js/api/#popup)
+# mgl-popup [Mapbox GL API](https://docs.mapbox.com/mapbox-gl-js/api/markers/#popup)
 
 ## Example
 
@@ -424,60 +426,18 @@ Init only:
 - **closeOnMove**: `boolean`
 - **focusAfterOpen**: `boolean`
 - **anchor**: `'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left'`
-- **offset**: [`number | `[`PointLike`](https://www.mapbox.com/mapbox-gl-js/api/#pointlike)`| { [anchor: string]: [number, number] };`
+- **offset**: [`number | `[`PointLike`](https://docs.mapbox.com/mapbox-gl-js/api/geography/#pointlike)`| { [anchor: string]: [number, number] };`
 
 Dynamic:
 
-- **lngLat**: [`LngLatLike`](https://www.mapbox.com/mapbox-gl-js/api/#lnglatlike)
-- [ngx] **marker**: `MarkerComponent` The targeted marker (will use https://www.mapbox.com/mapbox-gl-js/api/#marker#setpopup)
+- **lngLat**: [`LngLatLike`](https://docs.mapbox.com/mapbox-gl-js/api/geography/#lnglatlike)
+- [ngx] **marker**: `MarkerComponent` The targeted marker (will use https://docs.mapbox.com/mapbox-gl-js/api/markers/#marker#setpopup)
 - [ngx] **feature**: `GeoJSON.Feature<GeoJSON.Point>` Mutually exclusive with lngLat
 
 ## Outputs
 
 - **popupClose**: `void`
 - **popupOpen**: `void`
-
-# [ngx] mgl-marker-cluster [Supercluster API](https://github.com/mapbox/supercluster#options)
-
-DEPRECATED, use mgl-markers-for-clusters instead (doc WIP; check examples)
-
-## Example
-
-```html
-...
-<mgl-map ...>
-  <mgl-marker-cluster [data]="somedata" [maxZoom]="14" [radius]="50">
-    <ng-template mglPoint let-feature> Marker! </ng-template>
-    <ng-template mglClusterPoint let-feature> Cluster! </ng-template>
-  </mgl-marker-cluster>
-</mgl-map>
-```
-
-More advanced example: https://wykks.github.io/ngx-mapbox-gl/demo/ngx-marker-cluster
-
-Note: Only use this if you **really** need to use HTML/Angular component to render your symbols. This is **slower** than the native cluster system.
-
-## Inputs
-
-Init only:
-
-- **radius**: `number`
-- **maxZoom**: `number`
-- **minZoom**: `number`
-- **extent**: `number`
-- **nodeSize**: `number`
-- **log**: `boolean`
-- **reduce**: `(accumulated: any, props: any) => void`
-- **initial**: `() => any`
-- **map**: `(props: any) => any`
-
-Dynamic:
-
-- **data**: `GeoJSON.FeatureCollection<GeoJSON.Point>`
-
-## Outputs
-
-- **load**: `Supercluster` The instance of supercluster
 
 # [ngx] mgl-markers-for-clusters
 
@@ -502,3 +462,7 @@ Note: Only use this if you **really** need to use HTML/Angular component to rend
 Init only:
 
 - **source**: `string | Source`
+
+Dynamic:
+
+- **customPointIdKey**: `string` mgl-markers-for-clusters tracks unique points by feature.id, but in case feature.id is not available, you can provide a custom key (which will be read at feature.properties[customPointIdKey]).
