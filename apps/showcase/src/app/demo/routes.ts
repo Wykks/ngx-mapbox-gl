@@ -21,7 +21,6 @@ import { HoverStylesComponent } from './examples/hover-styles.component';
 import { InteractiveFalseComponent } from './examples/interactive-false.component';
 import { LanguageSwitchComponent } from './examples/language-switch.component';
 import { LiveUpdateFeatureComponent } from './examples/live-update-feature.component';
-import { LiveUpdateImageSourceComponent } from './examples/live-update-image-source.component';
 import { LocateUserComponent } from './examples/locate-user.component';
 import { MapProjectionComponent } from './examples/map-projection.component';
 import { MarkerAlignmentComponent } from './examples/marker-alignment.component';
@@ -161,14 +160,6 @@ export const DEMO_ROUTES: Routes = [
         path: 'live-update-feature',
         component: LiveUpdateFeatureComponent,
         data: { label: 'Update a feature in realtime', cat: Category.SOURCES },
-      },
-      {
-        path: 'live-update-image-source',
-        component: LiveUpdateImageSourceComponent,
-        data: {
-          label: 'Update an image source in realtime',
-          cat: Category.SOURCES,
-        },
       },
       {
         path: 'popup',
