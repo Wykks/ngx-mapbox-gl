@@ -80,10 +80,7 @@ export class MarkersForClustersComponent
   source = input.required<string>();
 
   /* Dynamic input */
-  /**
-   * Track unique points by feature.id, but fallback to provided key if id is not available
-   */
-  failbackPointIdKey = input<string>();
+  customPointIdKey = input<string>();
 
   @ContentChild(PointDirective, { read: TemplateRef, static: false })
   pointTpl?: TemplateRef<unknown>;
@@ -131,17 +128,17 @@ export class MarkersForClustersComponent
     if (feature.id) {
       return feature.id;
     }
-    const fallbackKey = this.failbackPointIdKey();
-    if (!fallbackKey) {
+    const customPointIdKey = this.customPointIdKey();
+    if (!customPointIdKey) {
       console.warn(
-        '[mgl-markers-for-clusters] feature.id is falsy, please provide a fallback key',
+        '[mgl-markers-for-clusters] feature.id is falsy, please provide a custom key',
       );
       return '';
     }
-    const id = feature.properties?.[fallbackKey];
+    const id = feature.properties?.[customPointIdKey];
     if (!id) {
       console.warn(
-        `[mgl-markers-for-clusters] Fallback key [${fallbackKey}], resolve to falsy for`,
+        `[mgl-markers-for-clusters] Custom key [${customPointIdKey}], resolve to falsy for`,
         feature,
       );
       return '';
