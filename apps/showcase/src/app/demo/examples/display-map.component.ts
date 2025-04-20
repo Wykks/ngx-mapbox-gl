@@ -5,7 +5,7 @@ import { MapComponent } from 'ngx-mapbox-gl';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [style]="'mapbox://styles/mapbox/streets-v12'"
       [zoom]="[9]"
       [center]="[-74.5, 40]"
     />

@@ -7,7 +7,7 @@
 @Component({
   template: `
   <mgl-map
-    [style]="'mapbox://styles/mapbox/streets-v9'"
+    [style]="'mapbox://styles/mapbox/streets-v12'"
     [zoom]="[9]"
     [center]="[-74.50, 40]"
     (mapCreate)="map = $event"

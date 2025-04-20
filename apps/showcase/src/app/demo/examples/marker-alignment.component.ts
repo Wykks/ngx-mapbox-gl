@@ -8,7 +8,7 @@ import { MapComponent, MarkerComponent } from 'ngx-mapbox-gl';
     <mgl-map
       [interactive]="false"
       movingMethod="jumpTo"
-      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [style]="'mapbox://styles/mapbox/streets-v12'"
       [pitch]="[pitch]"
       [bearing]="[bearing]"
       [zoom]="[17]"

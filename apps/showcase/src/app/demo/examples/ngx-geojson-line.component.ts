@@ -11,7 +11,7 @@ import {
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [style]="'mapbox://styles/mapbox/streets-v12'"
       [zoom]="[15]"
       [center]="[-122.486052, 37.830348]"
     >

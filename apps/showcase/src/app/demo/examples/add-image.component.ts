@@ -6,7 +6,7 @@ import { MglMapResizeDirective } from './mgl-map-resize.directive';
 @Component({
   selector: 'showcase-demo',
   template: `
-    <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'">
+    <mgl-map [style]="'mapbox://styles/mapbox/streets-v12'">
       <mgl-image
         id="cat"
         url="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png"

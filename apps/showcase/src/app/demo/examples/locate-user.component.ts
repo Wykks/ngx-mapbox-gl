@@ -9,7 +9,7 @@ import {
 @Component({
   selector: 'showcase-demo',
   template: `
-    <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'">
+    <mgl-map [style]="'mapbox://styles/mapbox/streets-v12'">
       <mgl-control
         mglGeolocate
         [positionOptions]="{

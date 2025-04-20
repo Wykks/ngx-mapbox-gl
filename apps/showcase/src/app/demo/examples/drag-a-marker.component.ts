@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NgIf } from '@angular/common';
 import { Marker } from 'mapbox-gl';
 import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import { MapComponent, MarkerComponent, ControlComponent } from 'ngx-mapbox-gl';
@@ -9,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [style]="'mapbox://styles/mapbox/streets-v12'"
       [zoom]="[2]"
       [center]="[0, 0]"
     >
@@ -18,12 +17,14 @@ import { MatCardModule } from '@angular/material/card';
         [draggable]="true"
         (markerDragEnd)="onDragEnd($event)"
       />
-      <mgl-control *ngIf="coordinates" position="bottom-left">
-        <mat-card>
-          <div>Longitude:&nbsp;{{ coordinates[0] }}</div>
-          <div>Latitude:&nbsp;{{ coordinates[1] }}</div>
-        </mat-card>
-      </mgl-control>
+      @if (coordinates) {
+        <mgl-control position="bottom-left">
+          <mat-card style="padding:4px;">
+            <div>Longitude:&nbsp;{{ coordinates[0] }}</div>
+            <div>Latitude:&nbsp;{{ coordinates[1] }}</div>
+          </mat-card>
+        </mgl-control>
+      }
     </mgl-map>
   `,
   imports: [
@@ -31,7 +32,6 @@ import { MatCardModule } from '@angular/material/card';
     MglMapResizeDirective,
     MarkerComponent,
     ControlComponent,
-    NgIf,
     MatCardModule,
   ],
   styleUrls: ['./examples.css'],

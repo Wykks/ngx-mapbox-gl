@@ -103,7 +103,7 @@ Display a map:
 import { Component } from '@angular/core';
 
 @Component({
-  template: `<mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="[-74.5, 40]" />`,
+  template: `<mgl-map [style]="'mapbox://styles/mapbox/streets-v12'" [zoom]="[9]" [center]="[-74.5, 40]" />`,
   styles: [
     `
       mgl-map {

@@ -15,7 +15,7 @@ import { MatCardModule } from '@angular/material/card';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [style]="'mapbox://styles/mapbox/streets-v12'"
       [zoom]="[2]"
       [center]="[0, 0]"
     >
@@ -42,7 +42,7 @@ import { MatCardModule } from '@angular/material/card';
         (layerMouseLeave)="changeColor('#3887be')"
       />
       <mgl-control position="bottom-left">
-        <mat-card>
+        <mat-card style="padding:4px;">
           <div>Longitude:&nbsp;{{ coordinates[0] }}</div>
           <div>Latitude:&nbsp;{{ coordinates[1] }}</div>
         </mat-card>

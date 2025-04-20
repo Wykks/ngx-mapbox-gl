@@ -406,7 +406,7 @@ export class MapService {
     const options: MarkerOptions = {
       offset: marker.markersOptions.offset,
       anchor: marker.markersOptions.anchor,
-      draggable: !!marker.markersOptions.draggable,
+      draggable: marker.markersOptions.draggable,
       rotationAlignment: marker.markersOptions.rotationAlignment,
       pitchAlignment: marker.markersOptions.pitchAlignment,
       clickTolerance: marker.markersOptions.clickTolerance,

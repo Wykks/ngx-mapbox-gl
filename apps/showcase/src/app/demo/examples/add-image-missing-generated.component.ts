@@ -7,7 +7,7 @@ import { MglMapResizeDirective } from './mgl-map-resize.directive';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [style]="'mapbox://styles/mapbox/streets-v12'"
       (styleImageMissing)="generateImage($event)"
     >
       <mgl-image

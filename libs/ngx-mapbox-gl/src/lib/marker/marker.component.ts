@@ -105,7 +105,7 @@ export class MarkerComponent
           anchor: this.anchor(),
           pitchAlignment: this.pitchAlignment(),
           rotationAlignment: this.rotationAlignment(),
-          draggable: !!this.draggable(),
+          draggable: this.draggable(),
           element: this.content.nativeElement,
           feature: this.feature(),
           lngLat: this.lngLat(),

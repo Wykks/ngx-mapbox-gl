@@ -9,7 +9,7 @@ import {
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [style]="'mapbox://styles/mapbox/streets-v12'"
       [zoom]="[3]"
       [center]="[-96, 37.8]"
     >

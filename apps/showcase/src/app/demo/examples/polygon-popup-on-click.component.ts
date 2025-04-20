@@ -9,7 +9,7 @@ import { MapComponent, LayerComponent, PopupComponent } from 'ngx-mapbox-gl';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [style]="'mapbox://styles/mapbox/streets-v12'"
       [zoom]="[3]"
       [center]="[-100.04, 38.907]"
       [cursorStyle]="cursorStyle"
