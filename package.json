@@ -8,7 +8,7 @@
     "test": "nx run-many --target=test --all",
     "release": "standard-version -a",
     "update-version": "./update_version.sh",
-    "deploy-showcase": "nx build showcase --base-href '/ngx-mapbox-gl/' && cp dist/apps/showcase/index.html dist/apps/showcase/404.html && gh-pages -d dist/apps/showcase",
+    "deploy-showcase": "nx build showcase --base-href '/ngx-mapbox-gl/' && cp dist/apps/showcase/browser/index.html dist/apps/showcase/browser/404.html && gh-pages -d dist/apps/showcase/browser",
     "commit": "lint-staged --relative && cz --no-verify",
     "postinstall": "husky install"
   },

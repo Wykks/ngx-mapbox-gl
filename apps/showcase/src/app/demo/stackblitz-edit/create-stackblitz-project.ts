@@ -15,16 +15,17 @@ export const createStackblitzProject = (
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { provideMapboxGL } from 'ngx-mapbox-gl';
-import './polyfills';
 import * as demo from './demo';
 
 const demoArray = Object.values(demo);
 bootstrapApplication(demoArray[demoArray.length - 1], {
-  provideExperimentalZonelessChangeDetection(),
-  provideMapboxGL({
-    accessToken:
-      'pk.eyJ1Ijoid3lra3NzIiwiYSI6ImNtOWVjamJvYzE0bnMya3NjMGtlYzB2cjUifQ.15RQ3pM0Tmw9hWgYMITbDw',
-  }),
+  providers: [
+    provideExperimentalZonelessChangeDetection(),
+    provideMapboxGL({
+      accessToken:
+        'pk.eyJ1Ijoid3lra3NzIiwiYSI6ImNqMjR6aTdmdzAwNHMzMnBvbjBucjlqNm8ifQ.6GjGpofWBVaIuSnhdXQb5w',
+    }),
+  ],
 });
       `,
       'angular.json': projectbase[0],
@@ -36,9 +37,6 @@ html, body {
   min-height: 100vh;
   margin: 0;
 }
-`,
-      'src/polyfills.ts': `
-(window as any).global = window;
 `,
       ...demoFiles,
     },
