@@ -13,7 +13,7 @@ import {
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/light-v9'"
+      [style]="'mapbox://styles/mapbox/light-v11'"
       [center]="[36.235656, 50.00387]"
       [zoom]="[11.15]"
       [locale]="locale"
@@ -35,7 +35,7 @@ import {
   ],
   styleUrls: ['./examples.css'],
 })
-export class CustomLocaleComponent {
+export class NgxCustomLocaleComponent {
   readonly locale = {
     'FullscreenControl.Enter': 'Перейти в повноекранний режим',
     'FullscreenControl.Exit': 'Вийти з повноекранного режиму',

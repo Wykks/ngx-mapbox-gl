@@ -1,8 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import type {
-  GeolocateControl,
   Map,
-  MapBoxZoomEvent,
   MapContextEvent,
   MapDataEvent,
   MapEvent,

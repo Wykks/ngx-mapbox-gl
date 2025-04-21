@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/light-v9'"
+      [style]="'mapbox://styles/mapbox/light-v11'"
       [zoom]="[12]"
       [center]="[-77.0214, 38.897]"
       [fitBounds]="bounds"

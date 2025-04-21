@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/light-v9'"
+      [style]="'mapbox://styles/mapbox/light-v11'"
       [zoom]="[2.9]"
       [center]="[16.05, 48]"
       (mapCreate)="map = $event"
@@ -52,16 +52,14 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
   ],
   styleUrls: ['./examples.css'],
-  preserveWhitespaces: false,
 })
 export class LanguageSwitchComponent {
   map: Map;
 
   changeLangTo(language: string) {
-    this.map.setLayoutProperty(
-      'country-label-lg',
-      'text-field',
-      '{name_' + language + '}',
-    );
+    this.map.setLayoutProperty('country-label', 'text-field', [
+      'get',
+      `name_${language}`,
+    ]);
   }
 }

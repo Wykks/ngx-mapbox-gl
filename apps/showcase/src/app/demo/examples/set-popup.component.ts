@@ -7,7 +7,7 @@ import { MapComponent, MarkerComponent, PopupComponent } from 'ngx-mapbox-gl';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/light-v9'"
+      [style]="'mapbox://styles/mapbox/light-v11'"
       [zoom]="[15]"
       [center]="[-77.0353, 38.8895]"
     >

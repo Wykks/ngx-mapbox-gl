@@ -1,5 +1,5 @@
 import { Component, OnInit, input } from '@angular/core';
-import { NgForOf, NgStyle } from '@angular/common';
+import { NgStyle } from '@angular/common';
 import {
   type CircleLayerSpecification,
   type SymbolLayerSpecification,

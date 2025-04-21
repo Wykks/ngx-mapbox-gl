@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Marker } from 'mapbox-gl';
+import { Component, signal } from '@angular/core';
+import { Marker, type LngLat } from 'mapbox-gl';
 import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import { MapComponent, MarkerComponent, ControlComponent } from 'ngx-mapbox-gl';
 import { MatCardModule } from '@angular/material/card';
@@ -17,11 +17,12 @@ import { MatCardModule } from '@angular/material/card';
         [draggable]="true"
         (markerDragEnd)="onDragEnd($event)"
       />
-      @if (coordinates) {
+      @let _coordinates = coordinates();
+      @if (_coordinates) {
         <mgl-control position="bottom-left">
           <mat-card style="padding:4px;">
-            <div>Longitude:&nbsp;{{ coordinates[0] }}</div>
-            <div>Latitude:&nbsp;{{ coordinates[1] }}</div>
+            <div>Longitude:&nbsp;{{ _coordinates.lng }}</div>
+            <div>Latitude:&nbsp;{{ _coordinates.lat }}</div>
           </mat-card>
         </mgl-control>
       }
@@ -37,10 +38,9 @@ import { MatCardModule } from '@angular/material/card';
   styleUrls: ['./examples.css'],
 })
 export class DragAMarkerComponent {
-  coordinates: number[];
-  color = '#3887be';
+  coordinates = signal<LngLat | null>(null);
 
   onDragEnd(marker: Marker) {
-    this.coordinates = marker.getLngLat().toArray();
+    this.coordinates.set(marker.getLngLat());
   }
 }

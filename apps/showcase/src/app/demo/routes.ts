@@ -8,11 +8,10 @@ import { AttributionPositionComponent } from './examples/attribution-position.co
 import { CenterOnSymbolComponent } from './examples/center-on-symbol.component';
 import { ClusterHtmlComponent } from './examples/cluster-html.component';
 import { ClusterComponent } from './examples/cluster.component';
-import { CustomAttributionComponent } from './examples/custom-attribution.component';
-import { CustomLocaleComponent } from './examples/custom-locale.component';
+import { NgxCustomAttributionComponent } from './examples/ngx-custom-attribution.component';
+import { NgxCustomLocaleComponent } from './examples/ngx-custom-locale.component';
 import { CustomMarkerIconsComponent } from './examples/custom-marker-icons.component';
 import { CustomStyleIdComponent } from './examples/custom-style-id.component';
-import { DisplayMapComponent } from './examples/display-map.component';
 import { DragAMarkerComponent } from './examples/drag-a-marker.component';
 import { FullscreenComponent } from './examples/fullscreen.component';
 import { GeoJSONLineComponent } from './examples/geojson-line.component';
@@ -23,7 +22,6 @@ import { LanguageSwitchComponent } from './examples/language-switch.component';
 import { LiveUpdateFeatureComponent } from './examples/live-update-feature.component';
 import { LocateUserComponent } from './examples/locate-user.component';
 import { MapProjectionComponent } from './examples/map-projection.component';
-import { MarkerAlignmentComponent } from './examples/marker-alignment.component';
 import { NavigationComponent } from './examples/navigation.component';
 import { NgxClusterHtmlComponent } from './examples/ngx-cluster-html.component';
 import { NgxCustomControlComponent } from './examples/ngx-custom-control.component';
@@ -41,6 +39,7 @@ import { ToggleLayersComponent } from './examples/toggle-layers.component';
 import { ZoomtoLinestringComponent } from './examples/zoomto-linestring.component';
 import { StackblitzEditComponent } from './stackblitz-edit/stackblitz-edit.component';
 import { inject } from '@angular/core';
+import { SimpleMapComponent } from './examples/simple-map.component';
 
 export const Category = {
   STYLES: 'Styles',
@@ -75,8 +74,8 @@ export const DEMO_ROUTES: Routes = [
         ],
       },
       {
-        path: 'display-map',
-        component: DisplayMapComponent,
+        path: 'simple-map',
+        component: SimpleMapComponent,
         data: { label: 'Display a map', cat: Category.STYLES },
       },
       {
@@ -88,7 +87,7 @@ export const DEMO_ROUTES: Routes = [
         },
       },
       {
-        path: 'set-style',
+        path: 'setstyle',
         component: SetStyleComponent,
         data: { label: "Change a map's style", cat: Category.STYLES },
       },
@@ -316,25 +315,20 @@ export const DEMO_ROUTES: Routes = [
         },
       },
       {
-        path: 'custom-attribution',
-        component: CustomAttributionComponent,
+        path: 'ngx-custom-attribution',
+        component: NgxCustomAttributionComponent,
         data: {
-          label: 'Add custom attributions',
+          label: '[NGX] Add custom attributions',
           cat: Category.CONTROLS_AND_OVERLAYS,
         },
       },
       {
-        path: 'custom-locale',
-        component: CustomLocaleComponent,
+        path: 'ngx-custom-locale',
+        component: NgxCustomLocaleComponent,
         data: {
-          label: 'Add custom localization for controls',
+          label: '[NGX] Add custom localization for controls',
           cat: Category.CONTROLS_AND_OVERLAYS,
         },
-      },
-      {
-        path: 'marker-alignment',
-        component: MarkerAlignmentComponent,
-        data: { label: 'Marker alignment options', cat: Category.CAMERA },
       },
       {
         path: 'map-projection',

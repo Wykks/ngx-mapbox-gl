@@ -50,6 +50,7 @@
                     '/demo/' + (isEditMode ? '/edit/' : '') + route.path
                   "
                   routerLinkActive="active"
+                  (isActiveChange)="scrollInToActiveLink($event, exampleLink)"
                   [routerLinkActiveOptions]="
                     $any({
                       _routerLinkActiveWakeUpHack_: isEditMode,

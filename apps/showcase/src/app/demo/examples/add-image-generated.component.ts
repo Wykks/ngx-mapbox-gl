@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { MapComponent, LayerComponent, ImageComponent } from 'ngx-mapbox-gl';
 import { MglMapResizeDirective } from './mgl-map-resize.directive';
 
 @Component({
   selector: 'showcase-demo',
   template: `
-    <mgl-map [style]="'mapbox://styles/mapbox/streets-v12'">
+    <mgl-map
+      [style]="'mapbox://styles/mapbox/streets-v12'"
+      [center]="[0, 0]"
+      [zoom]="[2]"
+    >
       <mgl-image
         id="gradient"
         [data]="{
           width: 64,
           height: 64,
-          data: imageData,
+          data: imageData(),
         }"
       />
       <mgl-layer
@@ -45,12 +49,8 @@ import { MglMapResizeDirective } from './mgl-map-resize.directive';
   ],
   styleUrls: ['./examples.css'],
 })
-export class AddImageGeneratedComponent implements OnInit {
-  imageData: Uint8Array;
-
-  ngOnInit() {
-    this.imageData = this.generateImage();
-  }
+export class AddImageGeneratedComponent {
+  imageData = signal<Uint8Array>(this.generateImage());
 
   private generateImage() {
     const width = 64; // The image will be 64 pixels square

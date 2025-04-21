@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { MapMouseEvent } from 'mapbox-gl';
 import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import {
@@ -37,14 +37,14 @@ import { MatCardModule } from '@angular/material/card';
         id="point"
         type="circle"
         source="point"
-        [paint]="layerPaint"
+        [paint]="layerPaint()"
         (layerMouseEnter)="changeColor('#3bb2d0')"
         (layerMouseLeave)="changeColor('#3887be')"
       />
       <mgl-control position="bottom-left">
         <mat-card style="padding:4px;">
-          <div>Longitude:&nbsp;{{ coordinates[0] }}</div>
-          <div>Latitude:&nbsp;{{ coordinates[1] }}</div>
+          <div>Longitude:&nbsp;{{ coordinates()[0] }}</div>
+          <div>Latitude:&nbsp;{{ coordinates()[1] }}</div>
         </mat-card>
       </mgl-control>
     </mgl-map>
@@ -62,12 +62,11 @@ import { MatCardModule } from '@angular/material/card';
   styleUrls: ['./examples.css'],
 })
 export class NgxDragAPointComponent {
-  layerPaint = {
+  coordinates = signal<[number, number]>([0, 0]);
+  layerPaint = signal({
     'circle-radius': 10,
     'circle-color': '#3887be',
-  };
-
-  coordinates = [0, 0];
+  });
 
   onDragStart(event: MapMouseEvent) {
     console.log('onDragStart', event);
@@ -79,10 +78,10 @@ export class NgxDragAPointComponent {
 
   onDrag(event: MapMouseEvent) {
     console.log('onDrag', event);
-    this.coordinates = event.lngLat.toArray();
+    this.coordinates.set(event.lngLat.toArray());
   }
 
   changeColor(color: string) {
-    this.layerPaint = { ...this.layerPaint, 'circle-color': color };
+    this.layerPaint.set({ ...this.layerPaint(), 'circle-color': color });
   }
 }

@@ -1,13 +1,4 @@
-import {
-  afterNextRender,
-  Component,
-  computed,
-  ElementRef,
-  inject,
-  QueryList,
-  signal,
-  ViewChildren,
-} from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import {
   MatSlideToggleChange,
   MatSlideToggleModule,
@@ -28,7 +19,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatListModule } from '@angular/material/list';
+import { MatListModule, type MatListItem } from '@angular/material/list';
 import { MapResizeSignal } from './examples/mgl-map-resize.directive';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -57,7 +48,7 @@ export class DemoIndexComponent {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly mapResizeSignal = inject(MapResizeSignal);
 
-  categories: Category[];
+  categories = Object.values(Category);
   searchTerm = signal('');
   routesByCategory = computed(() => {
     const searchTerm = this.searchTerm();
@@ -77,17 +68,6 @@ export class DemoIndexComponent {
   sidenavIsOpen = true;
   isEditMode = !!this.activatedRoute.snapshot.firstChild?.params['demoUrl'];
 
-  @ViewChildren('exampleLink', { read: ElementRef })
-  exampleLinks: QueryList<ElementRef>;
-
-  constructor() {
-    this.categories = Object.values(Category);
-
-    afterNextRender(() => {
-      this.scrollInToActiveExampleLink();
-    });
-  }
-
   toggleSidenav() {
     this.sidenavIsOpen = !this.sidenavIsOpen;
   }
@@ -106,15 +86,13 @@ export class DemoIndexComponent {
     this.mapResizeSignal.set(undefined);
   }
 
-  private scrollInToActiveExampleLink() {
-    const activeLink = this.exampleLinks.find((elm) =>
-      (elm.nativeElement as HTMLElement).classList.contains('active'),
-    );
-    if (activeLink) {
-      scrollIntoView(activeLink.nativeElement as HTMLElement, {
-        block: 'center',
-        scrollMode: 'if-needed',
-      });
+  scrollInToActiveLink(isActive: boolean, item: MatListItem) {
+    if (!isActive) {
+      return;
     }
+    scrollIntoView(item._elementRef.nativeElement as HTMLElement, {
+      block: 'center',
+      scrollMode: 'if-needed',
+    });
   }
 }

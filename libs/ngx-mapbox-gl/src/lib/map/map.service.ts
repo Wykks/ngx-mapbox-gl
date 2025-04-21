@@ -4,7 +4,6 @@ import {
   InjectionToken,
   Injector,
   NgZone,
-  afterNextRender,
   afterRender,
   inject,
 } from '@angular/core';

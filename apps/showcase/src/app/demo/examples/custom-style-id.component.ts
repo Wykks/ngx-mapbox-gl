@@ -5,9 +5,9 @@ import { MapComponent } from 'ngx-mapbox-gl';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/dark-v9'"
+      [style]="'mapbox://styles/examples/cke97f49z5rlg19l310b7uu7j'"
       [zoom]="[3]"
-      [center]="[-77.38, 39]"
+      [center]="[41, 21]"
     />
   `,
   imports: [MapComponent],

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AnyLayout } from 'mapbox-gl';
+import { type LayoutSpecification } from 'mapbox-gl';
 import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import {
   MapComponent,
@@ -69,7 +69,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
   styleUrls: ['./examples.css', './toggle-layers.component.css'],
 })
 export class ToggleLayersComponent {
-  layouts: { [key: string]: AnyLayout } = {
+  layouts: { [key: string]: LayoutSpecification } = {
     contours: {
       visibility: 'visible',
       'line-join': 'round',
