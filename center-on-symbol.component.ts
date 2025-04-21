@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { NgForOf } from '@angular/common';
+import { Component, signal } from '@angular/core';
 import { MapMouseEvent } from 'mapbox-gl';
 import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import {
@@ -13,27 +12,29 @@ import {
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/light-v9'"
-      [zoom]="[8]"
-      [center]="center"
-      [cursorStyle]="cursorStyle"
+      [style]="'mapbox://styles/mapbox/light-v11'"
+      [zoom]="[7.2]"
+      [center]="center()"
+      [cursorStyle]="cursorStyle()"
     >
-      <mgl-geojson-source id="symbols-source">
-        <mgl-feature
-          *ngFor="let geometry of geometries"
-          [geometry]="geometry"
-        />
+      <mgl-geojson-source id="points">
+        @for (geometry of geometries; track $index) {
+          <mgl-feature [geometry]="geometry" />
+        }
       </mgl-geojson-source>
       <mgl-layer
-        id="symbols"
-        type="symbol"
-        source="symbols-source"
-        [layout]="{
-          'icon-image': 'rocket-15',
+        id="circle"
+        type="circle"
+        source="points"
+        [paint]="{
+          'circle-color': '#4264fb',
+          'circle-radius': 8,
+          'circle-stroke-width': 2,
+          'circle-stroke-color': '#ffffff',
         }"
         (layerClick)="centerMapTo($event)"
-        (layerMouseEnter)="cursorStyle = 'pointer'"
-        (layerMouseLeave)="cursorStyle = ''"
+        (layerMouseEnter)="cursorStyle.set('pointer')"
+        (layerMouseLeave)="cursorStyle.set('')"
       />
     </mgl-map>
   `,
@@ -43,32 +44,31 @@ import {
     GeoJSONSourceComponent,
     FeatureComponent,
     LayerComponent,
-    NgForOf,
   ],
   styleUrls: ['./examples.css'],
 })
 export class CenterOnSymbolComponent {
-  cursorStyle: string;
+  cursorStyle = signal('');
 
-  center: [number, number] = [-90.96, -0.47];
+  center = signal<[number, number]>([-90.96, -0.47]);
 
   geometries = [
     {
       type: 'Point' as const,
-      coordinates: [-91.395263671875, -0.9145729757782163],
+      coordinates: [-91.3952, -0.9145],
     },
     {
       type: 'Point' as const,
-      coordinates: [-90.32958984375, -0.6344474832838974],
+      coordinates: [-90.3295, -0.6344],
     },
     {
       type: 'Point' as const,
-      coordinates: [-91.34033203125, 0.01647949196029245],
+      coordinates: [-91.3403, 0.0164],
     },
   ];
 
   centerMapTo(evt: MapMouseEvent) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.center = (evt as any).features[0].geometry.coordinates;
+    this.center.set((evt as any).features[0].geometry.coordinates);
   }
 }

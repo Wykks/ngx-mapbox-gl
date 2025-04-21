@@ -5,19 +5,20 @@ import {
   GeoJSONSourceComponent,
   LayerComponent,
 } from 'ngx-mapbox-gl';
-import type { MapMouseEvent } from 'mapbox-gl';
+import type { Map, MapMouseEvent } from 'mapbox-gl';
 
 @Component({
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [style]="'mapbox://styles/mapbox/streets-v12'"
       [zoom]="[2]"
       [center]="[-100.486052, 37.830348]"
+      (mapCreate)="map = $event"
     >
       <mgl-geojson-source
         id="states"
-        data="https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_admin_1_states_provinces.geojson"
+        data="https://docs.mapbox.com/mapbox-gl-js/assets/us_states.geojson"
       />
       <mgl-layer
         id="state-fills"
@@ -25,10 +26,15 @@ import type { MapMouseEvent } from 'mapbox-gl';
         source="states"
         [paint]="{
           'fill-color': '#627BC1',
-          'fill-opacity': 0.5,
+          'fill-opacity': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false],
+            1,
+            0.5,
+          ],
         }"
-        (layerMouseMove)="activateHoverOn($event)"
-        (layerMouseLeave)="disableHover()"
+        (layerMouseMove)="stateHover($event)"
+        (layerMouseLeave)="stateLeave()"
       />
       <mgl-layer
         id="state-borders"
@@ -38,16 +44,6 @@ import type { MapMouseEvent } from 'mapbox-gl';
           'line-color': '#627BC1',
           'line-width': 2,
         }"
-      />
-      <mgl-layer
-        id="state-fills-hover"
-        type="fill"
-        source="states"
-        [paint]="{
-          'fill-color': '#627BC1',
-          'fill-opacity': 1,
-        }"
-        [filter]="hoverFilter"
       />
     </mgl-map>
   `,
@@ -60,13 +56,28 @@ import type { MapMouseEvent } from 'mapbox-gl';
   styleUrls: ['./examples.css'],
 })
 export class HoverStylesComponent {
-  hoverFilter = ['==', 'name', ''];
+  map: Map;
 
-  activateHoverOn(evt: MapMouseEvent) {
-    this.hoverFilter = ['==', 'name', evt.features?.[0]?.properties?.['name']];
+  private hoveredPolygonId?: number;
+
+  stateHover(evt: MapMouseEvent) {
+    if (evt.features && evt.features.length > 0) {
+      this.stateLeave();
+      this.hoveredPolygonId = evt.features[0].id as number;
+      this.map.setFeatureState(
+        { source: 'states', id: this.hoveredPolygonId },
+        { hover: true },
+      );
+    }
   }
 
-  disableHover() {
-    this.hoverFilter = ['==', 'name', ''];
+  stateLeave() {
+    if (this.hoveredPolygonId !== undefined) {
+      this.map.setFeatureState(
+        { source: 'states', id: this.hoveredPolygonId },
+        { hover: false },
+      );
+    }
+    this.hoveredPolygonId = undefined;
   }
 }

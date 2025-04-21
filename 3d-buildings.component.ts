@@ -7,11 +7,12 @@ import { MglMapResizeDirective } from './mgl-map-resize.directive';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/light-v9'"
+      [style]="'mapbox://styles/mapbox/light-v11'"
       [zoom]="[15.5]"
       [center]="[-74.0066, 40.7135]"
       [pitch]="[45]"
       [bearing]="[-17.6]"
+      [antialias]="true"
       (mapLoad)="onLoad($event.target)"
     >
       <mgl-layer

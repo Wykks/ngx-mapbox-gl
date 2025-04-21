@@ -5,8 +5,8 @@ import { MapComponent } from 'ngx-mapbox-gl';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/streets-v11'"
-      [zoom]="[0.6]"
+      [style]="'mapbox://styles/mapbox/streets-v12'"
+      [zoom]="[0.4]"
       [center]="[0, 0]"
       [projection]="{ name: 'naturalEarth' }"
     />

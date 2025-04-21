@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NgForOf } from '@angular/common';
 import { MapComponent, LayerComponent, ImageComponent } from 'ngx-mapbox-gl';
 import { MglMapResizeDirective } from './mgl-map-resize.directive';
 
@@ -7,14 +6,14 @@ import { MglMapResizeDirective } from './mgl-map-resize.directive';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/streets-v9'"
+      [style]="'mapbox://styles/mapbox/streets-v12'"
+      [center]="[0, 0]"
+      [zoom]="[2]"
       (styleImageMissing)="generateImage($event)"
     >
-      <mgl-image
-        *ngFor="let imageData of imagesData; trackBy: trackByImage"
-        [id]="imageData.id"
-        [data]="imageData"
-      />
+      @for (imageData of imagesData; track trackByImage(imageData)) {
+        <mgl-image [id]="imageData.id" [data]="imageData" />
+      }
       <mgl-layer
         id="points"
         type="symbol"
@@ -67,7 +66,6 @@ import { MglMapResizeDirective } from './mgl-map-resize.directive';
     MglMapResizeDirective,
     LayerComponent,
     ImageComponent,
-    NgForOf,
   ],
   styleUrls: ['./examples.css'],
 })
@@ -111,7 +109,7 @@ export class AddImageMissingGeneratedComponent {
     this.imagesData = [...this.imagesData, imageData];
   }
 
-  trackByImage(_idx: number, image: { id: string }) {
+  trackByImage(image: { id: string }) {
     return image.id;
   }
 }

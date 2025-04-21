@@ -1,38 +1,41 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { LngLatLike } from 'mapbox-gl';
-import { scan, Subscription, takeWhile, timer } from 'rxjs';
+import { scan, takeWhile, timer } from 'rxjs';
 import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import {
   MapComponent,
   GeoJSONSourceComponent,
   LayerComponent,
 } from 'ngx-mapbox-gl';
+import { signal, effect } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'showcase-demo',
   template: `
     <mgl-map
       [style]="'mapbox://styles/mapbox/satellite-v9'"
-      [zoom]="zoom"
-      [center]="center"
+      [zoom]="zoom()"
+      [center]="center()"
       [centerWithPanTo]="true"
-      [pitch]="[pitch]"
-      (mapLoad)="animate()"
+      [pitch]="pitch()"
+      (mapLoad)="mapLoaded.set(true)"
       movingMethod="jumpTo"
     >
-      <mgl-geojson-source *ngIf="data" id="trace" [data]="data" />
-      <mgl-layer
-        *ngIf="data"
-        id="trace"
-        type="line"
-        source="trace"
-        [paint]="{
-          'line-color': 'yellow',
-          'line-opacity': 0.75,
-          'line-width': 5,
-        }"
-      />
+      @let _animatedGeometry = animatedGeometry();
+      @if (_animatedGeometry) {
+        <mgl-geojson-source id="trace" [data]="_animatedGeometry" />
+        <mgl-layer
+          id="trace"
+          type="line"
+          source="trace"
+          [paint]="{
+            'line-color': 'yellow',
+            'line-opacity': 0.75,
+            'line-width': 5,
+          }"
+        />
+      }
     </mgl-map>
   `,
   imports: [
@@ -40,49 +43,67 @@ import {
     MglMapResizeDirective,
     GeoJSONSourceComponent,
     LayerComponent,
-    NgIf,
   ],
   styleUrls: ['./examples.css'],
 })
-export class LiveUpdateFeatureComponent implements OnInit, OnDestroy {
-  data: GeoJSON.FeatureCollection<GeoJSON.LineString>;
-  center: LngLatLike;
-  zoom: [number] = [0];
-  pitch: number;
+export class LiveUpdateFeatureComponent {
+  private readonly destroyRef = inject(DestroyRef);
 
-  private sub?: Subscription;
-  private originalCoordinates: GeoJSON.Position[] = [];
+  animatedGeometry = signal<GeoJSON.LineString | undefined>(undefined);
+  center = signal<LngLatLike | undefined>(undefined);
+  zoom = signal<[number]>([0]);
+  pitch = signal<[number]>([0]);
+  mapLoaded = signal(false);
 
-  async ngOnInit() {
+  private originalCoordinates = signal<GeoJSON.Position[] | undefined>(
+    undefined,
+  );
+
+  constructor() {
+    this.loadSource();
+    const ref = effect(() => {
+      const originalCoordinates = this.originalCoordinates();
+      const mapLoaded = this.mapLoaded();
+      if (!mapLoaded || !originalCoordinates) {
+        return;
+      }
+      ref.destroy();
+      this.animate(originalCoordinates);
+    });
+  }
+
+  private async loadSource() {
     const data = (await import(
       './hike.geo.json'
     )) as unknown as GeoJSON.FeatureCollection<GeoJSON.LineString>;
-    this.originalCoordinates = data.features[0].geometry.coordinates.slice();
-    data.features[0].geometry.coordinates = [this.originalCoordinates[0]];
-    this.data = data;
-    this.center = this.originalCoordinates[0] as [number, number];
-    this.zoom = [14];
-    this.pitch = 30;
+    const coordinates = data.features[0].geometry.coordinates;
+    this.center.set(coordinates[0] as [number, number]);
+    this.zoom.set([14]);
+    this.pitch.set([30]);
+    this.originalCoordinates.set(coordinates);
   }
 
-  animate() {
-    this.sub = timer(0, 10)
+  animate(originalCoordinates: GeoJSON.Position[]) {
+    timer(0, 10)
       .pipe(
         scan((idx) => idx + 1, 0),
-        takeWhile((idx) => idx < this.originalCoordinates.length),
+        takeWhile((idx) => idx < originalCoordinates.length),
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((idx) => {
-        // Note: For animations, it's probably better to use mapboxgl api directly instead of updating inputs
-        // Also you will be able to make use of the preloadOnly option of mapbox-gl moving methods to have better results
-        this.center = this.originalCoordinates[idx] as [number, number];
-        this.data.features[0].geometry.coordinates.push(
-          this.originalCoordinates[idx],
-        );
-        this.data = { ...this.data };
+        this.center.set(originalCoordinates[idx] as [number, number]);
+        const animatedGeometry = this.animatedGeometry();
+        if (animatedGeometry) {
+          animatedGeometry.coordinates.push(originalCoordinates[idx]);
+          this.animatedGeometry.set({
+            ...animatedGeometry,
+          });
+        } else {
+          this.animatedGeometry.set({
+            type: 'LineString',
+            coordinates: [originalCoordinates[0]],
+          });
+        }
       });
-  }
-
-  ngOnDestroy() {
-    this.sub?.unsubscribe();
   }
 }

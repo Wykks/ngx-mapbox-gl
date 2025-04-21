@@ -10,7 +10,7 @@ import { MglMapResizeDirective } from './mgl-map-resize.directive';
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/light-v9'"
+      [style]="'mapbox://styles/mapbox/light-v11'"
       [center]="[-77.04, 38.907]"
       [zoom]="[11.15]"
       [attributionControl]="false"

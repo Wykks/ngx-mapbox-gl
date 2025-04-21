@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { Layer } from 'mapbox-gl';
 import { MglMapResizeDirective } from './mgl-map-resize.directive';
 import {
@@ -11,42 +11,30 @@ import {
   selector: 'showcase-demo',
   template: `
     <mgl-map
-      [style]="'mapbox://styles/mapbox/dark-v9'"
-      [zoom]="[3]"
-      [center]="[-103.59179687498357, 40.66995747013945]"
+      [style]="'mapbox://styles/mapbox/dark-v11'"
+      [zoom]="[2]"
+      [center]="[-120, 50]"
     >
-      @let _earthquakes = earthquakes();
-      @if (_earthquakes) {
-        <mgl-geojson-source
-          id="earthquakes"
-          [data]="_earthquakes"
-          [cluster]="true"
-          [clusterMaxZoom]="15"
-          [clusterRadius]="20"
-        />
-        @for (layer of clusterLayers(); track layer.id) {
-          <mgl-layer
-            [id]="layer.id"
-            [type]="$any(layer.type)"
-            source="earthquakes"
-            [filter]="layer.filter"
-            [paint]="layer.paint"
-            before="waterway-label"
-          />
-        }
-        <mgl-layer
-          id="unclustered-point"
-          type="circle"
-          source="earthquakes"
-          [filter]="['!=', 'cluster', true]"
-          [paint]="{
-            'circle-color': 'rgba(0,255,0,0.5)',
-            'circle-radius': 20,
-            'circle-blur': 1,
-          }"
-          before="waterway-label"
-        />
-      }
+      <mgl-geojson-source
+        id="earthquakes"
+        data="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"
+      />
+      <mgl-layer
+        id="earthquakes-heat"
+        type="heatmap"
+        source="earthquakes"
+        before="waterway-label"
+        [maxzoom]="9"
+        [paint]="layerHeatPaint"
+      />
+      <mgl-layer
+        id="earthquakes-point"
+        type="circle"
+        source="earthquakes"
+        before="waterway-label"
+        [minzoom]="7"
+        [paint]="layerPointPaint"
+      />
     </mgl-map>
   `,
   imports: [
@@ -58,47 +46,70 @@ import {
   styleUrls: ['./examples.css'],
 })
 export class HeatMapComponent {
-  earthquakes = signal<GeoJSON.FeatureCollection<GeoJSON.Geometry> | null>(
-    null,
-  );
-  clusterLayers = signal<Layer[]>([]);
+  layerHeatPaint: Layer['paint'] = {
+    // Increase the heatmap weight based on frequency and property magnitude
+    'heatmap-weight': ['interpolate', ['linear'], ['get', 'mag'], 0, 0, 6, 1],
+    // Increase the heatmap color weight weight by zoom level
+    // heatmap-intensity is a multiplier on top of heatmap-weight
+    'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 0, 1, 9, 3],
+    // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
+    // Begin color ramp at 0-stop with a 0-transparancy color
+    // to create a blur-like effect.
+    'heatmap-color': [
+      'interpolate',
+      ['linear'],
+      ['heatmap-density'],
+      0,
+      'rgba(33,102,172,0)',
+      0.2,
+      'rgb(103,169,207)',
+      0.4,
+      'rgb(209,229,240)',
+      0.6,
+      'rgb(253,219,199)',
+      0.8,
+      'rgb(239,138,98)',
+      1,
+      'rgb(178,24,43)',
+    ],
+    // Adjust the heatmap radius by zoom level
+    'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 0, 2, 9, 20],
+    // Transition from heatmap to circle layer by zoom level
+    'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 7, 1, 9, 0],
+  };
 
-  constructor() {
-    this.loadSource();
-    this.buildClusterLayers();
-  }
-
-  private async loadSource() {
-    const earthquakes = (await import(
-      './earthquakes.geo.json'
-    )) as unknown as GeoJSON.FeatureCollection<GeoJSON.Geometry>;
-    this.earthquakes.set(earthquakes);
-  }
-
-  private buildClusterLayers() {
-    const layersData: [number, string][] = [
-      [0, 'green'],
-      [20, 'orange'],
-      [200, 'red'],
-    ];
-    this.clusterLayers.set(
-      layersData.map((data, index) => ({
-        type: 'circle',
-        id: `cluster-${index}`,
-        paint: {
-          'circle-color': data[1],
-          'circle-radius': 70,
-          'circle-blur': 1,
-        },
-        filter:
-          index === layersData.length - 1
-            ? ['>=', 'point_count', data[0]]
-            : [
-                'all',
-                ['>=', 'point_count', data[0]],
-                ['<', 'point_count', layersData[index + 1][0]],
-              ],
-      })),
-    );
-  }
+  layerPointPaint: Layer['paint'] = {
+    // Size circle radius by earthquake magnitude and zoom level
+    'circle-radius': [
+      'interpolate',
+      ['linear'],
+      ['zoom'],
+      7,
+      ['interpolate', ['linear'], ['get', 'mag'], 1, 1, 6, 4],
+      16,
+      ['interpolate', ['linear'], ['get', 'mag'], 1, 5, 6, 50],
+    ],
+    // Color circle by earthquake magnitude
+    'circle-color': [
+      'interpolate',
+      ['linear'],
+      ['get', 'mag'],
+      1,
+      'rgba(33,102,172,0)',
+      2,
+      'rgb(103,169,207)',
+      3,
+      'rgb(209,229,240)',
+      4,
+      'rgb(253,219,199)',
+      5,
+      'rgb(239,138,98)',
+      6,
+      'rgb(178,24,43)',
+    ],
+    'circle-stroke-color': 'white',
+    'circle-stroke-width': 1,
+    // Transition from heatmap to circle layer by zoom level
+    'circle-opacity': ['interpolate', ['linear'], ['zoom'], 7, 0, 8, 1],
+  };
 }
