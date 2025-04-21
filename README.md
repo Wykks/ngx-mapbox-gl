@@ -24,7 +24,7 @@ v10.X : Angular 16 - 17
 
 v11.X : Angular 18
 
-(UNRELEASED) v12.X : Angular 19 & 20, Mapbox-gl >= 3.5
+v12.X : Angular 19 & 20, Mapbox-gl >= 3.5
 
 Include the following components:
 
@@ -71,7 +71,7 @@ For example, with _angular-cli_ add this in `angular.json`:
 Or in the global CSS file (called `styles.css` for example in _angular-cli_):
 
 ```css
-@import '~mapbox-gl/dist/mapbox-gl.css';
+@import 'mapbox-gl/dist/mapbox-gl.css';
 ```
 
 Then, you can configure the access token this way:
