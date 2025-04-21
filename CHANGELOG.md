@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v12.0.0-beta.0...v12.0.0) (2025-04-21)
+
+### ⚠ BREAKING CHANGES
+
+- **markers-for-clusters:** failbackPointIdKey => customPointIdKey
+
+### Bug Fixes
+
+- **markers-for-clusters:** rename input to customPointIdKey ([377b91f](https://github.com/Wykks/ngx-mapbox-gl/commit/377b91f234ac7250d75932c121b1f4628f21c7e2))
+- **showcase:** fix custom-marker-icons example ([e6d24b1](https://github.com/Wykks/ngx-mapbox-gl/commit/e6d24b18d8bd35a71a6e39df566b31e1a4e19a45))
+- **showcase:** fix edit mode ([77820ca](https://github.com/Wykks/ngx-mapbox-gl/commit/77820ca189d7468584bbbc53de0a40e5036ae076))
+- **showcase:** fix live-update-feature ([b315bfc](https://github.com/Wykks/ngx-mapbox-gl/commit/b315bfc84a8979d1f4b6c21115d74eb16c58898f))
+- **showcase:** update all examples ([631c3ee](https://github.com/Wykks/ngx-mapbox-gl/commit/631c3eec634549dbbc3f7ffd90da852521326a36))
+
 ## [12.0.0-beta.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v11.0.1...v12.0.0-beta.0) (2025-04-18)
 
 ### ⚠ BREAKING CHANGES
