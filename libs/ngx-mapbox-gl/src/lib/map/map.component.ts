@@ -93,9 +93,9 @@ export class MapComponent implements OnChanges, OnDestroy {
   style = input<MapOptions['style']>();
   center = input<MapOptions['center']>();
   maxBounds = input<MapOptions['maxBounds']>();
-  zoom = input<[number]>();
-  bearing = input<[number]>();
-  pitch = input<[number]>();
+  zoom = input<[number] | number>();
+  bearing = input<[number] | number>();
+  pitch = input<[number] | number>();
   // First value goes to options.fitBoundsOptions. Subsequents changes are passed to fitBounds
   fitBoundsOptions = input<MapOptions['fitBoundsOptions']>();
   renderWorldCopies = input<MapOptions['renderWorldCopies']>();
@@ -319,9 +319,10 @@ export class MapComponent implements OnChanges, OnDestroy {
           '[ngx-mapbox-gl] center / zoom / pitch / fitBounds inputs are being overridden by fitScreenCoordinates input',
         );
       }
+      const bearing = this.bearing();
       this.mapService.fitScreenCoordinates(
         changes['fitScreenCoordinates'].currentValue,
-        this.bearing() ? this.bearing()![0] : 0,
+        Array.isArray(bearing) ? bearing[0] : bearing || 0,
         this.movingOptions(),
       );
     }
@@ -342,13 +343,29 @@ export class MapComponent implements OnChanges, OnDestroy {
         !changes['fitScreenCoordinates']) ||
       (changes['pitch'] && !changes['pitch'].isFirstChange())
     ) {
+      const zoom = this.zoom();
+      const center = this.center();
+      const bearing = this.bearing();
+      const pitch = this.pitch();
       this.mapService.move(
         this.movingMethod(),
         this.movingOptions(),
-        changes['zoom'] && this.zoom() ? this.zoom()![0] : undefined,
-        changes['center'] ? this.center() : undefined,
-        changes['bearing'] && this.bearing()! ? this.bearing()![0] : undefined,
-        changes['pitch'] && this.pitch() ? this.pitch()![0] : undefined,
+        changes['zoom'] && zoom
+          ? Array.isArray(zoom)
+            ? zoom[0]
+            : zoom
+          : undefined,
+        changes['center'] ? center : undefined,
+        changes['bearing'] && bearing!
+          ? Array.isArray(bearing)
+            ? bearing[0]
+            : bearing
+          : undefined,
+        changes['pitch'] && pitch
+          ? Array.isArray(pitch)
+            ? pitch[0]
+            : pitch
+          : undefined,
       );
     }
   }

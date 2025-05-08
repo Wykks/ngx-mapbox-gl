@@ -35,12 +35,11 @@ export interface SetupMap {
   accessToken?: string;
   mapOptions: Omit<MapOptions, 'bearing' | 'pitch' | 'zoom'> & {
     /**
-     * NOTE: Thoses are arrays in order to be able to imperatively change them if the map is moved manually
-     * TODO: Move thoses to model() maybe
+     * NOTE: Thoses can be arrays in order to be able to imperatively change them if the map is moved manually
      */
-    bearing?: [number];
-    pitch?: [number];
-    zoom?: [number];
+    bearing?: [number] | number;
+    pitch?: [number] | number;
+    zoom?: [number] | number;
   };
   mapEvents: NgxMapEvent;
 }
@@ -110,9 +109,15 @@ export class MapService {
   setup(options: SetupMap) {
     const mapOptions = {
       ...options.mapOptions,
-      bearing: options.mapOptions.bearing?.[0],
-      zoom: options.mapOptions.zoom?.[0],
-      pitch: options.mapOptions.pitch?.[0],
+      bearing: Array.isArray(options.mapOptions.bearing)
+        ? options.mapOptions.bearing[0]
+        : options.mapOptions.bearing,
+      zoom: Array.isArray(options.mapOptions.zoom)
+        ? options.mapOptions.zoom[0]
+        : options.mapOptions.zoom,
+      pitch: Array.isArray(options.mapOptions.pitch)
+        ? options.mapOptions.pitch[0]
+        : options.mapOptions.pitch,
       accessToken: options.accessToken || this.MAPBOX_API_KEY || '',
     };
     this.createMap(mapOptions);
