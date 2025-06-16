@@ -9,7 +9,7 @@ import {
 import { ReplaySubject } from 'rxjs';
 import { MapComponent } from './map.component';
 import { MapService, SetupMap } from './map.service';
-import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('MapComponent', () => {
   class MapServiceSpy {
@@ -28,7 +28,7 @@ describe('MapComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MapComponent],
-      providers: [provideExperimentalZonelessChangeDetection()],
+      providers: [provideZonelessChangeDetection()],
     })
       .overrideComponent(MapComponent, {
         set: {

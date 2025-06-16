@@ -70,16 +70,18 @@ export class ClusterPopupComponent {
   );
 
   leaves = resource({
-    request: () => ({
+    params: () => ({
       offset: this.offset(),
       selectedCluster: this.selectedCluster(),
     }),
-    loader: () =>
-      this.clusterComponent().getClusterLeaves(
-        this.selectedCluster().properties?.['cluster_id'] ?? 0,
+    loader: async ({ params }) => {
+      const { offset, selectedCluster } = params;
+      return this.clusterComponent().getClusterLeaves(
+        selectedCluster.properties?.['cluster_id'] ?? 0,
         5,
-        this.offset(),
-      ),
+        offset,
+      );
+    },
   });
 
   constructor() {

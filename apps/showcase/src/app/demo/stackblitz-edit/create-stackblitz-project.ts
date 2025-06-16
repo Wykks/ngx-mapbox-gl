@@ -13,14 +13,14 @@ export const createStackblitzProject = (
     files: {
       'src/main.ts': `
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { provideZonelessChangeDetection } from '@angular/core';
 import { provideMapboxGL } from 'ngx-mapbox-gl';
 import * as demo from './demo';
 
 const demoArray = Object.values(demo);
 bootstrapApplication(demoArray[demoArray.length - 1], {
   providers: [
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
     provideMapboxGL({
       accessToken:
         'pk.eyJ1Ijoid3lra3NzIiwiYSI6ImNqMjR6aTdmdzAwNHMzMnBvbjBucjlqNm8ifQ.6GjGpofWBVaIuSnhdXQb5w',

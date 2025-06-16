@@ -24,7 +24,9 @@ v10.X : Angular 16 - 17
 
 v11.X : Angular 18
 
-v12.X : Angular 19 & 20, Mapbox-gl >= 3.5
+v12.X : Angular 19, Mapbox-gl >= 3.5
+
+v13.X : Angular 20, Mapbox-gl >= 3.5
 
 Include the following components:
 
