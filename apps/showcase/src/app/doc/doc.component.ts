@@ -103,7 +103,7 @@ export function markedOptionsFactory(): MarkedOptions {
 })
 export class DocComponent {
   private tagsResource = httpResource<{ name: string }[]>(
-    'https://api.github.com/repos/Wykks/ngx-mapbox-gl/tags',
+    () => 'https://api.github.com/repos/Wykks/ngx-mapbox-gl/tags',
   );
 
   versions = computed(() => {

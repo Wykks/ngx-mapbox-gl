@@ -4,7 +4,7 @@ import {
   InjectionToken,
   Injector,
   NgZone,
-  afterRender,
+  afterEveryRender,
   inject,
 } from '@angular/core';
 import {
@@ -695,7 +695,7 @@ export class MapService {
       }
     });
     this.mapInstance = new Map(options);
-    afterRender(
+    afterEveryRender(
       {
         write: () => {
           this.applyChanges();
