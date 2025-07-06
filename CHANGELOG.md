@@ -10,12 +10,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-- **dependencies:** update to angular 20 ([c2bb04e](https://github.com/andreagrossetti/ngx-mapbox-gl/commit/c2bb04e2df8c31810a441a50c30d5c9d337af0ea))
+- **dependencies:** update to angular 20 ([c2bb04e](https://github.com/Wykks/ngx-mapbox-gl/commit/c2bb04e2df8c31810a441a50c30d5c9d337af0ea))
 
 ### Bug Fixes
 
-- **map:** support number in addition to [number] for zoom, ptich, bearing (fix [#433](https://github.com/andreagrossetti/ngx-mapbox-gl/issues/433)) ([da7664a](https://github.com/andreagrossetti/ngx-mapbox-gl/commit/da7664a0952010b031f5904e2c49dbe989d19c83))
-- **update_version:** fix release script on mac os ([f0e6be6](https://github.com/andreagrossetti/ngx-mapbox-gl/commit/f0e6be677086a5bbd51e26f806d09520280af390))
+- **map:** support number in addition to [number] for zoom, ptich, bearing (fix [#433](https://github.com/Wykks/ngx-mapbox-gl/issues/433)) ([da7664a](https://github.com/Wykks/ngx-mapbox-gl/commit/da7664a0952010b031f5904e2c49dbe989d19c83))
+- **update_version:** fix release script on mac os ([f0e6be6](https://github.com/Wykks/ngx-mapbox-gl/commit/f0e6be677086a5bbd51e26f806d09520280af390))
 
 ## [12.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/v12.0.0-beta.0...v12.0.0) (2025-04-21)
 
