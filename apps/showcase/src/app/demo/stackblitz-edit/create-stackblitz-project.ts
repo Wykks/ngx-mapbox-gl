@@ -58,6 +58,7 @@ html, body {
       '@angular-devkit/build-angular': devDeps['@angular-devkit/build-angular'],
       '@angular/cli': devDeps['@angular/cli'],
       '@angular/compiler-cli': devDeps['@angular/compiler-cli'],
+      '@types/geojson': devDeps['@types/geojson'],
       typescript: devDeps['typescript'],
     },
   };

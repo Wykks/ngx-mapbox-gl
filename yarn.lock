@@ -8985,7 +8985,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/geojson@npm:^7946.0.16":
+"@types/geojson@npm:7946.0.16, @types/geojson@npm:^7946.0.16":
   version: 7946.0.16
   resolution: "@types/geojson@npm:7946.0.16"
   checksum: 10/34d07421bdd60e7b99fa265441d17ac6e9aef48e3ce22d04324127d0de1daf7fbaa0bd3be1cece2092eb6995f21da84afa5231e24621a2910ff7340bc98f496f
@@ -19427,6 +19427,7 @@ __metadata:
     "@nx/workspace": "npm:20.7.2"
     "@schematics/angular": "npm:19.2.7"
     "@stackblitz/sdk": "npm:1.11.0"
+    "@types/geojson": "npm:7946.0.16"
     "@types/jest": "npm:29.5.14"
     "@types/lodash-es": "npm:4.17.12"
     "@types/node": "npm:20.17.30"
