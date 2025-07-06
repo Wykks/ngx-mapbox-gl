@@ -15,6 +15,7 @@ import type { GeoJSONSource, GeoJSONSourceSpecification } from 'mapbox-gl';
 import { fromEvent, Subject, Subscription } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
 import { MapService } from '../../map/map.service';
+import type { Feature, GeometryObject, GeoJSON } from 'geojson';
 
 type GeoJSONSourceInputs = {
   [K in keyof Omit<GeoJSONSourceSpecification, 'type'>]: InputSignal<
@@ -36,7 +37,7 @@ export class GeoJSONSourceComponent
   id = input.required<string>();
 
   /* Dynamic inputs */
-  data = model<GeoJSONSourceSpecification['data']>();
+  data = model<GeoJSON | string>();
   minzoom = input<GeoJSONSourceSpecification['minzoom']>();
   maxzoom = input<GeoJSONSourceSpecification['maxzoom']>();
   attribution = input<GeoJSONSourceSpecification['attribution']>();
@@ -152,7 +153,7 @@ export class GeoJSONSourceComponent
     const source = this.mapService.getSource<GeoJSONSource>(this.id())!;
     return this.zone.run(
       async () =>
-        new Promise<GeoJSON.Feature<GeoJSON.Geometry>[] | null | undefined>(
+        new Promise<Feature<GeometryObject>[] | null | undefined>(
           (resolve, reject) => {
             source.getClusterChildren(clusterId, (error, features) => {
               if (error) {
@@ -177,7 +178,7 @@ export class GeoJSONSourceComponent
     const source = this.mapService.getSource<GeoJSONSource>(this.id())!;
     return this.zone.run(
       async () =>
-        new Promise<GeoJSON.Feature<GeoJSON.Geometry>[]>((resolve, reject) => {
+        new Promise<Feature<GeometryObject>[]>((resolve, reject) => {
           source.getClusterLeaves(
             clusterId,
             limit,

@@ -9,6 +9,7 @@ import {
   model,
 } from '@angular/core';
 import { GeoJSONSourceComponent } from './geojson-source.component';
+import { Feature, GeometryObject, GeoJsonProperties, Point } from 'geojson';
 
 @Component({
   selector: 'mgl-feature',
@@ -22,11 +23,11 @@ export class FeatureComponent implements OnInit, OnDestroy {
 
   /* Init inputs */
   id = model<number>(); // FIXME number only for now https://github.com/mapbox/mapbox-gl-js/issues/2716
-  geometry = input.required<GeoJSON.GeometryObject>();
-  properties = input<GeoJSON.GeoJsonProperties>();
+  geometry = input.required<GeometryObject>();
+  properties = input<GeoJsonProperties>();
   type = 'Feature' as const;
 
-  private feature: GeoJSON.Feature<GeoJSON.GeometryObject>;
+  private feature: Feature<GeometryObject>;
 
   ngOnInit() {
     if (!this.id()) {
@@ -46,7 +47,7 @@ export class FeatureComponent implements OnInit, OnDestroy {
   }
 
   updateCoordinates(coordinates: number[]) {
-    (this.feature.geometry as GeoJSON.Point).coordinates = coordinates;
+    (this.feature.geometry as Point).coordinates = coordinates;
     this.GeoJSONSourceComponent.updateFeatureData.next(null);
   }
 }

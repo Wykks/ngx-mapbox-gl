@@ -16,6 +16,7 @@ import {
 } from '@angular/core';
 import type { LngLatLike, Marker, MarkerOptions } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
+import type { Feature, Point } from 'geojson';
 
 @Component({
   selector: 'mgl-marker',
@@ -39,7 +40,7 @@ export class MarkerComponent
   clickTolerance = input<MarkerOptions['clickTolerance']>();
 
   /* Dynamic input */
-  feature = input<GeoJSON.Feature<GeoJSON.Point>>();
+  feature = input<Feature<Point>>();
   lngLat = input<LngLatLike>();
   draggable = input<MarkerOptions['draggable']>();
   popupShown = input<boolean>();

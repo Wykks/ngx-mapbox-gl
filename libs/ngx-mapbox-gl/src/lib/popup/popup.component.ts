@@ -16,6 +16,7 @@ import {
 import { LngLatLike, PointLike, Popup, PopupOptions } from 'mapbox-gl';
 import { MapService } from '../map/map.service';
 import { MarkerComponent } from '../marker/marker.component';
+import { Feature, Point } from 'geojson';
 
 @Component({
   selector: 'mgl-popup',
@@ -37,7 +38,7 @@ export class PopupComponent
   maxWidth = input<PopupOptions['maxWidth']>();
 
   /* Dynamic input */
-  feature = input<GeoJSON.Feature<GeoJSON.Point>>();
+  feature = input<Feature<Point>>();
   lngLat = input<LngLatLike>();
   marker = input<MarkerComponent>();
   offset = input<
