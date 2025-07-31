@@ -76,6 +76,7 @@ export class MapComponent implements OnChanges, OnDestroy {
   antialias = input<MapOptions['antialias']>();
   locale = input<MapOptions['locale']>();
   cooperativeGestures = input<MapOptions['cooperativeGestures']>();
+  testMode = input<MapOptions['testMode']>();
 
   /* Dynamic inputs */
   minZoom = input<MapOptions['minZoom']>();
@@ -216,6 +217,7 @@ export class MapComponent implements OnChanges, OnDestroy {
           locale: this.locale(),
           cooperativeGestures: this.cooperativeGestures(),
           projection: this.projection(),
+          testMode: this.testMode(),
         },
         mapEvents: this,
       });
