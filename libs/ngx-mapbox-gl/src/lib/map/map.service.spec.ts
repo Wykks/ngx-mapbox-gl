@@ -1,4 +1,4 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, NgZone } from '@angular/core';
 import { subscribeSpyTo } from '@hirez_io/observer-spy';
 import type {
   Map,
@@ -17,6 +17,7 @@ import { MapService } from './map.service';
 import { NgxMapEvent } from './map.types';
 import { mockMapbox } from './mapbox.mock';
 import { MockNgZone } from './mock-ng-zone';
+import { TestBed } from '@angular/core/testing';
 
 const geoJSONStyle: StyleSpecification = {
   sources: {
@@ -48,7 +49,11 @@ describe('MapService', () => {
 
   beforeEach(() => {
     zone = new MockNgZone();
-    service = new MapService(zone, null);
+    TestBed.configureTestingModule({
+      providers: [MapService, { provide: NgZone, useValue: zone }],
+    });
+
+    service = TestBed.inject(MapService);
     container = document.createElement('div');
     mapEvents = {
       mapResize: new EventEmitter<MapEvent>(),
@@ -131,12 +136,12 @@ describe('MapService', () => {
   it('should call setMinZoom', () => {
     setupMap();
     service.updateMinZoom(6);
-    expect(mapboxInstanceMock.setMinZoom).toBeCalledTimes(1);
+    expect(mapboxInstanceMock.setMinZoom).toHaveBeenCalledTimes(1);
   });
 
   it('should call setMinPitch', () => {
     setupMap();
     service.updateMinPitch(6);
-    expect(mapboxInstanceMock.setMinPitch).toBeCalledTimes(1);
+    expect(mapboxInstanceMock.setMinPitch).toHaveBeenCalledTimes(1);
   });
 });

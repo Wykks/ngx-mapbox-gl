@@ -1,6 +1,6 @@
 {
   "name": "ngx-mapbox-gl",
-  "version": "13.0.0",
+  "version": "14.0.0",
   "description": "A Angular binding of mapbox-gl-js",
   "license": "MIT",
   "repository": {
@@ -20,10 +20,11 @@
   },
   "homepage": "https://github.com/Wykks/ngx-mapbox-gl#readme",
   "peerDependencies": {
-    "@angular/core": "^20.0.0",
-    "@angular/common": "^20.0.0",
+    "@angular/core": "21.0.6",
+    "@angular/common": "21.0.6",
     "mapbox-gl": "^3.5.0",
-    "rxjs": "^7.8.0"
+    "rxjs": "^7.8.0",
+    "@types/geojson": "7946.0.16"
   },
   "sideEffects": false
 }

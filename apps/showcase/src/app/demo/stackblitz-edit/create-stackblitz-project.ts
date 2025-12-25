@@ -44,7 +44,7 @@ html, body {
     description: '',
     template: 'angular-cli',
     dependencies: {
-      tslib: deps['tslib'],
+      tslib: devDeps['tslib'],
       'mapbox-gl': deps['mapbox-gl'],
       'ngx-mapbox-gl': projectJson.version,
       '@angular/cdk': deps['@angular/cdk'],

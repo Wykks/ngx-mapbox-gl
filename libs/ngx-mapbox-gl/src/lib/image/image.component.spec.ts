@@ -33,29 +33,29 @@ describe('ImageComponent', () => {
     fixture = TestBed.createComponent(ImageComponent);
     component = fixture.componentInstance;
     msSpy = fixture.debugElement.injector.get<MapService>(MapService) as any;
-    component.id = 'imageId';
+    fixture.componentRef.setInput('id', 'imageId');
   });
 
   describe('Init/Destroy tests', () => {
     it('should init with custom inputs', () => {
-      component.data = {
+      fixture.componentRef.setInput('data', {
         width: 500,
         height: 500,
         data: new Uint8Array([5, 5]),
-      };
+      });
       fixture.detectChanges();
       expect(msSpy.addImage).toHaveBeenCalled();
     });
 
     it('should remove image on destroy', () => {
-      component.data = {
+      fixture.componentRef.setInput('data', {
         width: 500,
         height: 500,
         data: new Uint8Array([5, 5]),
-      };
+      });
       fixture.detectChanges();
       component.ngOnDestroy();
-      expect(msSpy.removeImage).toHaveBeenCalledWith(component.id);
+      expect(msSpy.removeImage).toHaveBeenCalledWith(component.id());
     });
 
     it('should not remove image on destroy if not added', () => {
@@ -66,17 +66,17 @@ describe('ImageComponent', () => {
 
   describe('Change tests', () => {
     it('should update image', () => {
-      component.id = 'layerId';
-      component.data = {
+      fixture.componentRef.setInput('id', 'layerId');
+      fixture.componentRef.setInput('data', {
         width: 500,
         height: 500,
         data: new Uint8Array([5, 5]),
-      };
+      });
       fixture.detectChanges();
       component.ngOnChanges({
-        data: new SimpleChange(null, component.data, false),
+        data: new SimpleChange(null, component.data(), false),
       });
-      expect(msSpy.removeImage).toHaveBeenCalledWith(component.id);
+      expect(msSpy.removeImage).toHaveBeenCalledWith(component.id());
       expect(msSpy.addImage).toHaveBeenCalled();
     });
   });

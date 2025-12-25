@@ -28,7 +28,7 @@ describe('MapComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MapComponent],
-      providers: [provideZonelessChangeDetection()],
+      providers: [provideZonelessChangeDetection],
     })
       .overrideComponent(MapComponent, {
         set: {
@@ -54,8 +54,8 @@ describe('MapComponent', () => {
     });
 
     it('should init with custom inputs', () => {
-      component.accessToken = 'tokenTest';
-      component.style = 'style';
+      fixture.componentRef.setInput('accessToken', 'tokenTest');
+      fixture.componentRef.setInput('style', 'style');
       msSpy.setup.mockImplementation((options: SetupMap) => {
         expect(options.accessToken).toEqual('tokenTest');
         expect(options.mapOptions['style']).toEqual('style');
@@ -69,9 +69,9 @@ describe('MapComponent', () => {
     it('should update minzoom', fakeAsync(() => {
       msSpy.mapCreated$.next(undefined);
       msSpy.mapCreated$.complete();
-      component.minZoom = 6;
+      fixture.componentRef.setInput('minZoom', 6);
       component.ngOnChanges({
-        minZoom: new SimpleChange(null, component.minZoom, false),
+        minZoom: new SimpleChange(null, component.minZoom(), false),
       });
       flushMicrotasks();
       expect(msSpy.updateMinZoom).toHaveBeenCalledWith(6);
@@ -80,9 +80,9 @@ describe('MapComponent', () => {
     it('should update minpitch', fakeAsync(() => {
       msSpy.mapCreated$.next(undefined);
       msSpy.mapCreated$.complete();
-      component.minPitch = 15;
+      fixture.componentRef.setInput('minPitch', 15);
       component.ngOnChanges({
-        minPitch: new SimpleChange(null, component.minPitch, false),
+        minPitch: new SimpleChange(null, component.minPitch(), false),
       });
       flushMicrotasks();
       expect(msSpy.updateMinPitch).toHaveBeenCalledWith(15);
@@ -91,9 +91,9 @@ describe('MapComponent', () => {
     it('should update maxpitch', fakeAsync(() => {
       msSpy.mapCreated$.next(undefined);
       msSpy.mapCreated$.complete();
-      component.maxPitch = 25;
+      fixture.componentRef.setInput('maxPitch', 25);
       component.ngOnChanges({
-        maxPitch: new SimpleChange(null, component.maxPitch, false),
+        maxPitch: new SimpleChange(null, component.maxPitch(), false),
       });
       flushMicrotasks();
       expect(msSpy.updateMaxPitch).toHaveBeenCalledWith(25);
