@@ -28,6 +28,8 @@ v12.X : Angular 19, Mapbox-gl >= 3.5
 
 v13.X : Angular 20, Mapbox-gl >= 3.5
 
+v14.X : Angular 20, Mapbox-gl >= 3.5
+
 Include the following components:
 
 - [mgl-map](https://wykks.github.io/ngx-mapbox-gl/doc#mgl-map)
