@@ -11,6 +11,7 @@ import { MarkerComponent } from './marker.component';
       ...
     </mgl-marker>
   `,
+  imports: [MarkerComponent],
 })
 class MarkerTestComponent {
   offset: PointLike;

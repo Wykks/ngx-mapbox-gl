@@ -10,7 +10,7 @@ describe('LayerComponent', () => {
   class MapServiceSpy {
     addLayer = jest.fn();
     removeLayer = jest.fn();
-    setAllLayerPaintProperty = jest.fn();
+    setLayerAllPaintProperty = jest.fn();
     mapLoaded$ = of(undefined);
     mapInstance = mockMapbox();
   }
@@ -37,15 +37,16 @@ describe('LayerComponent', () => {
     msSpy = fixture.debugElement.injector.get<MapService>(
       MapService,
     ) as unknown as MapServiceSpy;
-    component.id = 'layerId';
+    fixture.componentRef.setInput('id', 'layerId');
+    fixture.componentRef.setInput('type', 'slot');
   });
 
   describe('Init/Destroy tests', () => {
     it('should init with custom inputs', () => {
-      component.paint = { 'background-color': 'green' };
-      component.type = 'background';
+      fixture.componentRef.setInput('paint', { 'background-color': 'green' });
+      fixture.componentRef.setInput('type', 'background');
       msSpy.addLayer.mockImplementation((options: SetupLayer) => {
-        expect(options.layerOptions.id).toEqual(component.id);
+        expect(options.layerOptions.id).toEqual(component.id());
         expect(
           (options.layerOptions as BackgroundLayerSpecification).paint![
             'background-color'
@@ -57,13 +58,15 @@ describe('LayerComponent', () => {
     });
 
     it('should remove layer on destroy', () => {
-      component.paint = { 'background-color': 'green' };
+      fixture.componentRef.setInput('paint', { 'background-color': 'green' });
       fixture.detectChanges();
+      component['layerAdded'] = true;
       component.ngOnDestroy();
-      expect(msSpy.removeLayer).toHaveBeenCalledWith(component.id);
+      expect(msSpy.removeLayer).toHaveBeenCalledWith(component.id());
     });
 
     it('should not remove layer on destroy if not added', () => {
+      component['layerAdded'] = false;
       component.ngOnDestroy();
       expect(msSpy.removeLayer).not.toHaveBeenCalled();
     });
@@ -71,18 +74,21 @@ describe('LayerComponent', () => {
 
   describe('Change tests', () => {
     it('should update paint', () => {
-      component.id = 'layerId';
-      component.paint = {
-        'background-color': 'green',
-        'background-opacity': 0.5,
-      };
-      fixture.detectChanges();
-      component.ngOnChanges({
-        paint: new SimpleChange(null, component.paint, false),
+      fixture.componentRef.setInput('id', 'layerId');
+      fixture.componentRef.setInput('paint', {
+        currentValue: {
+          'background-color': 'green',
+          'background-opacity': 0.5,
+        },
       });
-      expect(msSpy.setAllLayerPaintProperty).toHaveBeenCalledWith(
-        component.id,
-        component.paint,
+      fixture.detectChanges();
+      component['layerAdded'] = true;
+      component.ngOnChanges({
+        paint: new SimpleChange(null, component.paint(), false),
+      });
+      expect(msSpy.setLayerAllPaintProperty).toHaveBeenCalledWith(
+        component.id(),
+        component.paint(),
       );
     });
   });
