@@ -5,7 +5,6 @@ import { of } from 'rxjs';
 import { MapService, SetupLayer } from '../map/map.service';
 import { mockMapbox } from '../map/mapbox.mock';
 import { LayerComponent } from './layer.component';
-
 describe('LayerComponent', () => {
   class MapServiceSpy {
     addLayer = jest.fn();
@@ -14,11 +13,9 @@ describe('LayerComponent', () => {
     mapLoaded$ = of(undefined);
     mapInstance = mockMapbox();
   }
-
   let msSpy: MapServiceSpy;
   let component: LayerComponent;
   let fixture: ComponentFixture<LayerComponent>;
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [LayerComponent],
@@ -30,7 +27,6 @@ describe('LayerComponent', () => {
       })
       .compileComponents();
   }));
-
   beforeEach(() => {
     fixture = TestBed.createComponent(LayerComponent);
     component = fixture.componentInstance;
@@ -39,7 +35,6 @@ describe('LayerComponent', () => {
     ) as unknown as MapServiceSpy;
     component.id = 'layerId';
   });
-
   describe('Init/Destroy tests', () => {
     it('should init with custom inputs', () => {
       component.paint = { 'background-color': 'green' };
@@ -55,20 +50,17 @@ describe('LayerComponent', () => {
       fixture.detectChanges();
       expect.assertions(2);
     });
-
     it('should remove layer on destroy', () => {
       component.paint = { 'background-color': 'green' };
       fixture.detectChanges();
       component.ngOnDestroy();
       expect(msSpy.removeLayer).toHaveBeenCalledWith(component.id);
     });
-
     it('should not remove layer on destroy if not added', () => {
       component.ngOnDestroy();
       expect(msSpy.removeLayer).not.toHaveBeenCalled();
     });
   });
-
   describe('Change tests', () => {
     it('should update paint', () => {
       component.id = 'layerId';

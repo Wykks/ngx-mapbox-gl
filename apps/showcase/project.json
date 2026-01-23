@@ -65,7 +65,8 @@
           "buildTarget": "showcase:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -80,7 +81,8 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/showcase"],
       "options": {
-        "jestConfig": "apps/showcase/jest.config.ts"
+        "jestConfig": "apps/showcase/jest.config.ts",
+        "tsConfig": "apps/showcase/tsconfig.spec.json"
       }
     }
   }
