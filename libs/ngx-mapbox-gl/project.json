@@ -10,15 +10,14 @@
       "executor": "@nx/angular:ng-packagr-lite",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "libs/ngx-mapbox-gl/ng-package.json"
+        "project": "libs/ngx-mapbox-gl/ng-package.json",
+        "tsConfig": "libs/ngx-mapbox-gl/tsconfig.lib.json"
       },
       "configurations": {
         "production": {
           "tsConfig": "libs/ngx-mapbox-gl/tsconfig.lib.prod.json"
         },
-        "development": {
-          "tsConfig": "libs/ngx-mapbox-gl/tsconfig.lib.json"
-        }
+        "development": {}
       },
       "defaultConfiguration": "production"
     },
@@ -26,7 +25,8 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/ngx-mapbox-gl/jest.config.ts"
+        "jestConfig": "libs/ngx-mapbox-gl/jest.config.ts",
+        "tsConfig": "libs/ngx-mapbox-gl/tsconfig.spec.json"
       }
     },
     "lint": {

@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.0](https://github.com/Wykks/ngx-mapbox-gl/compare/main...giovnzcr:ngx-mapbox-gl:feature/resolve-issue-456) (2026-01-13)
+
+### ⚠ BREAKING CHANGES
+
+- Now support only Angular 21
+
+### Features
+
+- **dependencies:** update to angular 21 ([b83e9e7](https://github.com/Wykks/ngx-mapbox-gl/commit/b83e9e7d8bc9aa1c8715e79a8b515cf2216f86c7))
+
 ## [13.0.0](https://github.com/andreagrossetti/ngx-mapbox-gl/compare/v12.0.0...v13.0.0) (2025-06-16)
 
 ### ⚠ BREAKING CHANGES

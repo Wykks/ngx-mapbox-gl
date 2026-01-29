@@ -17,7 +17,6 @@ import { MapService } from './map.service';
 import { NgxMapEvent } from './map.types';
 import { mockMapbox } from './mapbox.mock';
 import { MockNgZone } from './mock-ng-zone';
-
 const geoJSONStyle: StyleSpecification = {
   sources: {
     world: {
@@ -38,14 +37,12 @@ const geoJSONStyle: StyleSpecification = {
     },
   ],
 };
-
 describe('MapService', () => {
   let service: MapService;
   let container: HTMLElement;
   let mapEvents: NgxMapEvent;
   let zone: MockNgZone;
   let mapboxInstanceMock: ReturnType<typeof mockMapbox>;
-
   beforeEach(() => {
     zone = new MockNgZone();
     service = new MapService(zone, null);
@@ -96,15 +93,15 @@ describe('MapService', () => {
       dataLoading: new EventEmitter<MapDataEvent>(),
       styleDataLoading: new EventEmitter<MapStyleDataEvent>(),
       sourceDataLoading: new EventEmitter<MapSourceDataEvent>(),
-      styleImageMissing: new EventEmitter<{ id: string }>(),
+      styleImageMissing: new EventEmitter<{
+        id: string;
+      }>(),
       idle: new EventEmitter<void>(),
     };
   });
-
   beforeEach(() => {
     mapboxInstanceMock = mockMapbox();
   });
-
   function setupMap() {
     service.setup({
       mapOptions: {
@@ -116,27 +113,23 @@ describe('MapService', () => {
     });
     zone.simulateZoneExit();
   }
-
   it('should create a map', () => {
     setupMap();
     expect(service.mapInstance).toBeTruthy();
   });
-
   it('should fire mapLoad event', () => {
     const mapLoadSpy = subscribeSpyTo(mapEvents.mapLoad);
     setupMap();
     expect(mapLoadSpy.getValues()[0].target).toEqual(service.mapInstance);
   });
-
   it('should call setMinZoom', () => {
     setupMap();
     service.updateMinZoom(6);
-    expect(mapboxInstanceMock.setMinZoom).toBeCalledTimes(1);
+    expect(mapboxInstanceMock.setMinZoom).toHaveBeenCalledTimes(1);
   });
-
   it('should call setMinPitch', () => {
     setupMap();
     service.updateMinPitch(6);
-    expect(mapboxInstanceMock.setMinPitch).toBeCalledTimes(1);
+    expect(mapboxInstanceMock.setMinPitch).toHaveBeenCalledTimes(1);
   });
 });

@@ -10,7 +10,6 @@ import { ReplaySubject } from 'rxjs';
 import { MapComponent } from './map.component';
 import { MapService, SetupMap } from './map.service';
 import { provideZonelessChangeDetection } from '@angular/core';
-
 describe('MapComponent', () => {
   class MapServiceSpy {
     setup = jest.fn();
@@ -20,11 +19,9 @@ describe('MapComponent', () => {
     destroyMap = jest.fn();
     mapCreated$ = new ReplaySubject(1);
   }
-
   let msSpy: MapServiceSpy;
   let component: MapComponent;
   let fixture: ComponentFixture<MapComponent>;
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [MapComponent],
@@ -37,7 +34,6 @@ describe('MapComponent', () => {
       })
       .compileComponents();
   }));
-
   beforeEach(async () => {
     fixture = TestBed.createComponent(MapComponent);
     component = fixture.debugElement.componentInstance;
@@ -46,13 +42,11 @@ describe('MapComponent', () => {
       MapService,
     ) as unknown as MapServiceSpy;
   });
-
   describe('Init tests', () => {
     it('should init', () => {
       fixture.detectChanges();
       expect(msSpy.setup).toHaveBeenCalledTimes(1);
     });
-
     it('should init with custom inputs', () => {
       component.accessToken = 'tokenTest';
       component.style = 'style';
@@ -64,7 +58,6 @@ describe('MapComponent', () => {
       expect.assertions(2);
     });
   });
-
   describe('Change tests', () => {
     it('should update minzoom', fakeAsync(() => {
       msSpy.mapCreated$.next(undefined);
@@ -76,7 +69,6 @@ describe('MapComponent', () => {
       flushMicrotasks();
       expect(msSpy.updateMinZoom).toHaveBeenCalledWith(6);
     }));
-
     it('should update minpitch', fakeAsync(() => {
       msSpy.mapCreated$.next(undefined);
       msSpy.mapCreated$.complete();
@@ -87,7 +79,6 @@ describe('MapComponent', () => {
       flushMicrotasks();
       expect(msSpy.updateMinPitch).toHaveBeenCalledWith(15);
     }));
-
     it('should update maxpitch', fakeAsync(() => {
       msSpy.mapCreated$.next(undefined);
       msSpy.mapCreated$.complete();

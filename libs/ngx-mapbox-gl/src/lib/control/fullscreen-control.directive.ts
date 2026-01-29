@@ -22,8 +22,8 @@ export class FullscreenControlDirective implements AfterContentInit {
   /* Init inputs */
   container = input<HTMLElement>();
 
-  @HostListener('window:webkitfullscreenchange', ['$event.target'])
-  onFullscreen() {
+  @HostListener('window:webkitfullscreenchange', ['$event'])
+  onFullscreen(event: Event) {
     this.mapService.mapInstance.resize();
   }
 
