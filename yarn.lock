@@ -15605,6 +15605,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash-es@npm:4.17.23":
+  version: 4.17.23
+  resolution: "lodash-es@npm:4.17.23"
+  checksum: 10/1feae200df22eb0bd93ca86d485e77784b8a9fb1d13e91b66e9baa7a7e5e04be088c12a7e20c2250fc0bd3db1bc0ef0affc7d9e3810b6af2455a3c6bf6dde59e
+  languageName: node
+  linkType: hard
+
 "lodash.clonedeepwith@npm:4.5.0":
   version: 4.5.0
   resolution: "lodash.clonedeepwith@npm:4.5.0"
@@ -16629,7 +16636,7 @@ __metadata:
     jest-preset-angular: "npm:16.0.0"
     jest-util: "npm:30.0.5"
     lint-staged: "npm:15.5.1"
-    lodash-es: "npm:4.17.21"
+    lodash-es: "npm:4.17.23"
     mapbox-gl: "npm:3.11.0"
     marked: "npm:15.0.8"
     ng-packagr: "npm:21.1.0"
