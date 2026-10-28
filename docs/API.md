@@ -41,6 +41,7 @@ Init only:
 - **trackResize**: `boolean`
 - **transformRequest**: `Function`
 - **cooperativeGestures**: `boolean`
+- **performanceMetricsCollection**: `boolean` Set to `false` to disable Mapbox GL JS performance metrics collection. If omitted, Mapbox GL JS uses its default (`true`).
 - **bounds**: [`LngLatBoundsLike`](https://docs.mapbox.com/mapbox-gl-js/api/geography/#lnglatboundslike) Use **fitBounds** if you want the dynamic version. Use **fitBoundsOptions** to specify bounds options.
 - [ngx] **accessToken**: `string` https://docs.mapbox.com/mapbox-gl-js/api/properties/#accesstoken
 

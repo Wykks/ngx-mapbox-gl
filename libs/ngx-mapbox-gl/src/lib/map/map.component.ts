@@ -55,6 +55,8 @@ export class MapComponent implements OnChanges, OnDestroy {
   /* Init inputs */
   accessToken = input<MapOptions['accessToken']>();
   collectResourceTiming = input<MapOptions['collectResourceTiming']>();
+  performanceMetricsCollection =
+    input<MapOptions['performanceMetricsCollection']>();
   crossSourceCollisions = input<MapOptions['crossSourceCollisions']>();
   fadeDuration = input<MapOptions['fadeDuration']>();
   hash = input<MapOptions['hash']>();
@@ -174,6 +176,7 @@ export class MapComponent implements OnChanges, OnDestroy {
         accessToken: this.accessToken(),
         mapOptions: {
           collectResourceTiming: this.collectResourceTiming(),
+          performanceMetricsCollection: this.performanceMetricsCollection(),
           container: this.mapContainer.nativeElement,
           crossSourceCollisions: this.crossSourceCollisions(),
           fadeDuration: this.fadeDuration(),
